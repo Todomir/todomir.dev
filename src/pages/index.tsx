@@ -1,5 +1,4 @@
 import { useRouter } from 'next/dist/client/router'
-import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -28,10 +27,6 @@ export default function Home() {
 
   return (
     <Container>
-      <Head>
-        <title>todomir.dev</title>
-      </Head>
-
       <Logo>
         <Image src="/logo.svg" alt="todomir.dev logo" width={31} height={31} />
         <span>todomir.dev</span>
