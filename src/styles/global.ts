@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
+  :root {
+    --main-gradient: linear-gradient(192.26deg, #37ECBA 28.42%, #17E9D0 51.65%, #00DCEA 71.43%);
+  }
+  
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,

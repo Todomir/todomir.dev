@@ -35,12 +35,7 @@ export const Title = styled.h1`
   font-size: 9.313rem;
   font-family: 'Poppins', sans-serif;
   letter-spacing: -0.05em;
-  background: linear-gradient(
-    192.26deg,
-    #37ecba 28.42%,
-    #17e9d0 51.65%,
-    #00dcea 71.43%
-  );
+  background: var(--main-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
