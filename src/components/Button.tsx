@@ -22,10 +22,10 @@ const StyledButton = styled.button<IStyledButton>`
   align-items: center;
   position: relative;
   font-family: 'Inconsolata', monospace;
-  font-size: 1.125rem;
+  font-size: inherit;
   font-weight: 700;
   letter-spacing: -0.05em;
-  padding: 0.625rem 1rem;
+  padding: 0.625em 1em;
   gap: 0.875rem;
   border-radius: 0.688rem;
   background-color: ${props =>
@@ -65,7 +65,6 @@ export default function Button({
   icon,
   label
 }: IButton) {
-  console.log(outlined)
   return (
     <StyledButton size={size} color={color} outlined={outlined}>
       <p>{label}</p>
