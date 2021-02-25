@@ -29,6 +29,7 @@ export default createGlobalStyle`
   html, body, #__next {
     min-height: 100vh;
     min-width: 100vw;
+    scroll-behavior: smooth;
   }
 
   :focus {
