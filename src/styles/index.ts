@@ -51,7 +51,7 @@ export const Title = styled(motion.h1)`
 export const Shape = styled(motion.div)`
   position: absolute;
   width: 45%;
-  height: 130%;
+  height: 128%;
   background: var(--main-gradient);
   top: 0;
   left: 0;
@@ -73,7 +73,7 @@ export const Shape = styled(motion.div)`
   }
 
   ${down('sm')} {
-    height: 414px;
+    height: 54%;
     transform: translate(-50%, 5.35rem);
     border-radius: 207px 0px 0px 40px;
   }
@@ -144,7 +144,7 @@ Hero.Container = styled.div`
   }
 
   ${down('sm')} {
-    padding: 0 2.5rem;
+    padding: 0 1.2em;
   }
 `
 Hero.Header = styled(motion.header)`
