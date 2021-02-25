@@ -53,6 +53,15 @@ const StyledButton = styled(motion.button)<IStyledButton>`
         ? `2px solid ${props.theme.colors.primary}`
         : `2px solid ${props.theme.colors.secondary}`
       : 'none'};
+
+  &:focus {
+    box-shadow: ${props =>
+      `0px 0px 0px 2px ${props.theme.colors.white}, 0px 0px 0px 4px ${
+        props.color === 'primary'
+          ? props.theme.colors.primary
+          : props.theme.colors.secondary
+      }`};
+  }
 `
 
 export default function Button({
