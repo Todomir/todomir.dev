@@ -24,12 +24,17 @@ export default createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    text-decoration: none;
   }
 
   html, body, #__next {
     min-height: 100vh;
     min-width: 100vw;
     scroll-behavior: smooth;
+    font-family: 'Inconsolata', monospace;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.05em;
   }
 
   :focus {
