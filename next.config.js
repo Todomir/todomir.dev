@@ -4,6 +4,6 @@ module.exports = withImages({
   esModule: true,
   i18n: {
     locales: ['pt-BR', 'en-US'],
-    defaultLocale: 'pt-BR'
+    defaultLocale: 'en-US'
   }
 })
