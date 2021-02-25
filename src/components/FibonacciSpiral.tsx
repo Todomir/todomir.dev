@@ -1,7 +1,8 @@
+import { motion } from 'framer-motion'
 import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
-const Container = styled.section`
+const Container = styled(motion.section)`
   display: grid;
   grid-gap: 0px;
   grid-template-rows: 8fr 1fr 1fr 3fr;
@@ -65,8 +66,8 @@ const Container = styled.section`
   }
 
   ${down('sm')} {
-    height: 542px;
-    width: 335px;
+    height: 492px;
+    width: 285px;
 
     grid-template-columns: 8fr 1fr 1fr 3fr;
     grid-template-rows: 13fr 2fr 1fr 5fr;
@@ -108,7 +109,15 @@ const Container = styled.section`
 
 export default function FibonacciSpiral() {
   return (
-    <Container>
+    <Container
+      transition={{
+        duration: 1.55,
+        ease: [0.625, 0.545, 0.0, 1.005],
+        delay: 0.35
+      }}
+      initial={{ opacity: 0, x: -30 }}
+      animate={{ opacity: 1, x: 0 }}
+    >
       <div className="box13" />
       <div className="box8" />
       <div className="box5" />

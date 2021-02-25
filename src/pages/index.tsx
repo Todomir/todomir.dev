@@ -6,8 +6,11 @@ import Footer from '@components/Footer'
 import IconButton from '@components/IconButton'
 import Logo from '@components/Logo'
 
+import variants from '@utils/helpers/variants'
 import en from '@utils/locales/home/en'
 import ptBr from '@utils/locales/home/pt-br'
+
+import { motion } from 'framer-motion'
 
 import { Container, HeroWrapper, Hero, Shape } from '../styles'
 
@@ -26,35 +29,60 @@ export default function Home() {
   }
 
   const content = getContent()
+  const title = content.title.split(' ')
 
   return (
     <>
-      <Container>
+      <Container variants={variants.container} initial="hidden" animate="show">
         <Logo fontSize={16} size={31} />
         <HeroWrapper>
-          <Shape />
+          <Shape variants={variants.shape} />
           <Hero>
             <FibonacciSpiral />
 
             <Hero.Container>
-              <Hero.Header>
-                <IconButton
-                  href="https://www.linkedin.com/in/todomir/"
-                  icon="linkedin"
-                />
-                <IconButton href="https://t.me/todomirr" icon="telegram" />
-                <IconButton
-                  href="mailto:abnerluisrodrigues.contato@gmail.com"
-                  icon="email"
-                />
-                <IconButton href="https://github.com/Todomir" icon="github" />
+              <Hero.Header variants={variants.header}>
+                <motion.span variants={variants.header.item}>
+                  <IconButton
+                    href="https://www.linkedin.com/in/todomir/"
+                    icon="linkedin"
+                  />
+                </motion.span>
+                <motion.span variants={variants.header.item}>
+                  <IconButton href="https://t.me/todomirr" icon="telegram" />
+                </motion.span>
+                <motion.span variants={variants.header.item}>
+                  <IconButton
+                    href="mailto:abnerluisrodrigues.contato@gmail.com"
+                    icon="email"
+                  />
+                </motion.span>
+                <motion.span variants={variants.header.item}>
+                  <IconButton href="https://github.com/Todomir" icon="github" />
+                </motion.span>
               </Hero.Header>
 
-              <Hero.Title dangerouslySetInnerHTML={{ __html: content.title }} />
+              <Hero.Title variants={variants.title}>
+                {title.map(i => (
+                  <motion.p
+                    variants={variants.title.item}
+                    key={i}
+                    dangerouslySetInnerHTML={{ __html: i }}
+                  />
+                ))}
+              </Hero.Title>
 
-              <Hero.Footer>
-                <Button label={content.primary} icon="arrow_right" />
-                <Button label={content.secondary} color="secondary" outlined />
+              <Hero.Footer variants={variants.footer}>
+                <motion.span variants={variants.footer.item}>
+                  <Button label={content.primary} icon="arrow_right" />
+                </motion.span>
+                <motion.span variants={variants.footer.item}>
+                  <Button
+                    label={content.secondary}
+                    color="secondary"
+                    outlined
+                  />
+                </motion.span>
               </Hero.Footer>
             </Hero.Container>
           </Hero>
