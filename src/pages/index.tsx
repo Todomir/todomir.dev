@@ -9,6 +9,7 @@ import IconButton from '@components/IconButton'
 import Logo from '@components/Logo'
 
 import variants from '@utils/helpers/variants'
+import useWindowDimensions from '@utils/hooks/useWindowDimensions'
 import en from '@utils/locales/home/en'
 import ptBr from '@utils/locales/home/pt-br'
 
@@ -38,14 +39,18 @@ export default function Home() {
   const inView = useIntersectionObserver({
     ref,
     options: {
-      threshold: 0.25,
+      threshold: 1,
       triggerOnce: true
     }
   })
 
+  const { width, height } = useWindowDimensions()
+
   useEffect(() => {
-    if (ref && ref.current) setTimeout(() => ref.current.scrollIntoView(), 1300)
-  }, [ref])
+    console.log(inView)
+    if (ref && ref.current && width < 1280 && height <= 1000 && !inView)
+      setTimeout(() => ref.current.scrollIntoView(), 1300)
+  }, [ref, inView])
 
   return (
     <>
