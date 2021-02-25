@@ -1,17 +1,27 @@
+import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
-interface IFibonacciSpiral {
-  width: number
-  height: number
-}
-
-const Container = styled.section<IFibonacciSpiral>`
+const Container = styled.section`
   display: grid;
   grid-gap: 0px;
   grid-template-rows: 8fr 1fr 1fr 3fr;
   grid-template-columns: 13fr 2fr 1fr 5fr;
-  height: ${({ height }) => `${height}px`};
-  width: ${({ width }) => `${width}px`};
+
+  width: 1007px;
+  height: 622px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  ${down('xl')} {
+    width: 735px;
+    height: 453px;
+  }
+
+  ${down('lg')} {
+    width: 735px;
+    height: 453px;
+  }
 
   -webkit-filter: drop-shadow(0px 24px 32px rgba(0, 0, 0, 0.05))
     drop-shadow(0px 16px 24px rgba(0, 0, 0, 0.05))
@@ -53,11 +63,52 @@ const Container = styled.section<IFibonacciSpiral>`
   & > .box1 ~ .box1 {
     background: #4e31ff;
   }
+
+  ${down('sm')} {
+    height: 542px;
+    width: 335px;
+
+    grid-template-columns: 8fr 1fr 1fr 3fr;
+    grid-template-rows: 13fr 2fr 1fr 5fr;
+
+    .box13 {
+      grid-column: 1 / 5;
+      grid-row: 1;
+    }
+
+    .box8 {
+      grid-row: 2 / 5;
+      grid-column: 1 / 2;
+    }
+
+    .box5 {
+      grid-column: 2 / 5;
+      grid-row: 4 / 5;
+    }
+
+    .box3 {
+      grid-column: 4 / 5;
+      grid-row: 2 / 4;
+    }
+
+    .box2 {
+      grid-column: 2 / 4;
+      grid-row: 2 / 3;
+    }
+
+    & > .box1 {
+      background: #5350ff;
+    }
+
+    & > .box1 ~ .box1 {
+      background: #4e31ff;
+    }
+  }
 `
 
-export default function FibonacciSpiral({ width, height }: IFibonacciSpiral) {
+export default function FibonacciSpiral() {
   return (
-    <Container width={width} height={height}>
+    <Container>
       <div className="box13" />
       <div className="box8" />
       <div className="box5" />
