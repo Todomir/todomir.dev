@@ -35,7 +35,7 @@ export const Title = styled.h1`
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   letter-spacing: -0.05em;
-  line-height: 123%;
+  line-height: 125%;
 
   strong {
     font-weight: 900;
