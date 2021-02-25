@@ -3,6 +3,7 @@ import styled from 'styled-components'
 const StyledFooter = styled.footer`
   position: absolute;
   right: 0;
+  bottom: 0;
   font-family: 'Inconsolata', monospace;
   font-size: 12px;
   font-weight: 700;
