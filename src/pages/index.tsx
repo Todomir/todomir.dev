@@ -47,7 +47,6 @@ export default function Home() {
   const { width, height } = useWindowDimensions()
 
   useEffect(() => {
-    console.log(inView)
     if (ref && ref.current && width < 1280 && height <= 1000 && !inView)
       setTimeout(() => ref.current.scrollIntoView(), 1300)
   }, [ref, inView])
