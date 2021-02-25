@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 import Icon from './Icon'
@@ -10,7 +11,7 @@ interface IIconButton {
   icon?: string
 }
 
-const Div = styled.div<{ size: 'default' | 'small' }>`
+const Div = styled(motion.div)<{ size: 'default' | 'small' }>`
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -47,7 +48,16 @@ export default function IconButton({
   return (
     <Link href={href}>
       <a>
-        <Div size={size}>
+        <Div
+          whileHover={{
+            y: -10,
+            transition: {
+              duration: 0.15,
+              ease: [0.25, 0.46, 0.45, 0.94]
+            }
+          }}
+          size={size}
+        >
           <section>
             <Icon size={size === 'default' ? 20 : 12} type={icon} />
           </section>
