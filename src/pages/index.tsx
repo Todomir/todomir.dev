@@ -1,4 +1,5 @@
 import { useRouter } from 'next/dist/client/router'
+import Link from 'next/link'
 
 import { useEffect, useRef } from 'react'
 
@@ -28,7 +29,7 @@ export default function Home() {
       case 'pt-BR':
         return ptBr
       default:
-        return ptBr
+        return en
     }
   }
 
@@ -53,7 +54,12 @@ export default function Home() {
 
   return (
     <>
-      <Container variants={variants.container} initial="hidden" animate="show">
+      <Container
+        variants={variants.container}
+        initial="hidden"
+        animate="show"
+        exit="hidden"
+      >
         <Logo fontSize={16} size={31} />
         <HeroWrapper>
           <Shape variants={variants.shape} />
@@ -65,6 +71,7 @@ export default function Home() {
                 variants={variants.header}
                 initial="hidden"
                 animate={inView ? 'show' : 'hidden'}
+                exit="hidden"
               >
                 <motion.span variants={variants.header.item}>
                   <IconButton
@@ -90,6 +97,7 @@ export default function Home() {
                 variants={variants.title}
                 initial="hidden"
                 animate={inView ? 'show' : 'hidden'}
+                exit="hidden"
               >
                 {title.map(i => (
                   <motion.p
@@ -104,16 +112,23 @@ export default function Home() {
                 variants={variants.footer}
                 initial="hidden"
                 animate={inView ? 'show' : 'hidden'}
+                exit="hidden"
               >
                 <motion.span variants={variants.footer.item}>
                   <Button label={content.primary} icon="arrow_right" />
                 </motion.span>
                 <motion.span variants={variants.footer.item}>
-                  <Button
-                    label={content.secondary}
-                    color="secondary"
-                    outlined
-                  />
+                  <Link href="/about">
+                    <a>
+                      <Button
+                        aria-label="about-link"
+                        aria-role="link"
+                        label={content.secondary}
+                        color="secondary"
+                        outlined
+                      />
+                    </a>
+                  </Link>
                 </motion.span>
               </Hero.Footer>
             </Hero.Container>
