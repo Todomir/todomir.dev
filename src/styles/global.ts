@@ -26,6 +26,11 @@ export default createGlobalStyle`
     vertical-align: baseline;
   }
 
+  html, body, #__next {
+    height: 100vh;
+    width: 100vw;
+  }
+
   :focus {
       outline: 0;
   }
