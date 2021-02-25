@@ -18,6 +18,7 @@ export const Container = styled.div<{ fontSize: number }>`
   font-size: ${({ fontSize }) => `${fontSize}rem`};
   color: ${({ theme }) => theme.colors.black};
   margin-top: 1.875rem;
+  letter-spacing: 0;
 
   span {
     margin-left: 0.375rem;
