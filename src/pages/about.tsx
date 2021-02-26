@@ -6,6 +6,7 @@ import Logo from '@components/Logo'
 
 import { Title, Container } from '@styles/index'
 
+import about from '@utils/helpers/animations/about'
 import en from '@utils/locales/about/en'
 import ptBr from '@utils/locales/about/pt-br'
 
@@ -42,7 +43,7 @@ const ReturnLink = styled(motion.div)`
     margin-left: 0.625em;
   }
 `
-const Header = styled.header`
+const Header = styled(motion.header)`
   display: inline-flex;
   padding-top: 2.188em;
 
@@ -50,7 +51,7 @@ const Header = styled.header`
     margin-left: 1em;
   }
 `
-const Content = styled.section`
+const Content = styled(motion.section)`
   padding-top: 3em;
 
   p {
@@ -83,9 +84,15 @@ export default function About() {
   const content = getContent()
 
   return (
-    <AboutContainer>
+    <AboutContainer
+      variants={about.container}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+    >
       <Logo fontSize={16} size={31} />
       <ReturnLink
+        variants={about.link}
         whileHover={{ y: -2 }}
         onClick={() => router.back()}
         aria-label="go-back"
@@ -94,25 +101,33 @@ export default function About() {
         <Icon size={24} type="arrow_left" />
         <p>{content.return}</p>
       </ReturnLink>
-      <AboutTitle>{content.title}</AboutTitle>
-      <Header>
-        <IconButton
-          href="https://www.linkedin.com/in/todomir/"
-          icon="linkedin"
-        />
+      <AboutTitle variants={about.title}>{content.title}</AboutTitle>
+      <Header variants={about.header}>
+        <motion.div variants={about.header.item}>
+          <IconButton
+            href="https://www.linkedin.com/in/todomir/"
+            icon="linkedin"
+          />
+        </motion.div>
+        <motion.div variants={about.header.item}>
+          <IconButton href="https://t.me/todomirr" icon="telegram" />
+        </motion.div>
 
-        <IconButton href="https://t.me/todomirr" icon="telegram" />
-
-        <IconButton
-          href="mailto:abnerluisrodrigues.contato@gmail.com"
-          icon="email"
-        />
-
-        <IconButton href="https://github.com/Todomir" icon="github" />
+        <motion.div variants={about.header.item}>
+          <IconButton
+            href="mailto:abnerluisrodrigues.contato@gmail.com"
+            icon="email"
+          />
+        </motion.div>
+        <motion.div variants={about.header.item}>
+          <IconButton href="https://github.com/Todomir" icon="github" />
+        </motion.div>
       </Header>
-      <Content>
+      <Content variants={about.content}>
         {content.content.map((item, i) => (
-          <p key={i}>{item}</p>
+          <motion.p variants={about.content.paragraph} key={i}>
+            {item}
+          </motion.p>
         ))}
       </Content>
     </AboutContainer>
