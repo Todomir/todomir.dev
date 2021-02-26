@@ -149,6 +149,7 @@ Hero.Container = styled.div`
 `
 Hero.Header = styled(motion.header)`
   margin-top: 3.5rem;
+  display: flex;
 
   ${down('lg')} {
     margin-top: 5.625rem;
@@ -158,8 +159,8 @@ Hero.Header = styled(motion.header)`
     margin-top: 2.063rem;
   }
 
-  & span + span {
-    padding-left: 0.8rem;
+  & div + div {
+    margin-left: 0.8rem;
   }
 `
 

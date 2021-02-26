@@ -46,7 +46,7 @@ const Header = styled.header`
   display: inline-flex;
   padding-top: 2.188em;
 
-  & a + a {
+  & div + div {
     margin-left: 1em;
   }
 `
@@ -111,8 +111,8 @@ export default function About() {
         <IconButton href="https://github.com/Todomir" icon="github" />
       </Header>
       <Content>
-        {content.content.map(item => (
-          <p key={item}>{item}</p>
+        {content.content.map((item, i) => (
+          <p key={i}>{item}</p>
         ))}
       </Content>
     </AboutContainer>
