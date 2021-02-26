@@ -11,8 +11,8 @@ interface IIconButton {
   icon?: string
 }
 
-const Div = styled(motion.div)<{ size: 'default' | 'small' }>`
-  display: inline-block;
+const IconContainer = styled(motion.div)<{ size: 'default' | 'small' }>`
+  display: inline-flex;
   position: relative;
   cursor: pointer;
 
@@ -46,23 +46,21 @@ export default function IconButton({
   size = 'default'
 }: IIconButton) {
   return (
-    <Link href={href}>
-      <a>
-        <Div
-          whileHover={{
-            y: -10,
-            transition: {
-              duration: 0.15,
-              ease: [0.25, 0.46, 0.45, 0.94]
-            }
-          }}
-          size={size}
-        >
-          <section>
-            <Icon size={size === 'default' ? 20 : 12} type={icon} />
-          </section>
-        </Div>
-      </a>
-    </Link>
+    <IconContainer
+      whileHover={{
+        y: -10,
+        transition: {
+          duration: 0.15,
+          ease: [0.25, 0.46, 0.45, 0.94]
+        }
+      }}
+      size={size}
+    >
+      <Link href={href}>
+        <motion.section>
+          <Icon size={size === 'default' ? 20 : 12} type={icon} />
+        </motion.section>
+      </Link>
+    </IconContainer>
   )
 }
