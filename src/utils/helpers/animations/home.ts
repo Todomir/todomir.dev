@@ -7,41 +7,40 @@ export default {
   },
 
   shape: {
-    hidden: { opacity: 0, marginTop: -30 },
+    hidden: { opacity: 0, marginTop: -10 },
     show: {
       opacity: 1,
       marginTop: 0,
-      transition: { ease: [0.625, 0.545, 0.0, 1.005], duration: 2 }
+      transition: { duration: 1 }
     },
     exit: {
       opacity: 0,
-      marginTop: -30,
+      marginTop: -10,
       transition: {
-        delay: 1,
-        duration: 1.4,
-        ease: [0.625, 0.545, 0.0, 1.005]
+        delay: 0.8,
+        duration: 1
       }
     }
   },
 
   image: {
-    hidden: { opacity: 0, x: -30 },
+    hidden: { opacity: 0, x: -10 },
     show: {
       opacity: 1,
       x: 0,
       transition: {
         delay: 0.25,
-        duration: 1.55,
-        ease: [0.625, 0.545, 0.0, 1.005]
+        duration: 0.6
+        // ease: [0.625, 0.545, 0.0, 1.005]
       }
     },
     exit: {
       opacity: 0,
-      x: -30,
+      x: -10,
       transition: {
         delay: 1,
-        duration: 1,
-        ease: [0.625, 0.545, 0.0, 1.005]
+        duration: 0.6
+        // ease: [0.625, 0.545, 0.0, 1.005]
       }
     }
   },

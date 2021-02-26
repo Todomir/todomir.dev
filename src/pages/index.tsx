@@ -60,7 +60,7 @@ export default function Home() {
       !inView &&
       !mounted
     )
-      setTimeout(() => ref.current.scrollIntoView(), 1600)
+      setTimeout(() => ref.current.scrollIntoView(), 2000)
   }, [ref, inView, mounted])
 
   return (
