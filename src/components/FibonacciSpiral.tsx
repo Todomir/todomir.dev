@@ -1,3 +1,4 @@
+import getVariant from '@utils/helpers/animations/getVariant'
 import home from '@utils/helpers/animations/home'
 
 import { motion } from 'framer-motion'
@@ -109,9 +110,13 @@ const Container = styled(motion.section)`
   }
 `
 
-export default function FibonacciSpiral() {
+interface IFibonacciSpiral {
+  mounted: boolean
+}
+
+export default function FibonacciSpiral({ mounted }: IFibonacciSpiral) {
   return (
-    <Container variants={home.image}>
+    <Container variants={getVariant(mounted, home.image)}>
       <div className="box13" />
       <div className="box8" />
       <div className="box5" />

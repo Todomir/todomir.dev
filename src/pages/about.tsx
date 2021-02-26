@@ -1,4 +1,4 @@
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 
 import Icon from '@components/Icon'
 import IconButton from '@components/IconButton'
@@ -7,6 +7,8 @@ import Logo from '@components/Logo'
 import { Title, Container } from '@styles/index'
 
 import about from '@utils/helpers/animations/about'
+import getVariant from '@utils/helpers/animations/getVariant'
+import useIntro from '@utils/hooks/useIntro'
 import en from '@utils/locales/about/en'
 import ptBr from '@utils/locales/about/pt-br'
 
@@ -69,6 +71,7 @@ const Content = styled(motion.section)`
 export default function About() {
   const router = useRouter()
   const { locale } = router
+  const isFirstMount = useIntro('/about')
 
   const getContent = () => {
     switch (locale) {
@@ -85,47 +88,50 @@ export default function About() {
 
   return (
     <AboutContainer
-      variants={about.container}
+      variants={getVariant(isFirstMount, about.container)}
       initial="hidden"
       animate="show"
       exit="exit"
     >
       <Logo fontSize={16} size={31} />
       <ReturnLink
-        variants={about.link}
+        variants={getVariant(isFirstMount, about.link)}
         whileHover={{ y: -2 }}
         onClick={() => router.back()}
-        aria-label="go-back"
-        aria-role="link"
       >
         <Icon size={24} type="arrow_left" />
         <p>{content.return}</p>
       </ReturnLink>
-      <AboutTitle variants={about.title}>{content.title}</AboutTitle>
-      <Header variants={about.header}>
-        <motion.div variants={about.header.item}>
+      <AboutTitle variants={getVariant(isFirstMount, about.title)}>
+        {content.title}
+      </AboutTitle>
+      <Header variants={getVariant(isFirstMount, about.header)}>
+        <motion.div variants={getVariant(isFirstMount, about.header.item)}>
           <IconButton
             href="https://www.linkedin.com/in/todomir/"
             icon="linkedin"
           />
         </motion.div>
-        <motion.div variants={about.header.item}>
+        <motion.div variants={getVariant(isFirstMount, about.header.item)}>
           <IconButton href="https://t.me/todomirr" icon="telegram" />
         </motion.div>
 
-        <motion.div variants={about.header.item}>
+        <motion.div variants={getVariant(isFirstMount, about.header.item)}>
           <IconButton
             href="mailto:abnerluisrodrigues.contato@gmail.com"
             icon="email"
           />
         </motion.div>
-        <motion.div variants={about.header.item}>
+        <motion.div variants={getVariant(isFirstMount, about.header.item)}>
           <IconButton href="https://github.com/Todomir" icon="github" />
         </motion.div>
       </Header>
-      <Content variants={about.content}>
+      <Content variants={getVariant(isFirstMount, about.content)}>
         {content.content.map((item, i) => (
-          <motion.p variants={about.content.paragraph} key={i}>
+          <motion.p
+            variants={getVariant(isFirstMount, about.content.paragraph)}
+            key={i}
+          >
             {item}
           </motion.p>
         ))}

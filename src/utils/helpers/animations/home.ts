@@ -17,7 +17,7 @@ export default {
       opacity: 0,
       marginTop: -30,
       transition: {
-        delay: 0.25,
+        delay: 1,
         duration: 1.4,
         ease: [0.625, 0.545, 0.0, 1.005]
       }
@@ -39,7 +39,7 @@ export default {
       opacity: 0,
       x: -30,
       transition: {
-        delay: 0.25,
+        delay: 1,
         duration: 1,
         ease: [0.625, 0.545, 0.0, 1.005]
       }
@@ -57,7 +57,8 @@ export default {
     exit: {
       transition: {
         staggerChildren: 0.03,
-        staggerDirection: -1
+        staggerDirection: -1,
+        delayChildren: 0.35
       }
     },
     item: {
@@ -125,7 +126,8 @@ export default {
     exit: {
       transition: {
         staggerChildren: 0.1,
-        staggerDirection: -1
+        staggerDirection: -1,
+        delayChildren: 0.35
       }
     },
     item: {

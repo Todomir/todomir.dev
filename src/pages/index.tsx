@@ -1,5 +1,5 @@
-import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { useEffect, useRef } from 'react'
 
@@ -9,7 +9,9 @@ import Footer from '@components/Footer'
 import IconButton from '@components/IconButton'
 import Logo from '@components/Logo'
 
+import getVariant from '@utils/helpers/animations/getVariant'
 import home from '@utils/helpers/animations/home'
+import useIntro from '@utils/hooks/useIntro'
 import useWindowDimensions from '@utils/hooks/useWindowDimensions'
 import en from '@utils/locales/home/en'
 import ptBr from '@utils/locales/home/pt-br'
@@ -21,6 +23,7 @@ import { Container, HeroWrapper, Hero, Shape } from '../styles'
 
 export default function Home() {
   const { locale } = useRouter()
+  const mounted = useIntro('/')
 
   const getContent = () => {
     switch (locale) {
@@ -35,6 +38,7 @@ export default function Home() {
 
   const content = getContent()
   const title = content.title.split(' ')
+
   const ref = useRef<HTMLDivElement | null>(null)
 
   const inView = useIntersectionObserver({
@@ -48,13 +52,20 @@ export default function Home() {
   const { width, height } = useWindowDimensions()
 
   useEffect(() => {
-    if (ref && ref.current && width < 1280 && height <= 1000 && !inView)
-      setTimeout(() => ref.current.scrollIntoView(), 1300)
-  }, [ref, inView])
+    if (
+      ref &&
+      ref.current &&
+      width < 1280 &&
+      height <= 1000 &&
+      !inView &&
+      !mounted
+    )
+      setTimeout(() => ref.current.scrollIntoView(), 1600)
+  }, [ref, inView, mounted])
 
   return (
     <motion.div
-      variants={home.container}
+      variants={getVariant(mounted, home.container)}
       initial="hidden"
       animate="show"
       exit="exit"
@@ -62,39 +73,39 @@ export default function Home() {
       <Container>
         <Logo fontSize={16} size={31} />
         <HeroWrapper>
-          <Shape variants={home.shape} />
+          <Shape variants={getVariant(mounted, home.shape)} />
           <Hero>
-            <FibonacciSpiral />
+            <FibonacciSpiral mounted={mounted} />
 
             <Hero.Container ref={ref}>
               <Hero.Header
-                variants={home.header}
+                variants={getVariant(mounted, home.header)}
                 initial="hidden"
                 animate={inView ? 'show' : 'hidden'}
                 exit="exit"
               >
-                <motion.div variants={home.header.item}>
+                <motion.div variants={getVariant(mounted, home.header.item)}>
                   <IconButton
                     href="https://www.linkedin.com/in/todomir/"
                     icon="linkedin"
                   />
                 </motion.div>
-                <motion.div variants={home.header.item}>
+                <motion.div variants={getVariant(mounted, home.header.item)}>
                   <IconButton href="https://t.me/todomirr" icon="telegram" />
                 </motion.div>
-                <motion.div variants={home.header.item}>
+                <motion.div variants={getVariant(mounted, home.header.item)}>
                   <IconButton
                     href="mailto:abnerluisrodrigues.contato@gmail.com"
                     icon="email"
                   />
                 </motion.div>
-                <motion.div variants={home.header.item}>
+                <motion.div variants={getVariant(mounted, home.header.item)}>
                   <IconButton href="https://github.com/Todomir" icon="github" />
                 </motion.div>
               </Hero.Header>
 
               <Hero.Title
-                variants={home.title}
+                variants={getVariant(mounted, home.title)}
                 initial="hidden"
                 animate={inView ? 'show' : 'hidden'}
                 exit="exit"
@@ -102,22 +113,22 @@ export default function Home() {
                 {title.map((item, i) => (
                   <motion.p
                     key={i}
-                    variants={home.title.item}
+                    variants={getVariant(mounted, home.title.item)}
                     dangerouslySetInnerHTML={{ __html: item }}
                   />
                 ))}
               </Hero.Title>
 
               <Hero.Footer
-                variants={home.footer}
+                variants={getVariant(mounted, home.footer)}
                 initial="hidden"
                 animate={inView ? 'show' : 'hidden'}
                 exit="exit"
               >
-                <motion.span variants={home.footer.item}>
+                <motion.span variants={getVariant(mounted, home.footer.item)}>
                   <Button label={content.primary} icon="arrow_right" />
                 </motion.span>
-                <motion.span variants={home.footer.item}>
+                <motion.span variants={getVariant(mounted, home.footer.item)}>
                   <Link href="/about">
                     <a>
                       <Button
