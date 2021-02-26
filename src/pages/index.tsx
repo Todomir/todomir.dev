@@ -9,7 +9,7 @@ import Footer from '@components/Footer'
 import IconButton from '@components/IconButton'
 import Logo from '@components/Logo'
 
-import variants from '@utils/helpers/variants'
+import home from '@utils/helpers/animations/home'
 import useWindowDimensions from '@utils/hooks/useWindowDimensions'
 import en from '@utils/locales/home/en'
 import ptBr from '@utils/locales/home/pt-br'
@@ -53,71 +53,71 @@ export default function Home() {
   }, [ref, inView])
 
   return (
-    <>
-      <Container
-        variants={variants.container}
-        initial="hidden"
-        animate="show"
-        exit="hidden"
-      >
+    <motion.div
+      variants={home.container}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+    >
+      <Container>
         <Logo fontSize={16} size={31} />
         <HeroWrapper>
-          <Shape variants={variants.shape} />
+          <Shape variants={home.shape} />
           <Hero>
             <FibonacciSpiral />
 
             <Hero.Container ref={ref}>
               <Hero.Header
-                variants={variants.header}
+                variants={home.header}
                 initial="hidden"
                 animate={inView ? 'show' : 'hidden'}
-                exit="hidden"
+                exit="exit"
               >
-                <motion.span variants={variants.header.item}>
+                <motion.div variants={home.header.item}>
                   <IconButton
                     href="https://www.linkedin.com/in/todomir/"
                     icon="linkedin"
                   />
-                </motion.span>
-                <motion.span variants={variants.header.item}>
+                </motion.div>
+                <motion.div variants={home.header.item}>
                   <IconButton href="https://t.me/todomirr" icon="telegram" />
-                </motion.span>
-                <motion.span variants={variants.header.item}>
+                </motion.div>
+                <motion.div variants={home.header.item}>
                   <IconButton
                     href="mailto:abnerluisrodrigues.contato@gmail.com"
                     icon="email"
                   />
-                </motion.span>
-                <motion.span variants={variants.header.item}>
+                </motion.div>
+                <motion.div variants={home.header.item}>
                   <IconButton href="https://github.com/Todomir" icon="github" />
-                </motion.span>
+                </motion.div>
               </Hero.Header>
 
               <Hero.Title
-                variants={variants.title}
+                variants={home.title}
                 initial="hidden"
                 animate={inView ? 'show' : 'hidden'}
-                exit="hidden"
+                exit="exit"
               >
-                {title.map(i => (
+                {title.map((item, i) => (
                   <motion.p
-                    variants={variants.title.item}
                     key={i}
-                    dangerouslySetInnerHTML={{ __html: i }}
+                    variants={home.title.item}
+                    dangerouslySetInnerHTML={{ __html: item }}
                   />
                 ))}
               </Hero.Title>
 
               <Hero.Footer
-                variants={variants.footer}
+                variants={home.footer}
                 initial="hidden"
                 animate={inView ? 'show' : 'hidden'}
-                exit="hidden"
+                exit="exit"
               >
-                <motion.span variants={variants.footer.item}>
+                <motion.span variants={home.footer.item}>
                   <Button label={content.primary} icon="arrow_right" />
                 </motion.span>
-                <motion.span variants={variants.footer.item}>
+                <motion.span variants={home.footer.item}>
                   <Link href="/about">
                     <a>
                       <Button
@@ -136,6 +136,6 @@ export default function Home() {
         </HeroWrapper>
       </Container>
       <Footer />
-    </>
+    </motion.div>
   )
 }

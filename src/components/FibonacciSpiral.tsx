@@ -1,3 +1,5 @@
+import home from '@utils/helpers/animations/home'
+
 import { motion } from 'framer-motion'
 import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
@@ -109,15 +111,7 @@ const Container = styled(motion.section)`
 
 export default function FibonacciSpiral() {
   return (
-    <Container
-      transition={{
-        duration: 1.55,
-        ease: [0.625, 0.545, 0.0, 1.005],
-        delay: 0.35
-      }}
-      initial={{ opacity: 0, x: -30 }}
-      animate={{ opacity: 1, x: 0 }}
-    >
+    <Container variants={home.image}>
       <div className="box13" />
       <div className="box8" />
       <div className="box5" />
