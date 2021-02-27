@@ -1,3 +1,6 @@
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import { Title } from '@styles/index'
 
 import { ForwardRefComponent, HTMLMotionProps, motion } from 'framer-motion'
@@ -47,8 +50,10 @@ const Card: StyledComponent<
   height: 23rem;
   border-radius: 30px;
   background-color: ${({ theme }) => theme.colors.black};
-  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04),
-    0px 0px 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.1), 0px 2px 6px rgba(0, 0, 0, 0.08),
+    0px 0px 1px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  cursor: pointer;
 `
 Card.Content = styled(motion.div)`
   position: absolute;
@@ -73,7 +78,8 @@ Card.Background = styled(motion.div)`
   left: 0;
   bottom: 0;
   right: 0;
-  opacity: 0.3;
+  opacity: 0.6;
+  overflow: hidden;
 
   img {
     width: 100%;
@@ -86,19 +92,35 @@ Card.Background = styled(motion.div)`
 interface IProjectCard {
   title: string
   image: string
+  label: string
+  id: string
 }
 
-export default function ProjectCard({ title, image }: IProjectCard) {
+export default function ProjectCard({ title, image, label, id }: IProjectCard) {
+  const router = useRouter()
   return (
-    <Card>
+    <Card
+      onClick={() => {
+        router.push(`/projects/${id}`)
+      }}
+    >
       <Card.Content>
         <Card.Title>{title}</Card.Title>
         <Card.Footer>
-          <Button label="Check it out" />
+          <Link href={`/projects/${id}`}>
+            <a>
+              <Button label={label} />
+            </a>
+          </Link>
         </Card.Footer>
       </Card.Content>
-      <Card.Background>
-        <img alt="Card background" src={image} />
+      <Card.Background
+        transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
+        whileHover={{
+          scale: 1.1
+        }}
+      >
+        <img src={image} />
       </Card.Background>
     </Card>
   )
