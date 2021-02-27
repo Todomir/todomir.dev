@@ -1,5 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 interface ILogo {
@@ -9,7 +11,7 @@ interface ILogo {
 
 const toREM = (val: number) => val / 16
 
-export const Container = styled.div<{ fontSize: number }>`
+export const Container = styled(motion.div)<{ fontSize: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,15 +29,19 @@ export const Container = styled.div<{ fontSize: number }>`
 
 export default function Logo({ size, fontSize }: ILogo) {
   return (
-    <Container fontSize={toREM(fontSize)}>
-      <Image
-        priority
-        src="/logo.svg"
-        alt="todomir.dev logo"
-        width={size}
-        height={size}
-      />
-      <span>todomir.dev</span>
-    </Container>
+    <Link href="/">
+      <a>
+        <Container whileHover={{ scale: 1.1 }} fontSize={toREM(fontSize)}>
+          <Image
+            priority
+            src="/logo.svg"
+            alt="todomir.dev logo"
+            width={size}
+            height={size}
+          />
+          <span>todomir.dev</span>
+        </Container>
+      </a>
+    </Link>
   )
 }

@@ -126,7 +126,16 @@ export default function Home() {
                 exit="exit"
               >
                 <motion.span variants={getVariant(mounted, home.footer.item)}>
-                  <Button label={content.primary} icon="arrow_right" />
+                  <Link href="/projects">
+                    <a>
+                      <Button
+                        aria-label="projects-link"
+                        aria-role="link"
+                        label={content.primary}
+                        icon="arrow_right"
+                      />
+                    </a>
+                  </Link>
                 </motion.span>
                 <motion.span variants={getVariant(mounted, home.footer.item)}>
                   <Link href="/about">
