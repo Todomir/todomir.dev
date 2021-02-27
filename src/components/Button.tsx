@@ -56,10 +56,10 @@ const StyledButton = styled(motion.button)<IStyledButton>`
 
   &:focus {
     box-shadow: ${props =>
-      `0px 0px 0px 2px ${props.theme.colors.white}, 0px 0px 0px 4px ${
+      `0px 0px 0px 4px ${
         props.color === 'primary'
-          ? props.theme.colors.primary
-          : props.theme.colors.secondary
+          ? lightenDarkenColor(theme.colors.primary, -30)
+          : lightenDarkenColor(theme.colors.secondary, 30)
       }`};
   }
 `
