@@ -5,7 +5,8 @@ import ProjectCard from '@components/ProjectCard'
 
 import { Container, Title } from '@styles/index'
 
-import projects from '@utils/helpers/projects/projects.json'
+import projects from '@utils/helpers/animations/projects'
+import projectList from '@utils/helpers/projects/projects.json'
 import useWindowDimensions from '@utils/hooks/useWindowDimensions'
 import en from '@utils/locales/projects/en'
 import ptBr from '@utils/locales/projects/pt-br'
@@ -118,23 +119,33 @@ export default function Projects() {
   const content = getContent()
 
   return (
-    <ProjectsContainer>
-      <CardContainer>
-        {projects.map(project => (
-          <ProjectCard
-            id={project.id}
-            key={project.id}
-            label={content.buttonLabel}
-            title={project.title}
-            image={project.image}
-          />
+    <ProjectsContainer
+      variants={projects.container}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+    >
+      <CardContainer variants={projects.cards}>
+        {projectList.map((project, index) => (
+          <motion.div key={project.id} variants={projects.cards.item}>
+            <ProjectCard
+              id={project.id}
+              label={content.buttonLabel}
+              title={project.title}
+              image={project.image}
+            />
+          </motion.div>
         ))}
       </CardContainer>
       <HeadContainer style={{ y: width > 768 ? 0 : titlePos }}>
         <Content>
-          <ProjectsTitle>{content.title}</ProjectsTitle>
-          <motion.p>{content.description}</motion.p>
-          <LogoContainer>
+          <ProjectsTitle variants={projects.title}>
+            {content.title}
+          </ProjectsTitle>
+          <motion.p variants={projects.description}>
+            {content.description}
+          </motion.p>
+          <LogoContainer variants={projects.logo}>
             <Logo fontSize={16} size={31} />
           </LogoContainer>
         </Content>

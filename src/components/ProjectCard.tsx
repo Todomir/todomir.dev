@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -120,7 +121,7 @@ export default function ProjectCard({ title, image, label, id }: IProjectCard) {
           scale: 1.1
         }}
       >
-        <img src={image} />
+        <Image src={image} alt={title} layout="fill" objectFit="cover" />
       </Card.Background>
     </Card>
   )

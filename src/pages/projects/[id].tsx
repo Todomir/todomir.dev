@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import hydrate from 'next-mdx-remote/hydrate'
 import renderToString from 'next-mdx-remote/render-to-string'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -9,6 +10,7 @@ import Logo from '@components/Logo'
 
 import { Container, Title } from '@styles/index'
 
+import singleProject from '@utils/helpers/animations/singleProject'
 import projects from '@utils/helpers/projects/projects.json'
 
 import { motion } from 'framer-motion'
@@ -19,6 +21,12 @@ const ProjectContainer = styled(Container)`
   max-width: 94%;
   margin: 0 auto;
   padding: 0 2rem;
+
+  ${down('sm')} {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 1rem;
+  }
 `
 
 const BackgroundContainer = styled(motion.header)`
@@ -27,7 +35,11 @@ const BackgroundContainer = styled(motion.header)`
   min-height: 30rem;
   overflow: hidden;
   border-radius: 0px 0px 80px 80px;
-  margin: 0 auto;
+
+  ${down('sm')} {
+    margin: 0 calc(-50vw + 50%);
+    border-radius: 0px;
+  }
 
   ${Title} {
     font-size: 4.875rem;
@@ -41,12 +53,10 @@ const BackgroundContainer = styled(motion.header)`
   }
 `
 
-const Image = styled(motion.img)`
+const ImageContainer = styled(motion.figure)`
   position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
   opacity: 0.4;
   pointer-events: none;
 `
@@ -153,20 +163,37 @@ export default function Project({ project, source }) {
   const content = getContent()
 
   return (
-    <ProjectContainer>
-      <BackgroundContainer>
-        <HeaderContainer>
-          <Link href="/projects">
-            <ReturnLink whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <Icon type="arrow_left" size={24} />
-            </ReturnLink>
-          </Link>
-          <Title>{project.title}</Title>
+    <ProjectContainer
+      variants={singleProject.container}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+    >
+      <BackgroundContainer variants={singleProject.bg}>
+        <HeaderContainer variants={singleProject.header}>
+          <motion.span
+            style={{ zIndex: 2 }}
+            variants={singleProject.header.item}
+          >
+            <Link href="/projects">
+              <ReturnLink whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                <Icon type="arrow_left" size={24} />
+              </ReturnLink>
+            </Link>
+          </motion.span>
+          <Title variants={singleProject.header.item}>{project.title}</Title>
         </HeaderContainer>
-        <Image src={project.image} />
+        <ImageContainer>
+          <Image
+            src={project.image}
+            alt={project.title}
+            layout="fill"
+            objectFit="cover"
+          />
+        </ImageContainer>
       </BackgroundContainer>
-      <Description>{content}</Description>
-      <LogoContainer>
+      <Description variants={singleProject.description}>{content}</Description>
+      <LogoContainer variants={singleProject.logo}>
         <Logo fontSize={16} size={31} />
       </LogoContainer>
     </ProjectContainer>

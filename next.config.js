@@ -5,5 +5,8 @@ module.exports = withImages({
   i18n: {
     locales: ['pt-BR', 'en-US'],
     defaultLocale: 'pt-BR'
-  }
+  },
+  images: {
+    domains: ["firebasestorage.googleapis.com"],
+  },
 })
