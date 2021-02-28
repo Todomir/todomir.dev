@@ -173,7 +173,7 @@ export default function Project({ project, source }) {
         <HeaderContainer variants={singleProject.header}>
           <motion.span
             style={{ zIndex: 2 }}
-            variants={singleProject.header.item}
+            variants={singleProject.headerItem}
           >
             <Link href="/projects">
               <ReturnLink whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -181,7 +181,7 @@ export default function Project({ project, source }) {
               </ReturnLink>
             </Link>
           </motion.span>
-          <Title variants={singleProject.header.item}>{project.title}</Title>
+          <Title variants={singleProject.headerItem}>{project.title}</Title>
         </HeaderContainer>
         <ImageContainer>
           <Image
