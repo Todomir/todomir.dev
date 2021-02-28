@@ -31,27 +31,29 @@ export default {
         staggerDirection: -1,
         delayChildren: 0.35
       }
+    }
+  },
+
+  headerItem: {
+    hidden: { opacity: 0, y: -30 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        ease: [0.625, 0.545, 0.0, 1.005],
+        duration: 1.25
+      }
     },
-    item: {
-      hidden: { opacity: 0, y: -30 },
-      show: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          ease: [0.625, 0.545, 0.0, 1.005],
-          duration: 1.25
-        }
-      },
-      exit: {
-        opacity: 0,
-        y: -30,
-        transition: {
-          ease: [0.625, 0.545, 0.0, 1.005],
-          duration: 0.8
-        }
+    exit: {
+      opacity: 0,
+      y: -30,
+      transition: {
+        ease: [0.625, 0.545, 0.0, 1.005],
+        duration: 0.8
       }
     }
   },
+
   content: {
     hidden: {},
     show: {
@@ -66,24 +68,24 @@ export default {
         staggerDirection: -1,
         delayChildren: 0.65
       }
+    }
+  },
+  contentParagraph: {
+    hidden: { opacity: 0, y: -30 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        ease: [0.625, 0.545, 0.0, 1.005],
+        duration: 1.25
+      }
     },
-    paragraph: {
-      hidden: { opacity: 0, y: -30 },
-      show: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          ease: [0.625, 0.545, 0.0, 1.005],
-          duration: 1.25
-        }
-      },
-      exit: {
-        opacity: 0,
-        y: -30,
-        transition: {
-          ease: [0.625, 0.545, 0.0, 1.005],
-          duration: 0.8
-        }
+    exit: {
+      opacity: 0,
+      y: -30,
+      transition: {
+        ease: [0.625, 0.545, 0.0, 1.005],
+        duration: 0.8
       }
     }
   }

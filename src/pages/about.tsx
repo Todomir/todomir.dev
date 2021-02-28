@@ -106,30 +106,30 @@ export default function About() {
         {content.title}
       </AboutTitle>
       <Header variants={getVariant(isFirstMount, about.header)}>
-        <motion.div variants={getVariant(isFirstMount, about.header.item)}>
+        <motion.div variants={getVariant(isFirstMount, about.headerItem)}>
           <IconButton
             href="https://www.linkedin.com/in/todomir/"
             icon="linkedin"
           />
         </motion.div>
-        <motion.div variants={getVariant(isFirstMount, about.header.item)}>
+        <motion.div variants={getVariant(isFirstMount, about.headerItem)}>
           <IconButton href="https://t.me/todomirr" icon="telegram" />
         </motion.div>
 
-        <motion.div variants={getVariant(isFirstMount, about.header.item)}>
+        <motion.div variants={getVariant(isFirstMount, about.headerItem)}>
           <IconButton
             href="mailto:abnerluisrodrigues.contato@gmail.com"
             icon="email"
           />
         </motion.div>
-        <motion.div variants={getVariant(isFirstMount, about.header.item)}>
+        <motion.div variants={getVariant(isFirstMount, about.headerItem)}>
           <IconButton href="https://github.com/Todomir" icon="github" />
         </motion.div>
       </Header>
       <Content variants={getVariant(isFirstMount, about.content)}>
         {content.content.map((item, i) => (
           <motion.p
-            variants={getVariant(isFirstMount, about.content.paragraph)}
+            variants={getVariant(isFirstMount, about.contentParagraph)}
             key={i}
           >
             {item}

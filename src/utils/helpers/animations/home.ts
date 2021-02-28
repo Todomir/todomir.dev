@@ -59,27 +59,29 @@ export default {
         staggerDirection: -1,
         delayChildren: 0.35
       }
+    }
+  },
+
+  headerItem: {
+    hidden: { opacity: 0, y: -30 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        ease: [0.625, 0.545, 0.0, 1.005],
+        duration: 1.25
+      }
     },
-    item: {
-      hidden: { opacity: 0, y: -30 },
-      show: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          ease: [0.625, 0.545, 0.0, 1.005],
-          duration: 1.25
-        }
-      },
-      exit: {
-        opacity: 0,
-        y: -30,
-        transition: {
-          ease: [0.625, 0.545, 0.0, 1.005],
-          duration: 0.8
-        }
+    exit: {
+      opacity: 0,
+      y: -30,
+      transition: {
+        ease: [0.625, 0.545, 0.0, 1.005],
+        duration: 0.8
       }
     }
   },
+
   title: {
     hidden: {},
     show: {
@@ -93,27 +95,29 @@ export default {
         staggerChildren: 0.1,
         staggerDirection: -1
       }
+    }
+  },
+
+  titleItem: {
+    hidden: { opacity: 0, y: 10 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        ease: [0.625, 0.545, 0.0, 1.005],
+        duration: 0.45
+      }
     },
-    item: {
-      hidden: { opacity: 0, y: 10 },
-      show: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          ease: [0.625, 0.545, 0.0, 1.005],
-          duration: 0.45
-        }
-      },
-      exit: {
-        opacity: 0,
-        y: 10,
-        transition: {
-          ease: [0.625, 0.545, 0.0, 1.005],
-          duration: 0.45
-        }
+    exit: {
+      opacity: 0,
+      y: 10,
+      transition: {
+        ease: [0.625, 0.545, 0.0, 1.005],
+        duration: 0.45
       }
     }
   },
+
   footer: {
     hidden: {},
     show: {
@@ -128,24 +132,25 @@ export default {
         staggerDirection: -1,
         delayChildren: 0.35
       }
+    }
+  },
+
+  footerItem: {
+    hidden: { opacity: 0, y: 30 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        ease: [0.625, 0.545, 0.0, 1.005],
+        duration: 1.25
+      }
     },
-    item: {
-      hidden: { opacity: 0, y: 30 },
-      show: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          ease: [0.625, 0.545, 0.0, 1.005],
-          duration: 1.25
-        }
-      },
-      exit: {
-        opacity: 0,
-        y: 30,
-        transition: {
-          ease: [0.625, 0.545, 0.0, 1.005],
-          duration: 0.95
-        }
+    exit: {
+      opacity: 0,
+      y: 30,
+      transition: {
+        ease: [0.625, 0.545, 0.0, 1.005],
+        duration: 0.95
       }
     }
   }

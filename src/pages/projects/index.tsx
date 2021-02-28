@@ -126,8 +126,8 @@ export default function Projects() {
       exit="exit"
     >
       <CardContainer variants={projects.cards}>
-        {projectList.map((project, index) => (
-          <motion.div key={project.id} variants={projects.cards.item}>
+        {projectList.map(project => (
+          <motion.div key={project.id} variants={projects.cardItem}>
             <ProjectCard
               id={project.id}
               label={content.buttonLabel}

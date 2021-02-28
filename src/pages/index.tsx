@@ -84,22 +84,22 @@ export default function Home() {
                 animate={inView ? 'show' : 'hidden'}
                 exit="exit"
               >
-                <motion.div variants={getVariant(mounted, home.header.item)}>
+                <motion.div variants={getVariant(mounted, home.headerItem)}>
                   <IconButton
                     href="https://www.linkedin.com/in/todomir/"
                     icon="linkedin"
                   />
                 </motion.div>
-                <motion.div variants={getVariant(mounted, home.header.item)}>
+                <motion.div variants={getVariant(mounted, home.headerItem)}>
                   <IconButton href="https://t.me/todomirr" icon="telegram" />
                 </motion.div>
-                <motion.div variants={getVariant(mounted, home.header.item)}>
+                <motion.div variants={getVariant(mounted, home.headerItem)}>
                   <IconButton
                     href="mailto:abnerluisrodrigues.contato@gmail.com"
                     icon="email"
                   />
                 </motion.div>
-                <motion.div variants={getVariant(mounted, home.header.item)}>
+                <motion.div variants={getVariant(mounted, home.headerItem)}>
                   <IconButton href="https://github.com/Todomir" icon="github" />
                 </motion.div>
               </Hero.Header>
@@ -113,7 +113,7 @@ export default function Home() {
                 {title.map((item, i) => (
                   <motion.p
                     key={i}
-                    variants={getVariant(mounted, home.title.item)}
+                    variants={getVariant(mounted, home.titleItem)}
                     dangerouslySetInnerHTML={{ __html: item }}
                   />
                 ))}
@@ -125,7 +125,7 @@ export default function Home() {
                 animate={inView ? 'show' : 'hidden'}
                 exit="exit"
               >
-                <motion.span variants={getVariant(mounted, home.footer.item)}>
+                <motion.span variants={getVariant(mounted, home.footerItem)}>
                   <Link href="/projects">
                     <a>
                       <Button
@@ -137,7 +137,7 @@ export default function Home() {
                     </a>
                   </Link>
                 </motion.span>
-                <motion.span variants={getVariant(mounted, home.footer.item)}>
+                <motion.span variants={getVariant(mounted, home.footerItem)}>
                   <Link href="/about">
                     <a>
                       <Button

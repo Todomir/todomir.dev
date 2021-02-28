@@ -19,12 +19,13 @@ export default {
         staggerDirection: -1,
         delayChildren: 0.2
       }
-    },
-    item: {
-      hidden: { opacity: 0, x: 10 },
-      show: { opacity: 1, x: 0, transition: { duration: 0.75 } },
-      exit: { opacity: 0, y: 10, transition: { duration: 0.7 } }
     }
+  },
+
+  cardItem: {
+    hidden: { opacity: 0, x: 10 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.75 } },
+    exit: { opacity: 0, y: 10, transition: { duration: 0.7 } }
   },
 
   title: {
