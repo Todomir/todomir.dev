@@ -5,7 +5,6 @@ import { useEffect, useRef } from 'react'
 
 import Button from '@components/Button'
 import FibonacciSpiral from '@components/FibonacciSpiral'
-import Footer from '@components/Footer'
 import IconButton from '@components/IconButton'
 import Logo from '@components/Logo'
 
@@ -155,7 +154,6 @@ export default function Home() {
           </Hero>
         </HeroWrapper>
       </Container>
-      <Footer />
     </motion.div>
   )
 }
