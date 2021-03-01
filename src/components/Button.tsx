@@ -1,3 +1,8 @@
+import theme from '@styles/theme'
+
+import lightenDarkenColor from '@utils/functions/lightenDarkenColor'
+
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 import Icon from './Icon'
@@ -16,7 +21,7 @@ interface IStyledButton {
   outlined?: boolean
 }
 
-const StyledButton = styled.button<IStyledButton>`
+const StyledButton = styled(motion.button)<IStyledButton>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,19 +47,20 @@ const StyledButton = styled.button<IStyledButton>`
       : props.color === 'primary'
       ? props.theme.colors.black
       : props.theme.colors.white};
-  border: none;
+  border: ${props =>
+    props.outlined
+      ? props.color === 'primary'
+        ? `2px solid ${props.theme.colors.primary}`
+        : `2px solid ${props.theme.colors.secondary}`
+      : 'none'};
 
-  &::before {
-    border-radius: 0.781rem;
-    content: '';
-    background-image: ${props =>
-      props.outlined ? 'var(--main-gradient)' : 'none'};
-    top: -0.125rem;
-    left: -0.125rem;
-    bottom: -0.125rem;
-    right: -0.125rem;
-    position: absolute;
-    z-index: -1;
+  &:focus {
+    box-shadow: ${props =>
+      `0px 0px 0px 4px ${
+        props.color === 'primary'
+          ? lightenDarkenColor(theme.colors.primary, -30)
+          : lightenDarkenColor(theme.colors.secondary, 30)
+      }`};
   }
 `
 
@@ -65,8 +71,36 @@ export default function Button({
   icon,
   label
 }: IButton) {
+  const renderButtonHoverStyle = () => {
+    const styles = { y: -2, backgroundColor: theme.colors.white }
+    if (outlined) {
+      if (color === 'primary') {
+        styles.backgroundColor = lightenDarkenColor(theme.colors.primary, 125)
+      } else {
+        styles.backgroundColor = lightenDarkenColor(theme.colors.secondary, 125)
+      }
+    } else {
+      if (color === 'primary') {
+        styles.backgroundColor = lightenDarkenColor(theme.colors.primary, 20)
+      } else {
+        styles.backgroundColor = lightenDarkenColor(theme.colors.secondary, 20)
+      }
+    }
+
+    return styles
+  }
   return (
-    <StyledButton size={size} color={color} outlined={outlined}>
+    <StyledButton
+      whileHover={renderButtonHoverStyle()}
+      whileTap={{
+        backgroundColor: lightenDarkenColor(theme.colors.primary, 20),
+        scale: 0.9
+      }}
+      layout
+      size={size}
+      color={color}
+      outlined={outlined}
+    >
       <p>{label}</p>
       {icon && <Icon size={size === 'default' ? 20 : 16} type={icon} />}
     </StyledButton>

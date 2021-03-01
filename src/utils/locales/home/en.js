@@ -1,7 +1,6 @@
 export default {
-  title: 'SOON',
-  description: [
-    'This website still is under construction.',
-    'Until then, maybe check my'
-  ]
+  title:
+    'I BUILD <strong>AMAZING</strong> WEBSITES SO THAT <strong>YOU</strong> DON’T HAVE TO',
+  primary: 'See for yourself',
+  secondary: 'About me'
 }

@@ -1,73 +1,178 @@
+import { ForwardRefComponent, HTMLMotionProps, motion } from 'framer-motion'
 import { down } from 'styled-breakpoints'
-import styled from 'styled-components'
+import styled, { DefaultTheme, StyledComponent } from 'styled-components'
 
-export const Container = styled.div`
+interface IHero {
+  Title?: StyledComponent<
+    ForwardRefComponent<HTMLHeadingElement, HTMLMotionProps<'h1'>>,
+    DefaultTheme,
+    Record<string, unknown>,
+    never
+  >
+  Container?: StyledComponent<
+    'div',
+    DefaultTheme,
+    Record<string, unknown>,
+    never
+  >
+  Header?: StyledComponent<
+    ForwardRefComponent<HTMLHeadingElement, HTMLMotionProps<'header'>>,
+    DefaultTheme,
+    Record<string, unknown>,
+    never
+  >
+  Footer?: StyledComponent<
+    ForwardRefComponent<HTMLHeadingElement, HTMLMotionProps<'footer'>>,
+    DefaultTheme,
+    Record<string, unknown>,
+    never
+  >
+}
+
+export const Container = styled(motion.div)`
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
 
-  width: 100vw;
   min-height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-export const Logo = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Inconsolata', monospace;
-  font-weight: 700;
-  font-size: 1rem;
-  color: ${({ theme }) => theme.colors.black};
-
-  span {
-    margin-left: 0.375rem;
-  }
 `
 
-export const Title = styled.h1`
-  text-align: center;
-  font-weight: 900;
-  font-size: 9.313rem;
+export const Title = styled(motion.h1)`
   font-family: 'Poppins', sans-serif;
+  font-weight: 600;
   letter-spacing: -0.05em;
-  background: var(--main-gradient);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0px 10px 20px rgba(55, 236, 186, 0.18),
-    0px 2px 6px rgba(55, 236, 186, 0.12), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  line-height: 125%;
 
-  ${down('sm')} {
-    font-size: 6rem;
+  strong {
+    font-weight: 900;
   }
 `
 
-export const Content = styled.section`
-  margin-top: 1.875rem;
-  text-align: center;
-  font-family: 'Inconsolata', monospace;
-  font-weight: 700;
-  font-size: 1rem;
+export const Shape = styled(motion.div)`
+  position: absolute;
+  width: 45%;
+  height: 128%;
+  background: var(--main-gradient);
+  top: 0;
+  left: 0;
+  transform: translate(0, -5rem);
+  border-radius: 0px 30px 180px 0px;
+  z-index: -10;
 
-  a {
-    background: linear-gradient(
-      192.26deg,
-      #37ecba 28.42%,
-      #17e9d0 51.65%,
-      #00dcea 71.43%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0px 10px 20px rgba(55, 236, 186, 0.18),
-      0px 2px 6px rgba(55, 236, 186, 0.12), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  ${down('xl')} {
+    transform: translate(0, -4.625rem);
+  }
+
+  ${down('lg')} {
+    height: 473px;
+    transform: translate(-50%, 1rem);
+    width: 100%;
+    left: 50%;
+    right: 50%;
+    border-radius: 236.5px 30px;
   }
 
   ${down('sm')} {
-    font-size: 0.85rem;
+    height: 54%;
+    transform: translate(-50%, 5.35rem);
+    border-radius: 207px 0px 0px 40px;
+  }
+`
+
+export const HeroWrapper = styled.section`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 4.563rem;
+  position: relative;
+
+  ${down('sm')} {
+    margin-top: 2.938rem;
+  }
+`
+
+export const Hero: StyledComponent<
+  'div',
+  DefaultTheme,
+  Record<string, unknown>,
+  never
+> &
+  IHero = styled.div`
+  display: flex;
+
+  ${down('lg')} {
+    flex-direction: column;
+  }
+
+  ${down('sm')} {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+`
+Hero.Title = styled(Title)`
+  max-width: 28rem;
+  margin-top: 1.875rem;
+
+  font-size: 3.32rem;
+
+  p {
+    display: inline-block;
+    margin-right: 0.2em;
+  }
+
+  ${down('xl')} {
+    font-size: 2.454rem;
+    max-width: 20rem;
+  }
+
+  ${down('lg')} {
+    font-size: 3.438rem;
+    max-width: 45.938rem;
+  }
+
+  ${down('sm')} {
+    font-size: 1.563rem;
+    max-width: 21.938rem;
+    margin-top: 0.703rem;
+  }
+`
+Hero.Container = styled.div`
+  margin-left: 4.188rem;
+
+  ${down('lg')} {
+    margin-left: 0;
+  }
+
+  ${down('sm')} {
+    padding: 0 1.2em;
+  }
+`
+Hero.Header = styled(motion.header)`
+  margin-top: 3.5rem;
+  display: flex;
+
+  ${down('lg')} {
+    margin-top: 5.625rem;
+  }
+
+  ${down('sm')} {
+    margin-top: 2.063rem;
+  }
+
+  & div + div {
+    margin-left: 0.8rem;
+  }
+`
+
+Hero.Footer = styled(motion.footer)`
+  margin-top: 3.813rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1.5rem;
+  font-size: 18px;
+
+  ${down('sm')} {
+    margin-top: 1.788rem;
+    font-size: 14px;
   }
 `

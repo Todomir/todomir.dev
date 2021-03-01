@@ -54,6 +54,7 @@
                     "/^@assets/",
                     "/^@hooks/",
                     "/^@components/",
+                    "/^@context/",
                     "/^@icons/",
                     "/^@pages/",
                     "/^@services/",

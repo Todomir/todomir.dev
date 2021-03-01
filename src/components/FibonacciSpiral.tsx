@@ -1,7 +1,11 @@
+import getVariant from '@utils/helpers/animations/getVariant'
+import home from '@utils/helpers/animations/home'
+
+import { motion } from 'framer-motion'
 import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
-const Container = styled.section`
+const Container = styled(motion.section)`
   display: grid;
   grid-gap: 0px;
   grid-template-rows: 8fr 1fr 1fr 3fr;
@@ -66,7 +70,7 @@ const Container = styled.section`
 
   ${down('sm')} {
     height: 542px;
-    width: 335px;
+    width: 334.76px;
 
     grid-template-columns: 8fr 1fr 1fr 3fr;
     grid-template-rows: 13fr 2fr 1fr 5fr;
@@ -106,9 +110,13 @@ const Container = styled.section`
   }
 `
 
-export default function FibonacciSpiral() {
+interface IFibonacciSpiral {
+  mounted: boolean
+}
+
+export default function FibonacciSpiral({ mounted }: IFibonacciSpiral) {
   return (
-    <Container>
+    <Container variants={getVariant(mounted, home.image)}>
       <div className="box13" />
       <div className="box8" />
       <div className="box5" />
