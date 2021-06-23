@@ -1,7 +1,9 @@
+import { Heading } from '@components/atoms'
+
 export default function Home() {
   return (
     <div>
-      <h1>Hello, world</h1>
+      <Heading>Hello, world</Heading>
     </div>
   )
 }
