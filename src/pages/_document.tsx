@@ -39,7 +39,7 @@ export default class MyDocument extends Document {
 
   render(): JSX.Element {
     return (
-      <Html lang="pt">
+      <Html>
         <Head>
           <meta charSet="utf-8" />
 
@@ -67,12 +67,6 @@ export default class MyDocument extends Document {
             href="/favicon-16x16.png"
           />
           <link rel="manifest" href="/site.webmanifest" />
-
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@700;900&family=Poppins:wght@400;600;900&display=swap"
-            rel="stylesheet"
-          />
         </Head>
         <body>
           <Main />
