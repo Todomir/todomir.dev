@@ -1,15 +1,11 @@
-import { clamp } from '@utils/functions'
-
 import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
   :root {
     /* Generating colors from theme.colors */
-    ${({ theme }) =>
-      Object.keys(theme.colors).map(
-        key => `--colors-${[key]}: ${theme.colors[key]};`
-      )}
-    
+    ${({ theme: { colors } }) =>
+      Object.keys(colors).map(key => `--colors-${[key]}: ${colors[key]};`)}
+      
     /* Font sizes */
     --fs-largest: 6.854rem;
     --fs-large: 4.236rem;
@@ -17,13 +13,6 @@ export default createGlobalStyle`
     --fs-regular: 1.618rem;
     --fs-body: 1rem;
     --fs-small: 0.618rem;
-
-    --fs-large-fluid: ${({ theme: { breakpoints } }) =>
-      clamp(breakpoints.sm, breakpoints.lg)(1.618, 4.236)};
-    --fs-regular-fluid: ${({ theme: { breakpoints } }) =>
-      clamp(breakpoints.sm, breakpoints.lg)(1, 1.618)};
-    --fs-body-fluid: ${({ theme: { breakpoints } }) =>
-      clamp(breakpoints.sm, breakpoints.lg)(0.618, 1)};
       
     --btn-spacing: 0.75em 1.5em;
     
@@ -41,9 +30,12 @@ export default createGlobalStyle`
     letter-spacing: -0.075em;
   }
 
+  h1, h2, h3, h4, h5, h6, p, button {
+    letter-spacing: -0.075em;
+  }
+
   button {
     font-family: 'SoraVariable', sans-serif;
-    letter-spacing: -0.075em;
     color: var(--colors-black);
   }
 `
