@@ -1,9 +1,19 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-const Highlight = styled.marker`
+type HighlightProps = {
+  strong?: boolean
+}
+
+const Highlight = styled.marker<HighlightProps>`
   position: relative;
 
   transition: all 0.45s cubic-bezier(0.18, 0.2, 0, 0.98);
+
+  ${({ strong }) =>
+    strong &&
+    css`
+      font-variation-settings: 'wght' 600;
+    `}
 
   &::after {
     transition: all 0.35s cubic-bezier(0.18, 0.2, 0, 0.98);
