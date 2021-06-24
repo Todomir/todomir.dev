@@ -10,10 +10,12 @@ const SIZE_MAP = {
     font-size: var(--fs-regular);
   `,
   regular: css`
-    font-size: var(--fs-body);
+    font-size: var(--fs-body-fluid);
+    font-variation-settings: 'wght' 600;
   `,
   small: css`
     font-size: var(--fs-small);
+    font-variation-settings: 'wght' 600;
   `
 }
 
