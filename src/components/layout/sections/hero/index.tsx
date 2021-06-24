@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <HeroContainer>
       <HeroContainer.Article>
-        <Heading mw={19}>
+        <Heading mw={17}>
           <Highlight>Upgrade</Highlight> your business’s web presence.
         </Heading>
         <Text mw={31}>
