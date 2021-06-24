@@ -31,6 +31,8 @@ export const HeroContainer = Object.assign(
     display: grid;
     grid-template-rows: auto 1fr;
 
+    margin-block-end: 4em;
+
     ${up('sm')} {
       grid-template-columns: repeat(6, 1fr);
       grid-template-rows: 1fr;
