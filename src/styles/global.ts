@@ -19,8 +19,6 @@ export default createGlobalStyle`
   }
 
   html, body, #__next {
-    overflow-x: hidden;
-    
     min-height: 100vh;
     min-width: 100vw;
 
