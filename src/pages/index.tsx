@@ -1,9 +1,10 @@
-import { Heading } from '@components/atoms'
+import { Container } from '@components/atoms'
+import { Hero } from '@components/layout'
 
 export default function Home() {
   return (
-    <div>
-      <Heading>Hello, world</Heading>
-    </div>
+    <Container as="main">
+      <Hero />
+    </Container>
   )
 }
