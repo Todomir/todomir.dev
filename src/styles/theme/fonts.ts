@@ -1,7 +1,5 @@
-import { css } from 'styled-components'
-
 export default {
-  large: css`
+  large: `
     --tt-key: ff-large;
     font-size: var(--fs-large);
 
@@ -19,7 +17,7 @@ export default {
       }
     }
   `,
-  regular: css`
+  regular: `
     --tt-key: ff-regular;
     font-size: var(--fs-regular);
 
@@ -39,7 +37,7 @@ export default {
       }
     }
   `,
-  body: css`
+  body: `
     --tt-key: ff-body;
     font-size: var(--ff-body);
 
