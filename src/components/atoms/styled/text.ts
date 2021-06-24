@@ -5,8 +5,9 @@ type TextProps = {
 }
 
 const Text = styled.p<TextProps>`
+  ${({ theme }) => theme.fonts.regular}
+
   font-variation-settings: 'wght' 400;
-  font-size: var(--fs-regular-fluid);
   max-width: ${({ mw }) => `${mw}ch`};
 `
 

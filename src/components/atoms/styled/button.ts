@@ -42,10 +42,11 @@ const VARIANT_MAP = {
 }
 
 const Button = styled.button<ButtonProps>`
+  ${({ theme }) => theme.fonts.body}
+
   transition: all 0.6s;
 
   font-variation-settings: 'wght' 500;
-  font-size: var(--fs-body);
 
   padding: var(--btn-spacing);
 
