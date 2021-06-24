@@ -1,5 +1,6 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import Script from 'next/script'
 
 import { ThemeProvider } from 'styled-components'
 
@@ -16,6 +17,7 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
       </Head>
       <Component key={router.route} {...pageProps} />
       <GlobalStyle />
+      <Script src="https://cdn.jsdelivr.net/gh/scottkellum/typetura.js@master/js/typetura.min.js" />
     </ThemeProvider>
   )
 }
