@@ -3,7 +3,6 @@ import { clamp } from '@utils/functions'
 import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
-
   :root {
     /* Generating colors from theme.colors */
     ${({ theme }) =>
@@ -21,14 +20,18 @@ export default createGlobalStyle`
 
     --fs-large-fluid: ${({ theme: { breakpoints } }) =>
       clamp(breakpoints.sm, breakpoints.lg)(1.618, 4.236)};
-    --fs-small-fluid: ${({ theme: { breakpoints } }) =>
+    --fs-regular-fluid: ${({ theme: { breakpoints } }) =>
       clamp(breakpoints.sm, breakpoints.lg)(1, 1.618)};
+    --fs-body-fluid: ${({ theme: { breakpoints } }) =>
+      clamp(breakpoints.sm, breakpoints.lg)(0.618, 1)};
       
     --btn-spacing: 0.75em 1.5em;
     
   }
 
   html, body, #__next {
+    overflow-x: hidden;
+    
     min-height: 100vh;
     min-width: 100vw;
 
