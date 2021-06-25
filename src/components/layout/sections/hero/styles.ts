@@ -1,8 +1,4 @@
-import {
-  Heading as HeroHeading,
-  Text as HeroText,
-  Button as HeroButton
-} from '@components/atoms'
+import { Heading as HeroHeading, Text as HeroText } from '@components/atoms'
 
 import { up } from 'styled-breakpoints'
 import styled from 'styled-components'
@@ -48,8 +44,12 @@ export const HeroContainer = Object.assign(
     }
 
     .btn-container {
-      & ${HeroButton} + ${HeroButton} {
-        margin-inline-start: 1.5em;
+      display: flex;
+      gap: 1em;
+      flex-direction: column;
+
+      @media (min-width: 360px) {
+        flex-direction: row;
       }
     }
   `,
