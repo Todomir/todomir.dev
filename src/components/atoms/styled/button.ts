@@ -42,7 +42,7 @@ const VARIANT_MAP = {
 }
 
 const Button = styled.button<ButtonProps>`
-  ${({ theme }) => theme.fonts.body}
+  font-size: var(--fs-body);
 
   transition: all 0.6s;
 
