@@ -8,6 +8,7 @@ import GlobalStyle from '../styles/global'
 import theme from '../styles/theme'
 
 import '@fontsource/sora/variable.css'
+import 'modern-normalize/modern-normalize.css'
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
   return (
