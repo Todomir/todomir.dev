@@ -1,6 +1,12 @@
 import Image from 'next/image'
 
-import { Heading, Highlight, Text, Button } from '@components/atoms'
+import {
+  Heading,
+  Highlight,
+  Text,
+  Button,
+  WobblyFloat
+} from '@components/atoms'
 
 import { HeroContainer } from './styles'
 
@@ -21,13 +27,15 @@ export default function Hero() {
         </div>
       </HeroContainer.Article>
       <HeroContainer.Aside>
-        <Image
-          width={1030}
-          height={901}
-          objectFit="contain"
-          src="/images/hero-image.svg"
-          alt="Drawing of an man using an laptop, pointing to an hovering image of an website"
-        />
+        <WobblyFloat>
+          <Image
+            width={1030}
+            height={901}
+            objectFit="contain"
+            src="/images/hero-image.svg"
+            alt="Drawing of an man using an laptop, pointing to an hovering image of an website"
+          />
+        </WobblyFloat>
       </HeroContainer.Aside>
     </HeroContainer>
   )

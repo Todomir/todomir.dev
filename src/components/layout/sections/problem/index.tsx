@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { Heading, Highlight, Text } from '@components/atoms'
+import { Heading, Highlight, Text, WobblyFloat } from '@components/atoms'
 
 import { ProblemContainer } from './styles'
 
@@ -24,13 +24,15 @@ export default function Problem() {
           <Text>You get the point.</Text>
         </article>
         <ProblemContainer.Aside>
-          <Image
-            width={600}
-            height={700}
-            objectFit="contain"
-            src="/images/problem-image.svg"
-            alt="Drawing of people floating around a big lightbulb, a metaphor for ideas"
-          />
+          <WobblyFloat>
+            <Image
+              width={600}
+              height={700}
+              objectFit="contain"
+              src="/images/problem-image.svg"
+              alt="Drawing of people floating around a big lightbulb, a metaphor for ideas"
+            />
+          </WobblyFloat>
         </ProblemContainer.Aside>
       </ProblemContainer.Content>
     </ProblemContainer>
