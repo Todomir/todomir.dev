@@ -5,3 +5,4 @@ export { default as Highlight } from './styled/highlight'
 export { default as Text } from './styled/text'
 
 export { default as Navbar } from './navbar'
+export { default as WobblyFloat } from './wobbly-float'
