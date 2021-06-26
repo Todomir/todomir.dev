@@ -1,5 +1,5 @@
 import { Container, Navbar } from '@components/atoms'
-import { Hero, Problem } from '@components/layout'
+import { Hero, Problem, Work } from '@components/layout'
 
 export default function Home() {
   return (
@@ -7,6 +7,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Problem />
+      <Work />
     </Container>
   )
 }
