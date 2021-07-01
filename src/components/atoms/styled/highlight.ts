@@ -4,7 +4,7 @@ type HighlightProps = {
   strong?: boolean
 }
 
-const Highlight = styled.marker<HighlightProps>`
+const Highlight = styled.span<HighlightProps>`
   position: relative;
 
   transition: all 0.45s cubic-bezier(0.18, 0.2, 0, 0.98);
