@@ -16,7 +16,7 @@ import {
 } from 'framer-motion'
 
 type ParallaxProps = {
-  children: ReactElement
+  children: ReactElement | ReactElement[]
   offset?: number
 }
 
@@ -63,7 +63,7 @@ export default function Parallax({ children, offset = 50 }: ParallaxProps) {
           ? child
           : createElement(motion(child.type), {
               ...{
-                ...children.props,
+                ...child.props,
                 ref,
                 style: { y }
               }
