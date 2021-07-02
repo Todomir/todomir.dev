@@ -21,22 +21,22 @@ const SIZE_MAP = {
 
 const VARIANT_MAP = {
   filled: css`
-    background-color: var(--colors-green);
-    color: var(--colors-black);
+    background-color: var(--colors-green-400);
+    color: var(--colors-gray-900);
     border: none;
 
     &:hover {
-      background-color: var(--colors-dark-green);
+      background-color: var(--colors-green-600);
     }
   `,
   outlined: css`
-    background-color: var(--colors-light-green);
-    color: var(--colors-dark-green);
-    border: 1px solid var(--colors-dark-green);
+    background-color: var(--colors-green-50);
+    color: var(--colors-green-700);
+    border: 1px solid var(--colors-green-700);
 
     &:hover {
-      background-color: var(--colors-green);
-      color: var(--colors-black);
+      background-color: var(--colors-green-100);
+      color: var(--colors-green-800);
     }
   `
 }

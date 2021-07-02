@@ -27,7 +27,7 @@ const Content = styled.div`
 export const ProblemContainer = Object.assign(
   styled(Container)`
     position: relative;
-    background-color: #e2701821;
+    background-color: var(--colors-orange-50);
 
     padding-block-start: 5.5em;
     padding-block-end: 1em;

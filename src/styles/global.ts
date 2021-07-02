@@ -4,7 +4,11 @@ export default createGlobalStyle`
   :root {
     /* Generating colors from theme.colors */
     ${({ theme: { colors } }) =>
-      Object.keys(colors).map(key => `--colors-${[key]}: ${colors[key]};`)}
+      Object.keys(colors).map(key =>
+        Object.keys(colors[key]).map(
+          shade => `--colors-${[key]}-${[shade]}: ${colors[key][shade]};`
+        )
+      )}
       
     /* Font sizes */
     --fs-largest: 6.854rem;
@@ -24,7 +28,7 @@ export default createGlobalStyle`
 
     font-family: 'SoraVariable', sans-serif;
     font-variation-settings: 'wght' 400;
-    color: var(--colors-black);
+    color: var(--colors-gray-900);
     letter-spacing: -0.075em;
   }
 

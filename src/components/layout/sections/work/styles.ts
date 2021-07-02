@@ -6,7 +6,7 @@ import {
 
 import styled from 'styled-components'
 export const WorkContainer = styled.section`
-  background-color: #d1eefa21;
+  background-color: var(--colors-blue-100);
   text-align: center;
 
   padding-block: 10.25rem;
