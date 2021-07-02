@@ -30,12 +30,12 @@ const VARIANT_MAP = {
     }
   `,
   outlined: css`
-    background-color: var(--colors-green-50);
+    background-color: transparent;
     color: var(--colors-green-700);
     border: 1px solid var(--colors-green-700);
 
     &:hover {
-      background-color: var(--colors-green-100);
+      background-color: var(--colors-green-50);
       color: var(--colors-green-800);
     }
   `
