@@ -12,8 +12,8 @@ const ProblemAside = styled.aside`
   margin-block-start: -7rem;
 
   ${up('lg')} {
-    margin-block-start: 0;
-    margin-block-end: -3rem;
+    margin-block-start: -6rem;
+    margin-block-end: -10rem;
   }
 `
 
@@ -29,8 +29,8 @@ export const ProblemContainer = Object.assign(
     position: relative;
     background-color: var(--colors-orange-50);
 
-    padding-block-start: 5.5em;
-    padding-block-end: 1em;
+    padding-block-start: 3.5em;
+    padding-block-end: 4em;
 
     ${Content} {
       display: flex;
