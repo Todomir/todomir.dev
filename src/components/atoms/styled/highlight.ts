@@ -8,6 +8,7 @@ const Highlight = styled.span<HighlightProps>`
   position: relative;
 
   transition: all 0.45s cubic-bezier(0.18, 0.2, 0, 0.98);
+  z-index: 1;
 
   ${({ strong }) =>
     strong &&
@@ -27,7 +28,7 @@ const Highlight = styled.span<HighlightProps>`
     width: 100%;
     height: 0.8ch;
 
-    background-color: var(--colors-green);
+    background-color: var(--colors-green-400);
 
     z-index: -1;
   }
