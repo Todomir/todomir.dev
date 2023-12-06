@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 
-import ImgDown from "~/media/icons/down.svg?jsx";
+import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
 
 export default component$(() => {
 	return (
@@ -16,7 +16,7 @@ export default component$(() => {
 			</p>
 
 			<div class="w-fit h-fit mx-auto bg-zinc-800/20 flex gap-4 mt-20 mb-20 p-9 rounded-[108px] my-10">
-				<ImgDown />
+				<IconArrowDown />
 			</div>
 		</section>
 	);

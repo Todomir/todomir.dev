@@ -4,7 +4,10 @@ import ImgMe from "~/media/images/me.jpg?jsx";
 
 export default component$(() => {
 	return (
-		<section id="about" class="flex flex-col px-16 py-20 md:py-60 max-md:px-5">
+		<section
+			id="about"
+			class="bg-zinc-900 flex flex-col px-16 py-20 md:py-60 max-md:px-5"
+		>
 			<div class="flex flex-col lg:flex-row md:gap-20">
 				<ImgMe class="ml-0 object-cover rounded-lg object-center w-full overflow-hidden grow max-h-[600px] mt-10" />
 				<div class="flex flex-col my-auto max-md:max-w-full max-md:mt-10">
