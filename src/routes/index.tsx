@@ -9,10 +9,10 @@ import Quote from "~/features/home/quote";
 
 export default component$(() => {
 	return (
-		<div class="mb-[420px]">
+		<div class="full-width content-grid">
 			<Hero />
 			<Quote />
-			<div class="bg-zinc-900 px-5 md:px-20">
+			<div class="bg-zinc-900 px-5 md:px-20 full-width">
 				<hr class="w-full border-zinc-700" />
 			</div>
 			<About />

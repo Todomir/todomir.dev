@@ -4,7 +4,7 @@ import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
 
 export default component$(() => {
 	return (
-		<section class="header bg-zinc-900 flex flex-col py-12 px-5 md:px-20">
+		<section class="full-width bg-zinc-900 flex flex-col py-12 px-5 md:px-20">
 			<h1 class="text-zinc-200 text-center text-7xl leading-[96px] tracking-tighter mt-12 max-md:max-w-full max-md:text-4xl max-md:leading-[53px] max-md:mt-10">
 				Abner Rodrigues <br />
 				Creat<span class="italic">i</span>ve Developer

@@ -24,7 +24,7 @@ const MOCK_BLOG_POSTS = [
 
 export default component$(() => {
 	return (
-		<section class="bg-white flex flex-col px-6 py-12 md:py-32 rounded-none max-md:px-5">
+		<section class="full-width bg-white flex flex-col px-6 py-12 md:py-32 rounded-none max-md:px-5">
 			<h2 class="text-gray-900 text-center md:text-6xl md:leading-[73px] tracking-tighter md:mt-12  text-4xl leading-[53px] mt-10">
 				Blog
 			</h2>

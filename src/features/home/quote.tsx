@@ -18,7 +18,7 @@ const EMOJIS = [
 
 export default component$(() => {
 	return (
-		<div class="w-full text-xl md:text-3xl mx-auto bg-zinc-900 pt-52 pb-32 lg:pb-60 px-16 max-md:max-w-full max-md:pl-5 max-md:pr-8 max-md:py-10">
+		<div class="full-width w-full text-xl md:text-3xl mx-auto bg-zinc-900 md:pt-52 md:pb-32 lg:pb-60 px-16 pl-5 pr-8 py-10">
 			<h3 class="text-pretty w-full text-zinc-500">
 				A <span class="text-zinc-200">creative front-end engineer</span> with a
 				passion for crafting{" "}
