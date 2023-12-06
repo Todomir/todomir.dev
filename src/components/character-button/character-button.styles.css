@@ -1,0 +1,47 @@
+.character-button__wrapper {
+  position: absolute;
+  display: block;
+  animation: fly 900ms forwards ease-in-out;
+}
+.character-button__char {
+  display: block;
+  animation: spin 1000ms linear;
+}
+.character-button {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+
+  transition-timing-function: var(--ease-spring-5);
+  transition-duration: 900ms;
+  transition-property: transform;
+}
+
+.character-button:active {
+  transition-duration: 200ms;
+  transform: scale(1.1, 0.9);
+}
+
+@keyframes fly {
+  0% {
+    opacity: 0;
+    translate: 0 0;
+  }
+  30% {
+    opacity: 1;
+    translate: 0 -150%;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 0;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
