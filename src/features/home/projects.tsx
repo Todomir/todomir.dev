@@ -1,16 +1,17 @@
 import { component$ } from "@builder.io/qwik";
 import ProjectCard from "~/components/project-card/project-card";
 
-const MOCK_BLOG_POSTS = [
+const MOCK_PROJECTS = [
 	{
 		id: "1",
-		slug: "/blog/really-qwik-site",
-		title: "A really Qwik website",
+		slug: "",
+		title: "Astromart",
 		description:
-			"The adventures on how I built my personal website using Qwik, an exciting new web framework",
+			"A performant e-commerce template for Astro, React, TypeScript and Odoo developers",
 		tags: [
-			{ id: "1_tag", name: "Qwik" },
-			{ id: "2_tag", name: "Front-end" },
+			{ id: "1_tag", name: "React" },
+			{ id: "2_tag", name: "Astro" },
+			{ id: "3_tag", name: "TypeScript" },
 		],
 		thumbnail: {
 			srcset: "sample-srcset",
@@ -35,7 +36,7 @@ export default component$(() => {
 			</h3>
 			<section>
 				<ul class="grid grid-cols-1 gap-10 mt-20">
-					{MOCK_BLOG_POSTS.map((post) => (
+					{MOCK_PROJECTS.map((post) => (
 						<li key={post.id}>
 							<ProjectCard
 								id={post.id}
