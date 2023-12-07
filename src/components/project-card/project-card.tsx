@@ -27,7 +27,7 @@ export default component$((props: Props) => {
 				class="text-3xl font-medium leading-10 tracking-tighter grow space-x-3"
 			>
 				<a href={props.slug}>{props.title}</a>
-				<IconArrowTopRight class="inline-block" />
+				{props.slug !== "" && <IconArrowTopRight class="inline-block" />}
 			</h4>
 			<p
 				q:slot="description"
