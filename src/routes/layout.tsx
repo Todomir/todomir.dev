@@ -22,9 +22,9 @@ export const useServerTimeLoader = routeLoader$(() => {
 
 export default component$(() => {
 	return (
-		<main class="content-grid bg-white text-zinc-100">
-			<header class="full-width bg-zinc-900 header items-center flex flex-col px-20 pt-12 max-md:px-5">
-				<nav class="justify-center items-center flex flex-col mt-2.5 px-16 py-3 max-md:max-w-full max-md:px-5">
+		<>
+			<header class="bg-zinc-900 text-zinc-100 header items-center flex flex-col md:px-20 pt-12 px-5">
+				<nav class="justify-center items-center flex flex-col mt-2.5 px-16 py-3 max-md:max-w-full max-md:px-5 z-20">
 					<ul class="flex w-[353px] max-w-full items-stretch justify-between gap-5 max-md:justify-center">
 						{NAV_LINKS.map((link) => (
 							<li
@@ -44,9 +44,9 @@ export default component$(() => {
 					</ul>
 				</nav>
 			</header>
-
-			<Slot />
-
+			<main class="content-grid bg-white">
+				<Slot />
+			</main>
 			<footer class="full-width w-full bg-zinc-900 footer flex flex-col px-20 py-12 max-md:px-5">
 				<header class="text-zinc-200 text-xl font-bold leading-6 tracking-tighter whitespace-nowrap justify-center items-stretch bg-zinc-700 bg-opacity-20 mt-8 px-3.5 py-3.5 border-[0.62px] border-solid border-zinc-700 self-start">
 					LOGO
@@ -84,6 +84,6 @@ export default component$(() => {
 					© Abner Rodrigues. 2023.
 				</div>
 			</footer>
-		</main>
+		</>
 	);
 });
