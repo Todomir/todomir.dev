@@ -6,7 +6,7 @@ export default component$(() => {
 	return (
 		<section
 			id="about"
-			class="full-width bg-zinc-900 flex flex-col px-16 py-20 md:py-60 max-md:px-5"
+			class="full-width bg-zinc-950 flex flex-col px-16 py-20 md:py-60 max-md:px-5"
 		>
 			<div class="flex flex-col lg:flex-row md:gap-20">
 				<ImgMe class="ml-0 object-cover rounded-lg object-center w-full overflow-hidden grow max-h-[600px] mt-10" />

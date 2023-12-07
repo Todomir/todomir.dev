@@ -1,8 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require("tailwindcss/defaultTheme");
+import harmonyPalette from "@evilmartians/harmony/tailwind";
+
 module.exports = {
 	content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
 	theme: {
+		colors: harmonyPalette,
 		extend: {
 			transitionTimingFunction: {
 				"spring-1": "var(--ease-spring-1)",

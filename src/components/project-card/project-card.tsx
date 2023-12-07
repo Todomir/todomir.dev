@@ -21,7 +21,7 @@ interface Props {
 
 export default component$((props: Props) => {
 	return (
-		<Card class="bg-zinc-900 mt-20">
+		<Card class="bg-zinc-950 mt-20">
 			<h4
 				q:slot="title"
 				class="text-3xl font-medium leading-10 tracking-tighter grow space-x-3"

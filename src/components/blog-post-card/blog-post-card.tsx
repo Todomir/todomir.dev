@@ -48,7 +48,7 @@ export default component$((props: Props) => {
 				{props.tags.map((tag) => (
 					<li
 						key={tag.id}
-						class="text-zinc-900 leading-6 p-2 rounded-md border border-zinc-200 bg-zinc-50"
+						class="text-zinc-950 leading-6 p-2 rounded-md border border-zinc-200 bg-zinc-50"
 					>
 						{tag.name}
 					</li>

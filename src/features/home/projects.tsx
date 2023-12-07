@@ -25,7 +25,7 @@ export default component$(() => {
 	return (
 		<section
 			id="projects"
-			class="full-width bg-zinc-900 flex flex-col md:px-16 py-12 rounded-b-xl px-5"
+			class="full-width bg-zinc-950 flex flex-col md:px-16 py-12 rounded-b-xl px-5"
 		>
 			<h2 class="md:text-7xl font-medium md:leading-[91px] tracking-tighter mt-12  text-4xl leading-[54px] max-md:mt-10">
 				Projects

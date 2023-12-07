@@ -4,7 +4,7 @@ import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
 
 export default component$(() => {
 	return (
-		<section class="full-width bg-zinc-900 flex flex-col py-24 relative">
+		<section class="full-width bg-zinc-950 flex flex-col py-24 relative">
 			<aside class="absolute full-width -translate-y-12 pointer-events-none inset-0 w-full overflow-x-clip z-10 mb-12">
 				<div
 					aria-hidden

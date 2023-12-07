@@ -58,7 +58,7 @@ export default component$(() => {
 
 			<a
 				href="/blog"
-				class="justify-end items-stretch flex gap-2 cursor-pointer pointer-events-auto mt-16 mb-10 self-end max-md:mt-10 text-zinc-900 text-xl leading-7 tracking-tight grow whitespace-nowrap"
+				class="justify-end items-stretch flex gap-2 cursor-pointer pointer-events-auto mt-16 mb-10 self-end max-md:mt-10 text-zinc-950 text-xl leading-7 tracking-tight grow whitespace-nowrap"
 			>
 				Ver blog
 				<IconArrowTopRight />

@@ -12,7 +12,7 @@ export default component$(() => {
 		<div class="full-width content-grid relative">
 			<Hero />
 			<Quote />
-			<div class="bg-zinc-900 px-5 md:px-20 full-width">
+			<div class="bg-zinc-950 px-5 md:px-20 full-width">
 				<hr class="w-full border-zinc-700" />
 			</div>
 			<About />
