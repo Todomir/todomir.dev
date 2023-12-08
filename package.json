@@ -41,6 +41,7 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
-    "@evilmartians/harmony": "^1.2.0"
+    "@evilmartians/harmony": "^1.2.0",
+    "motion": "^10.16.4"
   }
 }
