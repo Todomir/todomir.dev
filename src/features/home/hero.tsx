@@ -92,7 +92,7 @@ export default component$(() => {
 			<div
 				aria-labelledby="scroll"
 				data-hero-scroll-indicator
-				class="w-fit h-fit mx-auto bg-zinc-800/20 flex gap-4 mt-20 mb-40 md:mb-64 p-9 rounded-[108px] group"
+				class="w-fit h-fit mx-auto bg-zinc-900/10 flex gap-4 mt-20 mb-40 md:mb-64 p-9 rounded-[108px] group"
 			>
 				<IconArrowDown />
 				<span id="scroll" class="text-zinc-200 sr-only">
