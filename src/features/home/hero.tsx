@@ -1,5 +1,5 @@
 import { component$, useVisibleTask$ } from "@builder.io/qwik";
-import { animate, spring, stagger } from "motion";
+import { animate, scroll, spring } from "motion";
 
 import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
 
@@ -8,14 +8,7 @@ export default component$(() => {
 		const aside = document.querySelector<HTMLDivElement>("#hero aside");
 		if (!aside) return;
 
-		const leftImages = aside.querySelectorAll<HTMLDivElement>(
-			"[data-direction=left]",
-		);
-		const rightImages = aside.querySelectorAll<HTMLDivElement>(
-			"[data-direction=right]",
-		);
-
-		if (!leftImages.length || !rightImages.length) return;
+		const images = aside.querySelectorAll("*");
 
 		const springConfig = {
 			mass: 5,
@@ -23,29 +16,28 @@ export default component$(() => {
 			damping: 150,
 		};
 
-		animate(
-			leftImages,
-			{
-				x: ["-80%", 0],
-				opacity: [0, 1],
-			},
-			{
-				delay: stagger(0.1),
-				easing: spring(springConfig),
-			},
-		);
+		// biome-ignore lint/complexity/noForEach: The `target` option of the animate function only accepts single items
+		images.forEach((image, i) => {
+			animate(
+				image,
+				{
+					x: i >= 2 ? ["100%", 0] : ["-100%", 0],
+					opacity: [0, 1],
+				},
+				{
+					delay: i * 0.2,
+					easing: spring(springConfig),
+				},
+			);
 
-		animate(
-			rightImages,
-			{
-				x: ["50%", 0],
-				opacity: [0, 1],
-			},
-			{
-				delay: stagger(0.4),
-				easing: spring(springConfig),
-			},
-		);
+			scroll(
+				animate(
+					image,
+					{ y: [null, `-${200 + i * 90}%`] },
+					{ easing: spring(springConfig) },
+				),
+			);
+		});
 	});
 	return (
 		<section
