@@ -55,22 +55,22 @@ export default component$(() => {
 			<aside class="overflow-x-clip absolute full-width -translate-y-12 pointer-events-none inset-0 mb-12">
 				<div
 					data-direction="left"
-					class="absolute -top-12 -left-24 aspect-video w-[min(60%,463px)] bg-zinc-900 rounded-3xl shadow-2xl opacity-0"
+					class="absolute -top-12 -left-24 aspect-video w-[clamp(238px,50%,572px)] bg-zinc-900 rounded-3xl shadow-2xl opacity-0"
 				/>
 
 				<div
 					data-direction="left"
-					class="absolute -bottom-4 -left-36 aspect-video w-[min(60%,463px)] bg-zinc-900 rounded-3xl shadow-2xl opacity-0"
+					class="absolute -bottom-4 -left-36 aspect-video w-[clamp(238px,40%,572px)] bg-zinc-900 rounded-3xl shadow-2xl opacity-0"
 				/>
 
 				<div
 					data-direction="right"
-					class="absolute -bottom-8 -right-24 aspect-video w-[min(60%,463px)] bg-zinc-900 rounded-3xl shadow-2xl opacity-0"
+					class="absolute -bottom-8 -right-24 aspect-video w-[clamp(238px,40%,572px)] bg-zinc-900 rounded-3xl shadow-2xl opacity-0"
 				/>
 
 				<div
 					data-direction="right"
-					class="absolute -top-24 -right-24 aspect-video w-[min(60%,318px)] bg-zinc-900 rounded-3xl shadow-2xl opacity-0"
+					class="absolute -top-24 -right-24 aspect-video w-[clamp(238px,40%,572px)] bg-zinc-900 rounded-3xl shadow-2xl opacity-0"
 				/>
 			</aside>
 
@@ -86,7 +86,7 @@ export default component$(() => {
 
 			<div
 				aria-labelledby="scroll"
-				class="w-fit h-fit mx-auto bg-zinc-900/10 flex gap-4 mt-20 mb-40 md:mb-64 p-9 rounded-[108px] group"
+				class="w-fit h-fit mx-auto bg-zinc-900/10 flex gap-4 mt-20 mb-36 md:mb-64 p-9 rounded-full group"
 			>
 				<IconArrowDown />
 				<span id="scroll" class="text-zinc-200 sr-only">
