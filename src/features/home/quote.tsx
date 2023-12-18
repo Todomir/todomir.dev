@@ -19,7 +19,7 @@ const EMOJIS = [
 export default component$(() => {
 	return (
 		<div class="full-width w-full text-xl md:text-3xl mx-auto bg-zinc-950 md:pt-52 md:pb-32 lg:pb-60 px-16 pl-5 pr-8 py-10 ">
-			<h3 class="text-pretty w-full text-zinc-500 z-20">
+			<h3 class="text-pretty w-full text-zinc-500">
 				A <span class="text-zinc-200">creative front-end engineer</span> with a
 				passion for crafting{" "}
 				<span class="text-zinc-200">

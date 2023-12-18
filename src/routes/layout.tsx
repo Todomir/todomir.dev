@@ -1,6 +1,7 @@
 import { Slot, component$ } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
+import Glass from "~/components/glass/glass";
 import { NAV_LINKS, SOCIAL_LINKS } from "~/constants/links";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
@@ -23,25 +24,22 @@ export const useServerTimeLoader = routeLoader$(() => {
 export default component$(() => {
 	return (
 		<>
-			<header class="bg-zinc-950 text-zinc-100 header items-center flex flex-col md:px-20 pt-12 px-5">
-				<nav class="justify-center items-center flex flex-col mt-2.5 px-16 py-3 max-md:max-w-full max-md:px-5 z-20">
-					<ul class="flex w-[353px] max-w-full items-stretch justify-between gap-5 max-md:justify-center">
+			<header class="sticky top-1 z-20 text-zinc-100 header items-center md:px-20 pt-12 px-5">
+				<nav class="relative max-w-[353px] justify-between items-center mx-auto flex-col mt-2.5  py-4 px-6">
+					<ul class="flex justify-around gap-">
 						{NAV_LINKS.map((link) => (
-							<li
-								style={{
-									viewTransitionName: `${link.label.toLowerCase()}-nav`,
-								}}
-								key={`nav-link-${link.label}-${link.url}`}
-							>
+							<li key={`nav-link-${link.label}-${link.url}`}>
 								<a
 									href={link.url}
-									class="text-base font-medium leading-5 tracking-normal whitespace-nowrap cursor-pointer"
+									class="text-base font-medium leading-5 tracking-normal whitespace-nowrap cursor-pointer px-4 py-2"
 								>
 									{link.label}
 								</a>
 							</li>
 						))}
 					</ul>
+
+					<Glass spread={3} bgClass="bg-zinc-950" bgOpacity={0.35} />
 				</nav>
 			</header>
 			<main class="content-grid bg-white">

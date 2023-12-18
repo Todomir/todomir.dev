@@ -10,11 +10,15 @@ import {
 } from "@builder.io/qwik";
 import CSS from "./character-button.styles.css?inline";
 
-// Helper functions
+interface Props {
+	character: string;
+	size: number;
+	style: HTMLAttributes<HTMLSpanElement>["style"];
+}
+
 const random = (min: number, max: number) =>
 	Math.floor(Math.random() * (max - min)) + min;
 
-// Generate a single sparkle
 const generateCharacter = (character: string) => ({
 	id: String(random(10000, 99999)),
 	createdAt: Date.now(),
@@ -26,7 +30,6 @@ const generateCharacter = (character: string) => ({
 	},
 });
 
-// Sparkle store
 const useCharacterStore = () =>
 	useStore({
 		characters: [] as {
@@ -39,26 +42,18 @@ const useCharacterStore = () =>
 		prefersReducedMotion: false,
 	});
 
-// Sparkle component
-export const Character = component$(
-	(props: {
-		size: number;
-		character: string;
-		style: HTMLAttributes<HTMLSpanElement>["style"];
-	}) => {
-		return (
-			<span class="character-button__wrapper" style={props.style} aria-hidden>
-				<span aria-hidden class="character-button__char">
-					{props.character}
-				</span>
+export const Character = component$((props: Props) => {
+	return (
+		<span class="character-button__wrapper" style={props.style} aria-hidden>
+			<span aria-hidden class="character-button__char">
+				{props.character}
 			</span>
-		);
-	},
-);
+		</span>
+	);
+});
 
 const CharacterButton = component$((props: { characters: string[] }) => {
 	const store = useCharacterStore();
-	// CSS styles
 	useStyles$(CSS);
 
 	const handleClick = $(() => {
