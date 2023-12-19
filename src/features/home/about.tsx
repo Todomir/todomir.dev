@@ -12,13 +12,13 @@ export default component$(() => {
 				<ImgMe class="ml-0 object-cover rounded-lg object-center w-full overflow-hidden grow max-h-[600px] mt-10" />
 				<div class="flex flex-col my-auto max-md:max-w-full max-md:mt-10">
 					<h2 class="text-gray-100 text-5xl font-medium leading-[59px] tracking-tighter max-md:max-w-full max-md:text-4xl max-md:leading-[54px]">
-						I believe in empowering <span class="font-serif">people</span>
+						I believe in empowering <em class="font-serif italic">people</em>
 					</h2>
 					<h3 class="text-zinc-500 text-2xl leading-8 tracking-tight mt-6 max-md:max-w-full">
-						<span class="font-serif">People</span> are at the heart of any
-						business. I develop software that brings{" "}
-						<span class="font-serif">people</span> together and empowers them,
-						all while bringing a smile to their faces.
+						<span class="font-serif italic">People</span> are at the heart of
+						any business. I develop software that brings{" "}
+						<span class="font-serif italic">people</span> together and empowers
+						them, all while bringing a smile to their faces.
 					</h3>
 					<p class="text-gray-100 text-base leading-6 tracking-normal mt-12 max-md:max-w-full mb-6">
 						I'm Abner 👋, an innovative and passionate Web Developer with a
