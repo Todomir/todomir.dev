@@ -5,95 +5,95 @@ import Glass from "~/components/glass/glass";
 import { NAV_LINKS, SOCIAL_LINKS } from "~/constants/links";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
-	// Control caching for this request for best performance and to reduce hosting costs:
-	// https://qwik.builder.io/docs/caching/
-	cacheControl({
-		// Always serve a cached response by default, up to a week stale
-		staleWhileRevalidate: 60 * 60 * 24 * 7,
-		// Max once every 5 seconds, revalidate on the server to get a fresh version of this page
-		maxAge: 5,
-	});
+  // Control caching for this request for best performance and to reduce hosting costs:
+  // https://qwik.builder.io/docs/caching/
+  cacheControl({
+    // Always serve a cached response by default, up to a week stale
+    staleWhileRevalidate: 60 * 60 * 24 * 7,
+    // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
+    maxAge: 5,
+  });
 };
 
 export const useServerTimeLoader = routeLoader$(() => {
-	return {
-		date: new Date().toISOString(),
-	};
+  return {
+    date: new Date().toISOString(),
+  };
 });
 
 const Header = component$(() => {
-	return (
-		<header class="sticky top-1 z-20 text-zinc-100 header items-center md:px-20 pt-12 px-5">
-			<nav class="relative max-w-[353px] justify-between items-center mx-auto flex-col mt-2.5  py-4 px-6">
-				<ul class="flex justify-around gap-">
-					{NAV_LINKS.map((link) => (
-						<li key={`nav-link-${link.label}-${link.url}`}>
-							<Link
-								href={link.url}
-								class="text-base font-medium leading-5 tracking-normal whitespace-nowrap cursor-pointer px-4 py-2"
-							>
-								{link.label}
-							</Link>
-						</li>
-					))}
-				</ul>
+  return (
+    <header class="header sticky top-1 z-20 items-center px-5 pt-12 text-zinc-100 md:px-20">
+      <nav class="relative mx-auto mt-2.5 max-w-[353px] flex-col items-center justify-between  px-6 py-4">
+        <ul class="gap- flex justify-around">
+          {NAV_LINKS.map((link) => (
+            <li key={`nav-link-${link.label}-${link.url}`}>
+              <Link
+                href={link.url}
+                class="cursor-pointer whitespace-nowrap px-4 py-2 text-base font-medium leading-5 tracking-normal"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-				<Glass spread={3} bgClass="bg-zinc-950" bgOpacity={0.35} />
-			</nav>
-		</header>
-	);
+        <Glass spread={3} bgClass="bg-zinc-950" bgOpacity={0.35} />
+      </nav>
+    </header>
+  );
 });
 
 const Footer = component$(() => {
-	return (
-		<footer class="full-width w-full bg-zinc-950 footer flex flex-col px-20 py-12 max-md:px-5">
-			<header class="text-zinc-200 text-xl font-bold leading-6 tracking-tighter whitespace-nowrap justify-center items-stretch bg-zinc-700 bg-opacity-20 mt-8 px-3.5 py-3.5 border-[0.62px] border-solid border-zinc-700 self-start">
-				LOGO
-			</header>
-			<div class="items-stretch self-stretch flex justify-between gap-3 mt-8 max-md:max-w-full max-md:flex-wrap">
-				<p class="text-zinc-500 text-pretty max-w-[70ch] text-sm leading-5 tracking-normal grow shrink basis-auto">
-					Be the change you wish to see in the world. Let your actions speak
-					louder than your words. Strive for progress every day.
-				</p>
-				<a
-					href="mailto:abnerluis1001@gmail.com"
-					target="_blank"
-					rel="noreferrer"
-					class="text-zinc-500 text-left md:text-right text-xl leading-7 tracking-tight grow shrink basis-auto my-auto"
-				>
-					abnerluis1001@gmail.com
-				</a>
-			</div>
-			<hr class="border-zinc-800 self-stretch shrink-0 h-px mt-10 max-md:max-w-full" />
-			<ul class="flex justify-between md:justify-start gap-5 mt-8 max-md:max-w-full max-md:flex-wrap max-md:justify-center">
-				{SOCIAL_LINKS.map((link) => (
-					<li key={`social-link-${link.label}-${link.url}`}>
-						<a
-							href={link.url}
-							target="_blank"
-							rel="noreferrer"
-							class="text-zinc-200 text-sm leading-5 tracking-normal whitespace-nowrap"
-						>
-							{link.label}
-						</a>
-					</li>
-				))}
-			</ul>
-			<div class="text-zinc-500 text-center md:text-right text-sm leading-5 tracking-normal grow shrink basis-auto">
-				© Abner Rodrigues. 2023.
-			</div>
-		</footer>
-	);
+  return (
+    <footer class="full-width footer flex w-full flex-col bg-zinc-950 px-20 py-12 max-md:px-5">
+      <header class="mt-8 items-stretch justify-center self-start whitespace-nowrap border-[0.62px] border-solid border-zinc-700 bg-zinc-700 bg-opacity-20 px-3.5 py-3.5 text-xl font-bold leading-6 tracking-tighter text-zinc-200">
+        LOGO
+      </header>
+      <div class="mt-8 flex items-stretch justify-between gap-3 self-stretch max-md:max-w-full max-md:flex-wrap">
+        <p class="text-pretty max-w-[70ch] shrink grow basis-auto text-sm leading-5 tracking-normal text-zinc-500">
+          Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress
+          every day.
+        </p>
+        <a
+          href="mailto:abnerluis1001@gmail.com"
+          target="_blank"
+          rel="noreferrer"
+          class="my-auto shrink grow basis-auto text-left text-xl leading-7 tracking-tight text-zinc-500 md:text-right"
+        >
+          abnerluis1001@gmail.com
+        </a>
+      </div>
+      <hr class="mt-10 h-px shrink-0 self-stretch border-zinc-800 max-md:max-w-full" />
+      <ul class="mt-8 flex justify-between gap-5 max-md:max-w-full max-md:flex-wrap max-md:justify-center md:justify-start">
+        {SOCIAL_LINKS.map((link) => (
+          <li key={`social-link-${link.label}-${link.url}`}>
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noreferrer"
+              class="whitespace-nowrap text-sm leading-5 tracking-normal text-zinc-200"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="shrink grow basis-auto text-center text-sm leading-5 tracking-normal text-zinc-500 md:text-right">
+        © Abner Rodrigues. 2023.
+      </div>
+    </footer>
+  );
 });
 
 export default component$(() => {
-	return (
-		<>
-			<Header />
-			<main class="content-grid bg-white">
-				<Slot />
-			</main>
-			<Footer />
-		</>
-	);
+  return (
+    <>
+      <Header />
+      <main class="content-grid bg-white">
+        <Slot />
+      </main>
+      <Footer />
+    </>
+  );
 });

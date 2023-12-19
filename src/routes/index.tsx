@@ -8,25 +8,25 @@ import Projects from "~/features/home/projects";
 import Quote from "~/features/home/quote";
 
 export default component$(() => {
-	return (
-		<div class="full-width content-grid relative">
-			<Hero />
-			<Quote />
-			<div class="bg-zinc-950 px-5 md:px-20 full-width">
-				<hr class="w-full border-zinc-700" />
-			</div>
-			<About />
-			<Projects />
-			<Blog />
-		</div>
-	);
+  return (
+    <div class="full-width content-grid relative">
+      <Hero />
+      <Quote />
+      <div class="full-width bg-zinc-950 px-5 md:px-20">
+        <hr class="w-full border-zinc-700" />
+      </div>
+      <About />
+      <Projects />
+      <Blog />
+    </div>
+  );
 });
 
 export const head: DocumentHead = {
-	title: "Abner Rodrigues | Creative Developer",
-	scripts: [
-		{
-			script: `
+  title: "Abner Rodrigues | Creative Developer",
+  scripts: [
+    {
+      script: `
         (async function () {
           if (!("paintWorklet" in CSS)) {
             await import("https://unpkg.com/css-paint-polyfill");
@@ -35,12 +35,12 @@ export const head: DocumentHead = {
           CSS.paintWorklet.addModule('/border.js');
         })();
       `,
-		},
-	],
-	meta: [
-		{
-			name: "description",
-			content: "Helping people build software for people, for the world.",
-		},
-	],
+    },
+  ],
+  meta: [
+    {
+      name: "description",
+      content: "Helping people build software for people, for the world.",
+    },
+  ],
 };
