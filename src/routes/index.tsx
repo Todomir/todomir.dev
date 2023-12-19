@@ -32,7 +32,7 @@ export const head: DocumentHead = {
             await import("https://unpkg.com/css-paint-polyfill");
           }
 
-          CSS.paintWorklet.addModule('border.js');
+          CSS.paintWorklet.addModule('/border.js');
         })();
       `,
 		},
