@@ -1,5 +1,5 @@
 import { Slot, component$ } from "@builder.io/qwik";
-import { routeLoader$ } from "@builder.io/qwik-city";
+import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import Glass from "~/components/glass/glass";
 import { NAV_LINKS, SOCIAL_LINKS } from "~/constants/links";
@@ -28,12 +28,12 @@ const Header = component$(() => {
 				<ul class="flex justify-around gap-">
 					{NAV_LINKS.map((link) => (
 						<li key={`nav-link-${link.label}-${link.url}`}>
-							<a
+							<Link
 								href={link.url}
 								class="text-base font-medium leading-5 tracking-normal whitespace-nowrap cursor-pointer px-4 py-2"
 							>
 								{link.label}
-							</a>
+							</Link>
 						</li>
 					))}
 				</ul>
