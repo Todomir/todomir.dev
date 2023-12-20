@@ -1,6 +1,6 @@
 // Imports
 import type { HTMLAttributes } from "@builder.io/qwik";
-import { $, Slot, component$, useStore, useStyles$, useVisibleTask$ } from "@builder.io/qwik";
+import { $, Slot, component$, useStore, useStyles$, useTask$ } from "@builder.io/qwik";
 import CSS from "./character-button.styles.css?inline";
 
 interface Props {
@@ -56,7 +56,7 @@ const CharacterButton = component$((props: { characters: string[] }) => {
     store.characters = [...store.characters, generateCharacter(char)];
   });
 
-  useVisibleTask$(({ track, cleanup }) => {
+  useTask$(({ track, cleanup }) => {
     track(() => store.characters);
     const timeout = setTimeout(() => {
       // Delete the oldest one

@@ -1,6 +1,6 @@
 // Imports
 import type { HTMLAttributes } from "@builder.io/qwik";
-import { Slot, component$, useStore, useStyles$, useVisibleTask$ } from "@builder.io/qwik";
+import { Slot, component$, useStore, useStyles$, useTask$ } from "@builder.io/qwik";
 import CSS from "./sparkles.styles.css?inline";
 
 const DEFAULT_COLOR = "#FFC700";
@@ -51,7 +51,7 @@ export const Sparkles = component$((props: { color?: string }) => {
   useStyles$(CSS);
 
   // Generate one sparkle in random intervals, append to the sparkles array and delete the oldest one
-  useVisibleTask$(({ track, cleanup }) => {
+  useTask$(({ track, cleanup }) => {
     track(() => store.sparkles);
 
     const interval = setInterval(

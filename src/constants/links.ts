@@ -1,14 +1,14 @@
 export const NAV_LINKS = [
   {
-    url: "#about",
+    url: "#about/",
     label: "About",
   },
   {
-    url: "#projects",
+    url: "#projects/",
     label: "Projects",
   },
   {
-    url: "/blog",
+    url: "/blog/",
     label: "Blog",
   },
 ];
