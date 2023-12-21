@@ -1,10 +1,28 @@
-import { Slot, component$ } from "@builder.io/qwik";
+import { Slot, component$, h } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import Glass from "~/components/glass/glass";
-import { NAV_LINKS, SOCIAL_LINKS } from "~/constants/links";
 
-export const onGet: RequestHandler = async ({ cacheControl }) => {
+import { extractLang, useI18n } from "~/routes/[locale]/i18n-utils";
+
+export const SOCIAL_LINKS = [
+  {
+    url: "https://github.com/Todomir",
+    label: "GitHub",
+  },
+  {
+    url: "https://x.com/todomir__",
+    label: "X.com",
+  },
+  {
+    url: "https://www.linkedin.com/in/todomir/",
+    label: "LinkedIn",
+  },
+];
+
+export const onGet: RequestHandler = async ({ cacheControl, locale, params }) => {
+  locale(extractLang(params.locale));
+  h;
   // Control caching for this request for best performance and to reduce hosting costs:
   // https://qwik.builder.io/docs/caching/
   cacheControl({
@@ -22,6 +40,21 @@ export const useServerTimeLoader = routeLoader$(() => {
 });
 
 const Header = component$(() => {
+  const NAV_LINKS = [
+    {
+      url: $localize`:@@links.about:/__/#about`,
+      label: $localize`About`,
+    },
+    {
+      url: $localize`:@@links.projects:/__/#projects`,
+      label: $localize`Projects`,
+    },
+    {
+      url: $localize`:@@links.blog:/__/blog`,
+      label: $localize`Blog`,
+    },
+  ];
+
   return (
     <header class="header sticky top-1 z-20 items-center px-5 pt-12 text-zinc-100 md:px-20">
       <nav class="relative mx-auto mt-2.5 max-w-[353px] flex-col items-center justify-between  px-6 py-4">
@@ -38,7 +71,7 @@ const Header = component$(() => {
           ))}
         </ul>
 
-        <Glass spread={3} bgClass="bg-zinc-950" bgOpacity={0.35} />
+        <Glass spread={3} bgClass="bg-zinc-950" bgOpacity={0.15} />
       </nav>
     </header>
   );
@@ -52,8 +85,7 @@ const Footer = component$(() => {
       </header>
       <div class="mt-8 flex items-stretch justify-between gap-3 self-stretch max-md:max-w-full max-md:flex-wrap">
         <p class="text-pretty max-w-[70ch] shrink grow basis-auto text-sm leading-5 tracking-normal text-zinc-500">
-          Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress
-          every day.
+          {$localize`Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress every day.`}
         </p>
         <a
           href="mailto:abnerluis1001@gmail.com"
@@ -87,6 +119,7 @@ const Footer = component$(() => {
 });
 
 export default component$(() => {
+  useI18n();
   return (
     <>
       <Header />

@@ -28,10 +28,10 @@ export default component$(() => {
         style={{ viewTransitionName: "blog-section-title" }}
         class="mt-10 text-center text-4xl leading-[53px] tracking-tighter md:mt-12 md:text-6xl md:leading-[73px]"
       >
-        Blog
+        {$localize`Blog`}
       </h1>
       <p style={{ viewTransitionName: "blog-section-description" }} class="mt-4 text-center text-base leading-6">
-        My ramblings about random stuff. Updated every now and then.
+        {$localize`My ramblings about random stuff. Updated every now and then.`}
       </p>
 
       <ul class="full-width mt-20 space-y-10 rounded-xl bg-zinc-50">

@@ -1,0 +1,26 @@
+{
+  "locale": "pt-BR",
+  "translations": {
+    "8021011453006536601": "Um <span class=\"text-zinc-200\">desenvolvedor front-end criativo</span> com paixão por criar",
+    "7516480391248507810": "visualmente deslumbrantes",
+    "714535263401378287": "experiências web interativas.",
+    "5238511467205586466": "Especializado em <span class=\"text-zinc-200\">traduzir conceitos de design em interfaces de usuário eficientes e <em class=\"font-serif italic\">elegantes</em>,</span> com um olhar atento para os detalhes e foco nos princípios de design centrados no usuário.",
+    "8973952131587272073": "Acredito em capacitar <em class=\"font-serif italic\">pessoas</em>",
+    "6290299707801917386": "<span class=\"font-serif italic\">Pessoas</span> são o coração de qualquer negócio. Desenvolvo software que reúne <span class=\"font-serif italic\">pessoas</span> e as capacita, tudo isso enquanto traz um sorriso aos seus rostos.",
+    "5333948085915859293": "Eu sou Abner 👋, um desenvolvedor web inovador e apaixonado, com habilidade para criar soluções elegantes no menor tempo possível.",
+    "8742685171465132538": "Com mais de 5 anos de experiência, criei uma variedade de aplicativos web dinâmicos e visualmente atraentes para diversas indústrias. Especializado em desenvolvimento front-end, com ampla experiência na criação de experiências digitais impactantes e focadas no usuário.",
+    "9214558842904289763": "Abner Rodrigues <br /> Creat<span class=\"italic\">i</span>ve Developer",
+    "5899320195478744625": "Desenvolvedor web extraordinário, criando soluções super legais com estilo 😎",
+    "543911468674972422": "Role para baixo para ver mais.",
+    "7091571651222742304": "Projetos",
+    "3952052381712044460": "Projetos em que tenho trabalhado ultimamente <small>(e nem tão ultimamente)</small>",
+    "7751010942038334793": "Blog",
+    "8724909733421852557": "Meus devaneios sobre coisas aleatórias. Atualizado de vez em quando.",
+    "114865799106730397": "Ver todos os posts",
+    "1726363342938046830": "Sobre",
+    "7474609499872129691": "Seja a mudança que quer para o mundo. Deixe que suas ações falem mais que suas palavras. Anseie o progresso todos os dias.",
+    "links.about": "/__/#about",
+    "links.projects": "/__/#projects",
+    "links.blog": "/__/blog"
+  }
+}

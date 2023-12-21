@@ -1,4 +1,5 @@
 import { Fragment, component$ } from "@builder.io/qwik";
+import { Link } from "@builder.io/qwik-city";
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
@@ -23,14 +24,13 @@ const MOCK_BLOG_POSTS = [
 
 export default component$(() => {
   return (
-    <section class="full-width flex flex-col rounded-none bg-white px-6 py-12 max-md:px-5 md:py-32">
-      <h2 class="mt-10 text-center text-4xl leading-[53px] tracking-tighter text-gray-900  md:mt-12 md:text-6xl md:leading-[73px]">
-        Blog
+    <section class="full-width flex flex-col rounded-none bg-white px-6 py-12 text-gray-900 max-md:px-5 md:py-32">
+      <h2 class="mt-10 text-center text-4xl leading-[53px] tracking-tighter md:mt-12 md:text-6xl md:leading-[73px]">
+        {$localize`Blog`}
       </h2>
-      <p class="mt-4 self-stretch text-center text-base leading-6 text-gray-900 max-md:max-w-full">
-        My ramblings about random stuff
+      <p class="mt-4 text-center text-base leading-6">
+        {$localize`My ramblings about random stuff. Updated every now and then.`}
       </p>
-
       <section>
         <ul class="mt-20 grid grid-cols-1 gap-10">
           {MOCK_BLOG_POSTS.map((post) => (
@@ -52,13 +52,13 @@ export default component$(() => {
         </ul>
       </section>
 
-      <a
+      <Link
         href="/blog"
         class="pointer-events-auto mb-10 mt-16 flex grow cursor-pointer items-stretch justify-end gap-2 self-end whitespace-nowrap text-xl leading-7 tracking-tight text-zinc-950 max-md:mt-10"
       >
-        Ver blog
+        {$localize`See all blog posts`}
         <IconArrowTopRight />
-      </a>
+      </Link>
     </section>
   );
 });

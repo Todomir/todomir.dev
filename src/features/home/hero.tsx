@@ -60,13 +60,13 @@ export default component$(() => {
         />
       </aside>
 
-      <h1 class="mt-10 max-w-full text-center text-4xl leading-[53px] tracking-tighter text-zinc-200 md:mt-12 md:text-7xl md:leading-[96px]">
-        Abner Rodrigues <br />
-        Creat<span class="italic">i</span>ve Developer
-      </h1>
+      <h1
+        class="mt-10 max-w-full text-center text-4xl leading-[53px] tracking-tighter text-zinc-200 md:mt-12 md:text-7xl md:leading-[96px]"
+        dangerouslySetInnerHTML={$localize`Abner Rodrigues <br />Creat<span class="italic">i</span>ve Developer`}
+      />
 
       <p class="mx-auto mt-10 max-w-[524px] text-center text-xl leading-7">
-        Web Developer extraordinaire, crafting super cool solutions with style {"\u{1F60E}"}
+        {$localize`Web Developer extraordinaire, crafting super cool solutions with style \u{1F60E}`}
       </p>
 
       <div
@@ -75,7 +75,7 @@ export default component$(() => {
       >
         <IconArrowDown />
         <span id="scroll" class="sr-only text-zinc-200">
-          Scroll to see more
+          {$localize`Scroll down to see more.`}
         </span>
       </div>
     </section>
