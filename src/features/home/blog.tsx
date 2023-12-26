@@ -1,28 +1,17 @@
 import { Fragment, component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
+import type { Frontmatter } from "~/content";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
-const MOCK_BLOG_POSTS = [
-  {
-    id: "1",
-    slug: "/blog/really-qwik-site",
-    title: "A really Qwik website",
-    description: "The adventures on how I built my personal website using Qwik, an exciting new web framework",
-    tags: [
-      { id: "1_tag", name: "Qwik" },
-      { id: "2_tag", name: "Front-end" },
-    ],
-    thumbnail: {
-      srcset: "sample-srcset",
-      alt: "Sample Alt",
-      width: 100,
-      height: 100,
-    },
-  },
-];
+interface Props {
+  posts: {
+    slug: string;
+    frontmatter: Frontmatter;
+  }[];
+}
 
-export default component$(() => {
+export default component$(({ posts }: Props) => {
   return (
     <section class="full-width flex flex-col rounded-none bg-white px-6 py-12 text-gray-900 max-md:px-5 md:py-32">
       <h2 class="mt-10 text-center text-4xl leading-[53px] tracking-tighter md:mt-12 md:text-6xl md:leading-[73px]">
@@ -33,16 +22,16 @@ export default component$(() => {
       </p>
       <section>
         <ul class="mt-20 grid grid-cols-1 gap-10">
-          {MOCK_BLOG_POSTS.map((post) => (
-            <Fragment key={post.id}>
+          {posts.map((post) => (
+            <Fragment key={post.slug}>
               <li>
                 <BlogPostCard
-                  id={post.id}
-                  slug={post.slug}
-                  title={post.title}
-                  description={post.description}
-                  tags={post.tags}
-                  thumbnail={post.thumbnail}
+                  slug={`blog/${post.slug}`}
+                  title={post.frontmatter.title}
+                  description={post.frontmatter.description}
+                  date={post.frontmatter.updatedAt}
+                  tags={post.frontmatter.tags}
+                  thumbnail={post.frontmatter.thumbnail}
                 />
               </li>
 

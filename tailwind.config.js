@@ -1,5 +1,6 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
 import harmonyPalette from "@evilmartians/harmony/tailwind";
+import defaultTheme from "tailwindcss/defaultTheme";
+import typography from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -19,5 +20,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [typography],
 };

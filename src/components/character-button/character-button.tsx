@@ -44,7 +44,7 @@ export const Character = component$((props: Props) => {
   );
 });
 
-const CharacterButton = component$((props: { characters: string[] }) => {
+const CharacterButton = component$((props: { characters: string[]; class?: string }) => {
   const store = useCharacterStore();
   useStyles$(CSS);
 
@@ -67,7 +67,7 @@ const CharacterButton = component$((props: { characters: string[] }) => {
 
   // Render
   return (
-    <button onClick$={handleClick} type="button" class="character-button">
+    <button onClick$={handleClick} type="button" class={["character-button", props.class]}>
       {store.characters.map((character) => (
         <Character key={character.id} character={character.character} size={character.size} style={character.style} />
       ))}

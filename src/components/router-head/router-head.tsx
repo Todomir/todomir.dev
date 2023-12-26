@@ -17,6 +17,17 @@ export const RouterHead = component$(() => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={`(async function () {
+          if (!("paintWorklet" in CSS)) {
+            await import("https://unpkg.com/css-paint-polyfill");
+          }
+
+          CSS.paintWorklet.addModule('/border.js');
+        })();`}
+      />
+
       {head.meta.map((m) => (
         <meta key={m.key} {...m} />
       ))}

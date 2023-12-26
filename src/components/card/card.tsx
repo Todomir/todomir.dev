@@ -11,13 +11,13 @@ export default component$((props: Props) => {
         <div class="flex w-full flex-col">
           <Slot name="aside" />
         </div>
-        <div class="my-auto flex w-full flex-col gap-3 pb-6">
-          <Slot name="subheader" />
+        <header class="my-auto flex w-full flex-col gap-3 pb-6">
+          <Slot name="superheader" />
           <div class="flex w-full justify-between gap-4">
             <Slot name="title" />
           </div>
           <Slot name="description" />
-        </div>
+        </header>
       </div>
     </article>
   );

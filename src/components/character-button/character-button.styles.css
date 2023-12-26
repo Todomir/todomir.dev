@@ -14,7 +14,6 @@
 
   transition-timing-function: var(--ease-spring-5);
   transition-duration: 900ms;
-  transition-property: transform;
 }
 
 .character-button:active {
