@@ -70,7 +70,7 @@ const Header = component$(() => {
           ))}
         </ul>
 
-        <Glass spread={3} bgClass="bg-zinc-950" bgOpacity={0.58} />
+        <Glass spread={3} bgClass="bg-zinc-950" bgOpacity={0.55} />
       </nav>
     </header>
   );
@@ -103,7 +103,7 @@ const Footer = component$(() => {
               href={link.url}
               target="_blank"
               rel="noreferrer"
-              class="whitespace-nowrap text-sm leading-5 tracking-normal text-zinc-200"
+              class="whitespace-nowrap text-sm leading-5 tracking-normal text-zinc-900"
             >
               {link.label}
             </a>

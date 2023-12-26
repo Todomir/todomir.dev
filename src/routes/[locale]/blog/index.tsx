@@ -1,27 +1,25 @@
 import { Fragment, component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
+
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 
-const MOCK_BLOG_POSTS = [
-  {
-    id: "1",
-    slug: "/blog/really-qwik-site",
-    title: "A really Qwik website",
-    description: "The adventures on how I built my personal website using Qwik, an exciting new web framework",
-    tags: [
-      { id: "1_tag", name: "Qwik" },
-      { id: "2_tag", name: "Front-end" },
-    ],
-    thumbnail: {
-      srcset: "sample-srcset",
-      alt: "Sample Alt",
-      width: 100,
-      height: 100,
-    },
-  },
-];
+import { getPostsByLocale } from "~/content";
+import { extractLang } from "../i18n-utils";
+
+export const usePosts = routeLoader$(async ({ params, error }) => {
+  try {
+    const guessedLocale = extractLang(params.locale);
+    const posts = await getPostsByLocale(guessedLocale);
+
+    return posts;
+  } catch (e) {
+    throw error(500, "Something went wrong while loading posts");
+  }
+});
 
 export default component$(() => {
+  const posts = usePosts();
+
   return (
     <section class="full-width content-grid relative w-full bg-zinc-950 py-24">
       <h1
@@ -35,16 +33,16 @@ export default component$(() => {
       </p>
 
       <ul class="full-width mt-20 space-y-10 rounded-xl bg-zinc-50">
-        {MOCK_BLOG_POSTS.map((post) => (
-          <Fragment key={post.id}>
+        {posts.value.map((post) => (
+          <Fragment key={post.slug}>
             <li>
               <BlogPostCard
-                id={post.id}
                 slug={post.slug}
-                title={post.title}
-                description={post.description}
-                tags={post.tags}
-                thumbnail={post.thumbnail}
+                title={post.frontmatter.title}
+                description={post.frontmatter.description}
+                date={post.frontmatter.updatedAt}
+                tags={post.frontmatter.tags}
+                thumbnail={post.frontmatter.thumbnail}
               />
             </li>
 
@@ -58,19 +56,6 @@ export default component$(() => {
 
 export const head: DocumentHead = {
   title: "Blog - Abner Rodrigues | Creative Developer",
-  scripts: [
-    {
-      script: `
-        (async function () {
-          if (!("paintWorklet" in CSS)) {
-            await import("https://unpkg.com/css-paint-polyfill");
-          }
-
-          CSS.paintWorklet.addModule('/border.js');
-        })();
-      `,
-    },
-  ],
   meta: [
     {
       name: "description",
