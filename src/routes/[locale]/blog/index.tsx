@@ -13,6 +13,7 @@ export const usePosts = routeLoader$(async ({ params, error }) => {
 
     return posts;
   } catch (e) {
+    console.error(e);
     throw error(500, "Something went wrong while loading posts");
   }
 });

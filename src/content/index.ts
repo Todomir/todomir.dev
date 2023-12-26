@@ -1,6 +1,6 @@
 import type { DocumentHead } from "@builder.io/qwik-city";
 import type { Output } from "valibot";
-import { array, boolean, object, parse, string, transform } from "valibot";
+import { array, boolean, object, parse, safeParse, string, transform } from "valibot";
 
 const FRONTMATTER_SCHEMA = transform(
   object({
@@ -43,18 +43,23 @@ export const getPostBySlug = async (slug: string, locale: string) => {
 
   try {
     const resource = (await posts[path]()) as Post & { default: () => any };
-    const frontmatter = parse(FRONTMATTER_SCHEMA, resource.frontmatter);
+    const result = safeParse(FRONTMATTER_SCHEMA, resource.frontmatter);
 
-    const post = {
-      slug: slug,
-      frontmatter,
-      head: resource.head,
-      content: resource.default().children.type(),
-    };
+    if (result.success) {
+      const frontmatter = result.output;
+      const post = {
+        slug: slug,
+        frontmatter,
+        head: resource.head,
+        content: resource.default().children.type(),
+      };
 
-    return post;
+      return post;
+    } else {
+      throw new Error(`Invalid frontmatter for slug ${slug}`, { cause: result.issues });
+    }
   } catch (error) {
-    throw new Error(`No MDX file found for slug ${slug}`);
+    throw new Error(`No MDX file found for slug ${slug}`, { cause: error });
   }
 };
 
