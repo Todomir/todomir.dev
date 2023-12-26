@@ -1,4 +1,4 @@
-import { Slot, component$, h } from "@builder.io/qwik";
+import { Slot, component$ } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import Glass from "~/components/glass/glass";
@@ -22,7 +22,6 @@ export const SOCIAL_LINKS = [
 
 export const onGet: RequestHandler = async ({ cacheControl, locale, params }) => {
   locale(extractLang(params.locale));
-  h;
   // Control caching for this request for best performance and to reduce hosting costs:
   // https://qwik.builder.io/docs/caching/
   cacheControl({
@@ -71,7 +70,7 @@ const Header = component$(() => {
           ))}
         </ul>
 
-        <Glass spread={3} bgClass="bg-zinc-950" bgOpacity={0.15} />
+        <Glass spread={3} bgClass="bg-zinc-950" bgOpacity={0.58} />
       </nav>
     </header>
   );
