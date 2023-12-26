@@ -27,6 +27,7 @@ const $localizeFn = $localize as any as {
  * appropriate translation based on the current locale which is store in the `usEnvDate('local')`.
  */
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 if (!$localizeFn.TRANSLATION_BY_LOCALE) {
   $localizeFn.TRANSLATION_BY_LOCALE = new Map([["", {}]]);
   Object.defineProperty($localize, "TRANSLATIONS", {

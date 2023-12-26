@@ -42,7 +42,7 @@ export default component$(({ posts }: Props) => {
       </section>
 
       <Link
-        href="/blog"
+        href={$localize`:@@links.blog:/__/blog`}
         class="pointer-events-auto mb-10 mt-16 flex grow cursor-pointer items-stretch justify-end gap-2 self-end whitespace-nowrap text-xl leading-7 tracking-tight text-zinc-950 max-md:mt-10"
       >
         {$localize`See all blog posts`}

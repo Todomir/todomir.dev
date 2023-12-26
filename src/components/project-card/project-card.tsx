@@ -31,7 +31,7 @@ export default component$((props: Props) => {
       </p>
       <img
         q:slot="aside"
-        srcSet={props.thumbnail.srcset}
+        srcset={props.thumbnail.srcset}
         alt={props.thumbnail.alt}
         width={props.thumbnail.width}
         height={props.thumbnail.height}
