@@ -22,11 +22,11 @@ interface Props {
 export default component$((props: Props) => {
   return (
     <Card class="mt-20 bg-zinc-950">
-      <h4 q:slot="title" class="grow space-x-3 text-3xl font-medium leading-10 tracking-tighter">
+      <h4 q:slot="title" class="grow space-x-2 text-3xl font-medium leading-10 tracking-tighter">
         <a href={props.slug}>{props.title}</a>
         {props.slug !== "" && <IconArrowTopRight class="inline-block" />}
       </h4>
-      <p q:slot="description" class="mt-7 overflow-hidden text-ellipsis text-pretty text-base leading-6 text-zinc-300">
+      <p q:slot="description" class="text-balance overflow-hidden text-ellipsis text-base leading-6 text-zinc-300">
         {props.description}
       </p>
       <img
@@ -38,7 +38,7 @@ export default component$((props: Props) => {
         loading="lazy"
         class="aspect-[1.54] w-full overflow-hidden rounded-lg object-contain object-center"
       />
-      <ul q:slot="subheader" class="flex items-start gap-4">
+      <ul q:slot="superheader" class="flex items-start gap-4">
         {props.tags.map((tag, index) => (
           <Fragment key={tag.id}>
             <li class="leading-6 text-zinc-500 ">{tag.name}</li>

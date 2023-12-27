@@ -23,7 +23,7 @@ export default component$(({ slug, title, description, date, tags, thumbnail }: 
           {$localize`Last updated at`} {date.toLocaleDateString()}
         </time>
       </div>
-      <p q:slot="description" class="mt-7 overflow-hidden text-ellipsis text-pretty text-base leading-6">
+      <p q:slot="description" class="text-pretty mt-4 overflow-hidden text-ellipsis text-base leading-6">
         {description}
       </p>
       <img
