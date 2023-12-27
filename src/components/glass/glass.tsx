@@ -18,7 +18,7 @@ export default component$(
     const lookAhead = blur * spread;
 
     return (
-      <div aria-hidden class="absolute inset-0 -z-10 overflow-x-clip">
+      <div aria-hidden={true} class="absolute inset-0 -z-10 overflow-x-clip">
         <div
           style={{
             inset: `-${lookAhead}px`,

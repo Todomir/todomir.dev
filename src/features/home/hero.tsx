@@ -66,9 +66,9 @@ export default component$(() => {
           dangerouslySetInnerHTML={$localize`Abner Rodrigues <br />Creat<span class="italic">i</span>ve Developer`}
         />
 
-        <p class="mx-auto mt-10 max-w-[524px] text-center text-xl leading-7">
+        <h2 class="mx-auto mt-10 max-w-[524px] text-center text-xl leading-7">
           {$localize`Web Developer extraordinaire, crafting super cool solutions with style \u{1F60E}`}
-        </p>
+        </h2>
 
         <div
           aria-labelledby="scroll"

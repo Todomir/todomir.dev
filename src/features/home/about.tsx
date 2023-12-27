@@ -8,6 +8,7 @@ export default component$(() => {
       <div class="flex flex-col gap-8 md:gap-20 lg:flex-row">
         <ImgMe
           id="img-me"
+          alt={$localize`An image of Abner Luis, a web developer from Brazil, creator of this website`}
           class="ml-0 mt-10 max-h-[600px] w-full grow overflow-hidden rounded-lg object-cover object-center"
         />
         <header class="my-auto flex max-w-full flex-col gap-4">

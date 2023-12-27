@@ -15,11 +15,11 @@ export default component$(({ slug, title, description, date, tags, thumbnail }: 
   return (
     <Card class="mt-20 text-zinc-800">
       <div q:slot="title" class="space-y-1">
-        <h4 class="grow space-x-3 text-3xl font-medium leading-10 tracking-tighter">
+        <h3 class="grow space-x-3 text-3xl font-medium leading-10 tracking-tighter">
           <a href={slug}>{title}</a>
           <IconArrowTopRight class="inline-block" />
-        </h4>
-        <time class="block text-sm leading-6 opacity-50" dateTime={date.toISOString()}>
+        </h3>
+        <time class="block text-sm leading-6 opacity-70" dateTime={date.toISOString()}>
           {$localize`Last updated at`} {date.toLocaleDateString()}
         </time>
       </div>
