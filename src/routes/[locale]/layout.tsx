@@ -55,7 +55,7 @@ const Header = component$(() => {
   ];
 
   return (
-    <header class="header fixed top-1 z-20 w-full items-center px-5 pt-12 text-zinc-50 md:px-20">
+    <header class="header fixed left-1/2 top-1 z-20 -translate-x-1/2 items-center px-5 pt-12 text-zinc-50 md:px-20">
       <nav class="relative mx-auto mt-2.5 max-w-[353px] flex-col items-center justify-between px-6 py-4">
         <ul class="gap- flex justify-around">
           {NAV_LINKS.map((link) => (

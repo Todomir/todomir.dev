@@ -18,8 +18,8 @@ export default component$(() => {
   const post = usePost();
 
   return (
-    <div class="content-grid mb-24 py-12 text-black">
-      <header class="my-12 space-y-2 md:space-y-4">
+    <div class="content-grid mb-24 pb-12 pt-36 text-black">
+      <header class="my-12 md:space-y-4">
         <ul class="space-x-2">
           {post.value.frontmatter.tags.map((tag) => (
             <li
@@ -35,14 +35,21 @@ export default component$(() => {
           {post.value.frontmatter.title}
         </h1>
 
-        <time class="mt-4 text-balance text-base leading-6 opacity-50">
+        <time class="text-balance mt-4 text-base leading-6 opacity-50">
           {$localize`Last updated at`} {post.value.frontmatter.updatedAt.toLocaleDateString()}
         </time>
+
+        <img
+          width={956}
+          height={560}
+          class="mt-10 block h-auto w-full rounded-xl shadow-lg"
+          src={post.value.frontmatter.thumbnail}
+        />
       </header>
 
       <p class="leading-1 mb-24 text-xl font-medium md:text-3xl">{post.value.frontmatter.description}</p>
 
-      <div class="prose max-w-none text-pretty lg:prose-xl">{post.value.content}</div>
+      <div class="text-pretty prose max-w-none lg:prose-xl">{post.value.content}</div>
     </div>
   );
 });
