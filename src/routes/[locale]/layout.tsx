@@ -78,12 +78,12 @@ const Header = component$(() => {
 
 const Footer = component$(() => {
   return (
-    <footer class="full-width footer flex w-full flex-col bg-zinc-950 px-20 py-12 text-zinc-300 max-md:px-5">
+    <footer class="full-width footer flex w-full flex-col bg-zinc-950 px-5 py-12 text-zinc-300 md:px-20">
       <header class="mt-8 items-stretch justify-center self-start whitespace-nowrap border-[0.62px] border-solid border-zinc-700 bg-zinc-700 bg-opacity-20 px-3.5 py-3.5 text-xl font-bold leading-6 tracking-tighter text-zinc-200">
         LOGO
       </header>
-      <div class="mt-8 flex items-stretch justify-between gap-3 self-stretch max-md:max-w-full max-md:flex-wrap">
-        <p class="max-w-[70ch] shrink grow basis-auto text-pretty text-sm leading-5 tracking-normal text-zinc-500">
+      <div class="mt-8 flex max-w-full flex-wrap items-stretch justify-between gap-3 self-stretch">
+        <p class="text-pretty max-w-[70ch] shrink grow basis-auto text-sm leading-5 tracking-normal text-zinc-500">
           {$localize`Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress every day.`}
         </p>
         <a
@@ -95,8 +95,8 @@ const Footer = component$(() => {
           abnerluis1001@gmail.com
         </a>
       </div>
-      <hr class="mt-10 h-px shrink-0 self-stretch border-zinc-800 max-md:max-w-full" />
-      <ul class="mt-8 flex justify-between gap-5 max-md:max-w-full max-md:flex-wrap max-md:justify-center md:justify-start">
+      <hr class="mt-10 h-px max-w-full shrink-0 self-stretch border-zinc-800" />
+      <ul class="mt-8 flex max-w-full flex-wrap justify-center gap-5 sm:justify-between md:justify-start">
         {SOCIAL_LINKS.map((link) => (
           <li key={`social-link-${link.label}-${link.url}`}>
             <a

@@ -13,7 +13,7 @@ interface Props {
 
 export default component$(({ posts }: Props) => {
   return (
-    <section class="full-width flex flex-col rounded-none bg-white px-6 py-12 text-gray-900 max-md:px-5 md:py-32">
+    <section class="full-width flex flex-col rounded-none bg-white px-5 py-12 text-gray-900 md:px-6 md:py-32">
       <h2 class="mt-10 text-center text-4xl leading-[53px] tracking-tighter md:mt-12 md:text-6xl md:leading-[73px]">
         {$localize`Blog`}
       </h2>
@@ -43,7 +43,7 @@ export default component$(({ posts }: Props) => {
 
       <Link
         href={$localize`:@@links.blog:/__/blog`}
-        class="pointer-events-auto mb-10 mt-16 flex grow cursor-pointer items-stretch justify-end gap-2 self-end whitespace-nowrap text-xl leading-7 tracking-tight text-zinc-950 max-md:mt-10"
+        class="pointer-events-auto mb-10 mt-10 flex grow cursor-pointer items-stretch justify-end gap-2 self-end whitespace-nowrap text-xl leading-7 tracking-tight text-zinc-950 md:mt-16"
       >
         {$localize`See all blog posts`}
         <IconArrowTopRight />

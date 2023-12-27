@@ -26,7 +26,7 @@ const MOCK_PROJECTS = [
 export default component$(() => {
   return (
     <section id="projects" class="full-width flex flex-col rounded-b-xl bg-zinc-950 px-5 py-12 text-zinc-300 md:px-16">
-      <h2 class="mt-12 text-4xl font-medium leading-[54px] tracking-tighter  max-md:mt-10 md:text-7xl md:leading-[91px]">
+      <h2 class="mt-10 text-4xl font-medium leading-[54px] tracking-tighter md:mt-12 md:text-7xl md:leading-[91px]">
         {$localize`Projects`}
       </h2>
       <h3
