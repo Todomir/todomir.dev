@@ -37,7 +37,7 @@ export default component$(() => {
     }),
   );
   return (
-    <section id="hero" class="full-width relative flex h-fit flex-col bg-zinc-950 py-24">
+    <section id="hero" class="full-width relative flex h-fit flex-col bg-zinc-950 py-24 text-zinc-300">
       <aside class="full-width pointer-events-none absolute inset-0 mb-12 -translate-y-12 overflow-x-clip">
         <div
           data-direction="left"
@@ -60,23 +60,25 @@ export default component$(() => {
         />
       </aside>
 
-      <h1
-        class="mt-10 max-w-full text-center text-4xl leading-[53px] tracking-tighter text-zinc-200 md:mt-12 md:text-7xl md:leading-[96px]"
-        dangerouslySetInnerHTML={$localize`Abner Rodrigues <br />Creat<span class="italic">i</span>ve Developer`}
-      />
+      <div class="my-auto py-24 md:py-36">
+        <h1
+          class="z-10 max-w-full text-center text-4xl leading-[53px] tracking-tighter text-zinc-200 md:mt-12 md:text-7xl md:leading-[96px]"
+          dangerouslySetInnerHTML={$localize`Abner Rodrigues <br />Creat<span class="italic">i</span>ve Developer`}
+        />
 
-      <p class="mx-auto mt-10 max-w-[524px] text-center text-xl leading-7">
-        {$localize`Web Developer extraordinaire, crafting super cool solutions with style \u{1F60E}`}
-      </p>
+        <p class="mx-auto mt-10 max-w-[524px] text-center text-xl leading-7">
+          {$localize`Web Developer extraordinaire, crafting super cool solutions with style \u{1F60E}`}
+        </p>
 
-      <div
-        aria-labelledby="scroll"
-        class="group mx-auto mb-36 mt-20 flex h-fit w-fit gap-4 rounded-full bg-zinc-900/10 p-9 md:mb-64"
-      >
-        <IconArrowDown />
-        <span id="scroll" class="sr-only text-zinc-200">
-          {$localize`Scroll down to see more.`}
-        </span>
+        <div
+          aria-labelledby="scroll"
+          class="group mx-auto mt-20 flex h-fit w-fit gap-4 rounded-full bg-zinc-900/10 p-9"
+        >
+          <IconArrowDown />
+          <span id="scroll" class="sr-only text-zinc-200">
+            {$localize`Scroll down to see more.`}
+          </span>
+        </div>
       </div>
     </section>
   );

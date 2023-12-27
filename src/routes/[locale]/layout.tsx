@@ -55,7 +55,7 @@ const Header = component$(() => {
   ];
 
   return (
-    <header class="header sticky top-1 z-20 items-center px-5 pt-12 text-zinc-100 md:px-20">
+    <header class="header fixed top-1 z-20 w-full items-center px-5 pt-12 text-zinc-100 md:px-20">
       <nav class="relative mx-auto mt-2.5 max-w-[353px] flex-col items-center justify-between  px-6 py-4">
         <ul class="gap- flex justify-around">
           {NAV_LINKS.map((link) => (
@@ -78,7 +78,7 @@ const Header = component$(() => {
 
 const Footer = component$(() => {
   return (
-    <footer class="full-width footer flex w-full flex-col bg-zinc-950 px-20 py-12 max-md:px-5">
+    <footer class="full-width footer flex w-full flex-col bg-zinc-950 px-20 py-12 text-zinc-300 max-md:px-5">
       <header class="mt-8 items-stretch justify-center self-start whitespace-nowrap border-[0.62px] border-solid border-zinc-700 bg-zinc-700 bg-opacity-20 px-3.5 py-3.5 text-xl font-bold leading-6 tracking-tighter text-zinc-200">
         LOGO
       </header>
@@ -122,7 +122,7 @@ export default component$(() => {
   return (
     <>
       <Header />
-      <main class="content-grid bg-white">
+      <main class="content-grid">
         <Slot />
       </main>
       <Footer />

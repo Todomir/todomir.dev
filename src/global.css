@@ -149,17 +149,8 @@
 }
 
 :where(html) {
-  @apply scroll-smooth bg-zinc-950 text-zinc-200;
+  @apply scroll-smooth;
 }
-
-.text-balance {
-  text-wrap: balance;
-}
-
-.text-pretty {
-  text-wrap: pretty;
-}
-
 .content-grid {
   --padding-inline: 1rem;
   --content-max-width: 1200px;

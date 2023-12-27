@@ -22,10 +22,10 @@ export default component$(() => {
   const posts = usePosts();
 
   return (
-    <section class="full-width content-grid relative w-full bg-zinc-950 py-24">
+    <section class="full-width content-grid relative w-full bg-zinc-950 py-24 text-zinc-300">
       <h1
         style={{ viewTransitionName: "blog-section-title" }}
-        class="mt-10 text-center text-4xl leading-[53px] tracking-tighter md:mt-12 md:text-6xl md:leading-[73px]"
+        class="mt-10 text-center text-4xl leading-[53px] tracking-tighter text-zinc-200 md:mt-12 md:text-6xl md:leading-[73px]"
       >
         {$localize`Blog`}
       </h1>
