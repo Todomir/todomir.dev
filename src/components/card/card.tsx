@@ -6,7 +6,7 @@ interface Props {
 
 export default component$((props: Props) => {
   return (
-    <article class={["rounded-xl sm:p-2 md:p-10", props.class]}>
+    <article class={["rounded-xl sm:p-1 md:p-10", props.class]}>
       <div class="flex flex-col gap-10 md:flex-row md:gap-12">
         <div class="flex w-full flex-col">
           <Slot name="aside" />

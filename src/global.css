@@ -189,3 +189,17 @@ img.full-width {
   max-height: 45vh;
   object-fit: cover;
 }
+
+:is(img) {
+  all: unset;
+
+  max-width: 100%;
+  height: auto;
+  vertical-align: center;
+
+  font-style: italic;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  shape-margin: 0.75em;
+}

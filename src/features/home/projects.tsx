@@ -33,22 +33,21 @@ export default component$(() => {
         class="mt-4 text-xl leading-7 text-zinc-500"
         dangerouslySetInnerHTML={$localize`Projects I've been working on lately <small>(and not so lately)</small>`}
       />
-      <section>
-        <ul class="mt-20 grid grid-cols-1 gap-10">
-          {MOCK_PROJECTS.map((post) => (
-            <li key={post.id}>
-              <ProjectCard
-                id={post.id}
-                slug={post.slug}
-                title={post.title}
-                description={post.description}
-                tags={post.tags}
-                thumbnail={post.thumbnail}
-              />
-            </li>
-          ))}
-        </ul>
-      </section>
+
+      <ul class="mt-20 grid grid-cols-1 gap-10">
+        {MOCK_PROJECTS.map((post) => (
+          <li key={post.id}>
+            <ProjectCard
+              id={post.id}
+              slug={post.slug}
+              title={post.title}
+              description={post.description}
+              tags={post.tags}
+              thumbnail={post.thumbnail}
+            />
+          </li>
+        ))}
+      </ul>
     </section>
   );
 });
