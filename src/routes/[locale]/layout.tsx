@@ -83,7 +83,7 @@ const Footer = component$(() => {
         LOGO
       </header>
       <div class="mt-8 flex items-stretch justify-between gap-3 self-stretch max-md:max-w-full max-md:flex-wrap">
-        <p class="text-pretty max-w-[70ch] shrink grow basis-auto text-sm leading-5 tracking-normal text-zinc-500">
+        <p class="max-w-[70ch] shrink grow basis-auto text-pretty text-sm leading-5 tracking-normal text-zinc-500">
           {$localize`Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress every day.`}
         </p>
         <a
@@ -103,7 +103,7 @@ const Footer = component$(() => {
               href={link.url}
               target="_blank"
               rel="noreferrer"
-              class="whitespace-nowrap text-sm leading-5 tracking-normal text-zinc-900"
+              class="text-sm leading-5 tracking-normal text-zinc-500 underline underline-offset-2 transition-all ease-spring-2 hover:font-semibold hover:text-zinc-100"
             >
               {link.label}
             </a>
@@ -122,7 +122,7 @@ export default component$(() => {
   return (
     <>
       <Header />
-      <main class="content-grid">
+      <main class="content-grid min-h-dvh">
         <Slot />
       </main>
       <Footer />

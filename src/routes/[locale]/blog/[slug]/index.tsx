@@ -35,14 +35,14 @@ export default component$(() => {
           {post.value.frontmatter.title}
         </h1>
 
-        <time class="text-balance mt-4 text-base leading-6 opacity-50">
+        <time class="mt-4 text-balance text-base leading-6 opacity-50">
           {$localize`Last updated at`} {post.value.frontmatter.updatedAt.toLocaleDateString()}
         </time>
       </header>
 
       <p class="leading-1 mb-24 text-xl font-medium md:text-3xl">{post.value.frontmatter.description}</p>
 
-      <div class="prose lg:prose-xl text-pretty max-w-none">{post.value.content}</div>
+      <div class="prose max-w-none text-pretty lg:prose-xl">{post.value.content}</div>
     </div>
   );
 });

@@ -51,12 +51,12 @@ export default component$(() => {
 
         <div
           data-direction="right"
-          class="absolute -bottom-8 -right-24 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
+          class="absolute -bottom-8 -right-36 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
         />
 
         <div
           data-direction="right"
-          class="absolute -right-24 -top-24 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
+          class="absolute -right-24 -top-4 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
         />
       </aside>
 

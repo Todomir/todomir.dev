@@ -26,7 +26,7 @@ export default component$((props: Props) => {
         <a href={props.slug}>{props.title}</a>
         {props.slug !== "" && <IconArrowTopRight class="inline-block" />}
       </h4>
-      <p q:slot="description" class="text-pretty mt-7 overflow-hidden text-ellipsis text-base leading-6 text-zinc-300">
+      <p q:slot="description" class="mt-7 overflow-hidden text-ellipsis text-pretty text-base leading-6 text-zinc-300">
         {props.description}
       </p>
       <img
