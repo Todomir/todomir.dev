@@ -31,7 +31,7 @@ export default component$(() => {
             href="mailto:abnerluis1001@gmail.com"
             target="_blank"
             rel="noreferrer"
-            class="mt-12 max-w-full cursor-pointer whitespace-nowrap text-2xl leading-8 tracking-tight text-zinc-500 underline"
+            class="mt-12 max-w-full cursor-pointer whitespace-nowrap text-xl leading-8 tracking-tight text-zinc-500 underline md:text-2xl"
           >
             abnerluis1001@gmail.com
           </a>
