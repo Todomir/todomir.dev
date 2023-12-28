@@ -1,41 +1,40 @@
-import { $, component$, useOnDocument } from "@builder.io/qwik";
+import { component$, useVisibleTask$ } from "@builder.io/qwik";
 import { animate, scroll, spring } from "motion";
 
 import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
 
 export default component$(() => {
-  useOnDocument(
-    "load",
-    $(() => {
-      const aside = document.querySelector<HTMLDivElement>("#hero aside");
-      if (!aside) return;
+  // We want this to run only once it is visible, and eagerly, on the client. So we use `useVisibleTask$`.
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    const aside = document.querySelector<HTMLDivElement>("#hero aside");
+    if (!aside) return;
 
-      const images = aside.querySelectorAll("*");
+    const images = aside.querySelectorAll("*");
 
-      const springConfig = {
-        mass: 5,
-        stiffness: 200,
-        damping: 150,
-      };
+    const springConfig = {
+      mass: 5,
+      stiffness: 200,
+      damping: 150,
+    };
 
-      // biome-ignore lint/complexity/noForEach: The `target` option of the animate function only accepts single items
-      images.forEach((image, i) => {
-        animate(
-          image,
-          {
-            x: i >= 2 ? ["100%", 0] : ["-100%", 0],
-            opacity: [0, 1],
-          },
-          {
-            delay: i * 0.2,
-            easing: spring(springConfig),
-          },
-        );
+    images.forEach((image, i) => {
+      animate(
+        image,
+        {
+          x: i >= 2 ? ["100%", 0] : ["-100%", 0],
+          opacity: [0, 1],
+        },
+        {
+          delay: i * 0.2,
+          easing: spring(springConfig),
+        },
+      );
 
-        scroll(animate(image, { y: [null, `-${200 + i * 90}%`] }, { easing: spring(springConfig) }));
-      });
-    }),
-  );
+      scroll(animate(image, { y: [null, `-${200 + i * 90}%`] }, { easing: spring(springConfig) }));
+    });
+  });
+
   return (
     <section id="hero" class="full-width relative flex h-fit flex-col bg-zinc-950 py-24 text-zinc-300">
       <aside class="full-width pointer-events-none absolute inset-0 mb-12 -translate-y-12 overflow-x-clip">
