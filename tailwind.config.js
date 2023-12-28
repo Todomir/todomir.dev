@@ -3,7 +3,7 @@ import defaultTheme from "tailwindcss/defaultTheme";
 import typography from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     colors: harmonyPalette,
@@ -22,3 +22,5 @@ module.exports = {
   },
   plugins: [typography],
 };
+
+module.exports = config;
