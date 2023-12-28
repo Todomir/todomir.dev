@@ -35,7 +35,7 @@ export default component$(() => {
           {post.value.frontmatter.title}
         </h1>
 
-        <time class="text-balance mt-4 text-base leading-6 opacity-50">
+        <time class="mt-4 text-balance text-base leading-6 opacity-50">
           {$localize`Last updated at`} {post.value.frontmatter.updatedAt.toLocaleDateString()}
         </time>
 
@@ -49,29 +49,12 @@ export default component$(() => {
 
       <p class="leading-1 mb-24 text-xl font-medium md:text-3xl">{post.value.frontmatter.description}</p>
 
-      <div class="text-pretty prose max-w-none lg:prose-xl">{post.value.content}</div>
+      <div class="prose max-w-none text-pretty lg:prose-xl">{post.value.content}</div>
     </div>
   );
 });
 
 export const head: DocumentHead = ({ resolveValue }) => {
   const post = resolveValue(usePost);
-  const head = post.head as any;
-  return {
-    ...(head as any),
-    scripts: [
-      ...head.scripts,
-      {
-        type: "application/ld+json",
-        script: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          headline: post.frontmatter.title,
-          description: post.frontmatter.description,
-          datePublished: post.frontmatter.createdAt.toISOString(),
-          dateModified: post.frontmatter.updatedAt.toISOString(),
-        }),
-      },
-    ],
-  };
+  return post.head;
 };

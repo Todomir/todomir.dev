@@ -1,4 +1,4 @@
-import type { DocumentHead } from "@builder.io/qwik-city";
+import type { DocumentHeadValue } from "@builder.io/qwik-city";
 import type { Output } from "valibot";
 import { array, boolean, object, parse, safeParse, string, transform } from "valibot";
 
@@ -31,7 +31,7 @@ type Headings = {
 
 export type Post = {
   headings: Headings[];
-  head: DocumentHead;
+  head: DocumentHeadValue;
   frontmatter: Frontmatter;
   content?: any;
 };
@@ -47,6 +47,7 @@ export const getPostBySlug = async (slug: string, locale: string) => {
 
     if (result.success) {
       const frontmatter = result.output;
+
       const post = {
         slug: slug,
         frontmatter,
@@ -56,29 +57,33 @@ export const getPostBySlug = async (slug: string, locale: string) => {
 
       return post;
     } else {
-      throw new Error(`Invalid frontmatter for slug ${slug}`, { cause: result.issues });
+      throw new Error(`Invalid frontmatter for slug ${slug}`);
     }
   } catch (error) {
-    throw new Error(`No MDX file found for slug ${slug}`, { cause: error });
+    throw new Error(`Error retrieving MDX file for slug ${slug}`, { cause: error });
   }
 };
 
 export const getPostsByLocale = async (locale: string) => {
   const paths = Object.keys(posts).filter((path) => path.includes(`/${locale}/`));
 
-  const postsByLocale = await Promise.all(
-    paths.map(async (path) => {
-      const resource = (await posts[path]()) as Post;
-      const frontmatter = parse(FRONTMATTER_SCHEMA, resource.frontmatter);
+  try {
+    const postsByLocale = await Promise.all(
+      paths.map(async (path) => {
+        const resource = (await posts[path]()) as Post;
+        const frontmatter = parse(FRONTMATTER_SCHEMA, resource.frontmatter);
 
-      const post = {
-        slug: path.split("/").pop()?.replace(".mdx", "") || "",
-        frontmatter,
-      };
+        const post = {
+          slug: path.split("/").pop()?.replace(".mdx", "") || "",
+          frontmatter,
+        };
 
-      return post;
-    }),
-  );
+        return post;
+      }),
+    );
 
-  return postsByLocale;
+    return postsByLocale;
+  } catch (error) {
+    throw new Error(`Error retrieving posts for locale ${locale}`, { cause: error });
+  }
 };
