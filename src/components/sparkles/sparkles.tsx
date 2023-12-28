@@ -10,7 +10,7 @@ const random = (min: number, max: number) => Math.floor(Math.random() * (max - m
 
 // Generate a single sparkle
 const generateSparkle = (color: string) => ({
-  id: String(random(10000, 99999)),
+  id: crypto.getRandomValues(new Uint32Array(1))[0].toString(16),
   createdAt: Date.now(),
   color,
   size: random(10, 20),
