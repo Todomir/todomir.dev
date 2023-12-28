@@ -57,7 +57,7 @@ export default component$<{ color?: string }>((props) => {
       () => {
         store.sparkles = [generateSparkle(color), ...store.sparkles.slice(0, store.sparkles.length - 1)];
       },
-      random(50, 500),
+      random(50, 900),
     );
 
     cleanup(() => clearInterval(interval));
