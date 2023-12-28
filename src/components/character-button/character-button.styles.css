@@ -2,8 +2,10 @@
   position: absolute;
   display: block;
   animation: fly 900ms forwards ease-in-out;
+  pointer-events: none;
 }
 .character-button__char {
+  pointer-events: none;
   display: block;
   animation: spin 1000ms linear;
 }
@@ -13,14 +15,12 @@
   z-index: 1;
 
   transition-timing-function: var(--ease-spring-5);
-  transition-duration: 900ms;
-}
+  transition-duration: 600ms;
 
-.character-button:active {
-  transition-duration: 200ms;
-  transform: scale(1.1, 0.9);
+  &:active {
+    transform: scale(1.1, 0.9);
+  }
 }
-
 @keyframes fly {
   0% {
     opacity: 0;
