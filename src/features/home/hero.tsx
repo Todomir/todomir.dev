@@ -19,43 +19,49 @@ export default component$(() => {
     };
 
     images.forEach((image, i) => {
+      const speedMultiplier = Number((image as HTMLElement).dataset.speed) || 1;
+      const speed = 350 * speedMultiplier;
+
       animate(
         image,
-        {
-          x: i >= 2 ? ["100%", 0] : ["-100%", 0],
-          opacity: [0, 1],
-        },
-        {
-          delay: i * 0.2,
-          easing: spring(springConfig),
-        },
+        { x: i >= 2 ? ["100%", 0] : ["-100%", 0], opacity: [0, 1] },
+        { delay: i * 0.2, easing: spring(springConfig) },
       );
-
-      scroll(animate(image, { y: [null, `-${200 + i * 90}%`] }, { easing: spring(springConfig) }));
+      const animationParams = { y: [null, `-${speed}%`] };
+      scroll(
+        animate(image, animationParams, {
+          easing: spring({
+            mass: 75,
+            stiffness: 30,
+            damping: 15,
+          }),
+          delay: 0,
+        }),
+      );
     });
   });
 
   return (
     <section id="hero" class="full-width relative flex h-fit flex-col bg-zinc-950 py-24 text-zinc-300">
       <aside class="full-width pointer-events-none absolute inset-0 mb-12 -translate-y-12 overflow-x-clip">
+        {/* Top */}
         <div
-          data-direction="left"
+          data-speed={2.5}
           class="absolute -left-24 -top-12 aspect-video w-[clamp(238px,50%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
         />
-
         <div
-          data-direction="left"
-          class="absolute -bottom-4 -left-36 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
+          data-speed={2.2}
+          class="absolute -right-24 -top-4 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
         />
 
+        {/* Bottom */}
         <div
-          data-direction="right"
+          data-speed={1}
           class="absolute -bottom-8 -right-36 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
         />
-
         <div
-          data-direction="right"
-          class="absolute -right-24 -top-4 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
+          data-speed={1.2}
+          class="absolute -bottom-4 -left-36 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
         />
       </aside>
 
