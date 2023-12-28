@@ -1,6 +1,6 @@
 .sparkle__wrapper {
   position: absolute;
-  display: block;
+  display: inline-block;
   animation: comeInOut 700ms forwards;
 }
 .sparkle__svg {
