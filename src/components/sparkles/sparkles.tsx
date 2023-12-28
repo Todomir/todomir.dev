@@ -1,14 +1,16 @@
-// Imports
 import type { HTMLAttributes } from "@builder.io/qwik";
 import { Slot, component$, useStore, useStyles$, useVisibleTask$ } from "@builder.io/qwik";
 import CSS from "./sparkles.styles.css?inline";
+import { random } from "~/utils/functions";
 
-const DEFAULT_COLOR = "#FFC700";
+const DEFAULT_COLORS = ["#ffd465", "#e4ba48", "#ded17a"];
 
-// Helper functions
-const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
-
-// Generate a single sparkle
+/**
+ * Generates a single sparkle object with random properties.
+ *
+ * @param color - The color of the sparkle.
+ * @returns Sparkle object with random id, creation timestamp, size, position, and provided color.
+ */
 const generateSparkle = (color: string) => ({
   id: crypto.getRandomValues(new Uint32Array(1))[0].toString(16),
   createdAt: Date.now(),
@@ -20,14 +22,12 @@ const generateSparkle = (color: string) => ({
   },
 });
 
-// Sparkle store
 const useSparkleStore = (color: string) =>
   useStore({
     sparkles: [...Array(3)].map(() => generateSparkle(color)),
     prefersReducedMotion: false,
   });
 
-// Sparkle component
 export const Sparkle = component$(
   (props: { size: number; color: string; style: HTMLAttributes<HTMLSpanElement>["style"] }) => {
     const path =
@@ -43,14 +43,12 @@ export const Sparkle = component$(
   },
 );
 
-// Main Sparkles component
-export const Sparkles = component$((props: { color?: string }) => {
-  const color = props.color || DEFAULT_COLOR;
+export default component$<{ color?: string }>((props) => {
+  const color = props.color || DEFAULT_COLORS[random(0, DEFAULT_COLORS.length - 1)];
   const store = useSparkleStore(color);
   // CSS styles
   useStyles$(CSS);
 
-  // Generate one sparkle in random inxtervals, append to the sparkles array and delete the oldest one
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track, cleanup }) => {
     track(() => store.sparkles);
@@ -65,7 +63,6 @@ export const Sparkles = component$((props: { color?: string }) => {
     cleanup(() => clearInterval(interval));
   });
 
-  // Render
   return (
     <span class="sparkle">
       {store.sparkles.map((sparkle) => (
@@ -77,6 +74,3 @@ export const Sparkles = component$((props: { color?: string }) => {
     </span>
   );
 });
-
-// Export default
-export default Sparkles;
