@@ -72,17 +72,26 @@ const CharacterButton = component$((props: { characters: string[]; class?: strin
     const timeout = setTimeout(() => {
       // Delete the oldest one
       store.characters = store.characters.slice(1);
-    }, 600);
+    }, 700);
     cleanup(() => clearTimeout(timeout));
   });
 
   // Render
   return (
-    <button onClick$={handleClick} type="button" class={["character-button", props.class]}>
-      {store.characters.map((character) => (
-        <Character key={character.id} character={character.character} size={character.size} style={character.style} />
-      ))}
-      <Slot />
+    <button
+      onClick$={handleClick}
+      type="button"
+      class={[
+        "character-button cursor-pointer rounded-lg bg-emerald-500 px-2 py-1 text-emerald-700 shadow-[0_4px_0] shadow-emerald-700 transition-all hover:-translate-y-[1px] hover:shadow-[0_6px_0] hover:brightness-110 active:translate-y-[2px] active:shadow-[0_2px_0] active:brightness-90",
+        props.class,
+      ]}
+    >
+      <span class="text-white">
+        {store.characters.map((character) => (
+          <Character key={character.id} character={character.character} size={character.size} style={character.style} />
+        ))}
+        <Slot />
+      </span>
     </button>
   );
 });
