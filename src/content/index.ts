@@ -1,6 +1,6 @@
 import type { DocumentHeadValue } from "@builder.io/qwik-city";
 import type { Output } from "valibot";
-import { array, boolean, object, parse, safeParse, string, transform } from "valibot";
+import { array, boolean, object, safeParse, string, transform } from "valibot";
 
 const FRONTMATTER_SCHEMA = transform(
   object({
@@ -45,20 +45,18 @@ export const getPostBySlug = async (slug: string, locale: string) => {
     const resource = (await posts[path]()) as Post & { default: () => any };
     const result = safeParse(FRONTMATTER_SCHEMA, resource.frontmatter);
 
-    if (result.success) {
-      const frontmatter = result.output;
-
-      const post = {
-        slug: slug,
-        frontmatter,
-        head: resource.head,
-        content: resource.default().children.type(),
-      };
-
-      return post;
-    } else {
-      throw new Error(`Invalid frontmatter for slug ${slug}`);
+    if (!result.success) {
+      throw new Error(`Invalid frontmatter for slug ${slug}`, { cause: result.issues });
     }
+
+    const post = {
+      slug: slug,
+      frontmatter: result.output,
+      head: resource.head,
+      content: resource.default().children.type(),
+    };
+
+    return post;
   } catch (error) {
     throw new Error(`Error retrieving MDX file for slug ${slug}`, { cause: error });
   }
@@ -71,11 +69,16 @@ export const getPostsByLocale = async (locale: string) => {
     const postsByLocale = await Promise.all(
       paths.map(async (path) => {
         const resource = (await posts[path]()) as Post;
-        const frontmatter = parse(FRONTMATTER_SCHEMA, resource.frontmatter);
+        const result = safeParse(FRONTMATTER_SCHEMA, resource.frontmatter);
+        const slug = path.split("/").pop()?.replace(".mdx", "") || "";
+
+        if (!result.success) {
+          throw new Error(`Invalid frontmatter for slug ${slug}`, { cause: result.issues });
+        }
 
         const post = {
-          slug: path.split("/").pop()?.replace(".mdx", "") || "",
-          frontmatter,
+          slug,
+          frontmatter: result.output,
         };
 
         return post;
