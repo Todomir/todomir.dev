@@ -1,4 +1,4 @@
-import type { DocumentHeadValue } from "@builder.io/qwik-city";
+import { server$, type DocumentHeadValue } from "@builder.io/qwik-city";
 import type { Output } from "valibot";
 import { array, boolean, number, object, optional, safeParse, string, transform } from "valibot";
 
@@ -47,11 +47,11 @@ export type Post = {
 
 const posts = import.meta.glob("/src/content/**/*.mdx");
 
-export const getPostBySlug = async (slug: string, locale: string) => {
+export const getPostBySlug = server$(async (slug: string, locale: string) => {
   const path = `/src/content/${locale}/${slug}.mdx`;
 
   try {
-    const resource = (await posts[path]()) as Post & { default: () => any };
+    const resource = (await posts[path]()) as Post;
     const result = safeParse(FRONTMATTER_SCHEMA, resource.frontmatter);
 
     if (!result.success) {
@@ -59,21 +59,21 @@ export const getPostBySlug = async (slug: string, locale: string) => {
     }
 
     const post = {
-      slug: slug,
+      slug,
       frontmatter: result.output,
+      headings: resource.headings,
       head: resource.head,
-      content: resource.default().children.type(),
+      content: resource.content,
     };
 
     return post;
   } catch (error) {
     throw new Error(`Error retrieving MDX file for slug ${slug}`, { cause: error });
   }
-};
-
+});
 export type PostFromSlug = Awaited<ReturnType<typeof getPostBySlug>>;
 
-export const getPostsByLocale = async (locale: string) => {
+export const getPostsByLocale = server$(async (locale: string) => {
   const paths = Object.keys(posts).filter((path) => path.includes(`/${locale}/`));
 
   try {
@@ -100,4 +100,4 @@ export const getPostsByLocale = async (locale: string) => {
   } catch (error) {
     throw new Error(`Error retrieving posts for locale ${locale}`, { cause: error });
   }
-};
+});
