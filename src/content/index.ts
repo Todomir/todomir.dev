@@ -1,6 +1,6 @@
 import type { DocumentHeadValue } from "@builder.io/qwik-city";
 import type { Output } from "valibot";
-import { array, boolean, object, safeParse, string, transform } from "valibot";
+import { array, boolean, number, object, optional, safeParse, string, transform } from "valibot";
 
 const FRONTMATTER_SCHEMA = transform(
   object({
@@ -8,7 +8,12 @@ const FRONTMATTER_SCHEMA = transform(
     description: string(),
     createdAt: string(),
     updatedAt: string(),
-    thumbnail: string(),
+    thumbnail: object({
+      src: string(),
+      alt: string(),
+      width: optional(number()),
+      height: optional(number()),
+    }),
     draft: boolean(),
     tags: array(string()),
   }),
@@ -17,6 +22,10 @@ const FRONTMATTER_SCHEMA = transform(
       ...frontmatter,
       createdAt: new Date(frontmatter.createdAt),
       updatedAt: new Date(frontmatter.updatedAt),
+      thumbnail: {
+        ...frontmatter.thumbnail,
+        src: `${process.env.PUBLIC_IMGIX_BASE_URL}/${frontmatter.thumbnail.src}`,
+      },
     };
   },
 );
@@ -61,6 +70,8 @@ export const getPostBySlug = async (slug: string, locale: string) => {
     throw new Error(`Error retrieving MDX file for slug ${slug}`, { cause: error });
   }
 };
+
+export type PostFromSlug = Awaited<ReturnType<typeof getPostBySlug>>;
 
 export const getPostsByLocale = async (locale: string) => {
   const paths = Object.keys(posts).filter((path) => path.includes(`/${locale}/`));

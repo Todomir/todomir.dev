@@ -3,6 +3,7 @@ import type { DocumentHead } from "@builder.io/qwik-city";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { extractLang } from "../../i18n-utils";
 import { getPostBySlug } from "~/content";
+import { Image } from "@unpic/qwik";
 
 export const usePost = routeLoader$(async ({ params, error }) => {
   const guessedLocale = extractLang(params.locale) as "en" | "pt-BR";
@@ -40,11 +41,13 @@ export default component$(() => {
           {$localize`Last updated at`} {post.value.frontmatter.updatedAt.toLocaleDateString()}
         </time>
 
-        <img
-          width={956}
-          height={560}
+        <Image
           class="mt-10 block h-auto w-full rounded-xl shadow-lg"
-          src={post.value.frontmatter.thumbnail}
+          layout="constrained"
+          width={post.value.frontmatter.thumbnail.width || 956}
+          height={post.value.frontmatter.thumbnail.height || 560}
+          src={post.value.frontmatter.thumbnail.src}
+          alt={post.value.frontmatter.thumbnail.alt}
         />
       </header>
 

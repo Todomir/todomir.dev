@@ -53,6 +53,7 @@
   "dependencies": {
     "@angular/localize": "^17.0.8",
     "@evilmartians/harmony": "^1.2.0",
+    "@unpic/qwik": "^0.0.38",
     "motion": "^10.16.4",
     "valibot": "^0.25.0"
   }

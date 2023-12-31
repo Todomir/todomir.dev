@@ -1,14 +1,16 @@
 import { component$ } from "@builder.io/qwik";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 import Card from "../card/card";
+import { Image } from "@unpic/qwik";
+import type { PostFromSlug } from "~/content";
 
 interface Props {
-  slug: string;
-  title: string;
-  description: string;
-  date: Date;
-  tags: string[];
-  thumbnail: string;
+  slug: PostFromSlug["slug"];
+  title: PostFromSlug["frontmatter"]["title"];
+  description: PostFromSlug["frontmatter"]["description"];
+  date: PostFromSlug["frontmatter"]["updatedAt"];
+  tags: PostFromSlug["frontmatter"]["tags"];
+  thumbnail: PostFromSlug["frontmatter"]["thumbnail"];
 }
 
 export default component$(({ slug, title, description, date, tags, thumbnail }: Props) => {
@@ -23,15 +25,16 @@ export default component$(({ slug, title, description, date, tags, thumbnail }: 
           {$localize`Last updated at`} {date.toLocaleDateString()}
         </time>
       </div>
-      <p q:slot="description" class="text-pretty mt-7 overflow-hidden text-ellipsis text-base leading-6">
+      <p q:slot="description" class="mt-7 overflow-hidden text-ellipsis text-pretty text-base leading-6">
         {description}
       </p>
-      <img
-        width={600}
-        height={390}
-        srcset={thumbnail}
+      <Image
+        layout="constrained"
+        width={thumbnail.width || 544}
+        height={thumbnail.height || 320}
+        src={thumbnail.src}
+        alt={thumbnail.alt}
         q:slot="aside"
-        loading="lazy"
         class="aspect-[1.54] w-full overflow-hidden rounded-lg object-contain object-center"
       />
       <ul q:slot="superheader" class="flex items-start gap-4">
