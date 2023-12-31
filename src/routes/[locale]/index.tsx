@@ -38,11 +38,11 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Abner Rodrigues | Creative Developer",
+  title: $localize`Abner Rodrigues - Creative Developer`,
   meta: [
     {
       name: "description",
-      content: "Helping people build software for people, for the world.",
+      content: $localize`I'm a creative developer, passionate about building beautiful and accessible interfaces.`,
     },
   ],
 };

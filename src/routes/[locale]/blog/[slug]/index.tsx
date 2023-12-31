@@ -60,5 +60,8 @@ export default component$(() => {
 
 export const head: DocumentHead = ({ resolveValue }) => {
   const post = resolveValue(usePost);
-  return post.head;
+  return {
+    ...post.head,
+    title: `Blog - ${post.head.title}`,
+  };
 };

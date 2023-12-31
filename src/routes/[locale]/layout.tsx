@@ -86,7 +86,7 @@ const Footer = component$(() => {
         LOGO
       </div>
       <div class="mt-8 flex max-w-full flex-wrap items-stretch justify-between gap-3 self-stretch">
-        <p class="text-pretty max-w-[70ch] shrink grow basis-auto text-sm leading-5 tracking-normal text-zinc-500">
+        <p class="max-w-[70ch] shrink grow basis-auto text-pretty text-sm leading-5 tracking-normal text-zinc-500">
           {$localize`Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress every day.`}
         </p>
         <a
