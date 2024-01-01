@@ -1,3 +1,4 @@
+import type { JSXNode } from "@builder.io/qwik";
 import { server$, type DocumentHeadValue } from "@builder.io/qwik-city";
 import type { Output } from "valibot";
 import { array, boolean, number, object, optional, safeParse, string, transform } from "valibot";
@@ -42,7 +43,7 @@ export type Post = {
   headings: Headings[];
   head: DocumentHeadValue;
   frontmatter: Frontmatter;
-  content?: any;
+  default: () => JSXNode & { props: { children: JSXNode<() => JSXNode> } };
 };
 
 const posts = import.meta.glob("/src/content/**/*.mdx");
@@ -63,7 +64,7 @@ export const getPostBySlug = server$(async (slug: string, locale: string) => {
       frontmatter: result.output,
       headings: resource.headings,
       head: resource.head,
-      content: resource.content,
+      content: resource.default().props.children.type(),
     };
 
     return post;
