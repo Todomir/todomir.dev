@@ -12,7 +12,7 @@ export const usePost = routeLoader$(async ({ params, error }) => {
     return post;
   } catch (e) {
     console.error(e);
-    throw error(404, "Post not found");
+    throw error(500, "Something went wrong while loading the post");
   }
 });
 
@@ -60,6 +60,7 @@ export default component$(() => {
 
 export const head: DocumentHead = ({ resolveValue }) => {
   const post = resolveValue(usePost);
+
   return {
     ...post.head,
     title: `Blog - ${post.head.title}`,

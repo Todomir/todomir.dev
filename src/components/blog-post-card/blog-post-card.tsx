@@ -3,7 +3,6 @@ import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 import Card from "../card/card";
 import { Image } from "@unpic/qwik";
 import type { PostFromSlug } from "~/content";
-import { Link } from "@builder.io/qwik-city";
 
 interface Props {
   slug: PostFromSlug["slug"];
@@ -19,7 +18,7 @@ export default component$(({ slug, title, description, date, tags, thumbnail }: 
     <Card class="mt-20 text-zinc-800">
       <div q:slot="title" class="space-y-1">
         <h3 class="grow space-x-3 text-3xl font-medium leading-10 tracking-tighter">
-          <Link href={slug}>{title}</Link>
+          <a href={slug}>{title}</a>
           <IconArrowTopRight class="inline-block" />
         </h3>
         <time class="block text-sm leading-6 opacity-70" dateTime={date.toISOString()}>
