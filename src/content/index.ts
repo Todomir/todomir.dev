@@ -2,7 +2,9 @@ import type { JSXNode } from "@builder.io/qwik";
 import { server$, type DocumentHeadValue } from "@builder.io/qwik-city";
 import type { Output } from "valibot";
 import { array, boolean, number, object, optional, safeParse, string, transform } from "valibot";
+import { isDev } from "@builder.io/qwik/build";
 
+const BLOG_POST_LIST = import.meta.glob("/src/content/**/*.mdx", { eager: isDev ? false : true });
 const FRONTMATTER_SCHEMA = transform(
   object({
     title: string(),
@@ -46,13 +48,12 @@ export type Post = {
   default: () => JSXNode & { props: { children: JSXNode<() => JSXNode> } };
 };
 
-const posts = import.meta.glob("/src/content/**/*.mdx");
-
 export const getPostBySlug = server$(async (slug: string, locale: string) => {
   const path = `/src/content/${locale}/${slug}.mdx`;
 
   try {
-    const resource = (await posts[path]()) as Post;
+    const getPost = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
+    const resource = (await getPost) as Post;
     const result = safeParse(FRONTMATTER_SCHEMA, resource.frontmatter);
 
     if (!result.success) {
@@ -75,12 +76,13 @@ export const getPostBySlug = server$(async (slug: string, locale: string) => {
 export type PostFromSlug = Awaited<ReturnType<typeof getPostBySlug>>;
 
 export const getPostsByLocale = server$(async (locale: string) => {
-  const paths = Object.keys(posts).filter((path) => path.includes(`/${locale}/`));
+  const paths = Object.keys(BLOG_POST_LIST).filter((path) => path.includes(`/${locale}/`));
 
   try {
     const postsByLocale = await Promise.all(
       paths.map(async (path) => {
-        const resource = (await posts[path]()) as Post;
+        const getPost = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
+        const resource = (await getPost) as Post;
         const result = safeParse(FRONTMATTER_SCHEMA, resource.frontmatter);
         const slug = path.split("/").pop()?.replace(".mdx", "") || "";
 
