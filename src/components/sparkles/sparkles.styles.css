@@ -3,10 +3,12 @@
   display: inline-block;
   animation: comeInOut 700ms forwards;
 }
+
 .sparkle__svg {
   display: block;
-  animation: spin 1000ms linear;
+  animation: rotate 1000ms linear;
 }
+
 .sparkle {
   display: inline-block;
   position: relative;
@@ -25,7 +27,7 @@
   }
 }
 
-@keyframes spin {
+@keyframes rotate {
   0% {
     transform: rotate(0deg);
     box-shadow: 0px 0px 20px 0px rgba(255, 255, 186, 0);
