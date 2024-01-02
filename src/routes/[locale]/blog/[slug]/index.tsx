@@ -64,5 +64,6 @@ export const head: DocumentHead = ({ resolveValue }) => {
   return {
     ...post.head,
     title: `Blog - ${post.head.title}`,
+    meta: [...(post.head.meta || []), { name: "twitter:title", content: `${post.head.title}` }],
   };
 };

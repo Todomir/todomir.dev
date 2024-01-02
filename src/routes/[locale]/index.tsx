@@ -44,5 +44,17 @@ export const head: DocumentHead = {
       name: "description",
       content: $localize`I'm a creative developer, passionate about building beautiful and accessible interfaces.`,
     },
+    {
+      name: "og:title",
+      content: $localize`Abner Rodrigues - Creative Developer`,
+    },
+    {
+      name: "og:description",
+      content: $localize`I'm a creative developer, passionate about building beautiful and accessible interfaces.`,
+    },
+    {
+      name: "twitter:title",
+      content: $localize`Abner Rodrigues - Creative Developer`,
+    },
   ],
 };

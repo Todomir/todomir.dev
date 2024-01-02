@@ -57,10 +57,23 @@ export default component$(() => {
 
 export const head: DocumentHead = {
   title: "Blog - Abner Rodrigues | Creative Developer",
+
   meta: [
     {
       name: "description",
-      content: "My personal blog. Helping build software for people and for the world.",
+      content: $localize`My ramblings about random stuff. Updated every now and then.`,
+    },
+    {
+      name: "og:title",
+      content: $localize`Abner Rodrigues - Creative Developer`,
+    },
+    {
+      name: "og:description",
+      content: $localize`My ramblings about random stuff. Updated every now and then.`,
+    },
+    {
+      name: "twitter:title",
+      content: $localize`Abner Rodrigues - Creative Developer`,
     },
   ],
 };
