@@ -4,6 +4,7 @@
   "engines": {
     "node": ">=15.0.0"
   },
+  "type": "module",
   "private": true,
   "trustedDependencies": [
     "sharp"
@@ -53,10 +54,13 @@
   "dependencies": {
     "@angular/localize": "^17.0.8",
     "@evilmartians/harmony": "^1.2.0",
+    "@resvg/resvg-js": "^2.6.0",
     "@unpic/qwik": "^0.0.38",
+    "@vercel/og": "^0.6.1",
     "motion": "^10.16.4",
     "rehype-pretty-code": "^0.12.3",
     "remark-expressive-code": "^0.30.1",
+    "satori": "^0.10.11",
     "shikiji": "^0.9.17",
     "valibot": "^0.25.0"
   }
