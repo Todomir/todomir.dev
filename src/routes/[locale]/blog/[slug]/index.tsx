@@ -58,12 +58,19 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = ({ resolveValue }) => {
+export const head: DocumentHead = ({ resolveValue, url }) => {
   const post = resolveValue(usePost);
+  const og = new URL("og", url.origin);
+  og.searchParams.set("title", post.frontmatter.title);
+  og.searchParams.set("thumbnail", post.frontmatter.thumbnail.src);
 
   return {
     ...post.head,
     title: `Blog - ${post.head.title}`,
-    meta: [...(post.head.meta || []), { name: "twitter:title", content: `${post.head.title}` }],
+    meta: [
+      ...(post.head.meta || []),
+      { name: "og:image", content: og.toString() },
+      { name: "twitter:title", content: `${post.head.title}` },
+    ],
   };
 };
