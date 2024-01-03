@@ -66,6 +66,9 @@ export default component$(() => {
       </aside>
 
       <div class="my-auto py-24 md:py-36">
+        <span aria-hidden="true" class="block text-center text-2xl text-white">
+          [••
+        </span>
         <h1
           class="z-10 max-w-full text-center text-4xl leading-[53px] tracking-tighter text-zinc-200 md:mt-12 md:text-7xl md:leading-[96px]"
           dangerouslySetInnerHTML={$localize`Abner Rodrigues <br />Creat<span class="italic">i</span>ve Developer`}

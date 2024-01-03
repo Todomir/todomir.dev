@@ -79,12 +79,9 @@ const Header = component$(() => {
 const Footer = component$(() => {
   return (
     <footer class="full-width footer flex w-full flex-col bg-zinc-950 px-5 py-12 text-zinc-300 md:px-20">
-      <div
-        aria-hidden="true"
-        class="mt-8 items-stretch justify-center self-start whitespace-nowrap border-[0.62px] border-solid border-zinc-700 bg-zinc-700 bg-opacity-20 px-3.5 py-3.5 text-xl font-bold leading-6 tracking-tighter text-zinc-200"
-      >
-        LOGO
-      </div>
+      <span aria-hidden="true" class="text-2xl">
+        [••
+      </span>
       <div class="mt-8 flex max-w-full flex-wrap items-stretch justify-between gap-3 self-stretch">
         <p class="max-w-[70ch] shrink grow basis-auto text-pretty text-sm leading-5 tracking-normal text-zinc-500">
           {$localize`Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress every day.`}
