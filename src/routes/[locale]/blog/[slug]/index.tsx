@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { routeLoader$ } from "@builder.io/qwik-city";
+import { routeLoader$, useLocation } from "@builder.io/qwik-city";
 import { extractLang } from "../../i18n-utils";
 import { getPostBySlug } from "~/content";
 import { Image } from "@unpic/qwik";
@@ -18,6 +18,7 @@ export const usePost = routeLoader$(async ({ params, error }) => {
 
 export default component$(() => {
   const post = usePost();
+  const location = useLocation();
 
   return (
     <div class="content-grid mb-24 pb-12 pt-36 text-black">
@@ -53,7 +54,29 @@ export default component$(() => {
 
       <p class="leading-1 mb-24 text-xl font-medium md:text-3xl">{post.value.frontmatter.description}</p>
 
-      <div class="prose max-w-none text-pretty lg:prose-xl">{post.value.content}</div>
+      <div class="prose prose-zinc max-w-none text-pretty lg:prose-xl prose-code:rounded-md prose-code:border prose-code:border-zinc-300 prose-code:bg-zinc-100 prose-code:p-1 prose-code:before:content-[''] prose-code:after:content-[''] [&_pre_code]:border-transparent [&_pre_code]:bg-inherit [&_pre_code]:p-0">
+        {post.value.content}
+      </div>
+
+      <div class="full-width my-24 bg-zinc-200 px-5 md:px-20">
+        <hr class="w-full border-zinc-200" />
+      </div>
+
+      <div class="flex justify-between gap-3">
+        <h3 class="mb-1 text-2xl font-bold">Like this post?</h3>
+        <div class="space-x-2">
+          <a
+            class="inline-block rounded-lg bg-black px-4 py-2 text-white"
+            href={`https://x.com/intent/tweet?text=${encodeURIComponent(
+              post.value.frontmatter.title,
+            )}&url=${location.url.toString()}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Share it on 𝕏.com
+          </a>
+        </div>
+      </div>
     </div>
   );
 });
