@@ -27,7 +27,9 @@ const FRONTMATTER_SCHEMA = transform(
       updatedAt: new Date(frontmatter.updatedAt),
       thumbnail: {
         ...frontmatter.thumbnail,
-        src: `${process.env.PUBLIC_IMGIX_BASE_URL}/${frontmatter.thumbnail.src}`,
+        src: isDev
+          ? `/assets/thumbnails/${frontmatter.thumbnail.src}`
+          : `${process.env.PUBLIC_IMGIX_BASE_URL}/${frontmatter.thumbnail.src}`,
       },
     };
   },
