@@ -4,7 +4,7 @@ import type { Output } from "valibot";
 import { array, boolean, number, object, optional, safeParse, string, transform } from "valibot";
 import { isDev } from "@builder.io/qwik/build";
 
-const BLOG_POST_LIST = import.meta.glob("/src/content/**/*.mdx", { eager: isDev ? false : true });
+const BLOG_POST_LIST = import.meta.glob("/src/content/**/*.mdx", { eager: !isDev });
 const FRONTMATTER_SCHEMA = transform(
   object({
     title: string(),
