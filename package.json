@@ -13,17 +13,18 @@
     "build": "qwik build",
     "build.client": "vite build && npm run i18n-translate",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
-    "build.server": "vite build -c adapters/netlify-edge/vite.config.ts",
+    "build.server": "vite build -c adapters/cloudflare-pages/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
-    "deploy": "netlify deploy --build",
+    "deploy": "wrangler pages publish ./dist",
     "dev": "vite --mode ssr",
     "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
     "format": "prettier --write \"**/*.{js,ts,tsx,css}\"",
     "i18n-extract": "node_modules/.bin/localize-extract -s \"dist/build/*.js\" -f json -o src/locales/message.en.json",
     "i18n-translate": "node_modules/.bin/localize-translate -s \"*.js\" -t src/locales/message.*.json -o dist/build/{{LOCALE}} -r ./dist/build",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "prei18n-extract": "vite build",
     "preview": "qwik build preview && vite preview --open",
+    "serve": "wrangler pages dev ./dist",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
   },
@@ -49,7 +50,8 @@
     "typescript": "^5.3.3",
     "undici": "^6.2.1",
     "vite": "^5.0.10",
-    "vite-tsconfig-paths": "^4.2.3"
+    "vite-tsconfig-paths": "^4.2.3",
+    "wrangler": "^3.0.0"
   },
   "dependencies": {
     "@angular/localize": "^17.0.8",
