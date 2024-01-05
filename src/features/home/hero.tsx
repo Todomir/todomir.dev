@@ -3,6 +3,10 @@ import { animate, scroll, spring } from "motion";
 
 import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
 
+import AstromartThumb from "~/media/images/projects/astromart-01.png?jsx";
+import KobrazaThumb from "~/media/images/projects/kobraza-01.avif?jsx";
+import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-01.png?jsx";
+
 export default component$(() => {
   // We want this to run only once it is visible, and eagerly, on the client. So we use `useVisibleTask$`.
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -45,9 +49,10 @@ export default component$(() => {
     <section id="hero" class="full-width relative flex h-fit flex-col bg-zinc-950 py-24 text-zinc-300">
       <aside class="full-width pointer-events-none absolute inset-0 mb-12 -translate-y-12 overflow-x-clip">
         {/* Top */}
-        <div
+        <KobrazaThumb
           data-speed={2.5}
-          class="absolute -left-24 -top-12 aspect-video w-[clamp(238px,50%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
+          alt={$localize`Website for Kobraza Imóveis. Kobraza Imóveis is a real estate agency that has operated for over 30 years in the market, with a wide range of properties, including commercial properties, such as warehouses, gas stations and warehouses; residential properties such as houses, apartments and lofts; and rural properties, such as farms and farms.`}
+          class="absolute -left-24 -top-2 aspect-video w-[clamp(238px,50%,572px)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
         <div
           data-speed={2.2}
@@ -55,11 +60,13 @@ export default component$(() => {
         />
 
         {/* Bottom */}
-        <div
+        <LeonardoNutritionThumb
+          alt={$localize`CMS Integration and Testimonials with social login for Leonardo Nutrition, a nutritionist and dietitian in Brazil.`}
           data-speed={1}
-          class="absolute -bottom-8 -right-36 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
+          class="absolute -bottom-8 -right-36 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
-        <div
+        <AstromartThumb
+          alt={$localize`Worked on Astromart: a performant e-commerce template for Astro, React, TypeScript and Odoo developers`}
           data-speed={1.2}
           class="absolute -bottom-4 -left-36 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
         />

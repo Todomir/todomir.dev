@@ -5,13 +5,10 @@ import { Link } from "@builder.io/qwik-city";
 
 interface Props {
   id: string;
-  slug: string;
+  slug?: string;
   title: string;
   description: string;
-  tags: {
-    id: string;
-    name: string;
-  }[];
+  tags: string[];
   thumbnail: {
     srcset: string;
     alt: string;
@@ -25,7 +22,7 @@ export default component$((props: Props) => {
     <Card class="bg-zinc-900/20 p-5 sm:p-12">
       <h4 q:slot="title" class="grow space-x-2 text-3xl font-medium leading-10 tracking-tighter">
         <Link href={props.slug}>{props.title}</Link>
-        {props.slug !== "" && <IconArrowTopRight class="inline-block" />}
+        {props.slug && <IconArrowTopRight class="inline-block" />}
       </h4>
       <p q:slot="description" class="overflow-hidden text-ellipsis text-balance text-base leading-6 text-zinc-300">
         {props.description}
@@ -41,8 +38,8 @@ export default component$((props: Props) => {
       />
       <ul q:slot="superheader" class="flex flex-wrap items-start gap-x-3">
         {props.tags.map((tag, index) => (
-          <Fragment key={tag.id}>
-            <li class="leading-6 text-zinc-600">{tag.name}</li>
+          <Fragment key={props.id + tag}>
+            <li class="leading-6 text-zinc-600">{tag}</li>
             {index < props.tags.length - 1 && (
               <li class="text-zinc-800" aria-hidden="true">
                 |

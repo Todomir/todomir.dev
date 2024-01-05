@@ -1,22 +1,30 @@
 import { component$ } from "@builder.io/qwik";
 import ProjectCard from "~/components/project-card/project-card";
 
-import AstromartThumb from "~/media/images/projects/astromart-01.png?w=500;900;1200&format=webp&as=srcset&imagetools";
+import AstromartThumb from "~/media/images/projects/astromart-02.png?w=500;900;1200&format=webp&as=srcset&imagetools";
+import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-02.png?w=500;900;1200&format=webp&as=srcset&imagetools";
 
-const MOCK_PROJECTS = [
+const PROJECTS = [
   {
-    id: "1",
-    slug: "",
+    id: "astromart",
     title: "Astromart",
-    description: "A performant e-commerce template for Astro, React, TypeScript and Odoo developers",
-    tags: [
-      { id: "1_tag", name: "React" },
-      { id: "2_tag", name: "Astro" },
-      { id: "3_tag", name: "TypeScript" },
-    ],
+    description: $localize`Worked on Astromart: a performant e-commerce template for Astro, React, TypeScript and Odoo developers`,
+    tags: ["Astro", "React", "TypeScript", "Odoo"],
     thumbnail: {
       srcset: AstromartThumb,
       alt: "Sample Alt",
+      width: 100,
+      height: 100,
+    },
+  },
+  {
+    id: "leonardo-nutrition",
+    title: "Leonardo Nutrition",
+    description: $localize`CMS Integration and Testimonials with social login for Leonardo Nutrition, a nutritionist and dietitian in Brazil.`,
+    tags: ["React", "TypeScript", "Next.js", "TailwindCSS", "Contentful"],
+    thumbnail: {
+      srcset: LeonardoNutritionThumb,
+      alt: $localize`CMS Integration and Testimonials with social login for Leonardo Nutrition, a nutritionist and dietitian in Brazil.`,
       width: 100,
       height: 100,
     },
@@ -35,11 +43,10 @@ export default component$(() => {
       />
 
       <ul class="mt-20 grid grid-cols-1 gap-10">
-        {MOCK_PROJECTS.map((post) => (
+        {PROJECTS.map((post) => (
           <li key={post.id}>
             <ProjectCard
               id={post.id}
-              slug={post.slug}
               title={post.title}
               description={post.description}
               tags={post.tags}
