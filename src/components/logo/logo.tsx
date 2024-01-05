@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from "@builder.io/qwik";
 import { $, component$, useOnDocument, useSignal, useVisibleTask$ } from "@builder.io/qwik";
-import { lerp, random } from "~/utils/functions";
+import { clamp, lerp, random } from "~/utils/functions";
 
 type Props = {
   shouldFollowCursor?: boolean;
@@ -14,16 +14,40 @@ export default component$<Props>(({ shouldFollowCursor = false, shouldBlink = fa
   useOnDocument(
     "mousemove",
     $((e) => {
-      if (!shouldFollowCursor) return;
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!shouldFollowCursor || prefersReducedMotion) return;
       const logo = logoRef.value;
 
       if (!logo) return;
 
-      // Get the distance between the cursor and the center of the logo in a radius around the center of the logo
-      const distance = {
-        x: e.pageX - logo.offsetLeft - logo.clientWidth / 2,
-        y: e.pageY - logo.offsetTop - logo.clientHeight / 2,
+      // Get logo center
+      const logoRect = logo.getBoundingClientRect();
+      const logoCenter = {
+        x: logoRect.left + logoRect.width / 2,
+        y: logoRect.top + logoRect.height / 2,
       };
+
+      // Get cursor position
+      const cursorPosition = {
+        x: e.clientX,
+        y: e.clientY,
+      };
+
+      // Get distance between cursor and logo center
+      const distance = {
+        x: cursorPosition.x - logoCenter.x,
+        y: cursorPosition.y - logoCenter.y,
+      };
+
+      const generateTranslatePosition = (speed: number) => {
+        return {
+          x: clamp(Math.abs(lerp(0, distance.x * speed, 0.5)), 0, 8),
+          y: clamp(lerp(0, distance.y * speed, 0.5), -10, 10),
+        };
+      };
+
+      const leftEyePosition = generateTranslatePosition(0.06);
+      const rightEyePosition = generateTranslatePosition(0.1);
 
       // Flip the logo if the cursor is on the left side of the logo
       const shouldFlip = distance.x < 0;
@@ -32,18 +56,8 @@ export default component$<Props>(({ shouldFollowCursor = false, shouldBlink = fa
       const leftEye = logo.querySelector<HTMLDivElement>("[data-left-eye]");
       const rightEye = logo.querySelector<HTMLDivElement>("[data-right-eye]");
 
-      const generateTranslatePosition = (speed: number) => {
-        return {
-          x: Math.abs(lerp(0, distance.x * speed, 0.5)),
-          y: lerp(0, distance.y * speed, 0.5),
-        };
-      };
-
       if (!leftEye || !rightEye) return;
       // Move the eyes in the tangent of the angle of the cursor to the center of the logo
-
-      const leftEyePosition = generateTranslatePosition(0.06);
-      const rightEyePosition = generateTranslatePosition(0.1);
 
       leftEye.animate(
         { transform: `translate(${leftEyePosition.x}px, ${leftEyePosition.y}px)` },
@@ -72,7 +86,7 @@ export default component$<Props>(({ shouldFollowCursor = false, shouldBlink = fa
     const interval = setInterval(
       async () => {
         const blinkDuration = random(90, 150);
-        const blinkAmount = random(1, 3);
+        const blinkAmount = random(1, 4);
 
         for (let i = 0; i < blinkAmount; i++) {
           leftEye.textContent = "-";
@@ -83,7 +97,7 @@ export default component$<Props>(({ shouldFollowCursor = false, shouldBlink = fa
           await new Promise((resolve) => setTimeout(resolve, blinkDuration));
         }
       },
-      random(1000, 5000),
+      random(3000, 7000),
     );
 
     cleanup(() => clearInterval(interval));
@@ -95,18 +109,15 @@ export default component$<Props>(({ shouldFollowCursor = false, shouldBlink = fa
       ref={logoRef}
       role="img"
       aria-label="todomir.dev logo"
-      class={[
-        "logo group flex w-fit origin-center select-none before:pointer-events-none before:absolute before:inset-0 before:left-1/2 before:top-1/2 before:block before:h-full before:w-full before:-translate-x-1/2 before:-translate-y-1/2 before:transform before:border-red-500 before:p-64",
-        className,
-      ]}
+      class={["logo pointer-events-none relative flex size-8 origin-center select-none", className]}
     >
-      <div class="relative inline-block w-fit" aria-hidden data-body>
+      <div class="absolute h-full w-full" aria-hidden data-body>
         [
       </div>
-      <div class="relative inline-block w-fit" aria-hidden data-left-eye>
+      <div class="absolute left-1/4 w-fit" aria-hidden data-left-eye>
         •
       </div>
-      <div class="relative inline-block w-fit" aria-hidden data-right-eye>
+      <div class="absolute left-1/2 w-fit" aria-hidden data-right-eye>
         •
       </div>
     </div>

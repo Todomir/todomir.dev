@@ -16,8 +16,10 @@ export default component$(() => {
     "DOMContentLoaded",
     $(() => {
       const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-      mediaQuery.addEventListener("change", () => {
-        prefersReducedMotion.value = mediaQuery.matches;
+      prefersReducedMotion.value = mediaQuery.matches;
+
+      mediaQuery.addEventListener("change", (e) => {
+        prefersReducedMotion.value = e.matches;
       });
     }),
   );
@@ -61,6 +63,24 @@ export default component$(() => {
     });
   });
 
+  // We want this to run only once it is visible, and eagerly, on the client. So we use `useVisibleTask$`.
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    const speed = 230 * Number(!prefersReducedMotion.value);
+    const animationParams = { y: [null, `-${speed}%`] };
+
+    scroll(
+      animate("#hero-content", animationParams, {
+        easing: spring({
+          mass: 75,
+          stiffness: 30,
+          damping: 15,
+        }),
+        delay: 0,
+      }),
+    );
+  });
+
   return (
     <section
       id="hero"
@@ -94,8 +114,8 @@ export default component$(() => {
         />
       </aside>
 
-      <div class="my-auto py-24 md:py-36">
-        <Logo shouldFollowCursor shouldBlink class="mx-auto text-2xl text-white" />
+      <div id="hero-content" class="my-auto py-24 md:py-36">
+        <Logo id="hero-logo" shouldFollowCursor shouldBlink class="mx-auto text-2xl text-white" />
 
         <h1
           class="z-10 max-w-full text-center text-4xl leading-[53px] tracking-tighter text-zinc-200 md:mt-12 md:text-7xl md:leading-[96px]"
