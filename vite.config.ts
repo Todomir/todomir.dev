@@ -2,9 +2,9 @@ import { qwikCity } from "@builder.io/qwik-city/vite";
 import { qwikVite } from "@builder.io/qwik/optimizer";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-
 import { getHighlighter, type Highlighter } from "shikiji";
 import rehypePrettyCode from "rehype-pretty-code";
+import path from "path";
 
 let highlighter: Highlighter;
 async function getOrCreateHighlighter() {
