@@ -30,6 +30,23 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  @keyframes fly {
+    0% {
+      opacity: 0;
+      translate: 0 0;
+    }
+    100% {
+      opacity: 0;
+      translate: 0 -150%;
+    }
+  }
+
+  .character-button__char {
+    animation: none;
+  }
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

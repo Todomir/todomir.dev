@@ -25,7 +25,6 @@ const generateSparkle = (color: string) => ({
 const useSparkleStore = (color: string) =>
   useStore({
     sparkles: [...Array(3)].map(() => generateSparkle(color)),
-    prefersReducedMotion: false,
   });
 
 export const Sparkle = component$(

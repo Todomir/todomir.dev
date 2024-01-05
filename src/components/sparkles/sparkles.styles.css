@@ -10,6 +10,16 @@
   filter: drop-shadow(0 0 10px rgba(255, 255, 186, 1));
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .sparkle__wrapper {
+    animation: comeInOut 2000ms forwards;
+  }
+
+  .sparkle__svg {
+    animation: none;
+  }
+}
+
 .sparkle {
   display: inline-block;
   position: relative;

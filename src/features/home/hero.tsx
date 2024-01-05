@@ -1,4 +1,4 @@
-import { component$, useVisibleTask$ } from "@builder.io/qwik";
+import { $, component$, useOnWindow, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { animate, scroll, spring } from "motion";
 
 import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
@@ -8,10 +8,23 @@ import KobrazaThumb from "~/media/images/projects/kobraza-01.avif?jsx";
 import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-01.png?jsx";
 
 export default component$(() => {
+  const asideRef = useSignal<HTMLDivElement>();
+  const prefersReducedMotion = useSignal(true);
+
+  useOnWindow(
+    "DOMContentLoaded",
+    $(() => {
+      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      mediaQuery.addEventListener("change", () => {
+        prefersReducedMotion.value = mediaQuery.matches;
+      });
+    }),
+  );
+
   // We want this to run only once it is visible, and eagerly, on the client. So we use `useVisibleTask$`.
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    const aside = document.querySelector<HTMLDivElement>("#hero aside");
+    const aside = asideRef.value;
     if (!aside) return;
 
     const images = aside.querySelectorAll("*");
@@ -24,11 +37,13 @@ export default component$(() => {
 
     images.forEach((image, i) => {
       const speedMultiplier = Number((image as HTMLElement).dataset.speed) || 1;
-      const speed = 350 * speedMultiplier;
+      // Only animate the images if the user has not requested reduced motion.
+      const speed = 350 * (speedMultiplier * Number(!prefersReducedMotion.value));
+      const xpos = i >= 2 ? ["100%", 0] : ["-100%", 0];
 
       animate(
         image,
-        { x: i >= 2 ? ["100%", 0] : ["-100%", 0], opacity: [0, 1] },
+        { x: prefersReducedMotion.value ? [] : xpos, opacity: [0, 1] },
         { delay: i * 0.2, easing: spring(springConfig) },
       );
       const animationParams = { y: [null, `-${speed}%`] };
@@ -47,7 +62,10 @@ export default component$(() => {
 
   return (
     <section id="hero" class="full-width relative flex h-fit flex-col bg-zinc-950 py-24 text-zinc-300">
-      <aside class="full-width pointer-events-none absolute inset-0 mb-12 -translate-y-12 overflow-x-clip">
+      <aside
+        ref={asideRef}
+        class="full-width pointer-events-none absolute inset-0 mb-12 -translate-y-12 overflow-x-clip"
+      >
         {/* Top */}
         <KobrazaThumb
           data-speed={2.5}
