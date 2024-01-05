@@ -1,5 +1,6 @@
 import { $, component$, useOnWindow, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { animate, scroll, spring } from "motion";
+import Logo from "~/components/logo/logo";
 
 import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
 
@@ -61,7 +62,10 @@ export default component$(() => {
   });
 
   return (
-    <section id="hero" class="full-width relative flex h-fit flex-col bg-zinc-950 py-24 text-zinc-300">
+    <section
+      id="hero"
+      class="full-width pointer-events-none relative flex h-fit flex-col bg-zinc-950 py-24 text-zinc-300"
+    >
       <aside
         ref={asideRef}
         class="full-width pointer-events-none absolute inset-0 mb-12 -translate-y-12 overflow-x-clip"
@@ -91,9 +95,8 @@ export default component$(() => {
       </aside>
 
       <div class="my-auto py-24 md:py-36">
-        <span aria-hidden="true" class="block text-center text-2xl text-white">
-          [••
-        </span>
+        <Logo shouldFollowCursor shouldBlink class="mx-auto text-2xl text-white" />
+
         <h1
           class="z-10 max-w-full text-center text-4xl leading-[53px] tracking-tighter text-zinc-200 md:mt-12 md:text-7xl md:leading-[96px]"
           dangerouslySetInnerHTML={$localize`Abner Rodrigues <br />Creat<span class="italic">i</span>ve Developer`}

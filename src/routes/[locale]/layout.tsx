@@ -2,6 +2,7 @@ import { Slot, component$ } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import Glass from "~/components/glass/glass";
+import Logo from "~/components/logo/logo";
 
 import { extractLang, useI18n } from "~/routes/[locale]/i18n-utils";
 
@@ -79,9 +80,7 @@ const Header = component$(() => {
 const Footer = component$(() => {
   return (
     <footer class="full-width footer flex w-full flex-col bg-zinc-950 px-5 py-12 text-zinc-300 md:px-20">
-      <span aria-hidden="true" class="text-2xl">
-        [••
-      </span>
+      <Logo />
       <div class="mt-8 flex max-w-full flex-wrap items-stretch justify-between gap-3 self-stretch">
         <p class="max-w-[70ch] shrink grow basis-auto text-pretty text-sm leading-5 tracking-normal text-zinc-500">
           {$localize`Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress every day.`}
