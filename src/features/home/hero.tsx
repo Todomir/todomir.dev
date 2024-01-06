@@ -9,7 +9,6 @@ import KobrazaThumb from "~/media/images/projects/kobraza-01.avif?jsx";
 import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-01.png?jsx";
 import KdsThumb from "~/media/images/projects/kds-01.png?jsx";
 
-
 export default component$(() => {
   const asideRef = useSignal<HTMLDivElement>();
   const prefersReducedMotion = useSignal(true);
@@ -115,7 +114,7 @@ export default component$(() => {
   return (
     <section
       id="hero"
-      class="full-width pointer-events-none relative flex h-fit flex-col bg-zinc-950 py-24 text-zinc-300"
+      class="full-width pointer-events-none relative flex h-fit flex-col overflow-x-clip bg-zinc-950 py-24 text-zinc-300"
     >
       <aside
         ref={asideRef}
@@ -129,7 +128,7 @@ export default component$(() => {
         />
         <KdsThumb
           data-speed={2.2}
-          class="absolute -right-24 -top-4 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl object-cover"
+          class="absolute -right-24 -top-4 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
 
         {/* Bottom */}
