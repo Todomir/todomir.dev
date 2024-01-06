@@ -4,7 +4,13 @@ import type { Output } from "valibot";
 import { array, boolean, number, object, optional, safeParse, string, transform } from "valibot";
 import { isDev } from "@builder.io/qwik/build";
 
-const BLOG_POST_LIST = import.meta.glob("/src/content/**/*.mdx", { eager: !isDev });
+const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/post.mdx", { eager: !isDev });
+const BLOG_OG_IMAGE_LIST = import.meta.glob("/src/content/**/**/og.png", {
+  eager: !isDev,
+  import: "default",
+  as: "string",
+});
+
 const FRONTMATTER_SCHEMA = transform(
   object({
     title: string(),
@@ -50,8 +56,8 @@ export type Post = {
   default: () => JSXNode & { props: { children: JSXNode<() => JSXNode> } };
 };
 
-export const getPostBySlug = server$(async (slug: string, locale: string) => {
-  const path = `/src/content/${locale}/${slug}.mdx`;
+export const getPostBySlug = server$(async (slug: string, locale: string, origin: string) => {
+  const path = `/src/content/${locale}/${slug}/post.mdx`;
 
   try {
     const getPost = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
@@ -62,11 +68,28 @@ export const getPostBySlug = server$(async (slug: string, locale: string) => {
       throw new Error(`Invalid frontmatter for slug ${slug}`, { cause: result.issues });
     }
 
+    const ogImagePath = `/src/content/${locale}/${slug}/og.png`;
+    const getOgImage = isDev ? BLOG_OG_IMAGE_LIST[ogImagePath]() : BLOG_OG_IMAGE_LIST[ogImagePath];
+    const ogImage = (await getOgImage) as string;
+
     const post = {
       slug,
       frontmatter: result.output,
       headings: resource.headings,
-      head: resource.head,
+      head: {
+        ...resource.head,
+        meta: [
+          ...(resource.head.meta || []),
+          {
+            name: "og:image",
+            content: new URL(ogImage, origin).href,
+          },
+          {
+            name: "twitter:image",
+            content: new URL(ogImage, origin).href,
+          },
+        ],
+      },
       content: resource.default().props.children.type(),
     };
 
@@ -86,7 +109,7 @@ export const getPostsByLocale = server$(async (locale: string) => {
         const getPost = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
         const resource = (await getPost) as Post;
         const result = safeParse(FRONTMATTER_SCHEMA, resource.frontmatter);
-        const slug = path.split("/").pop()?.replace(".mdx", "") || "";
+        const slug = path.split("/").slice(-2)[0];
 
         if (!result.success) {
           throw new Error(`Invalid frontmatter for slug ${slug}`, { cause: result.issues });

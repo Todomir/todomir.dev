@@ -5,10 +5,10 @@ import { extractLang } from "../../i18n-utils";
 import { getPostBySlug } from "~/content";
 import { Image } from "@unpic/qwik";
 
-export const usePost = routeLoader$(async ({ params, error }) => {
+export const usePost = routeLoader$(async ({ params, error, url }) => {
   const guessedLocale = extractLang(params.locale) as "en" | "pt-BR";
   try {
-    const post = await getPostBySlug(params.slug, guessedLocale);
+    const post = await getPostBySlug(params.slug, guessedLocale, url.origin);
     return post;
   } catch (e) {
     console.error(e);
@@ -81,19 +81,12 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = ({ resolveValue, url }) => {
+export const head: DocumentHead = ({ resolveValue }) => {
   const post = resolveValue(usePost);
-  const og = new URL("og", url.origin);
-  og.searchParams.set("title", post.frontmatter.title);
-  og.searchParams.set("thumbnail", post.frontmatter.thumbnail.src);
 
   return {
     ...post.head,
     title: `Blog - ${post.head.title}`,
-    meta: [
-      ...(post.head.meta || []),
-      { name: "og:image", content: og.toString() },
-      { name: "twitter:title", content: `${post.head.title}` },
-    ],
+    meta: [...(post.head.meta || []), { name: "twitter:title", content: `${post.head.title}` }],
   };
 };

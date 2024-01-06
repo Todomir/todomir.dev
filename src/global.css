@@ -142,15 +142,23 @@
   }
 }
 
-*,
-*::before,
-*::after {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-wrap: balance;
 }
 
-:where(html) {
-  @apply scroll-smooth;
+:not(h1, h2, h3, h4, h5, h6) {
+  text-wrap: pretty;
 }
+
+:where(html) {
+  @apply motion-safe:scroll-smooth;
+}
+
 .content-grid {
   --padding-inline: 1rem;
   --content-max-width: 1200px;

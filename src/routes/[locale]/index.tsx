@@ -53,6 +53,18 @@ export const head: DocumentHead = {
       content: $localize`I'm a creative developer, passionate about building beautiful and accessible interfaces.`,
     },
     {
+      name: "og:image",
+      content: "/assets/og/og-home.png",
+    },
+    {
+      name: "og:url",
+      content: "https://todomir.dev",
+    },
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
       name: "twitter:title",
       content: $localize`Abner Rodrigues - Creative Developer`,
     },

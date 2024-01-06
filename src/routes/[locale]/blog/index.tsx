@@ -72,6 +72,22 @@ export const head: DocumentHead = {
       content: $localize`My ramblings about random stuff. Updated every now and then.`,
     },
     {
+      name: "og:image",
+      content: "/assets/og/og-blog.png",
+    },
+    {
+      name: "og:url",
+      content: "https://todomir.dev",
+    },
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      name: "twitter:image",
+      content: "/assets/og/og-blog.png",
+    },
+    {
       name: "twitter:title",
       content: $localize`Abner Rodrigues - Creative Developer`,
     },
