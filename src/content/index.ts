@@ -10,6 +10,11 @@ const BLOG_OG_IMAGE_LIST = import.meta.glob("/src/content/**/**/og.png", {
   import: "default",
   as: "string",
 });
+const BLOG_THUMBNAIL_LIST = import.meta.glob("/src/content/**/**/thumbnail.png", {
+  eager: !isDev,
+  import: "default",
+  as: "string",
+});
 
 const FRONTMATTER_SCHEMA = transform(
   object({
@@ -31,12 +36,6 @@ const FRONTMATTER_SCHEMA = transform(
       ...frontmatter,
       createdAt: new Date(frontmatter.createdAt),
       updatedAt: new Date(frontmatter.updatedAt),
-      thumbnail: {
-        ...frontmatter.thumbnail,
-        src: isDev
-          ? `/assets/thumbnails/${frontmatter.thumbnail.src}`
-          : `${process.env.PUBLIC_IMGIX_BASE_URL}/${frontmatter.thumbnail.src}`,
-      },
     };
   },
 );
@@ -72,9 +71,19 @@ export const getPostBySlug = server$(async (slug: string, locale: string, origin
     const getOgImage = isDev ? BLOG_OG_IMAGE_LIST[ogImagePath]() : BLOG_OG_IMAGE_LIST[ogImagePath];
     const ogImage = (await getOgImage) as string;
 
+    const thumbnailPath = `/src/content/${locale}/${slug}/thumbnail.png`;
+    const getThumbnail = isDev ? BLOG_THUMBNAIL_LIST[thumbnailPath]() : BLOG_THUMBNAIL_LIST[thumbnailPath];
+    const thumbnail = (await getThumbnail) as string;
+
     const post = {
       slug,
-      frontmatter: result.output,
+      frontmatter: {
+        ...result.output,
+        thumbnail: {
+          ...result.output.thumbnail,
+          src: thumbnail,
+        },
+      },
       headings: resource.headings,
       head: {
         ...resource.head,
@@ -111,13 +120,23 @@ export const getPostsByLocale = server$(async (locale: string) => {
         const result = safeParse(FRONTMATTER_SCHEMA, resource.frontmatter);
         const slug = path.split("/").slice(-2)[0];
 
+        const thumbnailPath = `/src/content/${locale}/${slug}/thumbnail.png`;
+        const getThumbnail = isDev ? BLOG_THUMBNAIL_LIST[thumbnailPath]() : BLOG_THUMBNAIL_LIST[thumbnailPath];
+        const thumbnail = (await getThumbnail) as string;
+
         if (!result.success) {
           throw new Error(`Invalid frontmatter for slug ${slug}`, { cause: result.issues });
         }
 
         const post = {
           slug,
-          frontmatter: result.output,
+          frontmatter: {
+            ...result.output,
+            thumbnail: {
+              ...result.output.thumbnail,
+              src: thumbnail,
+            },
+          },
         };
 
         return post;
