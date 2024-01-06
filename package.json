@@ -58,6 +58,7 @@
     "@unpic/qwik": "^0.0.38",
     "motion": "^10.16.4",
     "rehype-pretty-code": "^0.12.3",
+    "sharp": "^0.33.1",
     "shikiji": "^0.9.17",
     "valibot": "^0.25.0"
   }
