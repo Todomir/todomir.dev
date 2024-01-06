@@ -1,7 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 import Card from "../card/card";
-import { Image } from "@unpic/qwik";
 import type { PostFromSlug } from "~/content";
 
 interface Props {
@@ -28,11 +27,12 @@ export default component$(({ slug, title, description, date, tags, thumbnail }: 
       <p q:slot="description" class="mt-7 overflow-hidden text-ellipsis text-pretty text-base leading-6">
         {description}
       </p>
-      <Image
-        layout="constrained"
+      <img
+        decoding="async"
+        loading="lazy"
         width={thumbnail.width || 544}
         height={thumbnail.height || 320}
-        src={thumbnail.src}
+        srcset={thumbnail.src}
         alt={thumbnail.alt}
         q:slot="aside"
         class="aspect-[1.54] w-full overflow-hidden rounded-lg object-contain object-center"

@@ -8,12 +8,10 @@ const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/post.mdx", { eager: 
 const BLOG_OG_IMAGE_LIST = import.meta.glob("/src/content/**/**/og.png", {
   eager: !isDev,
   import: "default",
-  as: "string",
 });
 const BLOG_THUMBNAIL_LIST = import.meta.glob("/src/content/**/**/thumbnail.png", {
   eager: !isDev,
   import: "default",
-  as: "string",
 });
 
 const FRONTMATTER_SCHEMA = transform(
@@ -115,18 +113,19 @@ export const getPostsByLocale = server$(async (locale: string, origin: string) =
   try {
     const postsByLocale = await Promise.all(
       paths.map(async (path) => {
+        const slug = path.split("/").slice(-2)[0];
+
         const getPost = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
         const resource = (await getPost) as Post;
         const result = safeParse(FRONTMATTER_SCHEMA, resource.frontmatter);
-        const slug = path.split("/").slice(-2)[0];
-
-        const thumbnailPath = `/src/content/${locale}/${slug}/thumbnail.png`;
-        const getThumbnail = isDev ? BLOG_THUMBNAIL_LIST[thumbnailPath]() : BLOG_THUMBNAIL_LIST[thumbnailPath];
-        const thumbnail = (await getThumbnail) as string;
 
         if (!result.success) {
           throw new Error(`Invalid frontmatter for slug ${slug}`, { cause: result.issues });
         }
+
+        const thumbnailPath = `/src/content/${locale}/${slug}/thumbnail.png`;
+        const getThumbnail = isDev ? BLOG_THUMBNAIL_LIST[thumbnailPath]() : BLOG_THUMBNAIL_LIST[thumbnailPath];
+        const thumbnail = (await getThumbnail) as string;
 
         const post = {
           slug,

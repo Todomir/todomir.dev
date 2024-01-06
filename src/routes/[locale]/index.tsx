@@ -9,10 +9,10 @@ import Quote from "~/features/home/quote";
 import { extractLang } from "./i18n-utils";
 import { getPostsByLocale } from "~/content";
 
-export const usePosts = routeLoader$(async ({ params, error }) => {
+export const usePosts = routeLoader$(async ({ params, error, url }) => {
   try {
     const guessedLocale = extractLang(params.locale);
-    const posts = await getPostsByLocale(guessedLocale);
+    const posts = await getPostsByLocale(guessedLocale, url.origin);
 
     return posts;
   } catch (e) {
