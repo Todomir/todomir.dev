@@ -1,5 +1,4 @@
 import harmonyPalette from "@evilmartians/harmony/tailwind";
-import defaultTheme from "tailwindcss/defaultTheme";
 import typography from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
@@ -16,7 +15,7 @@ const config = {
         "spring-5": "var(--ease-spring-5)",
       },
       fontFamily: {
-        sans: ["Haskoy", ...defaultTheme.fontFamily.sans],
+        sans: ["Haskoy", "Haskoy override"],
       },
     },
   },

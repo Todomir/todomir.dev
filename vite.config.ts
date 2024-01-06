@@ -4,6 +4,12 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { getHighlighter, type Highlighter } from "shikiji";
 import rehypePrettyCode from "rehype-pretty-code";
+import { FontaineTransform } from 'fontaine'
+
+const fontaineOptions = {
+  fallbacks: ['BlinkMacSystemFont', 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans'],
+  resolvePath: (fontSrc: string) => new URL(`./public/fonts${fontSrc}`, import.meta.url),
+}
 
 let highlighter: Highlighter;
 async function getOrCreateHighlighter() {
@@ -15,6 +21,7 @@ async function getOrCreateHighlighter() {
 export default defineConfig(() => {
   return {
     plugins: [
+      FontaineTransform.vite(fontaineOptions),
       qwikCity({
         mdxPlugins: {
           rehypeAutolinkHeadings: true,
