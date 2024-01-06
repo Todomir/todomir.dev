@@ -1,4 +1,4 @@
-import { $, component$, useOnWindow, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { $, component$, useOnDocument, useOnWindow, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { animate, scroll, spring } from "motion";
 import Logo from "~/components/logo/logo";
 
@@ -29,6 +29,12 @@ export default component$(() => {
   useVisibleTask$(() => {
     const aside = asideRef.value;
     if (!aside) return;
+
+    animate(
+      aside,
+      { scale: [null, prefersReducedMotion.value ? 1 : 1.1] },
+      { easing: spring({ mass: 5, stiffness: 200, damping: 150 }) },
+    );
 
     const images = aside.querySelectorAll("*");
 
@@ -80,6 +86,29 @@ export default component$(() => {
       }),
     );
   });
+
+  useOnDocument(
+    "mousemove",
+    $((event) => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) return;
+
+      const aside = asideRef.value;
+      if (!aside) return;
+
+      const mousePosition = { x: event.clientX, y: event.clientY };
+
+      animate(
+        aside,
+        {
+          transformOrigin: "center",
+          x: mousePosition.x / 100,
+          y: mousePosition.y / 100,
+        },
+        { easing: spring({ mass: 40, stiffness: 200, damping: 300 }) },
+      );
+    }),
+  );
 
   return (
     <section
