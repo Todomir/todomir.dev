@@ -1,11 +1,11 @@
 {
   "locale": "en",
   "translations": {
-    "links.about": "/__/#about",
+    "links.about": "/en/#about",
     "1726363342938046830": "About",
-    "links.projects": "/__/#projects",
+    "links.projects": "/en/#projects",
     "7091571651222742304": "Projects",
-    "links.blog": "/__/blog",
+    "links.blog": "/en/blog",
     "7751010942038334793": "Blog",
     "8021011453006536601": "A <span class=\"text-zinc-200\">creative front-end engineer</span> with a passion for crafting",
     "7516480391248507810": "visually stunning",
