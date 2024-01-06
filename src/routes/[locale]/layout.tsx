@@ -19,6 +19,14 @@ export const SOCIAL_LINKS = [
     url: "https://www.linkedin.com/in/todomir/",
     label: "LinkedIn",
   },
+  {
+    url: 'https://read.cv/todomir/',
+    label: 'Read.cv',
+  },
+  {
+    url: 'https://peerlist.io/abno_/',
+    label: 'Peerlist',
+  }
 ];
 
 export const onGet: RequestHandler = async ({ cacheControl, locale, params }) => {
@@ -110,7 +118,7 @@ const Footer = component$(() => {
         ))}
       </ul>
       <div class="shrink grow basis-auto text-center text-sm leading-5 tracking-normal text-zinc-500 md:text-right">
-        © Abner Rodrigues. 2023.
+        © Abner Rodrigues. {new Date().getFullYear()}.
       </div>
     </footer>
   );
