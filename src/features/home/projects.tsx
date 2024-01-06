@@ -3,6 +3,8 @@ import ProjectCard from "~/components/project-card/project-card";
 
 import AstromartThumb from "~/media/images/projects/astromart-02.png?w=500;900;1200&format=webp&as=srcset&imagetools";
 import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-02.png?w=500;900;1200&format=webp&as=srcset&imagetools";
+import KdsThumb from "~/media/images/projects/kds-01.png?w=500;900;1200&format=webp&as=srcset&imagetools";
+
 
 const PROJECTS = [
   {
@@ -29,6 +31,18 @@ const PROJECTS = [
       height: 100,
     },
   },
+  {
+    id: "kds-wahalla",
+    title: "KDS Wahalla",
+    description: $localize`Built KDS Wahalla, a performant kitchen display system for restaurants, using React, TypeScript, elevating restaurant efficiency.`,
+    tags: ["React", "TypeScript", "Odoo"],
+    thumbnail: {
+      srcset: KdsThumb,
+      alt: $localize`Built KDS Wahalla, a performant kitchen display system for restaurants, using React, TypeScript, elevating restaurant efficiency.`,
+      width: 100,
+      height: 100,
+    },
+  }
 ];
 
 export default component$(() => {

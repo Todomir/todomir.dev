@@ -7,6 +7,8 @@ import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
 import AstromartThumb from "~/media/images/projects/astromart-01.png?jsx";
 import KobrazaThumb from "~/media/images/projects/kobraza-01.avif?jsx";
 import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-01.png?jsx";
+import KdsThumb from "~/media/images/projects/kds-01.png?jsx";
+
 
 export default component$(() => {
   const asideRef = useSignal<HTMLDivElement>();
@@ -125,9 +127,9 @@ export default component$(() => {
           alt={$localize`Website for Kobraza Imóveis. Kobraza Imóveis is a real estate agency that has operated for over 30 years in the market, with a wide range of properties, including commercial properties, such as warehouses, gas stations and warehouses; residential properties such as houses, apartments and lofts; and rural properties, such as farms and farms.`}
           class="absolute -left-24 -top-2 aspect-video w-[clamp(238px,50%,572px)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
-        <div
+        <KdsThumb
           data-speed={2.2}
-          class="absolute -right-24 -top-4 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
+          class="absolute -right-24 -top-4 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl object-cover"
         />
 
         {/* Bottom */}
