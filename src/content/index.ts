@@ -81,7 +81,7 @@ export const getPostBySlug = server$(async (slug: string, locale: string, origin
         ...result.output,
         thumbnail: {
           ...result.output.thumbnail,
-          src: thumbnail,
+          src: new URL(thumbnail, origin).href,
         },
       },
       headings: resource.headings,
@@ -109,7 +109,7 @@ export const getPostBySlug = server$(async (slug: string, locale: string, origin
 });
 export type PostFromSlug = Awaited<ReturnType<typeof getPostBySlug>>;
 
-export const getPostsByLocale = server$(async (locale: string) => {
+export const getPostsByLocale = server$(async (locale: string, origin: string) => {
   const paths = Object.keys(BLOG_POST_LIST).filter((path) => path.includes(`/${locale}/`));
 
   try {
@@ -134,7 +134,7 @@ export const getPostsByLocale = server$(async (locale: string) => {
             ...result.output,
             thumbnail: {
               ...result.output.thumbnail,
-              src: thumbnail,
+              src: new URL(thumbnail, origin).href,
             },
           },
         };

@@ -6,10 +6,10 @@ import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import { getPostsByLocale } from "~/content";
 import { extractLang } from "../i18n-utils";
 
-export const usePosts = routeLoader$(async ({ params, error }) => {
+export const usePosts = routeLoader$(async ({ params, error, url }) => {
   try {
     const guessedLocale = extractLang(params.locale);
-    const posts = await getPostsByLocale(guessedLocale);
+    const posts = await getPostsByLocale(guessedLocale, url.origin);
 
     return posts;
   } catch (e) {
