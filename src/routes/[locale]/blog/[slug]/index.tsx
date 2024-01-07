@@ -41,7 +41,12 @@ export default component$(() => {
         </h1>
 
         <time class="mt-4 text-balance text-base leading-6 opacity-50">
-          {$localize`Last updated at`} {post.value.frontmatter.updatedAt.toLocaleDateString()}
+          {$localize`Last updated at`}{" "}
+          {post.value.frontmatter.updatedAt.toLocaleDateString(locale, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </time>
 
         <img

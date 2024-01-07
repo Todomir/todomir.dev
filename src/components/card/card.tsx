@@ -6,8 +6,8 @@ interface Props {
 
 export default component$((props: Props) => {
   return (
-    <article class={["rounded-xl sm:p-1 md:p-10", props.class]}>
-      <div class="flex flex-col gap-10 md:flex-row md:gap-12">
+    <article class={["@container/card @sm/card:p-1 @md/card:p-3 rounded-xl", props.class]}>
+      <div class="@lg/card:flex-row @md/card:gap-12 flex flex-col gap-10">
         <div class="flex w-full flex-col">
           <Slot name="aside" />
         </div>

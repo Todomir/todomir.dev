@@ -21,13 +21,14 @@ export default component$(({ slug, locale, frontmatter }: Props) => {
 
   return (
     <Card class="mt-20 text-zinc-800">
-      <div q:slot="title" class="space-y-1">
-        <h3 class="grow space-x-3 text-3xl font-medium leading-10 tracking-tighter">
+      <div q:slot="title" class="@md:space-y-3 space-y-1">
+        <h3 class="@md:text-3xl @md:space-x-3 grow space-x-2 text-2xl font-medium tracking-tighter">
           <a href={`/${locale}/blog/${slug}`}>{title}</a>
           <IconArrowTopRight class="inline-block" />
         </h3>
-        <time class="block text-sm leading-6 opacity-70" dateTime={updatedAt.toISOString()}>
-          {$localize`Last updated at`} {updatedAt.toLocaleDateString()}
+        <time class="@md:text-md leading-2 block text-sm opacity-80" dateTime={updatedAt.toISOString()}>
+          {$localize`Last updated at`}{" "}
+          {updatedAt.toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" })}
         </time>
       </div>
       <p q:slot="description" class="mt-7 overflow-hidden text-ellipsis text-pretty text-base leading-6">
@@ -41,11 +42,15 @@ export default component$(({ slug, locale, frontmatter }: Props) => {
         srcset={thumbnailSig.value}
         alt={frontmatter.thumbnail.alt}
         q:slot="aside"
-        class="aspect-[1.54] w-full overflow-hidden rounded-lg object-contain object-center"
+        class="aspect-[5/3] w-full overflow-hidden rounded-lg object-cover shadow-md"
       />
-      <ul q:slot="superheader" class="flex items-start gap-4">
+
+      <ul q:slot="superheader" class="@md:gap-2 flex flex-wrap items-start gap-1">
         {tags.map((tag) => (
-          <li key={tag} class="rounded-md border border-zinc-200 bg-zinc-50 p-2 leading-6 text-zinc-950">
+          <li
+            key={tag}
+            class="leading-0 @md:text-sm w-max rounded-xl border border-zinc-200 bg-gradient-to-b from-white to-zinc-50 px-3 py-1 text-xs text-zinc-950 shadow-sm"
+          >
             {tag}
           </li>
         ))}

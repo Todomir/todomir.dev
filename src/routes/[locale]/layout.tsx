@@ -64,7 +64,7 @@ const Header = component$(() => {
   ];
 
   return (
-    <header class="header fixed left-1/2 top-1 z-20 -translate-x-1/2 items-center px-5 pt-12 text-zinc-50 md:px-20">
+    <header class="header @md/footer:px-20 fixed left-1/2 top-1 z-20 -translate-x-1/2 items-center px-5 pt-12 text-zinc-50">
       <nav class="relative mx-auto mt-2.5 max-w-[353px] flex-col items-center justify-between px-6 py-4">
         <ul class="gap- flex justify-around">
           {NAV_LINKS.map((link) => (
@@ -87,23 +87,23 @@ const Header = component$(() => {
 
 const Footer = component$(() => {
   return (
-    <footer class="full-width footer flex w-full flex-col bg-zinc-950 px-5 py-12 text-zinc-300 md:px-20">
+    <footer class="@container/footer full-width footer @md/footer/footer:px-20 flex w-full flex-col bg-zinc-950 px-5 py-12  text-zinc-300">
       <Logo />
       <div class="mt-8 flex max-w-full flex-wrap items-stretch justify-between gap-3 self-stretch">
-        <p class="max-w-[70ch] shrink grow basis-auto text-pretty text-sm leading-5 tracking-normal text-zinc-500">
+        <p class="max-w-2xl shrink grow basis-auto text-balance text-sm leading-5 tracking-normal text-zinc-500">
           {$localize`Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress every day.`}
         </p>
         <a
           href="mailto:abnerluis1001@gmail.com"
           target="_blank"
           rel="noreferrer"
-          class="my-auto shrink grow basis-auto text-left text-xl leading-7 tracking-tight text-zinc-500 md:text-right"
+          class="@2xl/footer:text-right my-auto shrink grow basis-auto text-left text-xl leading-7 tracking-tight text-zinc-500"
         >
           abnerluis1001@gmail.com
         </a>
       </div>
       <hr class="mt-10 h-px max-w-full shrink-0 self-stretch border-zinc-800" />
-      <ul class="mt-8 flex max-w-full flex-wrap justify-center gap-5 sm:justify-between md:justify-start">
+      <ul class="@md/footer:justify-start mb-3 mt-8 flex max-w-full flex-wrap justify-center gap-5">
         {SOCIAL_LINKS.map((link) => (
           <li key={`social-link-${link.label}-${link.url}`}>
             <a
@@ -117,7 +117,7 @@ const Footer = component$(() => {
           </li>
         ))}
       </ul>
-      <div class="shrink grow basis-auto text-center text-sm leading-5 tracking-normal text-zinc-500 md:text-right">
+      <div class="@md/footer:text-right shrink grow basis-auto text-center text-sm leading-5 tracking-normal text-zinc-500">
         © Abner Rodrigues. {new Date().getFullYear()}.
       </div>
     </footer>
