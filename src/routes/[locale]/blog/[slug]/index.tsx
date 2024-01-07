@@ -24,7 +24,7 @@ export default component$(() => {
 
   return (
     <div class="content-grid mb-24 pb-12 pt-36 text-black">
-      <header class="my-12 md:space-y-4">
+      <header class="my-12">
         <ul class="space-x-2">
           {post.value.frontmatter.tags.map((tag) => (
             <li
@@ -36,11 +36,11 @@ export default component$(() => {
           ))}
         </ul>
 
-        <h1 class="text-balance text-4xl leading-[53px] tracking-tighter md:mt-12 md:text-6xl md:leading-[73px]">
+        <h1 class="text-balance text-4xl leading-[53px] tracking-tighter md:my-6 md:text-6xl md:leading-[73px]">
           {post.value.frontmatter.title}
         </h1>
 
-        <time class="mt-4 text-balance text-base leading-6 opacity-50">
+        <time class="block text-balance text-base leading-6 opacity-50">
           {$localize`Last updated at`}{" "}
           {post.value.frontmatter.updatedAt.toLocaleDateString(locale, {
             year: "numeric",
@@ -50,7 +50,7 @@ export default component$(() => {
         </time>
 
         <img
-          class="mt-10 block h-auto w-full rounded-xl shadow-lg"
+          class="mt-10 block h-auto w-full rounded-xl shadow-lg md:mt-24"
           srcset={thumbnailSig.value}
           loading="lazy"
           decoding="async"
