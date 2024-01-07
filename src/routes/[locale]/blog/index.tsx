@@ -58,7 +58,7 @@ export const head: DocumentHead = {
     },
     {
       name: "og:url",
-      content: "https://todomir.dev",
+      content: "https://todomir.dev/blog",
     },
     {
       name: "twitter:card",
