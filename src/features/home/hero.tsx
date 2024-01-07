@@ -114,7 +114,7 @@ export default component$(() => {
   return (
     <section
       id="hero"
-      class="full-width pointer-events-none relative flex h-fit flex-col overflow-x-clip bg-zinc-950 py-24 text-zinc-300"
+      class="@container/hero full-width pointer-events-none relative flex h-fit flex-col overflow-x-clip bg-zinc-950 py-24 text-zinc-300"
     >
       <aside
         ref={asideRef}
@@ -126,14 +126,14 @@ export default component$(() => {
           decoding="sync"
           data-speed={2.5}
           alt={$localize`Website for Kobraza Imóveis. Kobraza Imóveis is a real estate agency that has operated for over 30 years in the market, with a wide range of properties, including commercial properties, such as warehouses, gas stations and warehouses; residential properties such as houses, apartments and lofts; and rural properties, such as farms and farms.`}
-          class="absolute -left-24 -top-2 aspect-video w-[clamp(238px,50%,572px)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
+          class="absolute -left-24 -top-2 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
         <KdsThumb
           loading="eager"
           decoding="sync"
           data-speed={2.2}
           alt={$localize`Built KDS Wahalla, a performant kitchen display system for restaurants, using React, TypeScript, elevating restaurant efficiency.`}
-          class="absolute -right-24 -top-4 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
+          class="absolute -right-24 -top-4 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
 
         {/* Bottom */}
@@ -142,22 +142,22 @@ export default component$(() => {
           decoding="sync"
           alt={$localize`CMS Integration and Testimonials with social login for Leonardo Nutrition, a nutritionist and dietitian in Brazil.`}
           data-speed={1}
-          class="absolute -bottom-8 -right-36 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
+          class="absolute -bottom-8 -right-36 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
         <AstromartThumb
           loading="eager"
           decoding="sync"
           alt={$localize`Worked on Astromart: a performant e-commerce template for Astro, React, TypeScript and Odoo developers`}
           data-speed={1.2}
-          class="absolute -bottom-4 -left-36 aspect-video w-[clamp(238px,40%,572px)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
+          class="absolute -bottom-4 -left-36 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
         />
       </aside>
 
-      <div id="hero-content" class="my-auto py-24 md:py-36">
+      <div id="hero-content" class="@2xl/hero:py-36 my-auto py-24">
         <Logo id="hero-logo" shouldFollowCursor shouldBlink class="mx-auto text-2xl text-white" />
 
         <h1
-          class="z-10 max-w-full text-center text-4xl leading-[53px] tracking-tighter text-zinc-200 md:mt-12 md:text-7xl md:leading-[96px]"
+          class="@2xl/hero:text-7xl @2xl/hero:leading-normal @md:text-6xl @md:leading-[1.2] z-10 mt-12 max-w-full text-center text-5xl leading-normal tracking-tighter text-zinc-200"
           dangerouslySetInnerHTML={$localize`Abner Rodrigues <br />Creat<span class="italic">i</span>ve Developer`}
         />
 
