@@ -11,6 +11,11 @@ export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob("/src/content/**/**/thu
   import: "default",
   query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
 });
+export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob("/src/content/**/**/og.png", {
+  eager: true,
+  import: "default",
+  as: "url",
+});
 
 const FRONTMATTER_SCHEMA = transform(
   object({

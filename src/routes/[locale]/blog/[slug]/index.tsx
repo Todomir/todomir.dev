@@ -1,7 +1,7 @@
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { useLocation } from "@builder.io/qwik-city";
-import { BLOG_POST_THUMBNAIL_LIST, usePost } from "~/content";
+import { BLOG_POST_OG_IMAGE_LIST, BLOG_POST_THUMBNAIL_LIST, usePost } from "~/content";
 
 export { usePost };
 
@@ -85,12 +85,22 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = ({ resolveValue }) => {
+export const head: DocumentHead = ({ resolveValue, params }) => {
   const post = resolveValue(usePost);
+  const { locale, slug } = params;
+  const ogImage = BLOG_POST_OG_IMAGE_LIST[`/src/content/${locale}/${slug}/og.png`] as string;
 
   return {
     ...post.head,
     title: `Blog - ${post.head.title}`,
-    meta: [...(post.head.meta || []), { name: "twitter:title", content: `${post.head.title}` }],
+    meta: [
+      ...(post.head.meta || []),
+      { name: "og:image", content: ogImage },
+      { name: "og:url", content: `https://todomir.dev/blog/${slug}` },
+      { name: "twitter:image", content: ogImage },
+
+      { name: "twitter:title", content: `${post.head.title}` },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
   };
 };
