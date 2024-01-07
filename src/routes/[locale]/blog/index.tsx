@@ -10,10 +10,10 @@ export default component$(() => {
   const posts = usePosts();
 
   return (
-    <section class="full-width content-grid relative h-full w-full bg-zinc-950 pb-64 pt-36 text-zinc-300">
+    <section class="full-width content-grid relative h-full w-full bg-zinc-950 pt-36 text-zinc-300">
       <h1
         style={{ viewTransitionName: "blog-section-title" }}
-        class="mt-10 text-center text-4xl leading-[53px] tracking-tighter text-zinc-200 md:mt-12 md:text-6xl md:leading-[73px]"
+        class="mt-10 text-center text-4xl tracking-tighter text-zinc-200 md:mt-12 md:text-6xl md:leading-[73px]"
       >
         {$localize`Blog`}
       </h1>
@@ -21,7 +21,7 @@ export default component$(() => {
         {$localize`My ramblings about random stuff. Updated every now and then.`}
       </p>
 
-      <ul class="full-width mt-20 space-y-10 rounded-xl bg-zinc-50">
+      <ul class="full-width mt-20 h-full space-y-10 rounded-xl bg-zinc-50">
         {posts.value.map((post) => (
           <Fragment key={post.slug}>
             <li>
