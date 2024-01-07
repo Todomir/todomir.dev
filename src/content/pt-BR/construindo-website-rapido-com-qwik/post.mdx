@@ -2,7 +2,7 @@
 title: "Construindo um Site Ultrarrápido com Qwik: A Jornada de um Desenvolvedor"
 description: Descubra como alavanquei o framework Qwik para construir um site de alto desempenho e amigável ao usuário. Saiba mais sobre as características únicas do Qwik, meu processo de desenvolvimento e as técnicas inovadoras usadas para o desenvolvimento web ideal.
 createdAt: 2023-12-12
-updatedAt: 2024-01-03
+updatedAt: 2024-01-06
 thumbnail:
   src: building-fast-website-with-qwik.png
   alt: Um astronauta voando rapidamente pelo espaço, com uma intensa fonte de luz pixelizada ao fundo
@@ -93,12 +93,12 @@ Estou usando [@angular/localize](https://angular.io/api/localize) no Qwik City, 
 
 ### Reinventando (uma versão bem merda das) _Content Collections_
 
-Então, decidi criar minha própria versão de _Content Collections_. Criei uma pasta `content` e dentro separei o conteúdo por localidade. Também criei um arquivo `content/index.ts` que contém utilitários para analisar o frontmatter usando [valibot](https://valibot.dev/) e obter a lista de postagens e a própria postagem para um determinado slug e localidade.
+Então, decidi criar minha própria versão de _Content Collections_. Criei um diretório `content` e dentro separei o conteúdo por localidade. Também criei um arquivo `content/index.ts` que contém utilitários para analisar o frontmatter usando [valibot](https://valibot.dev/) e obter a lista de postagens e a própria postagem para um determinado slug e localidade.
 
 Então, pesquisei e encontrei [uma issue relacionada no Github](https://github.com/BuilderIO/qwik/issues/2643#issuecomment-1777395867) que tinha uma solução muito boa para isso. Decidi usá-la como base e criar minha própria versão. Usando `import.meta.glob`, pude gerar um dicionário com os slugs das postagens como chaves e as funções que carregam o arquivo MDX importado como valores, e com isso eu poderia construir o caminho com a localidade e o slug adequados e obter a postagem que eu queria sem ter que carregar todas de uma vez. Também pedi ajuda no [servidor Discord do Builder.io](https://discord.gg/5Wb4UjX) e recebi ajuda das pessoas lá (thanks for the help, [Wout](https://github.com/wmertens)!)
 
 ```ts
-// As postagens são armazenadas na pasta `content`, podemos usar `import.meta.glob` para carregar preguiçosamente todos os arquivos MDX, essencialmente criando um dicionário com os slugs das postagens como chaves e as funções que carregam a postagem MDX importada como valores.
+// As postagens são armazenadas no diretório `content`, podemos usar `import.meta.glob` para carregar preguiçosamente todos os arquivos MDX, essencialmente criando um dicionário com os slugs das postagens como chaves e as funções que carregam a postagem MDX importada como valores.
 const BLOG_POST_LIST = import.meta.glob("/src/content/**/*.mdx");
 
 // Usando server$ para garantir que este código seja executado apenas no servidor
@@ -197,19 +197,12 @@ export default component$(() => {
   const post = usePost();
 
   return (
-    <article class="content-grid mb-24 pb-12 pt-36 text-black">
+    <article>
       <header>
         <h1>{post.value.frontmatter.title}</h1>
         <p>{post.value.frontmatter.description}</p>
-
-        <img
-          width={post.value.frontmatter.thumbnail.width || 956}
-          height={post.value.frontmatter.thumbnail.height || 560}
-          src={post.value.frontmatter.thumbnail.src}
-          alt={post.value.frontmatter.thumbnail.alt}
-        />
       </header>
-      {post.value.content}
+      {post.value.default}
     </article>
   );
 });
@@ -239,7 +232,86 @@ Isso garantirá que as postagens não sejam carregadas com entusiasmo quando isD
 
 Quando carregamos com `eager`, o arquivo é a própria postagem, e quando fazemos o _lazy loading_, o arquivo é uma promise que se resolve para a própria postagem. Isso garantirá que as postagens sejam carregadas corretamente, independentemente do ambiente.
 
-Conclusão
+### Imagens e Imagens OG
+
+Atualmente, é assim que tá a estrutura de diretórios do `content`:
+
+```
+content
+├── en
+│   ├── slug-en
+│   │   ├── post.mdx
+│   │   └── og.png
+│   │   └── thumbnail.png
+├── pt-BR
+│   ├── slug-pt-BR
+│   │   ├── post.mdx
+│   │   └── og.png
+│   │   └── thumbnail.png
+```
+
+Eu tenho um diretório `content`, e dentro dela tenho um diretório para cada localidade. Dentro de cada diretório de localidade, tenho um diretório nomeado com o nome do slug do post, e dentro de cada diretório de postagem tenho a própria postagem, bem como as imagens que quero usar para a postagem e a imagem OG.
+
+O que faço é carregar com entusiasmo as imagens `og.png` e `thumbnail.png`, usar transformadores para otimizá-las e depois usá-las na página. Dessa forma, posso ter imagens diferentes para cada localidade e também posso usar a mesma imagem tanto para a imagem OG quanto para a miniatura.
+
+Então, no arquivo `content/index.ts`, adicionei o seguinte:
+
+```ts
+export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob("/src/content/**/*.og.png", {
+  eager: true,
+  import: "default",
+  query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
+});
+export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob("/src/content/**/*.thumbnail.png", {
+  eager: true,
+  import: "default",
+  as: "url",
+});
+```
+
+O princípio aqui é semelhante ao usado para as postagens. Usamos `import.meta.glob` para gerar um dicionário com os caminhos das imagens como chaves e as próprias imagens como valores. Também usamos `eager: true` para garantir que as imagens sejam carregadas com entusiasmo, e usamos `import: "default"` para garantir que obtenhamos a exportação padrão da imagem, que é o URL da imagem otimizada.
+
+Em nossa página, podemos então usar as imagens assim:
+
+```tsx
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+import { BLOG_POST_THUMBNAIL_LIST, usePost } from "~/content";
+
+export { usePost };
+
+export default component$(() => {
+  const post = usePost();
+  const { locale, slug } = post.value;
+
+  const thumbnailSig = useSignal("");
+
+  useTask$(async () => {
+    // Queremos obter o URL da imagem otimizada, os tamanhos e formatos são especificados na consulta
+    const sizes = [200, 400, 600, 800, 1200];
+    const path = `/src/content/${locale}/${slug}/thumbnail.png`;
+    const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
+
+    // thumbnail é um array plano de strings, cada string é um URL para um tamanho diferente da imagem. As imagens estão ordenadas em grupos de 3, então podemos usar o array de tamanhos para obter o URL correto para cada tamanho.
+    const srcset = sizes.map((size, i) => `${thumbnail[i * 3]} ${size}w`).join(", ");
+    thumbnailSig.value = srcset;
+  });
+
+  return (
+    <article>
+      <header>
+        <h1>{post.value.frontmatter.title}</h1>
+        <p>{post.value.frontmatter.description}</p>
+
+        <img src={thumbnailSig.value} alt={post.value.frontmatter.thumbnail.alt} srcset={thumbnailSig.value} />
+      </header>
+      {post.value.default}
+    </article>
+  );
+});
+```
+
+## Conclusão
+
 O Qwik e o Qwik City são uma alegria de usar, e definitivamente os usarei em projetos futuros. Estou realmente animado para ver como ele evolui, e estou realmente animado para ver o que outras pessoas construirão com ele.
 
 E sim, estou ciente de que poderia ter usado a nova integração do Astro para usar o Qwik e ainda ter acesso às _Content Collections_, e provavelmente teria sido mais fácil. Mas eu queria tentar fazer isso por conta própria, tanto para brincar com o Qwik City, quanto para me desafiar um pouco.

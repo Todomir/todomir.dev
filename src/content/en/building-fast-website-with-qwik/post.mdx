@@ -2,7 +2,7 @@
 title: "Building a Lightning-Fast Website with Qwik: A Developer’s Journey"
 description: Discover how I leveraged the Qwik framework to build a high-performance, user-friendly website. Learn about Qwik's unique features, my development process, and the innovative techniques used for optimal web development.
 createdAt: 2023-12-12
-updatedAt: 2024-01-03
+updatedAt: 2024-01-06
 thumbnail:
   src: building-fast-website-with-qwik.png
   alt: An astronaut swiftly flying through in space, with a bright pixel light source in the background
@@ -93,61 +93,53 @@ I'm using [@angular/localize](https://angular.io/api/localize) in Qwik City, and
 
 ### Reinventing (a really shitty version of) Content Collections
 
-So, I decided to create my own version of Content Collections. I created a `content` folder, and inside separated the content by locale. I also created a `content/index.ts` file that contains helpers for parsing the frontmatter using [valibot](https://valibot.dev/) and getting both the list of posts and the post itself for a given slug and locale.
+So, I decided to create my own version of Content Collections. I created a `content` directory, and inside separated the content by locale. I also created a `content/index.ts` file that contains helpers for parsing the frontmatter using [valibot](https://valibot.dev/) and getting both the list of posts and the post itself for a given slug and locale.
 
 So I searched and came across [an related issue on Github](https://github.com/BuilderIO/qwik/issues/2643#issuecomment-1777395867) that had a pretty good solution for it. I decided to use it as a base and create my own version of it. By using `import.meta.glob` I could generate a dictionary with the post slugs as keys and the functions that load the imported MDX file as values, and with that I could just build the path with the adequate locale and slug and get the post I wanted without having to load all of them at once. I also asked for help on the [Qwik Discord server](https://discord.gg/5Wb4UjX) and got some help from the folks there (thanks for the help, [Wout](https://github.com/wmertens)!)
 
 ```ts
-// Posts are stored in the `content` folder, we can use `import.meta.glob` to lazy load all of the MDX files, essentially create a dictionary with the post slugs as keys and the functions that load the post as values.
+// Posts are stored in the `content` directory, we can use `import.meta.glob` to lazy load all of the MDX files, essentially create a dictionary with the post slugs as keys and the functions that load the post as values.
 const BLOG_POST_LIST = import.meta.glob("/src/content/**/*.mdx");
 
-// Using server$ to make sure this code only runs on the server
-export const getPostBySlug = server$(async (slug: string, locale: string) => {
-  const path = `/src/content/${locale}/${slug}.mdx`;
-  const importPost = BLOG_POST_LIST[path];
-
-  // This should have everything we need to render the post, since Vite will have already compiled it for us when we import it.
-  const resource = await importPost();
-
-  // Send only the relevant data to the client
-  const post = {
+// Export a route loader that loads the post for the given locale and slug
+export const usePost = routeLoader$(async ({ params }) => {
+  const { locale, slug } = params;
+  const path = `/src/content/${locale}/${slug}/post.mdx`;
+  const promise = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
+  const mod = (await promise) as PostModule;
+  const frontmatter = parse(FRONTMATTER_SCHEMA, mod.frontmatter);
+  return {
+    locale,
     slug,
-    frontmatter: result.output,
-    headings: resource.headings,
-    head: resource.head,
-    // Parsed MDX content
-    content: resource.default().props.children.type(),
+    ...mod,
+    frontmatter,
+    default: mod.default().props.children.type(),
   };
-
-  return post;
 });
 ```
 
 Listing posts is even easier, since we can just filter the keys of the dictionary by slugs that includes our locale, and then map over them to get the post itself.
 
 ```ts
-export const getPostsByLocale = server$(async (locale: string) => {
-  const paths = Object.keys(BLOG_POST_LIST).filter((path) => path.includes(`/${locale}/`));
+export const usePosts = routeLoader$(async ({ params }) => {
+  const { locale } = params;
+  const path = `/src/content/${locale}`;
 
-  const postsByLocale = await Promise.all(
-    paths.map(async (path) => {
-      // Same as before, we can just import the post and get the frontmatter
-      const resource = await BLOG_POST_LIST[path]();
-      const frontmatter = parse(FRONTMATTER_SCHEMA, resource.frontmatter);
-      // We can get the slug from the path, since the file name and the slug are the same
-      const slug = path.split("/").pop()?.replace(".mdx", "") || "";
-
-      // Send only the relevant data to the client
-      const post = {
-        slug,
-        frontmatter: result.output,
+  // Filter posts that start with the path
+  const postPromises = Object.keys(BLOG_POST_LIST)
+    .filter((key) => key.startsWith(path))
+    .map(async (key) => {
+      const promise = isDev ? BLOG_POST_LIST[key]() : BLOG_POST_LIST[key];
+      const mod = (await promise) as PostModule;
+      const frontmatter = parse(FRONTMATTER_SCHEMA, mod.frontmatter);
+      return {
+        locale,
+        slug: key.slice(path.length + 1, -"/post.mdx".length),
+        frontmatter,
       };
-
-      return post;
-    }),
-  );
-
-  return postsByLocale;
+    });
+  const posts = await Promise.all(postPromises);
+  return posts;
 });
 ```
 
@@ -162,8 +154,6 @@ const FRONTMATTER_SCHEMA = object({
   thumbnail: object({
     src: string(),
     alt: string(),
-    width: optional(number()),
-    height: optional(number()),
   }),
   draft: boolean(),
   tags: array(string()),
@@ -176,39 +166,24 @@ const post = await importPost();
 const frontmatter = parse(FRONTMATTER_SCHEMA, post.frontmatter);
 ```
 
-And then we can load it using `routerLoader$` and send to your page to render the post.
+And then we can load it in our page.
 
 ```tsx
-export const usePost = routeLoader$(async ({ params, error }) => {
-  // We can use the created @angular/localize helpers to get the current locale
-  const guessedLocale = extractLang(params.locale);
+import { usePost } from "~/content";
 
-  try {
-    const post = await getPostBySlug(params.slug, guessedLocale);
-    return post;
-  } catch (e) {
-    console.error(e);
-    throw error(404, "Post not found");
-  }
-});
+// Remember to export the route loader so that components can use it
+export { usePost };
 
 export default component$(() => {
   const post = usePost();
 
   return (
-    <article class="content-grid mb-24 pb-12 pt-36 text-black">
+    <article>
       <header>
         <h1>{post.value.frontmatter.title}</h1>
         <p>{post.value.frontmatter.description}</p>
-
-        <img
-          width={post.value.frontmatter.thumbnail.width || 956}
-          height={post.value.frontmatter.thumbnail.height || 560}
-          src={post.value.frontmatter.thumbnail.src}
-          alt={post.value.frontmatter.thumbnail.alt}
-        />
       </header>
-      {post.value.content}
+      {post.value.default}
     </article>
   );
 });
@@ -237,6 +212,84 @@ This will make sure that posts aren't being loaded eagerly when `isDev` is true.
 ```
 
 When we load eagerly, the file is the post itself, and when we load lazily, the file is a promise that resolves to the post itself. This will make sure that the posts are being loaded correctly independently of the environment.
+
+### Images and OG Images
+
+Currently, this is how my `content` directory looks like:
+
+```
+content
+├── en
+│   ├── slug-en
+│   │   ├── post.mdx
+│   │   └── og.png
+│   │   └── thumbnail.png
+├── pt-BR
+│   ├── slug-pt-BR
+│   │   ├── post.mdx
+│   │   └── og.png
+│   │   └── thumbnail.png
+```
+
+I have a `content` directory, and inside I have a directory for each locale. Inside each locale directory, I have a directory for each post, and inside each post directory I have the post itself, as well as the images I want to use for the post and the OG image.
+
+What I do is eagerly load the `og.png` and `thumbnail.png` images, use transformers to optimize them, and then use them in the page. This way, I can have different images for each locale, and I can also use the same image for both the OG image and the thumbnail.
+
+So, on the `content/index.ts` file, I added the following:
+
+```ts
+export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob("/src/content/**/*.og.png", {
+  eager: true,
+  import: "default",
+  query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
+});
+export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob("/src/content/**/*.thumbnail.png", {
+  eager: true,
+  import: "default",
+  as: "url",
+});
+```
+
+The principle here is similar to the one used for the posts. We use `import.meta.glob` to generate a dictionary with the image paths as keys and the images themselves as values. We also use `eager: true` to make sure that the images are loaded eagerly, and we use `import: "default"` to make sure that we get the default export of the image, which is the URL of the optimized image.
+
+In our page, we can then use the images like this:
+
+```tsx
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+import { BLOG_POST_THUMBNAIL_LIST, usePost } from "~/content";
+
+export { usePost };
+
+export default component$(() => {
+  const post = usePost();
+  const { locale, slug } = post.value;
+
+  const thumbnailSig = useSignal("");
+
+  useTask$(async () => {
+    // We want to get the URL of the optimized image, sizes and formats are specified in the query
+    const sizes = [200, 400, 600, 800, 1200];
+    const path = `/src/content/${locale}/${slug}/thumbnail.png`;
+    const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
+
+    // thumbnail is a flat array of strings, each string is a URL to a different size of the image. The images are ordered in groups of 3, so we can use the sizes array to get the correct URL for each size.
+    const srcset = sizes.map((size, i) => `${thumbnail[i * 3]} ${size}w`).join(", ");
+    thumbnailSig.value = srcset;
+  });
+
+  return (
+    <article>
+      <header>
+        <h1>{post.value.frontmatter.title}</h1>
+        <p>{post.value.frontmatter.description}</p>
+
+        <img src={thumbnailSig.value} alt={post.value.frontmatter.thumbnail.alt} srcset={thumbnailSig.value} />
+      </header>
+      {post.value.default}
+    </article>
+  );
+});
+```
 
 ## Wrapping it up
 
