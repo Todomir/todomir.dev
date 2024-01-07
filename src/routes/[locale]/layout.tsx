@@ -20,13 +20,13 @@ export const SOCIAL_LINKS = [
     label: "LinkedIn",
   },
   {
-    url: 'https://read.cv/todomir/',
-    label: 'Read.cv',
+    url: "https://read.cv/todomir/",
+    label: "Read.cv",
   },
   {
-    url: 'https://peerlist.io/abno_/',
-    label: 'Peerlist',
-  }
+    url: "https://peerlist.io/abno_/",
+    label: "Peerlist",
+  },
 ];
 
 export const onGet: RequestHandler = async ({ cacheControl, locale, params }) => {

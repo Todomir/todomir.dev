@@ -1,22 +1,10 @@
 import { Fragment, component$ } from "@builder.io/qwik";
-import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
+import { type DocumentHead } from "@builder.io/qwik-city";
 
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
+import { usePosts } from "~/content";
 
-import { getPostsByLocale } from "~/content";
-import { extractLang } from "../i18n-utils";
-
-export const usePosts = routeLoader$(async ({ params, error, url }) => {
-  try {
-    const guessedLocale = extractLang(params.locale);
-    const posts = await getPostsByLocale(guessedLocale, url.origin);
-
-    return posts;
-  } catch (e) {
-    console.error(e);
-    throw error(500, "Something went wrong while loading posts");
-  }
-});
+export { usePosts };
 
 export default component$(() => {
   const posts = usePosts();
@@ -37,14 +25,7 @@ export default component$(() => {
         {posts.value.map((post) => (
           <Fragment key={post.slug}>
             <li>
-              <BlogPostCard
-                slug={post.slug}
-                title={post.frontmatter.title}
-                description={post.frontmatter.description}
-                date={post.frontmatter.updatedAt}
-                tags={post.frontmatter.tags}
-                thumbnail={post.frontmatter.thumbnail}
-              />
+              <BlogPostCard slug={post.slug} locale={post.locale} frontmatter={post.frontmatter} />
             </li>
 
             <li aria-hidden class="my-2 hidden h-[1px] w-full bg-zinc-300 leading-6 [&+&]:block" />

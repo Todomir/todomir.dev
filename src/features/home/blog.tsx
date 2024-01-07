@@ -1,14 +1,15 @@
 import { Fragment, component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
-import type { Frontmatter } from "~/content";
+import type { PostFrontmatter } from "~/content";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
 interface Props {
-  posts: {
+  posts: Array<{
     slug: string;
-    frontmatter: Frontmatter;
-  }[];
+    locale: string;
+    frontmatter: PostFrontmatter;
+  }>;
 }
 
 export default component$(({ posts }: Props) => {
@@ -25,14 +26,7 @@ export default component$(({ posts }: Props) => {
           {posts.map((post) => (
             <Fragment key={post.slug}>
               <li>
-                <BlogPostCard
-                  slug={`blog/${post.slug}`}
-                  title={post.frontmatter.title}
-                  description={post.frontmatter.description}
-                  date={post.frontmatter.updatedAt}
-                  tags={post.frontmatter.tags}
-                  thumbnail={post.frontmatter.thumbnail}
-                />
+                <BlogPostCard slug={post.slug} locale={post.locale} frontmatter={post.frontmatter} />
               </li>
 
               <li aria-hidden class="my-2 hidden h-[1px] w-full bg-zinc-300 leading-6 [&+&]:block" />
