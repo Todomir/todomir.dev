@@ -29,7 +29,11 @@ export const SOCIAL_LINKS = [
   },
 ];
 
-export const onGet: RequestHandler = async ({ cacheControl, locale, params }) => {
+export const onGet: RequestHandler = async ({
+  cacheControl,
+  locale,
+  params,
+}) => {
   locale(extractLang(params.locale));
   // Control caching for this request for best performance and to reduce hosting costs:
   // https://qwik.builder.io/docs/caching/

@@ -1,7 +1,11 @@
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { useLocation } from "@builder.io/qwik-city";
-import { BLOG_POST_OG_IMAGE_LIST, BLOG_POST_THUMBNAIL_LIST, usePost } from "~/content";
+import {
+  BLOG_POST_OG_IMAGE_LIST,
+  BLOG_POST_THUMBNAIL_LIST,
+  usePost,
+} from "~/content";
 
 export { usePost };
 
@@ -18,7 +22,9 @@ export default component$(() => {
     const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
 
     // thumbnail is a flat array of strings, each string is a URL to a different size of the image. The images are ordered in groups of 3, so we can use the sizes array to get the correct URL for each size.
-    const srcset = sizes.map((size, i) => `${thumbnail[i * 3]} ${size}w`).join(", ");
+    const srcset = sizes
+      .map((size, i) => `${thumbnail[i * 3]} ${size}w`)
+      .join(", ");
     thumbnailSig.value = srcset;
   });
 
@@ -61,7 +67,9 @@ export default component$(() => {
         />
       </header>
 
-      <p class="leading-1 mb-24 text-xl font-medium md:text-3xl">{post.value.frontmatter.description}</p>
+      <p class="leading-1 mb-24 text-xl font-medium md:text-3xl">
+        {post.value.frontmatter.description}
+      </p>
 
       <div class="prose prose-zinc max-w-none text-pretty lg:prose-xl prose-code:rounded-md prose-code:border prose-code:border-zinc-300 prose-code:bg-zinc-100 prose-code:p-1 prose-code:before:content-[''] prose-code:after:content-[''] [&_pre_code]:border-transparent [&_pre_code]:bg-inherit [&_pre_code]:p-0">
         {post.value.default}
@@ -93,7 +101,9 @@ export default component$(() => {
 export const head: DocumentHead = ({ resolveValue, params }) => {
   const post = resolveValue(usePost);
   const { locale, slug } = params;
-  const ogImage = BLOG_POST_OG_IMAGE_LIST[`/src/content/${locale}/${slug}/og.png`] as string;
+  const ogImage = BLOG_POST_OG_IMAGE_LIST[
+    `/src/content/${locale}/${slug}/og.png`
+  ] as string;
 
   return {
     ...post.head,

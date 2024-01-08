@@ -5,17 +5,25 @@ import type { DocumentHeadValue } from "@builder.io/qwik-city";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import type { JSXNode } from "@builder.io/qwik";
 
-export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/post.mdx", { eager: !isDev });
-export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob("/src/content/**/**/thumbnail.png", {
-  eager: true,
-  import: "default",
-  query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
+export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/post.mdx", {
+  eager: !isDev,
 });
-export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob("/src/content/**/**/og.png", {
-  eager: true,
-  import: "default",
-  as: "url",
-});
+export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob(
+  "/src/content/**/**/thumbnail.png",
+  {
+    eager: true,
+    import: "default",
+    query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
+  },
+);
+export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob(
+  "/src/content/**/**/og.png",
+  {
+    eager: true,
+    import: "default",
+    as: "url",
+  },
+);
 
 const FRONTMATTER_SCHEMA = transform(
   object({

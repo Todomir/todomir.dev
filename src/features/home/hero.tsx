@@ -1,4 +1,11 @@
-import { $, component$, useOnDocument, useOnWindow, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import {
+  $,
+  component$,
+  useOnDocument,
+  useOnWindow,
+  useSignal,
+  useVisibleTask$,
+} from "@builder.io/qwik";
 import { animate, scroll, spring } from "motion";
 import Logo from "~/components/logo/logo";
 
@@ -48,7 +55,8 @@ export default component$(() => {
     images.forEach((image, i) => {
       const speedMultiplier = Number((image as HTMLElement).dataset.speed) || 1;
       // Only animate the images if the user has not requested reduced motion.
-      const speed = 350 * (speedMultiplier * Number(!prefersReducedMotion.value));
+      const speed =
+        350 * (speedMultiplier * Number(!prefersReducedMotion.value));
       const xpos = i >= 2 ? ["100%", 0] : ["-100%", 0];
 
       animate(
@@ -91,7 +99,9 @@ export default component$(() => {
   useOnDocument(
     "mousemove",
     $((event) => {
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
       if (prefersReducedMotion) return;
 
       const aside = asideRef.value;
@@ -154,7 +164,12 @@ export default component$(() => {
       </aside>
 
       <div id="hero-content" class="@2xl/hero:py-36 my-auto py-24">
-        <Logo id="hero-logo" shouldFollowCursor shouldBlink class="mx-auto text-2xl text-white" />
+        <Logo
+          id="hero-logo"
+          shouldFollowCursor
+          shouldBlink
+          class="mx-auto text-2xl text-white"
+        />
 
         <h1
           class="@2xl/hero:text-7xl @2xl/hero:leading-normal @md:text-6xl @md:leading-[1.2] z-10 mt-12 max-w-full text-center text-5xl leading-normal tracking-tighter text-zinc-200"

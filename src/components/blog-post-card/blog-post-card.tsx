@@ -15,7 +15,9 @@ export default component$(({ slug, locale, frontmatter }: Props) => {
     const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
 
     // thumbnail is a flat array of strings, each string is a URL to a different size of the image. The images are ordered in groups of 3, so we can use the sizes array to get the correct URL for each size.
-    const srcset = sizes.map((size, i) => `${thumbnail[i * 3]} ${size}w`).join(", ");
+    const srcset = sizes
+      .map((size, i) => `${thumbnail[i * 3]} ${size}w`)
+      .join(", ");
     thumbnailSig.value = srcset;
   });
 
@@ -26,12 +28,22 @@ export default component$(({ slug, locale, frontmatter }: Props) => {
           <a href={`/${locale}/blog/${slug}`}>{title}</a>
           <IconArrowTopRight class="inline-block" />
         </h3>
-        <time class="@md:text-md leading-2 block text-sm opacity-80" dateTime={updatedAt.toISOString()}>
+        <time
+          class="@md:text-md leading-2 block text-sm opacity-80"
+          dateTime={updatedAt.toISOString()}
+        >
           {$localize`Last updated at`}{" "}
-          {updatedAt.toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" })}
+          {updatedAt.toLocaleDateString(locale, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </time>
       </div>
-      <p q:slot="description" class="mt-7 overflow-hidden text-ellipsis text-pretty text-base leading-6">
+      <p
+        q:slot="description"
+        class="mt-7 overflow-hidden text-ellipsis text-pretty text-base leading-6"
+      >
         {description}
       </p>
       <img
@@ -45,7 +57,10 @@ export default component$(({ slug, locale, frontmatter }: Props) => {
         class="aspect-[5/3] w-full overflow-hidden rounded-lg object-cover shadow-md"
       />
 
-      <ul q:slot="superheader" class="@md:gap-2 flex flex-wrap items-start gap-1">
+      <ul
+        q:slot="superheader"
+        class="@md:gap-2 flex flex-wrap items-start gap-1"
+      >
         {tags.map((tag) => (
           <li
             key={tag}

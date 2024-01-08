@@ -5,7 +5,8 @@
  * @param max - The maximum possible value.
  * @returns A random number between min and max.
  */
-export const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
+export const random = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min)) + min;
 
 /**
  * Linearly interpolates between two numbers.

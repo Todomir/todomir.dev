@@ -4,7 +4,10 @@ import ImgMe from "~/media/images/me.jpg?jsx";
 
 export default component$(() => {
   return (
-    <section id="about" class="full-width bg-zinc-950 px-5 py-20 text-zinc-300 md:px-16 md:py-60">
+    <section
+      id="about"
+      class="full-width bg-zinc-950 px-5 py-20 text-zinc-300 md:px-16 md:py-60"
+    >
       <div class="flex flex-col gap-8 md:gap-20 lg:flex-row">
         <ImgMe
           id="img-me"

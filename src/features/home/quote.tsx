@@ -13,7 +13,9 @@ export default component$(() => {
         />{" "}
         <span class="text-zinc-200">
           <Sparkles>{$localize`visually stunning`}</Sparkles>{" "}
-          <CharacterButton characters={EMOJIS}>{$localize`interactive`}</CharacterButton>
+          <CharacterButton
+            characters={EMOJIS}
+          >{$localize`interactive`}</CharacterButton>
         </span>{" "}
         {$localize`web experiences.`}{" "}
         <span

@@ -59,7 +59,9 @@ export function initTranslations() {
  * @returns The locale to use which will be stored in the `useEnvData('locale')`.
  */
 export function extractLang(locale: string): string {
-  return locale && $localizeFn.TRANSLATION_BY_LOCALE.has(locale) ? locale : DEFAULT_LOCALE;
+  return locale && $localizeFn.TRANSLATION_BY_LOCALE.has(locale) ?
+      locale
+    : DEFAULT_LOCALE;
 }
 
 /**

@@ -17,7 +17,10 @@ export default component$(() => {
       >
         {$localize`Blog`}
       </h1>
-      <p style={{ viewTransitionName: "blog-section-description" }} class="mt-4 text-center text-base leading-6">
+      <p
+        style={{ viewTransitionName: "blog-section-description" }}
+        class="mt-4 text-center text-base leading-6"
+      >
         {$localize`My ramblings about random stuff. Updated every now and then.`}
       </p>
 
@@ -25,10 +28,17 @@ export default component$(() => {
         {posts.value.map((post) => (
           <Fragment key={post.slug}>
             <li>
-              <BlogPostCard slug={post.slug} locale={post.locale} frontmatter={post.frontmatter} />
+              <BlogPostCard
+                slug={post.slug}
+                locale={post.locale}
+                frontmatter={post.frontmatter}
+              />
             </li>
 
-            <li aria-hidden class="my-2 hidden h-[1px] w-full bg-zinc-300 leading-6 [&+&]:block" />
+            <li
+              aria-hidden
+              class="my-2 hidden h-[1px] w-full bg-zinc-300 leading-6 [&+&]:block"
+            />
           </Fragment>
         ))}
       </ul>

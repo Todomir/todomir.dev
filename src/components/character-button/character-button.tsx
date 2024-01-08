@@ -1,6 +1,13 @@
 // Imports
 import type { HTMLAttributes } from "@builder.io/qwik";
-import { $, Slot, component$, useStore, useStyles$, useTask$ } from "@builder.io/qwik";
+import {
+  $,
+  Slot,
+  component$,
+  useStore,
+  useStyles$,
+  useTask$,
+} from "@builder.io/qwik";
 import CSS from "./character-button.styles.css?inline";
 import { random } from "~/utils/functions";
 
@@ -49,52 +56,62 @@ export const Character = component$((props: Props) => {
   );
 });
 
-const CharacterButton = component$((props: { characters: string[]; class?: string }) => {
-  const store = useCharacterStore();
-  useStyles$(CSS);
+const CharacterButton = component$(
+  (props: { characters: string[]; class?: string }) => {
+    const store = useCharacterStore();
+    useStyles$(CSS);
 
-  /**
-   * handleClick handles the click event for the CharacterButton component.
-   * It generates a new random character from the props.characters array,
-   * ensuring it is different than the last generated character.
-   * It adds the new character to the component's store.
-   */
-  const handleClick = $(() => {
-    let char = props.characters[random(0, props.characters.length - 1)];
-    while (store.characters.length > 0 && char === store.characters[store.characters.length - 1].character) {
-      char = props.characters[random(0, props.characters.length - 1)];
-    }
-    store.characters = [...store.characters, generateCharacter(char)];
-  });
+    /**
+     * handleClick handles the click event for the CharacterButton component.
+     * It generates a new random character from the props.characters array,
+     * ensuring it is different than the last generated character.
+     * It adds the new character to the component's store.
+     */
+    const handleClick = $(() => {
+      let char = props.characters[random(0, props.characters.length - 1)];
+      while (
+        store.characters.length > 0 &&
+        char === store.characters[store.characters.length - 1].character
+      ) {
+        char = props.characters[random(0, props.characters.length - 1)];
+      }
+      store.characters = [...store.characters, generateCharacter(char)];
+    });
 
-  useTask$(({ track, cleanup }) => {
-    track(() => store.characters);
-    const timeout = setTimeout(() => {
-      // Delete the oldest one
-      store.characters = store.characters.slice(1);
-    }, 700);
-    cleanup(() => clearTimeout(timeout));
-  });
+    useTask$(({ track, cleanup }) => {
+      track(() => store.characters);
+      const timeout = setTimeout(() => {
+        // Delete the oldest one
+        store.characters = store.characters.slice(1);
+      }, 700);
+      cleanup(() => clearTimeout(timeout));
+    });
 
-  // Render
-  return (
-    <button
-      onClick$={handleClick}
-      type="button"
-      class={[
-        "character-button cursor-pointer rounded-lg bg-emerald-500 px-2 py-1 text-emerald-700 shadow-[0_4px_0] shadow-emerald-700 transition-all hover:-translate-y-[1px] hover:shadow-[0_6px_0] hover:brightness-110 active:translate-y-[2px] active:shadow-[0_2px_0] active:brightness-90 motion-reduce:transform-none motion-reduce:transition-none",
-        props.class,
-      ]}
-    >
-      <span class="text-white">
-        {store.characters.map((character) => (
-          <Character key={character.id} character={character.character} size={character.size} style={character.style} />
-        ))}
-        <Slot />
-      </span>
-    </button>
-  );
-});
+    // Render
+    return (
+      <button
+        onClick$={handleClick}
+        type="button"
+        class={[
+          "character-button cursor-pointer rounded-lg bg-emerald-500 px-2 py-1 text-emerald-700 shadow-[0_4px_0] shadow-emerald-700 transition-all hover:-translate-y-[1px] hover:shadow-[0_6px_0] hover:brightness-110 active:translate-y-[2px] active:shadow-[0_2px_0] active:brightness-90 motion-reduce:transform-none motion-reduce:transition-none",
+          props.class,
+        ]}
+      >
+        <span class="text-white">
+          {store.characters.map((character) => (
+            <Character
+              key={character.id}
+              character={character.character}
+              size={character.size}
+              style={character.style}
+            />
+          ))}
+          <Slot />
+        </span>
+      </button>
+    );
+  },
+);
 
 // Export default
 export default CharacterButton;

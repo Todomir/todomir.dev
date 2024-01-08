@@ -20,11 +20,17 @@ interface Props {
 export default component$((props: Props) => {
   return (
     <Card class="bg-zinc-900/20 p-5 sm:p-12">
-      <h4 q:slot="title" class="grow space-x-2 text-3xl font-medium leading-10 tracking-tighter">
+      <h4
+        q:slot="title"
+        class="grow space-x-2 text-3xl font-medium leading-10 tracking-tighter"
+      >
         <Link href={props.slug}>{props.title}</Link>
         {props.slug && <IconArrowTopRight class="inline-block" />}
       </h4>
-      <p q:slot="description" class="overflow-hidden text-ellipsis text-balance text-base leading-6 text-zinc-300">
+      <p
+        q:slot="description"
+        class="overflow-hidden text-ellipsis text-balance text-base leading-6 text-zinc-300"
+      >
         {props.description}
       </p>
       <img
