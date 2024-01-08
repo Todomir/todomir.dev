@@ -1,6 +1,7 @@
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { useLocation } from "@builder.io/qwik-city";
+import Tag from "~/components/tag/tag";
 import {
   BLOG_POST_OG_IMAGE_LIST,
   BLOG_POST_THUMBNAIL_LIST,
@@ -31,14 +32,11 @@ export default component$(() => {
   return (
     <div class="content-grid mb-24 pb-12 pt-36 text-black">
       <header class="my-12">
-        <ul class="space-x-2">
+        <ul class="flex flex-wrap gap-2 md:gap-3 @container ">
           {post.value.frontmatter.tags.map((tag) => (
-            <li
-              class="inline-block w-fit max-w-none rounded-lg border border-zinc-400 px-2 py-1 text-sm md:text-base lg:px-3 lg:py-2"
-              key={tag}
-            >
-              {tag}
-            </li>
+            <Tag key={tag}>
+              <li>{tag}</li>
+            </Tag>
           ))}
         </ul>
 
