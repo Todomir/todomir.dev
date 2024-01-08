@@ -1,0 +1,32 @@
+{
+  "site": {
+    "author": "Abner Rodrigues",
+    "links": {
+      "about": {
+        "label": "About",
+        "url": "/#about"
+      },
+      "blog": {
+        "url": "/blog",
+        "label": "Blog"
+      },
+      "projects": {
+        "label": "Projects",
+        "url": "/#projects"
+      }
+    },
+    "messages": {
+      "updated": "Updated at"
+    },
+    "og": {
+      "blog": {
+        "description": "My ramblings about random stuff. Updated every now and then.",
+        "title": "Abner Rodrigues - Creative Developer | Blog"
+      },
+      "main": {
+        "description": "My name is Abner, a dedicated and passionate Web Developer known for creating elegant solutions efficiently.",
+        "title": "Abner Rodrigues - Creative Developer"
+      }
+    }
+  }
+}

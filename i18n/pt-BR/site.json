@@ -1,0 +1,31 @@
+{
+  "site": {
+    "links": {
+      "about": {
+        "label": "Sobre",
+        "url": "/pt-BR/#about/"
+      },
+      "blog": {
+        "url": "/pt-BR/blog/",
+        "label": "Blog"
+      },
+      "projects": {
+        "label": "Projetos",
+        "url": "/pt-BR/#projects/"
+      }
+    },
+    "messages": {
+      "updated": "Última atualização em"
+    },
+    "og": {
+      "blog": {
+        "description": "Meus devaneios sobre coisas aleatórias. Atualizado de vez em quando.",
+        "title": "Abner Rodrigues - Desenvolvedor Criativo | Blog"
+      },
+      "main": {
+        "description": "Meu nome é Abner, um desenvolvedor Web dedicado e apaixonado conhecido por criar soluções elegantes de forma eficiente.",
+        "title": "Abner Rodrigues - Desenvolvedor Criativo"
+      }
+    }
+  }
+}

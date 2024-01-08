@@ -4,6 +4,8 @@ import { isDev } from "@builder.io/qwik/build";
 import type { DocumentHeadValue } from "@builder.io/qwik-city";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import type { JSXNode } from "@builder.io/qwik";
+import { validateLocale } from "qwik-speak";
+import { config } from "~/speak.config";
 
 export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/post.mdx", {
   eager: !isDev,
@@ -60,9 +62,20 @@ export type PostModule = {
 };
 
 // eslint-disable-next-line qwik/loader-location
-export const usePosts = routeLoader$(async ({ params }) => {
-  const { locale } = params;
-  const path = `/src/content/${locale}`;
+export const usePosts = routeLoader$(async ({ params, error }) => {
+  let lang: string | undefined = undefined;
+
+  if (params.lang && validateLocale(params.lang)) {
+    // Check supported locales
+    lang = config.supportedLocales.find((value) => value.lang === params.lang)
+      ?.lang;
+    // 404 error page
+    if (!lang) throw error(404, "Page not found");
+  } else {
+    lang = config.defaultLocale.lang;
+  }
+
+  const path = `/src/content/${lang}`;
 
   // Filter posts that start with the path
   const postPromises = Object.keys(BLOG_POST_LIST)
@@ -72,7 +85,7 @@ export const usePosts = routeLoader$(async ({ params }) => {
       const mod = (await promise) as PostModule;
       const frontmatter = parse(FRONTMATTER_SCHEMA, mod.frontmatter);
       return {
-        locale,
+        lang: lang as string,
         slug: key.slice(path.length + 1, -"/post.mdx".length),
         frontmatter,
       };
@@ -82,14 +95,26 @@ export const usePosts = routeLoader$(async ({ params }) => {
 });
 
 // eslint-disable-next-line qwik/loader-location
-export const usePost = routeLoader$(async ({ params }) => {
-  const { locale, slug } = params;
-  const path = `/src/content/${locale}/${slug}/post.mdx`;
+export const usePost = routeLoader$(async ({ params, error }) => {
+  const { slug } = params;
+  let lang: string | undefined = undefined;
+
+  if (params.lang && validateLocale(params.lang)) {
+    // Check supported locales
+    lang = config.supportedLocales.find((value) => value.lang === params.lang)
+      ?.lang;
+    // 404 error page
+    if (!lang) throw error(404, "Page not found");
+  } else {
+    lang = config.defaultLocale.lang;
+  }
+
+  const path = `/src/content/${lang}/${slug}/post.mdx`;
   const promise = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
   const mod = (await promise) as PostModule;
   const frontmatter = parse(FRONTMATTER_SCHEMA, mod.frontmatter);
   return {
-    locale,
+    lang,
     slug,
     ...mod,
     frontmatter,

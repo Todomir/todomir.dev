@@ -7,6 +7,9 @@ import {
 import { RouterHead } from "./components/router-head/router-head";
 
 import "./global.css";
+import { useQwikSpeak } from "qwik-speak";
+import { translationFn } from "./speak.functions";
+import { config } from "./speak.config";
 
 export default component$(() => {
   /**
@@ -15,6 +18,11 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
+
+  /**
+   * Init Qwik Speak
+   */
+  useQwikSpeak({ config, translationFn, langs: ["en", "pt-BR"] });
 
   return (
     <QwikCityProvider>

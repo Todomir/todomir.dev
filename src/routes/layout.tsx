@@ -1,10 +1,9 @@
 import { Slot, component$ } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
+import { inlineTranslate } from "qwik-speak";
 import Glass from "~/components/glass/glass";
 import Logo from "~/components/logo/logo";
-
-import { extractLang, useI18n } from "~/routes/[locale]/i18n-utils";
 
 export const SOCIAL_LINKS = [
   {
@@ -29,12 +28,7 @@ export const SOCIAL_LINKS = [
   },
 ];
 
-export const onGet: RequestHandler = async ({
-  cacheControl,
-  locale,
-  params,
-}) => {
-  locale(extractLang(params.locale));
+export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
   // https://qwik.builder.io/docs/caching/
   cacheControl({
@@ -52,18 +46,19 @@ export const useServerTimeLoader = routeLoader$(() => {
 });
 
 const Header = component$(() => {
+  const t = inlineTranslate();
   const NAV_LINKS = [
     {
-      url: $localize`:@@links.about:/__/#about`,
-      label: $localize`About`,
+      url: t("site.links.about.url"),
+      label: t("site.links.about.label"),
     },
     {
-      url: $localize`:@@links.projects:/__/#projects`,
-      label: $localize`Projects`,
+      url: t("site.links.projects.url"),
+      label: t("site.links.projects.label"),
     },
     {
-      url: $localize`:@@links.blog:/__/blog`,
-      label: $localize`Blog`,
+      url: t("site.links.blog.url"),
+      label: t("site.links.blog.label"),
     },
   ];
 
@@ -90,12 +85,13 @@ const Header = component$(() => {
 });
 
 const Footer = component$(() => {
+  const t = inlineTranslate();
   return (
     <footer class="full-width footer @md/footer/footer:px-20 flex w-full flex-col bg-zinc-950 px-5 py-12 text-zinc-300  @container/footer">
       <Logo />
       <div class="mt-8 flex max-w-full flex-wrap items-stretch justify-between gap-3 self-stretch">
         <p class="max-w-2xl shrink grow basis-auto text-balance text-sm leading-5 tracking-normal text-zinc-500">
-          {$localize`Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress every day.`}
+          {t("app.footer.quote")}
         </p>
         <a
           href="mailto:abnerluis1001@gmail.com"
@@ -129,7 +125,6 @@ const Footer = component$(() => {
 });
 
 export default component$(() => {
-  useI18n();
   return (
     <>
       <Header />

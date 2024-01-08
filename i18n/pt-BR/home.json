@@ -1,0 +1,29 @@
+{
+  "home": {
+    "about": {
+      "description": "Com mais de 5 anos de experiência, criei uma série de aplicações web dinâmicas e visualmente atraentes para diversas indústrias. Especializado em desenvolvimento de front-end com vasta experiência na criação de experiências digitais de alto impacto e focadas no usuário.",
+      "meImageAlt": "Foto de Abner Rodrigues, desenvolvedor Web",
+      "presentation": "Sou Abner 👋, um desenvolvedor Web inovador e apaixonado com um talento para criar soluções elegantes no menor tempo possível.",
+      "subtitle": "<span class='font-serif italic'>Pessoas</span> estão no coração de qualquer negócio. Desenvolvo software que une <span class='font-serif italic'>pessoas</span> e as capacita, tudo isso trazendo um sorriso aos seus rostos.",
+      "title": "Eu acredito em empoderar <em class='font-serif italic'>pessoas</em>"
+    },
+    "blog": {
+      "seeAllPosts ": "Ver todos os posts"
+    },
+    "hero": {
+      "scrollDown": "Role para baixo para ver mais",
+      "subtitle": "Desenvolvedor Web extraordinário, criando soluções super legais com estilo 😎",
+      "title": "Abner Rodrigues <br/> Creat<span class='italic'>i</span>ve Developer"
+    },
+    "projects": {
+      "description": "Projetos que tenho trabalhado ultimamente <small>(e não tão ultimamente)</small>"
+    },
+    "quote": {
+      "description": "Um <span class='text-zinc-200'>engenheiro de front-end criativo</span> com paixão por criar",
+      "interactive": "interativas",
+      "specializing": "Especializado em <span class='text-zinc-200'> traduzir conceitos de design em interfaces de usuário eficientes e <em class='font-serif italic'>elegantes</em>,</span> com um olhar <span class='text-zinc-200'>atento aos detalhes</span> e foco em <span class='text-zinc-200'>princípios de design centrados no usuário</span>.",
+      "visuallyStunning": "visualmente impressionantes",
+      "webExperiences": "experiências web."
+    }
+  }
+}

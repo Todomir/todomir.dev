@@ -5,6 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { getHighlighter, type Highlighter } from "shikiji";
 import rehypePrettyCode from "rehype-pretty-code";
 import { FontaineTransform } from "fontaine";
+import { qwikSpeakInline } from "qwik-speak/inline";
 
 const fontaineOptions = {
   fallbacks: [
@@ -65,6 +66,11 @@ export default defineConfig(() => {
         },
       }),
       qwikVite(),
+      qwikSpeakInline({
+        supportedLangs: ["en", "pt-BR"],
+        defaultLang: "en",
+        assetsPath: "i18n",
+      }),
       tsconfigPaths(),
     ],
     dev: {

@@ -1,0 +1,16 @@
+{
+  "projects": {
+    "astromart": {
+      "description": "Astromart: um template de e-commerce performático para desenvolvedores Astro, React, TypeScript e Odoo"
+    },
+    "kds_wahalla": {
+      "description": "KDS Wahalla, um kitchen display system (sistema de exibição de comandas na cozinha) performático para restaurantes, utilizando React, TypeScript, elevando a eficiência do restaurante."
+    },
+    "kobraza_imoveis": {
+      "description": "Website para Kobraza Imóveis. Kobraza Imóveis é uma imobiliária que atua há mais de 30 anos no mercado, com uma ampla gama de propriedades, incluindo propriedades comerciais, como armazéns, postos de gasolina e armazéns; propriedades residenciais como casas, apartamentos e lofts; e propriedades rurais, como fazendas e fazendas."
+    },
+    "leonardo_nutrition": {
+      "description": "Integração de CMS e depoimentos com login social para Leonardo Nutrition, um nutricionista e dietista no Brasil."
+    }
+  }
+}

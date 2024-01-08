@@ -1,6 +1,7 @@
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { useLocation } from "@builder.io/qwik-city";
+import { inlineTranslate } from "qwik-speak";
 import Tag from "~/components/tag/tag";
 import {
   BLOG_POST_OG_IMAGE_LIST,
@@ -11,15 +12,17 @@ import {
 export { usePost };
 
 export default component$(() => {
+  const t = inlineTranslate();
+
   const post = usePost();
-  const { locale, slug } = post.value;
+  const { lang, slug } = post.value;
   const location = useLocation();
 
   const thumbnailSig = useSignal("");
 
   useTask$(async () => {
     const sizes = [200, 400, 600, 800, 1200];
-    const path = `/src/content/${locale}/${slug}/thumbnail.png`;
+    const path = `/src/content/${lang}/${slug}/thumbnail.png`;
     const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
 
     // thumbnail is a flat array of strings, each string is a URL to a different size of the image. The images are ordered in groups of 3, so we can use the sizes array to get the correct URL for each size.
@@ -45,8 +48,8 @@ export default component$(() => {
         </h1>
 
         <time class="block text-balance text-base leading-6 opacity-50">
-          {$localize`Last updated at`}{" "}
-          {post.value.frontmatter.updatedAt.toLocaleDateString(locale, {
+          {t("site.messages.updated")}{" "}
+          {post.value.frontmatter.updatedAt.toLocaleDateString(lang, {
             year: "numeric",
             month: "long",
             day: "numeric",
@@ -96,11 +99,11 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = ({ resolveValue, params }) => {
+export const head: DocumentHead = ({ resolveValue }) => {
   const post = resolveValue(usePost);
-  const { locale, slug } = params;
+  const { slug, lang } = post;
   const ogImage = BLOG_POST_OG_IMAGE_LIST[
-    `/src/content/${locale}/${slug}/og.png`
+    `/src/content/${lang}/${slug}/og.png`
   ] as string;
 
   return {

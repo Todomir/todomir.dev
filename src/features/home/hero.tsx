@@ -15,8 +15,11 @@ import AstromartThumb from "~/media/images/projects/astromart-01.png?jsx";
 import KobrazaThumb from "~/media/images/projects/kobraza-01.avif?jsx";
 import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-01.png?jsx";
 import KdsThumb from "~/media/images/projects/kds-01.png?jsx";
+import { inlineTranslate } from "qwik-speak";
 
 export default component$(() => {
+  const t = inlineTranslate();
+
   const asideRef = useSignal<HTMLDivElement>();
   const prefersReducedMotion = useSignal(true);
 
@@ -135,14 +138,14 @@ export default component$(() => {
           loading="eager"
           decoding="sync"
           data-speed={2.5}
-          alt={$localize`Website for Kobraza Imóveis. Kobraza Imóveis is a real estate agency that has operated for over 30 years in the market, with a wide range of properties, including commercial properties, such as warehouses, gas stations and warehouses; residential properties such as houses, apartments and lofts; and rural properties, such as farms and farms.`}
+          alt={t("projects.kobraza_imoveis.description")}
           class="absolute -left-24 -top-2 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
         <KdsThumb
           loading="eager"
           decoding="sync"
           data-speed={2.2}
-          alt={$localize`Built KDS Wahalla, a performant kitchen display system for restaurants, using React, TypeScript, elevating restaurant efficiency.`}
+          alt={t("projects.kds_wahalla.description")}
           class="absolute -right-24 -top-4 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
 
@@ -150,14 +153,14 @@ export default component$(() => {
         <LeonardoNutritionThumb
           loading="eager"
           decoding="sync"
-          alt={$localize`CMS Integration and Testimonials with social login for Leonardo Nutrition, a nutritionist and dietitian in Brazil.`}
+          alt={t("projects.leonardo_nutrition.description")}
           data-speed={1}
           class="absolute -bottom-8 -right-36 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
         <AstromartThumb
           loading="eager"
           decoding="sync"
-          alt={$localize`Worked on Astromart: a performant e-commerce template for Astro, React, TypeScript and Odoo developers`}
+          alt={t("projects.astromart.description")}
           data-speed={1.2}
           class="absolute -bottom-4 -left-36 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
         />
@@ -173,11 +176,11 @@ export default component$(() => {
 
         <h1
           class="@2xl/hero:text-7xl @2xl/hero:leading-normal @md:text-6xl @md:leading-[1.2] z-10 mt-12 max-w-full text-center text-5xl leading-normal tracking-tighter text-zinc-200"
-          dangerouslySetInnerHTML={$localize`Abner Rodrigues <br />Creat<span class="italic">i</span>ve Developer`}
+          dangerouslySetInnerHTML={t("home.hero.title")}
         />
 
         <h2 class="mx-auto mt-10 max-w-[524px] text-center text-xl leading-7">
-          {$localize`Web Developer extraordinaire, crafting super cool solutions with style \u{1F60E}`}
+          {t("home.hero.subtitle")}
         </h2>
 
         <div
@@ -186,7 +189,7 @@ export default component$(() => {
         >
           <IconArrowDown />
           <span id="scroll" class="sr-only text-zinc-200">
-            {$localize`Scroll down to see more.`}
+            {t("home.hero.scrollDown")}
           </span>
         </div>
       </div>

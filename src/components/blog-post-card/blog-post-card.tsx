@@ -3,16 +3,19 @@ import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 import Card from "../card/card";
 import { BLOG_POST_THUMBNAIL_LIST, type PostFrontmatter } from "~/content";
 import Tag from "../tag/tag";
+import { inlineTranslate } from "qwik-speak";
 
-type Props = { slug: string; locale: string; frontmatter: PostFrontmatter };
+type Props = { slug: string; lang: string; frontmatter: PostFrontmatter };
 
-export default component$(({ slug, locale, frontmatter }: Props) => {
+export default component$(({ slug, lang, frontmatter }: Props) => {
   const { title, description, updatedAt, tags } = frontmatter;
+
+  const t = inlineTranslate();
   const thumbnailSig = useSignal("");
 
   useTask$(async () => {
     const sizes = [200, 400, 600, 800, 1200];
-    const path = `/src/content/${locale}/${slug}/thumbnail.png`;
+    const path = `/src/content/${lang}/${slug}/thumbnail.png`;
     const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
 
     // thumbnail is a flat array of strings, each string is a URL to a different size of the image. The images are ordered in groups of 3, so we can use the sizes array to get the correct URL for each size.
@@ -26,15 +29,15 @@ export default component$(({ slug, locale, frontmatter }: Props) => {
     <Card class="mt-20 text-zinc-800">
       <div q:slot="title" class="@md:space-y-3 space-y-1">
         <h3 class="@md:text-3xl @md:space-x-3 grow space-x-2 text-2xl font-medium tracking-tighter">
-          <a href={`/${locale}/blog/${slug}`}>{title}</a>
+          <a href={`/${lang}/blog/${slug}`}>{title}</a>
           <IconArrowTopRight class="inline-block" />
         </h3>
         <time
           class="@md:text-md leading-2 block text-sm opacity-80"
           dateTime={updatedAt.toISOString()}
         >
-          {$localize`Last updated at`}{" "}
-          {updatedAt.toLocaleDateString(locale, {
+          {t("site.messages.updated")}{" "}
+          {updatedAt.toLocaleDateString(lang, {
             year: "numeric",
             month: "long",
             day: "numeric",
@@ -43,7 +46,7 @@ export default component$(({ slug, locale, frontmatter }: Props) => {
       </div>
       <p
         q:slot="description"
-        class="mt-7 overflow-hidden text-ellipsis text-pretty text-base leading-6"
+        class="mt-4 overflow-hidden text-ellipsis text-pretty text-base leading-6"
       >
         {description}
       </p>

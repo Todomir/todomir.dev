@@ -8,6 +8,6 @@ Welcome to the whimsical world of `todomir.dev`, where code meets creativity! Th
 - **Vite**: As the next-gen frontend tooling.
 - **TypeScript**: For type-safe code across the board.
 - **Tailwind CSS**: For styling with utility-first CSS.
-- **@angular/localize**: Just because we are Mr Worldwide.
+- **Qwik Speak**: Just because we are Mr Worldwide.
 - **ESLint & Prettier**: To keep the code looking pretty and functioning correctly.
 - **Cloudflare Pages**: For smooth deployments.
