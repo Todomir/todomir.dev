@@ -6,49 +6,46 @@ import AstromartThumb from "~/media/images/projects/astromart-02.png?w=200;400;6
 import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-02.png?w=200;400;600;800;12000&format=avif;webp;png&as=srcset&imagetools";
 import KdsThumb from "~/media/images/projects/kds-01.png?w=200;400;600;800;1200&format=avif;webp;png&as=srcset&imagetools";
 
-const t = inlineTranslate();
-
-const PROJECTS = [
-  {
-    id: "astromart",
-    title: "Astromart",
-    description: t("projects.astromart.description"),
-    tags: ["Astro", "React", "TypeScript", "Odoo"],
-    thumbnail: {
-      srcset: AstromartThumb,
-      alt: t("projects.astromart.description"),
-      width: 100,
-      height: 100,
-    },
-  },
-  {
-    id: "leonardo-nutrition",
-    title: "Leonardo Nutrition",
-    description: t("projects.leonardo_nutrition.description"),
-    tags: ["React", "TypeScript", "Next.js", "TailwindCSS", "Contentful"],
-    thumbnail: {
-      srcset: LeonardoNutritionThumb,
-      alt: t("projects.leonardo_nutrition.description"),
-      width: 100,
-      height: 100,
-    },
-  },
-  {
-    id: "kds-wahalla",
-    title: "KDS Wahalla",
-    description: t("projects.kds_wahalla.description"),
-    tags: ["React", "TypeScript", "Odoo"],
-    thumbnail: {
-      srcset: KdsThumb,
-      alt: t("projects.kds_wahalla.description"),
-      width: 100,
-      height: 100,
-    },
-  },
-];
-
 export default component$(() => {
   const t = inlineTranslate();
+  const PROJECTS = [
+    {
+      id: "astromart",
+      title: "Astromart",
+      description: t("projects.astromart.description"),
+      tags: ["Astro", "React", "TypeScript", "Odoo"],
+      thumbnail: {
+        srcset: AstromartThumb,
+        alt: t("projects.astromart.description"),
+        width: 100,
+        height: 100,
+      },
+    },
+    {
+      id: "leonardo-nutrition",
+      title: "Leonardo Nutrition",
+      description: t("projects.leonardo_nutrition.description"),
+      tags: ["React", "TypeScript", "Next.js", "TailwindCSS", "Contentful"],
+      thumbnail: {
+        srcset: LeonardoNutritionThumb,
+        alt: t("projects.leonardo_nutrition.description"),
+        width: 100,
+        height: 100,
+      },
+    },
+    {
+      id: "kds-wahalla",
+      title: "KDS Wahalla",
+      description: t("projects.kds_wahalla.description"),
+      tags: ["React", "TypeScript", "Odoo"],
+      thumbnail: {
+        srcset: KdsThumb,
+        alt: t("projects.kds_wahalla.description"),
+        width: 100,
+        height: 100,
+      },
+    },
+  ];
   return (
     <section
       id="projects"

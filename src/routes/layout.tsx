@@ -12,25 +12,6 @@ import { animate } from "motion";
 import { inlineTranslate } from "qwik-speak";
 import Logo from "~/components/logo/logo";
 
-const t = inlineTranslate();
-const NAV_LINKS = [
-  {
-    url: t("site.links.home.url"),
-    label: t("site.links.home.label"),
-  },
-  {
-    url: t("site.links.about.url"),
-    label: t("site.links.about.label"),
-  },
-  {
-    url: t("site.links.projects.url"),
-    label: t("site.links.projects.label"),
-  },
-  {
-    url: t("site.links.blog.url"),
-    label: t("site.links.blog.label"),
-  },
-];
 export const SOCIAL_LINKS = [
   {
     url: "https://github.com/Todomir",
@@ -72,8 +53,29 @@ export const useServerTimeLoader = routeLoader$(() => {
 });
 
 const Header = component$(() => {
+  const t = inlineTranslate();
+
   const isMobileSig = useSignal(false);
   const isExpandedSig = useSignal(false);
+
+  const NAV_LINKS = [
+    {
+      url: t("site.links.home.url"),
+      label: t("site.links.home.label"),
+    },
+    {
+      url: t("site.links.about.url"),
+      label: t("site.links.about.label"),
+    },
+    {
+      url: t("site.links.projects.url"),
+      label: t("site.links.projects.label"),
+    },
+    {
+      url: t("site.links.blog.url"),
+      label: t("site.links.blog.label"),
+    },
+  ];
 
   // Animate the header when it becomes visible
   // eslint-disable-next-line qwik/no-use-visible-task
