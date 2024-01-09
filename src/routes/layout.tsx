@@ -6,7 +6,7 @@ import {
   useSignal,
   useVisibleTask$,
 } from "@builder.io/qwik";
-import { Link, routeLoader$ } from "@builder.io/qwik-city";
+import { routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import { animate } from "motion";
 import { inlineTranslate } from "qwik-speak";
@@ -194,12 +194,12 @@ const Header = component$(() => {
         >
           {NAV_LINKS.map((link) => (
             <li class="md:px-4 py-1" key={`nav-link-${link.label}-${link.url}`}>
-              <Link
+              <a
                 href={link.url}
                 class="cursor-pointer whitespace-nowrap text-zinc-50 text-base font-medium leading-5 tracking-normal"
               >
                 {link.label}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

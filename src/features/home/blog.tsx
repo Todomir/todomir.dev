@@ -1,5 +1,4 @@
 import { Fragment, component$ } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
 import { inlineTranslate } from "qwik-speak";
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import type { PostFrontmatter } from "~/content";
@@ -46,13 +45,13 @@ export default component$(({ posts }: Props) => {
         </ul>
       </section>
 
-      <Link
+      <a
         href={t("site.links.blog")}
         class="pointer-events-auto mb-10 mt-10 flex grow cursor-pointer items-stretch justify-end gap-2 self-end whitespace-nowrap text-xl leading-7 tracking-tight text-zinc-950 md:mt-16"
       >
         {t("home.blog.seeAllPosts ")}
         <IconArrowTopRight />
-      </Link>
+      </a>
     </section>
   );
 });

@@ -1,7 +1,6 @@
 import { Fragment, component$ } from "@builder.io/qwik";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 import Card from "../card/card";
-import { Link } from "@builder.io/qwik-city";
 
 interface Props {
   id: string;
@@ -24,7 +23,7 @@ export default component$((props: Props) => {
         q:slot="title"
         class="grow space-x-2 text-3xl font-medium leading-10 tracking-tighter"
       >
-        <Link href={props.slug}>{props.title}</Link>
+        <a href={props.slug}>{props.title}</a>
         {props.slug && <IconArrowTopRight class="inline-block" />}
       </h4>
       <p
