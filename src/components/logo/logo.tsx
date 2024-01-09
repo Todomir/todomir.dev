@@ -36,24 +36,27 @@ export default component$<Props>(
 
         if (!logo) return;
 
-        // Get logo center
         const logoRect = logo.getBoundingClientRect();
         const logoCenter = {
           x: logoRect.left + logoRect.width / 2,
           y: logoRect.top + logoRect.height / 2,
         };
 
-        // Get cursor position
         const cursorPosition = {
           x: e.clientX,
           y: e.clientY,
         };
 
-        // Get distance between cursor and logo center
+        /**  Distance between cursor and logo center */
         const distance = {
           x: cursorPosition.x - logoCenter.x,
           y: cursorPosition.y - logoCenter.y,
         };
+
+        const RANGE = 745; // in px
+        /**  If the cursor is within a certain range of the logo */
+        const isWithinRange =
+          Math.abs(distance.x) < RANGE && Math.abs(distance.y) < RANGE;
 
         const generateTranslatePosition = (speed: number) => {
           return {
@@ -65,31 +68,49 @@ export default component$<Props>(
         const leftEyePosition = generateTranslatePosition(0.06);
         const rightEyePosition = generateTranslatePosition(0.1);
 
-        // Flip the logo if the cursor is on the left side of the logo
-        const shouldFlip = distance.x < 0;
-        logo.animate(
-          { transform: `scaleX(${shouldFlip ? -1 : 1})` },
-          { duration: 300, fill: "forwards" },
-        );
-
         const leftEye = logo.querySelector<HTMLDivElement>("[data-left-eye]");
         const rightEye = logo.querySelector<HTMLDivElement>("[data-right-eye]");
 
         if (!leftEye || !rightEye) return;
-        // Move the eyes in the tangent of the angle of the cursor to the center of the logo
 
-        leftEye.animate(
-          {
-            transform: `translate(${leftEyePosition.x}px, ${leftEyePosition.y}px)`,
-          },
-          { duration: 1000, fill: "forwards" },
-        );
-        rightEye.animate(
-          {
-            transform: `translate(${rightEyePosition.x}px, ${rightEyePosition.y}px)`,
-          },
-          { duration: 1000, fill: "forwards" },
-        );
+        if (isWithinRange) {
+          // Flip the logo if the cursor is on the left side of the logo
+          const shouldFlip = distance.x < 0;
+          logo.animate(
+            { transform: `scaleX(${shouldFlip ? -1 : 1})` },
+            { duration: 300, fill: "forwards" },
+          );
+
+          // Move the eyes in the tangent of the angle of the cursor to the center of the logo
+          leftEye.animate(
+            {
+              transform: `translate(${leftEyePosition.x}px, ${leftEyePosition.y}px)`,
+            },
+            { duration: 1000, fill: "forwards" },
+          );
+          rightEye.animate(
+            {
+              transform: `translate(${rightEyePosition.x}px, ${rightEyePosition.y}px)`,
+            },
+            { duration: 1000, fill: "forwards" },
+          );
+        } else {
+          // Reset the logo to its original position
+          logo.animate(
+            { transform: "translate(0, 0)" },
+            { duration: 300, fill: "forwards" },
+          );
+
+          // Reset the eyes to their original position
+          leftEye.animate(
+            { transform: "translate(0, 0)" },
+            { duration: 6000, fill: "forwards" },
+          );
+          rightEye.animate(
+            { transform: "translate(0, 0)" },
+            { duration: 6000, fill: "forwards" },
+          );
+        }
       }),
     );
 
