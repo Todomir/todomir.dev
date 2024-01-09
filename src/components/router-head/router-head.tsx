@@ -17,16 +17,7 @@ export const RouterHead = component$(() => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-      <script
-        type="text/javascript"
-        dangerouslySetInnerHTML={`(async function () {
-          if (!("paintWorklet" in CSS)) {
-            await import("https://unpkg.com/css-paint-polyfill");
-          }
-
-          CSS.paintWorklet.addModule('/border.js');
-        })();`}
-      />
+      <script async src="/worklet.js" />
 
       {head.meta.map((m) => (
         <meta key={m.key} {...m} />
@@ -37,12 +28,10 @@ export const RouterHead = component$(() => {
       ))}
 
       {head.styles.map((s) => (
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is guaranteed to come from Qwik, so there is no problem of using it
         <style key={s.key} {...s.props} dangerouslySetInnerHTML={s.style} />
       ))}
 
       {head.scripts.map((s) => (
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: This is guaranteed to come from Qwik, so there is no problem of using it
         <script key={s.key} {...s.props} dangerouslySetInnerHTML={s.script} />
       ))}
     </>

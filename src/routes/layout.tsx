@@ -1,6 +1,7 @@
-import { Slot, component$ } from "@builder.io/qwik";
+import { Slot, component$, useVisibleTask$ } from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
+import { animate } from "motion";
 import { inlineTranslate } from "qwik-speak";
 import Glass from "~/components/glass/glass";
 import Logo from "~/components/logo/logo";
@@ -62,9 +63,28 @@ const Header = component$(() => {
     },
   ];
 
+  // Animate the header when it becomes visible
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    animate(
+      "#navbar",
+      {
+        opacity: [0, 1],
+        y: [-20, 0],
+      },
+      {
+        delay: 0.5,
+        duration: 0.5,
+      },
+    );
+  });
+
   return (
     <header class="header fixed left-1/2 top-1 z-20 -translate-x-1/2 items-center px-5 pt-12 text-zinc-50 @md/footer:px-20">
-      <nav class="relative mx-auto mt-2.5 max-w-[353px] flex-col items-center justify-between px-6 py-4">
+      <nav
+        id="navbar"
+        class="relative opacity-0 mx-auto mt-2.5 max-w-[353px] flex-col items-center justify-between px-6 py-4"
+      >
         <ul class="gap- flex justify-around">
           {NAV_LINKS.map((link) => (
             <li key={`nav-link-${link.label}-${link.url}`}>
