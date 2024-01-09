@@ -1,7 +1,7 @@
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { useLocation } from "@builder.io/qwik-city";
-import { inlineTranslate } from "qwik-speak";
+import { inlineTranslate, useFormatDate } from "qwik-speak";
 import Tag from "~/components/tag/tag";
 import {
   BLOG_POST_OG_IMAGE_LIST,
@@ -13,6 +13,7 @@ export { usePost };
 
 export default component$(() => {
   const t = inlineTranslate();
+  const fd = useFormatDate();
 
   const post = usePost();
   const { lang, slug } = post.value;
@@ -57,7 +58,7 @@ export default component$(() => {
 
         <time class="block text-balance text-base leading-6 text-zinc-700">
           {t("site.messages.updated")}{" "}
-          {post.value.frontmatter.updatedAt.toLocaleDateString(lang, {
+          {fd(post.value.frontmatter.updatedAt, {
             year: "numeric",
             month: "long",
             day: "numeric",
@@ -89,7 +90,7 @@ export default component$(() => {
       </div>
 
       <div class="flex justify-between gap-3">
-        <h3 class="mb-1 text-2xl font-bold">Like this post?</h3>
+        <h3 class="mb-1 text-2xl font-bold">{t("site.messages.share")}</h3>
         <div class="space-x-2">
           <a
             class="inline-block rounded-lg bg-black px-4 py-2 text-white"
@@ -99,7 +100,7 @@ export default component$(() => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Share it on 𝕏.com
+            {t("site.messages.share_on")} 𝕏.com
           </a>
         </div>
       </div>

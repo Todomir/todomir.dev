@@ -20,8 +20,10 @@
       }
     },
     "messages": {
-      "updated": "Updated at",
-      "return_previous_page": "Return to the previous page"
+      "return_previous_page": "Return to the previous page",
+      "share": "Like this? Share it!",
+      "share_on": "Share it on",
+      "updated": "Updated at"
     },
     "og": {
       "blog": {

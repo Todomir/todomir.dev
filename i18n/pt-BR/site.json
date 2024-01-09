@@ -19,8 +19,10 @@
       }
     },
     "messages": {
-      "updated": "Última atualização em",
-      "return_previous_page": "Retornar para a página anterior"
+      "return_previous_page": "Retornar para a página anterior",
+      "share": "Gostou? Compartilhe!",
+      "share_on": "Compartilhe no",
+      "updated": "Última atualização em"
     },
     "og": {
       "blog": {

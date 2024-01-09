@@ -3,7 +3,7 @@ import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 import Card from "../card/card";
 import { BLOG_POST_THUMBNAIL_LIST, type PostFrontmatter } from "~/content";
 import Tag from "../tag/tag";
-import { inlineTranslate } from "qwik-speak";
+import { inlineTranslate, useFormatDate } from "qwik-speak";
 
 type Props = { slug: string; lang: string; frontmatter: PostFrontmatter };
 
@@ -11,6 +11,7 @@ export default component$(({ slug, lang, frontmatter }: Props) => {
   const { title, description, updatedAt, tags } = frontmatter;
 
   const t = inlineTranslate();
+  const fd = useFormatDate();
   const thumbnailSig = useSignal("");
 
   useTask$(async () => {
@@ -37,7 +38,7 @@ export default component$(({ slug, lang, frontmatter }: Props) => {
           dateTime={updatedAt.toISOString()}
         >
           {t("site.messages.updated")}{" "}
-          {updatedAt.toLocaleDateString(lang, {
+          {fd(updatedAt, {
             year: "numeric",
             month: "long",
             day: "numeric",
