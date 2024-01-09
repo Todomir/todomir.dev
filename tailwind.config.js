@@ -5,6 +5,9 @@ import containerQueries from "@tailwindcss/container-queries";
 /** @type {import('tailwindcss').Config} */
 const config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     colors: harmonyPalette,
     extend: {

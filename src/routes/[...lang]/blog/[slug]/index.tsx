@@ -45,9 +45,9 @@ export default component$(() => {
 
         <ul class="flex flex-wrap gap-2 md:gap-3 @container ">
           {post.value.frontmatter.tags.map((tag) => (
-            <Tag key={tag}>
-              <li>{tag}</li>
-            </Tag>
+            <li key={tag}>
+              <Tag>{tag}</Tag>
+            </li>
           ))}
         </ul>
 

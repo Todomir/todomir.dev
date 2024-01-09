@@ -203,3 +203,27 @@ img.full-width {
   max-height: 45vh;
   object-fit: cover;
 }
+
+/* Tweak focus styles for interactive elements */
+:focus-visible {
+  --_focus-size: 0;
+  --_focus-duration: 0.4s;
+  --_focus-ease: var(--ease-spring-4);
+  --_focus-color: theme(colors.sky.400);
+
+  outline: none;
+
+  box-shadow: 0 0 0 var(--_focus-size) var(--_focus-color);
+  box-decoration-break: clone;
+  border-radius: 0.1em;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: box-shadow var(--_focus-duration) var(--_focus-ease) 0s;
+  }
+
+  &:not(:active):is(:focus-visible) {
+    --_focus-size: 0.4rem;
+    --_focus-duration: 0.7s;
+    --_focus-ease: var(--ease-spring-5);
+  }
+}
