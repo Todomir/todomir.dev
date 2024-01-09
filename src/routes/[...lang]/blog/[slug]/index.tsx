@@ -37,7 +37,7 @@ export default component$(() => {
       <header class="my-12">
         <a
           href={t("site.links.blog.url")}
-          class="flex transition-all ease-spring-1 duration-300 gap-2 hover:underline hover:gap-4 text-zinc-700 mb-12"
+          class="flex transition-all ease-spring-1 duration-300 gap-2 hover:gap-4 text-zinc-700 mb-12"
         >
           <span>←</span>
           <span>{t("site.messages.return_previous_page")}</span>
@@ -55,7 +55,7 @@ export default component$(() => {
           {post.value.frontmatter.title}
         </h1>
 
-        <time class="block text-balance text-base leading-6 opacity-50">
+        <time class="block text-balance text-base leading-6 text-zinc-700">
           {t("site.messages.updated")}{" "}
           {post.value.frontmatter.updatedAt.toLocaleDateString(lang, {
             year: "numeric",

@@ -66,9 +66,9 @@ export default component$(({ slug, lang, frontmatter }: Props) => {
         class="@md:gap-2 flex flex-wrap items-start gap-1"
       >
         {tags.map((tag) => (
-          <Tag key={tag}>
-            <li>{tag}</li>
-          </Tag>
+          <li key={tag}>
+            <Tag>{tag}</Tag>
+          </li>
         ))}
       </ul>
     </Card>
