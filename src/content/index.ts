@@ -110,6 +110,10 @@ export const usePost = routeLoader$(async ({ params, error }) => {
   }
 
   const path = `/src/content/${lang}/${slug}/post.mdx`;
+
+  if (!Object.keys(BLOG_POST_LIST).includes(path))
+    throw error(404, "Page not found");
+
   const promise = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
   const mod = (await promise) as PostModule;
   const frontmatter = parse(FRONTMATTER_SCHEMA, mod.frontmatter);
