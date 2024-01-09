@@ -174,14 +174,14 @@ const Header = component$(() => {
       <nav
         style={{ viewTransitionName: "navbar" }}
         class={[
-          "relative mt-2.5 max-w-[353px] flex-col gap-4 items-center justify-between px-6 py-4 bg-zinc-950 rounded-xl border border-zinc-50/20 md:opacity-100",
+          "relative mt-2.5 max-w-[353px] flex-col gap-4 items-center justify-between px-6 py-4 bg-zinc-950 rounded-xl border border-zinc-50/20 md:opacity-100 text-right md:text-left ",
           { "opacity-0": !isMobileSig.value || !isExpandedSig.value },
         ]}
       >
         <ul
           id="navbar-menu"
           class={[
-            "flex justify-end flex-col md:flex-row md:justify-around text-right md:text-left text-zinc-500 transition-all ease-spring-3 md:mt-0",
+            "flex justify-end flex-col md:flex-row md:justify-around text-zinc-500 transition-all ease-spring-3 md:mt-0",
             { hidden: !isExpandedSig.value && isMobileSig.value },
           ]}
         >
@@ -196,6 +196,7 @@ const Header = component$(() => {
             </li>
           ))}
         </ul>
+        {isMobileSig.value && <ChangeLocale />}
       </nav>
     </header>
   );
