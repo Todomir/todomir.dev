@@ -19,25 +19,27 @@ og:
 import Alert from "~/components/alert/alert";
 import AlertIcon from "~/media/icons/alert.svg?raw";
 
-Então, eu gosto de construir sites. Gosto muito de construir sites (mesmo que nem sempre tenha sido o caso). E algo que procuro muito ao escolher frameworks e ferramentas é o quão fácil eles tornam o caminho feliz para construir ótimas experiências possível. A experiência do usuário e a acessibilidade estão se tornando cada vez mais importantes - tanto do ponto de vista dos negócios quanto do ponto de vista ético, à medida que trabalhamos para integrar mais pessoas que não podiam usar a web antes - e acho que isso é ótimo. Quero construir sites que sejam rápidos, acessíveis e inclusivos, e quero que minhas ferramentas tornem isso muito fácil de acontecer.
+Então, eu gosto de construir sites. Gosto muito de construir sites (mesmo que nem sempre tenha sido o caso). E algo que procuro muito ao escolher frameworks e ferramentas é o quão fácil eles tornam o caminho feliz para construir ótimas experiências possível. A experiência do usuário e a acessibilidade estão se tornando cada vez mais importantes &mdash; tanto do ponto de vista dos negócios quanto do ponto de vista ético, à medida que trabalhamos para integrar mais pessoas que não podiam usar a web antes &mdash; e acho que isso é ótimo. Eu quero construir sites que sejam rápidos, acessíveis e inclusivos, e quero que minhas ferramentas tornem isso muito fácil de acontecer.
 
-Aprendi React há alguns anos e tenho usado desde então. Adoro a arquitetura baseada em componentes que ele popularizou, adoro o ecossistema amplo e ativo que ele formou e adoro a ótima comunidade de desenvolvedores que ele criou ao longo dos anos. Também acho que os eventos sintéticos são meio chatos, a falta de bom suporte para uso de componentes da web é surpreendente, considerando o quanto tempo já é suportado na plataforma, e ter que envolver literalmente tudo em uma camada React porque lidar com o DOM fora do React é o oitavo pecado capital é bem cansativo (nem me lembre do `forwardRef`). Embora as coisas estejam melhorando, acredito que agora temos opções melhores.
+Aprendi React há alguns anos e tenho usado ele desde então. A arquitetura baseada em componentes que ele popularizou, o ecossistema amplo e ativo que ele formou e a ótima comunidade de desenvolvedores que ele criou ao longo dos anos são pontos que eu amo no React. Também acho que os eventos sintéticos são meio chatos, a falta de bom suporte para uso de componentes da web é surpreendente, considerando o quanto tempo já é suportado na plataforma, e ter que envolver literalmente tudo em uma camada React porque lidar com o DOM fora do React é o oitavo pecado capital é bem cansativo (nem me lembre do `forwardRef`). Embora as coisas estejam melhorando, acredito que agora temos opções melhores.
 
-Com isso em mente, quero guiar você pelo processo de construção deste site, bem como como (e por que) usei [Qwik](https://qwik.builder.io) para fazê-lo.
+Com isso em mente, a gente vai mergulhar pelo processo de construção deste site, bem como como (e por que) usei [Qwik](https://qwik.builder.io) para fazê-lo.
 
 <Alert severity="warning">
   <span q:slot="icon" dangerouslySetInnerHTML={AlertIcon} />
   <h2 q:slot="title">ATENÇÃO</h2>
   <span>
-    Este não é um tutorial abrangente sobre como começar com o Qwik. Se você quiser aprender mais sobre o Qwik,
-    recomendo que leia a [documentação oficial](https://qwik.builder.io/docs/getting-started). Vou apenas abordar as
-    partes que usei para construir meu site, os problemas que enfrentei e como os resolvi.
+    Este não é um tutorial abrangente sobre como começar com o Qwik. Se você
+    quiser aprender mais sobre o Qwik, recomendo que leia a [documentação
+    oficial](https://qwik.builder.io/docs/getting-started). Vou apenas abordar
+    as partes que usei para construir meu site, os problemas que enfrentei e
+    como os resolvi.
   </span>
 </Alert>
 
 ## O que é o Qwik?
 
-Qwik é um framework leve e absurdamente eficiente para criar aplicações web. Ele possui uma arquitetura baseada em componentes, o que significa que você pode construir seu site compondo componentes juntos. Ele também usa JSX, que é familiar para quem já usou React antes.
+Qwik é um framework leve e absurdamente eficiente para criar aplicações web. Ele possui uma arquitetura baseada em componentes, o que significa que você pode construir seu site compondo componentes juntos. Ele também usa JSX, então devs React já estarão bem familiarizados com ele.
 
 O Qwik funciona serializando o estado do servidor diretamente em HTML. A ideia é baixar, analisar e executar o mínimo possível de JavaScript no cliente, então inicialmente, **nenhum JavaScript** é baixado e executado até que o usuário interaja com a página. Isso significa que a carga inicial da página é super rápida e a página é interativa assim que o usuário a vê.
 
@@ -127,7 +129,9 @@ Listar postagens é ainda mais fácil, já que podemos filtrar as chaves do dici
 
 ```ts
 export const getPostsByLocale = server$(async (locale: string) => {
-  const paths = Object.keys(BLOG_POST_LIST).filter((path) => path.includes(`/${locale}/`));
+  const paths = Object.keys(BLOG_POST_LIST).filter((path) =>
+    path.includes(`/${locale}/`),
+  );
 
   const postsByLocale = await Promise.all(
     paths.map(async (path) => {
@@ -257,16 +261,22 @@ O que faço é carregar com entusiasmo as imagens `og.png` e `thumbnail.png`, us
 Então, no arquivo `content/index.ts`, adicionei o seguinte:
 
 ```ts
-export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob("/src/content/**/*.og.png", {
-  eager: true,
-  import: "default",
-  query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
-});
-export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob("/src/content/**/*.thumbnail.png", {
-  eager: true,
-  import: "default",
-  as: "url",
-});
+export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob(
+  "/src/content/**/*.og.png",
+  {
+    eager: true,
+    import: "default",
+    query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
+  },
+);
+export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob(
+  "/src/content/**/*.thumbnail.png",
+  {
+    eager: true,
+    import: "default",
+    as: "url",
+  },
+);
 ```
 
 O princípio aqui é semelhante ao usado para as postagens. Usamos `import.meta.glob` para gerar um dicionário com os caminhos das imagens como chaves e as próprias imagens como valores. Também usamos `eager: true` para garantir que as imagens sejam carregadas com entusiasmo, e usamos `import: "default"` para garantir que obtenhamos a exportação padrão da imagem, que é o URL da imagem otimizada.
@@ -292,7 +302,9 @@ export default component$(() => {
     const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
 
     // thumbnail é um array plano de strings, cada string é um URL para um tamanho diferente da imagem. As imagens estão ordenadas em grupos de 3, então podemos usar o array de tamanhos para obter o URL correto para cada tamanho.
-    const srcset = sizes.map((size, i) => `${thumbnail[i * 3]} ${size}w`).join(", ");
+    const srcset = sizes
+      .map((size, i) => `${thumbnail[i * 3]} ${size}w`)
+      .join(", ");
     thumbnailSig.value = srcset;
   });
 
@@ -302,7 +314,11 @@ export default component$(() => {
         <h1>{post.value.frontmatter.title}</h1>
         <p>{post.value.frontmatter.description}</p>
 
-        <img src={thumbnailSig.value} alt={post.value.frontmatter.thumbnail.alt} srcset={thumbnailSig.value} />
+        <img
+          src={thumbnailSig.value}
+          alt={post.value.frontmatter.thumbnail.alt}
+          srcset={thumbnailSig.value}
+        />
       </header>
       {post.value.default}
     </article>
