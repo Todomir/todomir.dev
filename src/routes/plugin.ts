@@ -4,8 +4,20 @@ import { validateLocale } from "qwik-speak";
 import { config } from "../speak.config";
 //import { rewriteRoutes } from '../speak-routes';
 
-export const onRequest: RequestHandler = ({ params, locale, error }) => {
+export const onRequest: RequestHandler = ({
+  params,
+  locale,
+  error,
+  request,
+}) => {
+  const acceptLanguage = request.headers.get("accept-language");
+
   let lang: string | undefined = undefined;
+
+  // Try to use user language
+  if (acceptLanguage) {
+    lang = acceptLanguage.split(";")[0]?.split(",")[0];
+  }
 
   if (params.lang && validateLocale(params.lang)) {
     // Check supported locales
