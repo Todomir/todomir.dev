@@ -1,11 +1,36 @@
-import { Slot, component$, useVisibleTask$ } from "@builder.io/qwik";
+import {
+  $,
+  Slot,
+  component$,
+  useOnWindow,
+  useSignal,
+  useVisibleTask$,
+} from "@builder.io/qwik";
 import { Link, routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import { animate } from "motion";
 import { inlineTranslate } from "qwik-speak";
-import Glass from "~/components/glass/glass";
 import Logo from "~/components/logo/logo";
 
+const t = inlineTranslate();
+const NAV_LINKS = [
+  {
+    url: t("site.links.home.url"),
+    label: t("site.links.home.label"),
+  },
+  {
+    url: t("site.links.about.url"),
+    label: t("site.links.about.label"),
+  },
+  {
+    url: t("site.links.projects.url"),
+    label: t("site.links.projects.label"),
+  },
+  {
+    url: t("site.links.blog.url"),
+    label: t("site.links.blog.label"),
+  },
+];
 export const SOCIAL_LINKS = [
   {
     url: "https://github.com/Todomir",
@@ -47,21 +72,8 @@ export const useServerTimeLoader = routeLoader$(() => {
 });
 
 const Header = component$(() => {
-  const t = inlineTranslate();
-  const NAV_LINKS = [
-    {
-      url: t("site.links.about.url"),
-      label: t("site.links.about.label"),
-    },
-    {
-      url: t("site.links.projects.url"),
-      label: t("site.links.projects.label"),
-    },
-    {
-      url: t("site.links.blog.url"),
-      label: t("site.links.blog.label"),
-    },
-  ];
+  const isMobileSig = useSignal(false);
+  const isExpandedSig = useSignal(false);
 
   // Animate the header when it becomes visible
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -79,26 +91,116 @@ const Header = component$(() => {
     );
   });
 
+  useOnWindow(
+    "DOMContentLoaded",
+    $(() => {
+      const mediaQuery = window.matchMedia("(max-width: 768px)");
+      isMobileSig.value = mediaQuery.matches;
+
+      const listener = (e: MediaQueryListEvent) => {
+        isMobileSig.value = e.matches;
+      };
+
+      mediaQuery.addEventListener("change", listener);
+    }),
+  );
+
   return (
-    <header class="header fixed left-1/2 top-1 z-20 -translate-x-1/2 items-center px-5 pt-12 text-zinc-50 @md/footer:px-20">
+    <header class="header fixed ml-auto right-0 md:right-1/2 md:translate-x-1/2 top-1 z-20 items-center px-5 pt-12 text-zinc-50 md/footer:px-20">
       <nav
+        style={{ viewTransitionName: "navbar" }}
         id="navbar"
-        class="relative opacity-0 mx-auto mt-2.5 max-w-[353px] flex-col items-center justify-between px-6 py-4"
+        class="relative opacity-0 mt-2.5 max-w-[353px] flex-col gap-4 items-center justify-between px-6 py-4 bg-zinc-950 rounded-xl border border-zinc-50/20"
       >
-        <ul class="gap- flex justify-around">
+        <button
+          style={{ viewTransitionName: "navbar-button" }}
+          type="button"
+          aria-expanded={isExpandedSig.value}
+          disabled={!isMobileSig.value}
+          aria-controls="navbar-menu"
+          class={["ml-auto block", { hidden: !isMobileSig.value }]}
+          onClick$={() => {
+            const next = !isExpandedSig.value;
+            // Hack to avoid TypeScript error since `startViewTransition` is not
+            // defined in the type definition.
+            if (!(document as any).startViewTransition) {
+              isExpandedSig.value = next;
+              return;
+            }
+
+            (document as any).startViewTransition(() => {
+              isExpandedSig.value = next;
+            });
+          }}
+        >
+          <svg
+            class="w-6 h-6 text-zinc-500 transition-transform duration-500 ease-in-out"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <line
+              class={[
+                "transition-transform origin-center duration-500 ease-in-out",
+                {
+                  "rotate-45 -translate-x-1 translate-y-1": isExpandedSig.value,
+                },
+              ]}
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              x1="4"
+              y1="6"
+              x2="20"
+              y2="6"
+            />
+            <line
+              class={[
+                "transition-transform duration-500 ease-in-out",
+                { "opacity-0 translate-x-1": isExpandedSig.value },
+                { "opacity-100 translate-x-0": !isExpandedSig.value },
+              ]}
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              x1="4"
+              y1="12"
+              x2="20"
+              y2="12"
+            />
+            <line
+              class={[
+                "transition-transform origin-center duration-500 ease-in-out",
+                {
+                  "-rotate-45 -translate-x-1 -translate-y-1":
+                    isExpandedSig.value,
+                },
+              ]}
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              x1="4"
+              y1="18"
+              x2="20"
+              y2="18"
+            />
+          </svg>
+        </button>
+        <ul
+          id="navbar-menu"
+          class={[
+            "flex justify-end flex-col md:flex-row md:justify-around text-right md:text-left text-zinc-500 transition-all ease-spring-3 mt-4 md:mt-0",
+            { hidden: !isExpandedSig.value && isMobileSig.value },
+          ]}
+        >
           {NAV_LINKS.map((link) => (
-            <li key={`nav-link-${link.label}-${link.url}`}>
+            <li class="md:px-4 py-1" key={`nav-link-${link.label}-${link.url}`}>
               <Link
                 href={link.url}
-                class="cursor-pointer whitespace-nowrap px-4 py-2 text-base font-medium leading-5 tracking-normal"
+                class="cursor-pointer whitespace-nowrap text-zinc-50 text-base font-medium leading-5 tracking-normal"
               >
                 {link.label}
               </Link>
             </li>
           ))}
         </ul>
-
-        <Glass spread={3} bgClass="bg-zinc-950" bgOpacity={0.6} />
       </nav>
     </header>
   );

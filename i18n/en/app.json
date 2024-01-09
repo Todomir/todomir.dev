@@ -2,6 +2,10 @@
   "app": {
     "footer": {
       "quote": "Be the change you wish to see in the world. Let your actions speak louder than your words. Strive for progress every day."
+    },
+    "header": {
+      "close": "Close mobile menu",
+      "open": "Open mobile menu"
     }
   }
 }

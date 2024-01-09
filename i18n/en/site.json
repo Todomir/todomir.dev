@@ -7,8 +7,12 @@
         "url": "/#about"
       },
       "blog": {
-        "url": "/blog",
-        "label": "Blog"
+        "label": "Blog",
+        "url": "/blog"
+      },
+      "home": {
+        "label": "Home",
+        "url": "/"
       },
       "projects": {
         "label": "Projects",

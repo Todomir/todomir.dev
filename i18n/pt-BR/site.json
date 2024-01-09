@@ -6,8 +6,12 @@
         "url": "/pt-BR/#about/"
       },
       "blog": {
-        "url": "/pt-BR/blog/",
-        "label": "Blog"
+        "label": "Blog",
+        "url": "/pt-BR/blog/"
+      },
+      "home": {
+        "label": "Home",
+        "url": "/pt-BR/"
       },
       "projects": {
         "label": "Projetos",

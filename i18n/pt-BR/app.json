@@ -2,6 +2,10 @@
   "app": {
     "footer": {
       "quote": "Seja a mudança que você deseja ver no mundo. Deixe suas ações falarem mais alto que suas palavras. Esforce-se para progredir todos os dias."
+    },
+    "header": {
+      "close": "Fechar menu mobile",
+      "open": "Abrir menu mobile"
     }
   }
 }
