@@ -26,10 +26,12 @@ export default component$<Props>(
     useOnDocument(
       "mousemove",
       $((e) => {
+        const isTouchDevice = "ontouchstart" in window;
         const prefersReducedMotion = window.matchMedia(
           "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (!shouldFollowCursor || prefersReducedMotion) return;
+        if (!shouldFollowCursor || prefersReducedMotion || isTouchDevice)
+          return;
         const logo = logoRef.value;
 
         if (!logo) return;
