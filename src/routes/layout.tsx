@@ -11,6 +11,7 @@ import type { RequestHandler } from "@builder.io/qwik-city";
 import { animate } from "motion";
 import { inlineTranslate } from "qwik-speak";
 import Logo from "~/components/logo/logo";
+import { ONE_DAY_IN_SECONDS, ONE_WEEK_IN_SECONDS } from "~/utils/constants";
 
 export const SOCIAL_LINKS = [
   {
@@ -36,14 +37,18 @@ export const SOCIAL_LINKS = [
 ];
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
-  // Control caching for this request for best performance and to reduce hosting costs:
-  // https://qwik.builder.io/docs/caching/
   cacheControl({
-    // Always serve a cached response by default, up to a week stale
-    staleWhileRevalidate: 60 * 60 * 24 * 7,
-    // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
-    maxAge: 5,
+    staleWhileRevalidate: ONE_WEEK_IN_SECONDS,
+    maxAge: ONE_DAY_IN_SECONDS,
   });
+
+  cacheControl(
+    {
+      staleWhileRevalidate: ONE_WEEK_IN_SECONDS,
+      maxAge: ONE_DAY_IN_SECONDS,
+    },
+    "Cloudflare-CDN-Cache-Control",
+  );
 };
 
 export const useServerTimeLoader = routeLoader$(() => {
