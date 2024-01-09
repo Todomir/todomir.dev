@@ -1,6 +1,6 @@
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { useLocation } from "@builder.io/qwik-city";
+import { Link, useLocation } from "@builder.io/qwik-city";
 import { inlineTranslate } from "qwik-speak";
 import Tag from "~/components/tag/tag";
 import {
@@ -35,6 +35,14 @@ export default component$(() => {
   return (
     <div class="content-grid mb-24 pb-12 pt-36 text-black">
       <header class="my-12">
+        <Link
+          href="../"
+          class="flex transition-all ease-spring-1 duration-300 gap-2 hover:underline hover:gap-4 text-zinc-700 mb-12"
+        >
+          <span>←</span>
+          <span>{t("site.messages.return_previous_page")}</span>
+        </Link>
+
         <ul class="flex flex-wrap gap-2 md:gap-3 @container ">
           {post.value.frontmatter.tags.map((tag) => (
             <Tag key={tag}>

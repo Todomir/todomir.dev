@@ -19,7 +19,8 @@
       }
     },
     "messages": {
-      "updated": "Última atualização em"
+      "updated": "Última atualização em",
+      "return_previous_page": "Retornar para a página anterior"
     },
     "og": {
       "blog": {
