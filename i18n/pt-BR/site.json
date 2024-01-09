@@ -19,6 +19,7 @@
       }
     },
     "messages": {
+      "change_locale": "Mudar idioma",
       "return_previous_page": "Retornar para a página anterior",
       "share": "Gostou? Compartilhe!",
       "share_on": "Compartilhe no",

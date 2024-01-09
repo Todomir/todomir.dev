@@ -2,6 +2,7 @@ import { $, Slot, component$, useOnWindow, useSignal } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 import { inlineTranslate } from "qwik-speak";
+import ChangeLocale from "~/components/change-locale/change-locale";
 import Logo from "~/components/logo/logo";
 import { ONE_DAY_IN_SECONDS, ONE_WEEK_IN_SECONDS } from "~/utils/constants";
 
@@ -233,9 +234,8 @@ const Footer = component$(() => {
           </li>
         ))}
       </ul>
-      <div class="shrink grow basis-auto text-center text-sm leading-5 tracking-normal text-zinc-500 @md/footer:text-right">
-        © Abner Rodrigues. {new Date().getFullYear()}.
-      </div>
+      <hr class="mt-10 h-px max-w-full shrink-0 self-stretch border-zinc-800" />
+      <ChangeLocale />
     </footer>
   );
 });
