@@ -120,7 +120,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
     title: `Blog - ${post.head.title}`,
     meta: [
       ...(post.head.meta || []),
-      { name: "og:image", content: ogImage },
+      { name: "og:image", content: `/${ogImage}` },
       { name: "og:url", content: `https://todomir.dev/blog/${slug}` },
       { name: "twitter:image", content: ogImage },
 
