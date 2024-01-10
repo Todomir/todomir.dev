@@ -23,6 +23,8 @@ export const onRequest: RequestHandler = ({
     // Try to use user language
     if (acceptLanguage) {
       lang = acceptLanguage.split(";")[0]?.split(",")[0];
+      // Remove -US from en-US
+      if (lang === "en-US") lang = "en";
     } else {
       lang = config.defaultLocale.lang;
     }
