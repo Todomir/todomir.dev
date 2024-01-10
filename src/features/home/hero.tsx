@@ -134,7 +134,7 @@ export default component$(() => {
         class="full-width pointer-events-none absolute inset-0 mb-12 -translate-y-12 overflow-x-clip"
       >
         {/* Top */}
-        <KobrazaThumb
+        <AstromartThumb
           loading="eager"
           decoding="sync"
           data-speed={2.5}
@@ -150,19 +150,19 @@ export default component$(() => {
         />
 
         {/* Bottom */}
-        <LeonardoNutritionThumb
+        <KobrazaThumb
           loading="eager"
           decoding="sync"
           alt={t("projects.leonardo_nutrition.description")}
           data-speed={1}
           class="absolute -bottom-8 -right-36 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
-        <AstromartThumb
+        <LeonardoNutritionThumb
           loading="eager"
           decoding="sync"
           alt={t("projects.astromart.description")}
           data-speed={1.2}
-          class="absolute -bottom-4 -left-36 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl"
+          class="absolute -bottom-4 -left-32 lg:-left-8 md:-left-24 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl object-cover"
         />
       </aside>
 
