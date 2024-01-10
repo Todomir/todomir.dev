@@ -20,6 +20,11 @@
       }
     },
     "messages": {
+      "404": {
+        "description": "It seems that the page you are looking for does not exist or has been moved. If you think this is an error, please contact me.",
+        "home_link": "Return to the home page",
+        "title": "Oh no! Page not found!"
+      },
       "change_locale": "Change language",
       "return_previous_page": "Return to the previous page",
       "share": "Like this? Share it!",

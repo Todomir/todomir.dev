@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="none" viewBox="0 0 150 150">
+  <g filter="url(#a)">
+    <rect width="148" height="148" x="1" y="1" fill="url(#b)" rx="74"/>
+  </g>
+  <rect width="149" height="149" x=".5" y=".5" stroke="url(#c)" rx="74.5"/>
+  <path fill="url(#d)" stroke="url(#e)" d="m78.674 70.11 5.392-9.162-4.98.19-3.005 5.386-.406.727-.451-.7-3.315-5.14-5.058.193 6.053 8.726.18.26-.158.275-5.771 9.99 4.985-.19 3.375-6.206.403-.74.457.708 3.823 5.932 4.986-.19-6.492-9.524-.178-.262.16-.273ZM47.07 77.768l3.778-9.957-4.873 1.047-2.061 5.83-.277.783-.563-.612-4.126-4.491-4.954 1.064 7.426 7.554.222.227-.11.297-4.013 10.84 4.878-1.048 2.288-6.701.272-.797.57.62 4.758 5.183 4.885-1.05-7.992-8.264-.221-.228.113-.297Zm46.204-32.991 9.803-.756.499-.038.038.5 4.61 61.738.037.497-.497.039-9.805.756.519 6.95 17.986-1.387-5.716-76.539-17.986 1.387.512 6.853Z"/>
+  <defs>
+    <linearGradient id="b" x1="75" x2="75" y1="1" y2="149" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#39393A"/>
+      <stop offset="1" stop-color="#1A1A1A"/>
+    </linearGradient>
+    <linearGradient id="c" x1="75" x2="75" y1="1" y2="149" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity=".25"/>
+      <stop offset=".585" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="d" x1="75" x2="75" y1="36" y2="115" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E2E2E2"/>
+      <stop offset="1" stop-color="#A6A6A6"/>
+    </linearGradient>
+    <linearGradient id="e" x1="75" x2="75" y1="36" y2="115" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset=".42" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="a" width="150" height="157" x="0" y="-7" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feMorphology in="SourceAlpha" radius="4" result="effect1_innerShadow_380_482"/>
+      <feOffset dy="-7"/>
+      <feGaussianBlur stdDeviation="25.8"/>
+      <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+      <feBlend in2="shape" result="effect1_innerShadow_380_482"/>
+    </filter>
+  </defs>
+</svg>
