@@ -4,7 +4,11 @@ import type { RequestHandler } from "@builder.io/qwik-city";
 import { inlineTranslate } from "qwik-speak";
 import ChangeLocale from "~/components/change-locale/change-locale";
 import Logo from "~/components/logo/logo";
-import { ONE_DAY_IN_SECONDS, ONE_WEEK_IN_SECONDS } from "~/utils/constants";
+import {
+  ONE_DAY_IN_SECONDS,
+  ONE_MINUTE_IN_SECONDS,
+  ONE_WEEK_IN_SECONDS,
+} from "~/utils/constants";
 
 export const SOCIAL_LINKS = [
   {
@@ -32,13 +36,13 @@ export const SOCIAL_LINKS = [
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   cacheControl({
     staleWhileRevalidate: ONE_WEEK_IN_SECONDS,
-    maxAge: ONE_DAY_IN_SECONDS,
+    maxAge: ONE_MINUTE_IN_SECONDS,
   });
 
   cacheControl(
     {
       staleWhileRevalidate: ONE_WEEK_IN_SECONDS,
-      maxAge: ONE_DAY_IN_SECONDS,
+      maxAge: ONE_MINUTE_IN_SECONDS,
     },
     "Cloudflare-CDN-Cache-Control",
   );
