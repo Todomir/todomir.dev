@@ -108,21 +108,22 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = ({ resolveValue }) => {
+export const head: DocumentHead = ({ resolveValue, url }) => {
   const post = resolveValue(usePost);
   const { slug, lang } = post;
   const ogImage = BLOG_POST_OG_IMAGE_LIST[
     `/src/content/${lang}/${slug}/og.png`
   ] as string;
+  const ogPath = new URL(ogImage, url).toString();
 
   return {
     ...post.head,
     title: `Blog - ${post.head.title}`,
     meta: [
       ...(post.head.meta || []),
-      { name: "og:image", content: `/${ogImage}` },
+      { name: "og:image", content: ogPath },
       { name: "og:url", content: `https://todomir.dev/blog/${slug}` },
-      { name: "twitter:image", content: ogImage },
+      { name: "twitter:image", content: ogPath },
 
       { name: "twitter:title", content: `${post.head.title}` },
       { name: "twitter:card", content: "summary_large_image" },
