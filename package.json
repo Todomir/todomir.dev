@@ -34,9 +34,9 @@
     "@todomir/prettier-config": "^4.0.0",
     "@types/dom-view-transitions": "^1.0.4",
     "@types/eslint": "^8.56.1",
-    "@types/node": "^20.10.7",
-    "@typescript-eslint/eslint-plugin": "^6.18.0",
-    "@typescript-eslint/parser": "^6.18.0",
+    "@types/node": "^20.10.8",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.56.0",
     "eslint-plugin-qwik": "^1.3.2",
@@ -48,17 +48,17 @@
     "qwik-speak": "^0.19.0",
     "tailwindcss": "3.4.0",
     "typescript": "^5.3.3",
-    "undici": "^6.2.1",
+    "undici": "^6.3.0",
     "vite": "^5.0.11",
     "vite-tsconfig-paths": "^4.2.3",
-    "wrangler": "^3.22.3"
+    "wrangler": "^3.22.4"
   },
   "dependencies": {
     "@evilmartians/harmony": "^1.2.0",
     "@unpic/qwik": "^0.0.38",
-    "motion": "^10.16.4",
+    "motion": "^10.17.0",
     "rehype-pretty-code": "^0.12.3",
-    "shikiji": "^0.9.17",
+    "shikiji": "^0.9.18",
     "valibot": "^0.25.0"
   }
 }
