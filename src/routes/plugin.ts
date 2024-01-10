@@ -10,14 +10,7 @@ export const onRequest: RequestHandler = ({
   error,
   request,
 }) => {
-  const acceptLanguage = request.headers.get("accept-language");
-
   let lang: string | undefined = undefined;
-
-  // Try to use user language
-  if (acceptLanguage) {
-    lang = acceptLanguage.split(";")[0]?.split(",")[0];
-  }
 
   if (params.lang && validateLocale(params.lang)) {
     // Check supported locales
@@ -26,7 +19,13 @@ export const onRequest: RequestHandler = ({
     // 404 error page
     if (!lang) throw error(404, "Page not found");
   } else {
-    lang = config.defaultLocale.lang;
+    const acceptLanguage = request.headers.get("accept-language");
+    // Try to use user language
+    if (acceptLanguage) {
+      lang = acceptLanguage.split(";")[0]?.split(",")[0];
+    } else {
+      lang = config.defaultLocale.lang;
+    }
   }
 
   // Set Qwik locale
