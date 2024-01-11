@@ -1,8 +1,8 @@
 import { component$, Slot } from "@builder.io/qwik";
 
-interface Props {
+type Props = {
   severity: "info" | "warning" | "error" | "success";
-}
+};
 
 const classes = {
   info: "bg-blue-100 text-blue-900 border-blue-200",
@@ -22,10 +22,18 @@ export default component$<Props>(({ severity }) => {
       <aside
         class={[
           "col-start-1",
-          { "text-orange-500": severity === "warning" },
-          { "text-red-500": severity === "error" },
-          { "text-green-500": severity === "success" },
-          { "text-blue-500": severity === "info" },
+          {
+            "text-orange-500": severity === "warning",
+          },
+          {
+            "text-red-500": severity === "error",
+          },
+          {
+            "text-green-500": severity === "success",
+          },
+          {
+            "text-blue-500": severity === "info",
+          },
         ]}
       >
         <Slot name="icon" />

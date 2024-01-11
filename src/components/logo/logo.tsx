@@ -11,9 +11,9 @@ import {
 import { clamp, lerp, random } from "~/utils/functions";
 
 type Props = {
-  shouldFollowCursor?: boolean;
-  shouldBlink?: boolean;
   class?: string | string[] | Record<string, boolean>;
+  shouldBlink?: boolean;
+  shouldFollowCursor?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
 export default component$<Props>(
@@ -32,11 +32,15 @@ export default component$<Props>(
         const prefersReducedMotion = window.matchMedia(
           "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (!shouldFollowCursor || prefersReducedMotion || isTouchDevice)
+        if (!shouldFollowCursor || prefersReducedMotion || isTouchDevice) {
           return;
+        }
+
         const logo = logoRef.value;
 
-        if (!logo) return;
+        if (!logo) {
+          return;
+        }
 
         const logoRect = logo.getBoundingClientRect();
         const logoCenter = {
@@ -73,14 +77,21 @@ export default component$<Props>(
         const leftEye = logo.querySelector<HTMLDivElement>("[data-left-eye]");
         const rightEye = logo.querySelector<HTMLDivElement>("[data-right-eye]");
 
-        if (!leftEye || !rightEye) return;
+        if (!leftEye || !rightEye) {
+          return;
+        }
 
         if (isWithinRange) {
           // Flip the logo if the cursor is on the left side of the logo
           const shouldFlip = distance.x < 0;
           logo.animate(
-            { transform: `scaleX(${shouldFlip ? -1 : 1})` },
-            { duration: 300, fill: "forwards" },
+            {
+              transform: `scaleX(${shouldFlip ? -1 : 1})`,
+            },
+            {
+              duration: 300,
+              fill: "forwards",
+            },
           );
 
           // Move the eyes in the tangent of the angle of the cursor to the center of the logo
@@ -88,29 +99,50 @@ export default component$<Props>(
             {
               transform: `translate(${leftEyePosition.x}px, ${leftEyePosition.y}px)`,
             },
-            { duration: 1000, fill: "forwards" },
+            {
+              duration: 1_000,
+              fill: "forwards",
+            },
           );
           rightEye.animate(
             {
               transform: `translate(${rightEyePosition.x}px, ${rightEyePosition.y}px)`,
             },
-            { duration: 1000, fill: "forwards" },
+            {
+              duration: 1_000,
+              fill: "forwards",
+            },
           );
         } else {
           // Reset the logo to its original position
           logo.animate(
-            { transform: "translate(0, 0)" },
-            { duration: 300, fill: "forwards" },
+            {
+              transform: "translate(0, 0)",
+            },
+            {
+              duration: 300,
+              fill: "forwards",
+            },
           );
 
           // Reset the eyes to their original position
           leftEye.animate(
-            { transform: "translate(0, 0)" },
-            { duration: 6000, fill: "forwards" },
+            {
+              transform: "translate(0, 0)",
+            },
+            {
+              duration: 6_000,
+              fill: "forwards",
+            },
           );
           rightEye.animate(
-            { transform: "translate(0, 0)" },
-            { duration: 6000, fill: "forwards" },
+            {
+              transform: "translate(0, 0)",
+            },
+            {
+              duration: 6_000,
+              fill: "forwards",
+            },
           );
         }
       }),
@@ -119,31 +151,43 @@ export default component$<Props>(
     // Intervals can only be set eagerly on the client, so we use `useVisibleTask$` to run this task only once the logo is visible.
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(({ cleanup }) => {
-      if (!shouldBlink) return;
+      if (!shouldBlink) {
+        return;
+      }
 
       const logo = logoRef.value;
-      if (!logo) return;
+      if (!logo) {
+        return;
+      }
 
       const leftEye = logo.querySelector<HTMLDivElement>("[data-left-eye]");
       const rightEye = logo.querySelector<HTMLDivElement>("[data-right-eye]");
-      if (!leftEye || !rightEye) return;
+      if (!leftEye || !rightEye) {
+        return;
+      }
 
       // Randomly blink the eyes
       const interval = setInterval(
-        async () => {
-          const blinkDuration = random(90, 150);
-          const blinkAmount = random(1, 4);
+        () => {
+          (async () => {
+            const blinkDuration = random(90, 150);
+            const blinkAmount = random(1, 4);
 
-          for (let i = 0; i < blinkAmount; i++) {
-            leftEye.textContent = "-";
-            rightEye.textContent = "-";
-            await new Promise((resolve) => setTimeout(resolve, blinkDuration));
-            leftEye.textContent = "•";
-            rightEye.textContent = "•";
-            await new Promise((resolve) => setTimeout(resolve, blinkDuration));
-          }
+            for (let index = 0; index < blinkAmount; index++) {
+              leftEye.textContent = "-";
+              rightEye.textContent = "-";
+              await new Promise((resolve) => {
+                setTimeout(resolve, blinkDuration);
+              });
+              leftEye.textContent = "•";
+              rightEye.textContent = "•";
+              await new Promise((resolve) => {
+                setTimeout(resolve, blinkDuration);
+              });
+            }
+          })();
         },
-        random(3000, 7000),
+        random(3_000, 7_000),
       );
 
       cleanup(() => clearInterval(interval));

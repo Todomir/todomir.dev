@@ -6,13 +6,13 @@ import { inlineTranslate } from "qwik-speak";
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
-interface Props {
+type Props = {
   posts: Array<{
-    slug: string;
-    lang: string;
     frontmatter: PostFrontmatter;
+    lang: string;
+    slug: string;
   }>;
-}
+};
 
 export default component$(({ posts }: Props) => {
   const t = inlineTranslate();

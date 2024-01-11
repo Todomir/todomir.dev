@@ -16,6 +16,6 @@ import Root from "./root";
  * - Optimizer/Serialization/Deserialization code is not exercised!
  */
 
-export default function (opts: RenderOptions) {
-  return render(document, <Root />, opts);
+export default async function (options: RenderOptions) {
+  return await render(document, <Root />, options);
 }

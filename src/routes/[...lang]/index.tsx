@@ -9,8 +9,6 @@ import Hero from "~/features/home/hero";
 import Projects from "~/features/home/projects";
 import Quote from "~/features/home/quote";
 
-export { usePosts };
-
 export default component$(() => {
   const posts = usePosts();
 
@@ -64,3 +62,5 @@ export const head: DocumentHead = () => {
     ],
   };
 };
+
+export { usePosts } from "~/content";

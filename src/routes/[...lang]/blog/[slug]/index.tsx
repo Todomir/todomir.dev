@@ -11,8 +11,6 @@ import {
   usePost,
 } from "~/content";
 
-export { usePost };
-
 export default component$(() => {
   const t = inlineTranslate();
   const fd = useFormatDate();
@@ -24,13 +22,13 @@ export default component$(() => {
   const thumbnailSig = useSignal("");
 
   useTask$(async () => {
-    const sizes = [200, 400, 600, 800, 1200];
+    const sizes = [200, 400, 600, 800, 1_200];
     const path = `/src/content/${lang}/${slug}/thumbnail.png`;
     const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
 
     // thumbnail is a flat array of strings, each string is a URL to a different size of the image. The images are ordered in groups of 3, so we can use the sizes array to get the correct URL for each size.
     const srcset = sizes
-      .map((size, i) => `${thumbnail[i * 3]} ${size}w`)
+      .map((size, index) => `${thumbnail[index * 3]} ${size}w`)
       .join(", ");
     thumbnailSig.value = srcset;
   });
@@ -122,13 +120,30 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
     ...post.head,
     title: `Blog - ${post.head.title}`,
     meta: [
-      ...(post.head.meta || []),
-      { name: "og:image", content: ogPath },
-      { name: "og:url", content: `https://todomir.dev/blog/${slug}` },
-      { name: "twitter:image", content: ogPath },
+      ...(post.head.meta ?? []),
+      {
+        name: "og:image",
+        content: ogPath,
+      },
+      {
+        name: "og:url",
+        content: `https://todomir.dev/blog/${slug}`,
+      },
+      {
+        name: "twitter:image",
+        content: ogPath,
+      },
 
-      { name: "twitter:title", content: `${post.head.title}` },
-      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:title",
+        content: `${post.head.title}`,
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
     ],
   };
 };
+
+export { usePost } from "~/content";

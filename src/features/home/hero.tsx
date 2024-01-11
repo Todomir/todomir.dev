@@ -38,12 +38,22 @@ export default component$(() => {
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     const aside = asideRef.value;
-    if (!aside) return;
+    if (!aside) {
+      return;
+    }
 
     animate(
       aside,
-      { scale: [null, prefersReducedMotion.value ? 1 : 1.1] },
-      { easing: spring({ mass: 5, stiffness: 200, damping: 150 }) },
+      {
+        scale: [null, prefersReducedMotion.value ? 1 : 1.1],
+      },
+      {
+        easing: spring({
+          mass: 5,
+          stiffness: 200,
+          damping: 150,
+        }),
+      },
     );
 
     const images = aside.querySelectorAll("*");
@@ -54,21 +64,29 @@ export default component$(() => {
       damping: 150,
     };
 
-    images.forEach((image, i) => {
+    for (const [index, image] of images.entries()) {
       const speedMultiplier = Number((image as HTMLElement).dataset.speed) || 1;
       // Only animate the images if the user has not requested reduced motion.
       const speed =
         350 * (speedMultiplier * Number(!prefersReducedMotion.value));
-      const xpos = i >= 2 ? ["100%", 0] : ["-100%", 0];
+      const xpos = index >= 2 ? ["100%", 0] : ["-100%", 0];
 
       animate(
         image,
-        { x: prefersReducedMotion.value ? [] : xpos, opacity: [0, 1] },
-        { delay: i * 0.2, easing: spring(springConfig) },
+        {
+          x: prefersReducedMotion.value ? [] : xpos,
+          opacity: [0, 1],
+        },
+        {
+          delay: index * 0.2,
+          easing: spring(springConfig),
+        },
       );
-      const animationParams = { y: [null, `-${speed}%`] };
+      const animationParameters = {
+        y: [null, `-${speed}%`],
+      };
       scroll(
-        animate(image, animationParams, {
+        animate(image, animationParameters, {
           easing: spring({
             mass: 75,
             stiffness: 30,
@@ -77,17 +95,19 @@ export default component$(() => {
           delay: 0,
         }),
       );
-    });
+    }
   });
 
   // We want this to run only once it is visible, and eagerly, on the client. So we use `useVisibleTask$`.
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     const speed = 230 * Number(!prefersReducedMotion.value);
-    const animationParams = { y: [null, `-${speed}%`] };
+    const animationParameters = {
+      y: [null, `-${speed}%`],
+    };
 
     scroll(
-      animate("#hero-content", animationParams, {
+      animate("#hero-content", animationParameters, {
         easing: spring({
           mass: 75,
           stiffness: 30,
@@ -101,15 +121,19 @@ export default component$(() => {
   useOnDocument(
     "mousemove",
     $((event) => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-      if (prefersReducedMotion) return;
+      if (prefersReducedMotion.value) {
+        return;
+      }
 
       const aside = asideRef.value;
-      if (!aside) return;
+      if (!aside) {
+        return;
+      }
 
-      const mousePosition = { x: event.clientX, y: event.clientY };
+      const mousePosition = {
+        x: event.clientX,
+        y: event.clientY,
+      };
 
       animate(
         aside,
@@ -118,7 +142,13 @@ export default component$(() => {
           x: mousePosition.x / 100,
           y: mousePosition.y / 100,
         },
-        { easing: spring({ mass: 40, stiffness: 200, damping: 300 }) },
+        {
+          easing: spring({
+            mass: 40,
+            stiffness: 200,
+            damping: 300,
+          }),
+        },
       );
     }),
   );

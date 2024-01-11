@@ -4,19 +4,19 @@ import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
 import Card from "../card/card";
 
-interface Props {
+type Props = {
+  description: string;
   id: string;
   slug?: string;
-  title: string;
-  description: string;
   tags: string[];
   thumbnail: {
-    srcset: string;
     alt: string;
-    width: number;
     height: number;
+    srcset: string;
+    width: number;
   };
-}
+  title: string;
+};
 
 export default component$((props: Props) => {
   return (

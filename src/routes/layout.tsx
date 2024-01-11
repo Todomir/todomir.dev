@@ -97,7 +97,9 @@ const Header = component$(() => {
       class="header fixed ml-auto right-0 md:right-1/2 md:translate-x-1/2 top-1 z-20 items-center px-5 pt-12 text-zinc-50 md/footer:px-20"
     >
       <button
-        style={{ viewTransitionName: "navbar-button" }}
+        style={{
+          viewTransitionName: "navbar-button",
+        }}
         type="button"
         aria-expanded={isExpandedSig.value}
         disabled={!isMobileSig.value}
@@ -107,18 +109,20 @@ const Header = component$(() => {
         }
         class={[
           "ml-auto block bg-zinc-950 text-zinc-50 p-2 leading-0 border border-zinc-50/60 rounded-md transition-all ease-spring-4 hover:bg-zinc-900",
-          { hidden: !isMobileSig.value },
+          {
+            hidden: !isMobileSig.value,
+          },
         ]}
         onClick$={() => {
           const next = !isExpandedSig.value;
           // Hack to avoid TypeScript error since `startViewTransition` is not
           // defined in the type definition.
-          if (!(document as any).startViewTransition) {
+          if (document.startViewTransition) {
             isExpandedSig.value = next;
             return;
           }
 
-          (document as any).startViewTransition(() => {
+          document.startViewTransition(() => {
             isExpandedSig.value = next;
           });
         }}
@@ -147,8 +151,12 @@ const Header = component$(() => {
           <line
             class={[
               "transition-transform duration-500 ease-in-out",
-              { "opacity-0 translate-x-1": isExpandedSig.value },
-              { "opacity-100 translate-x-0": !isExpandedSig.value },
+              {
+                "opacity-0 translate-x-1": isExpandedSig.value,
+              },
+              {
+                "opacity-100 translate-x-0": !isExpandedSig.value,
+              },
             ]}
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -174,17 +182,23 @@ const Header = component$(() => {
         </svg>
       </button>
       <nav
-        style={{ viewTransitionName: "navbar" }}
+        style={{
+          viewTransitionName: "navbar",
+        }}
         class={[
           "relative mt-2.5 max-w-[353px] flex-col gap-4 items-center justify-between px-6 py-4 bg-zinc-950 rounded-xl border border-zinc-50/20 md:opacity-100 text-right md:text-left ",
-          { "opacity-0": !isMobileSig.value || !isExpandedSig.value },
+          {
+            "opacity-0": !isMobileSig.value || !isExpandedSig.value,
+          },
         ]}
       >
         <ul
           id="navbar-menu"
           class={[
             "flex justify-end flex-col md:flex-row md:justify-around text-zinc-500 transition-all ease-spring-3 md:mt-0",
-            { hidden: !isExpandedSig.value && isMobileSig.value },
+            {
+              hidden: !isExpandedSig.value && isMobileSig.value,
+            },
           ]}
         >
           {NAV_LINKS.map((link) => (

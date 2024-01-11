@@ -5,8 +5,6 @@ import { inlineTranslate } from "qwik-speak";
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import { usePosts } from "~/content";
 
-export { usePosts };
-
 export default component$(() => {
   const posts = usePosts();
   const t = inlineTranslate();
@@ -15,13 +13,17 @@ export default component$(() => {
     <section class="full-width content-grid grid-rows-[auto_1fr] relative w-full bg-zinc-950 pt-36 text-zinc-300">
       <header class="h-fit">
         <h1
-          style={{ viewTransitionName: "blog-section-title" }}
+          style={{
+            viewTransitionName: "blog-section-title",
+          }}
           class="mt-10 text-center text-4xl tracking-tighter text-zinc-200 md:mt-12 md:text-6xl md:leading-[73px]"
         >
           {t("site.links.blog.label")}
         </h1>
         <p
-          style={{ viewTransitionName: "blog-section-description" }}
+          style={{
+            viewTransitionName: "blog-section-description",
+          }}
           class="mt-4 text-center text-base leading-6"
         >
           {t("site.og.blog.description")}
@@ -91,3 +93,5 @@ export const head: DocumentHead = () => {
     ],
   };
 };
+
+export { usePosts } from "~/content";

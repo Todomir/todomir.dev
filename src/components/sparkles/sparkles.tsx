@@ -34,13 +34,15 @@ const generateSparkle = (color: string) => ({
 
 const useSparkleStore = (color: string) =>
   useStore({
-    sparkles: [...Array(3)].map(() => generateSparkle(color)),
+    sparkles: Array.from({
+      length: 3,
+    }).map(() => generateSparkle(color)),
   });
 
 export const Sparkle = component$(
   (props: {
-    size: number;
     color: string;
+    size: number;
     style: HTMLAttributes<HTMLSpanElement>["style"];
   }) => {
     const path =
@@ -65,7 +67,7 @@ export const Sparkle = component$(
 
 export default component$<{ color?: string }>((props) => {
   const color =
-    props.color || DEFAULT_COLORS[random(0, DEFAULT_COLORS.length - 1)];
+    props.color ?? DEFAULT_COLORS[random(0, DEFAULT_COLORS.length - 1)];
   const store = useSparkleStore(color);
   // CSS styles
   useStyles$(CSS);

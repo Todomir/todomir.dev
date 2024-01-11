@@ -15,11 +15,11 @@ export const onRequest: RequestHandler = ({
   // Remove -US from en-US
   userLang = userLang === "en-US" ? "en" : userLang;
 
-  const langParam =
+  const langParameter =
     params.lang && validateLocale(params.lang) ? params.lang : undefined;
   const langUser = userLang && validateLocale(userLang) ? userLang : undefined;
 
-  const lang = langParam || langUser || config.defaultLocale.lang;
+  const lang = langParameter ?? langUser ?? config.defaultLocale.lang;
 
   // Check supported locales
   const isSupportedLocale = config.supportedLocales.some(
@@ -27,7 +27,9 @@ export const onRequest: RequestHandler = ({
   );
 
   // 404 error page
-  if (!isSupportedLocale) throw error(404, "Page not found");
+  if (!isSupportedLocale) {
+    throw error(404, "Page not found");
+  }
 
   // Set Qwik locale
   locale(lang);

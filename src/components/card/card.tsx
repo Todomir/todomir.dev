@@ -1,8 +1,8 @@
 import { component$, Slot } from "@builder.io/qwik";
 
-interface Props {
+type Props = {
   class: string;
-}
+};
 
 export default component$((props: Props) => {
   return (

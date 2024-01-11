@@ -16,5 +16,5 @@ const loadTranslation$: LoadTranslationFn = server$(
 );
 
 export const translationFn: TranslationFn = {
-  loadTranslation$: loadTranslation$,
+  loadTranslation$,
 };

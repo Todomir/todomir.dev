@@ -35,16 +35,16 @@ export function extractBase({ serverData }: RenderOptions): string {
   }
 }
 
-export default function (opts: RenderToStreamOptions) {
-  return renderToStream(<Root />, {
+export default async function (options: RenderToStreamOptions) {
+  return await renderToStream(<Root />, {
     manifest,
-    ...opts,
+    ...options,
     // Determine the base URL for the client code
     base: extractBase,
     // Use container attributes to set attributes on the html tag
     containerAttributes: {
-      lang: opts.serverData?.locale || config.defaultLocale.lang,
-      ...opts.containerAttributes,
+      lang: options.serverData?.locale || config.defaultLocale.lang,
+      ...options.containerAttributes,
     },
   });
 }

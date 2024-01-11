@@ -10,7 +10,9 @@ export default component$<Props>(({ active, class: className }) => {
     <div
       class={[
         "inline-flex leading-0 @md:text-sm w-max rounded-xl border border-zinc-200 bg-gradient-to-b from-white to-zinc-50 px-3 py-1 text-xs text-zinc-950 shadow-sm",
-        { "bg-zinc-950 text-white border-zinc-950": active },
+        {
+          "bg-zinc-950 text-white border-zinc-950": active,
+        },
         className,
       ]}
     >

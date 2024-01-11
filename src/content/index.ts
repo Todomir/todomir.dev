@@ -17,7 +17,11 @@ export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob(
   {
     eager: true,
     import: "default",
-    query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
+    query: {
+      w: "200;400;600;800;1200",
+      format: "avif;webp;jpg",
+      as: "url",
+    },
   },
 );
 export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob(
@@ -53,26 +57,28 @@ const FRONTMATTER_SCHEMA = transform(
 
 export type PostFrontmatter = Output<typeof FRONTMATTER_SCHEMA>;
 export type PostModule = {
+  default: () => JSXNode & { props: { children: JSXNode<() => JSXNode> } };
+  frontmatter: PostFrontmatter;
+  head: DocumentHeadValue;
   headings: Array<{
-    text: string;
     id: string;
     level: number;
+    text: string;
   }>;
-  head: DocumentHeadValue;
-  frontmatter: PostFrontmatter;
-  default: () => JSXNode & { props: { children: JSXNode<() => JSXNode> } };
 };
 
 // eslint-disable-next-line qwik/loader-location
 export const usePosts = routeLoader$(async ({ params, error }) => {
-  let lang: string | undefined = undefined;
+  let lang: string | undefined;
 
   if (params.lang && validateLocale(params.lang)) {
     // Check supported locales
     lang = config.supportedLocales.find((value) => value.lang === params.lang)
       ?.lang;
     // 404 error page
-    if (!lang) throw error(404, "Page not found");
+    if (!lang) {
+      throw error(404, "Page not found");
+    }
   } else {
     lang = config.defaultLocale.lang;
   }
@@ -99,22 +105,25 @@ export const usePosts = routeLoader$(async ({ params, error }) => {
 // eslint-disable-next-line qwik/loader-location
 export const usePost = routeLoader$(async ({ params, error }) => {
   const { slug } = params;
-  let lang: string | undefined = undefined;
+  let lang: string | undefined;
 
   if (params.lang && validateLocale(params.lang)) {
     // Check supported locales
     lang = config.supportedLocales.find((value) => value.lang === params.lang)
       ?.lang;
     // 404 error page
-    if (!lang) throw error(404, "Page not found");
+    if (!lang) {
+      throw error(404, "Page not found");
+    }
   } else {
     lang = config.defaultLocale.lang;
   }
 
   const path = `/src/content/${lang}/${slug}/post.mdx`;
 
-  if (!Object.keys(BLOG_POST_LIST).includes(path))
+  if (!Object.keys(BLOG_POST_LIST).includes(path)) {
     throw error(404, "Page not found");
+  }
 
   const promise = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
   const mod = (await promise) as PostModule;

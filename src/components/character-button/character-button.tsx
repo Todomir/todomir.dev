@@ -14,11 +14,11 @@ import { random } from "~/utils/functions";
 
 import CSS from "./character-button.styles.css?inline";
 
-interface Props {
+type Props = {
   character: string;
   size: number;
   style: HTMLAttributes<HTMLSpanElement>["style"];
-}
+};
 
 /**
  * GenerateCharacter generates a new character object with random properties. It
@@ -39,13 +39,13 @@ const generateCharacter = (character: string) => ({
 
 const useCharacterStore = () =>
   useStore({
-    characters: [] as {
-      id: string;
-      createdAt: number;
+    characters: [] as Array<{
       character: string;
+      createdAt: number;
+      id: string;
       size: number;
       style: HTMLAttributes<HTMLSpanElement>["style"];
-    }[],
+    }>,
     prefersReducedMotion: false,
   });
 
@@ -78,6 +78,7 @@ const CharacterButton = component$(
       ) {
         char = props.characters[random(0, props.characters.length - 1)];
       }
+
       store.characters = [...store.characters, generateCharacter(char)];
     });
 

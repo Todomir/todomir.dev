@@ -9,7 +9,7 @@ import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 import Card from "../card/card";
 import Tag from "../tag/tag";
 
-type Props = { slug: string; lang: string; frontmatter: PostFrontmatter };
+type Props = { frontmatter: PostFrontmatter; lang: string; slug: string };
 
 export default component$(({ slug, lang, frontmatter }: Props) => {
   const { title, description, updatedAt, tags } = frontmatter;
@@ -19,13 +19,13 @@ export default component$(({ slug, lang, frontmatter }: Props) => {
   const thumbnailSig = useSignal("");
 
   useTask$(async () => {
-    const sizes = [200, 400, 600, 800, 1200];
+    const sizes = [200, 400, 600, 800, 1_200];
     const path = `/src/content/${lang}/${slug}/thumbnail.png`;
     const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
 
     // thumbnail is a flat array of strings, each string is a URL to a different size of the image. The images are ordered in groups of 3, so we can use the sizes array to get the correct URL for each size.
     const srcset = sizes
-      .map((size, i) => `${thumbnail[i * 3]} ${size}w`)
+      .map((size, index) => `${thumbnail[index * 3]} ${size}w`)
       .join(", ");
     thumbnailSig.value = srcset;
   });

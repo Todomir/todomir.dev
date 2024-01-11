@@ -22,11 +22,15 @@ export default component$(() => {
           key={value.lang}
           class={[
             "text-sm block leading-5 tracking-normal text-zinc-500 underline underline-offset-2 transition-all ease-spring-2 hover:font-semibold hover:text-zinc-100",
-            { "font-bold text-zinc-300": value.lang == locale.lang },
+            {
+              "font-bold text-zinc-300": value.lang === locale.lang,
+            },
           ]}
           href={`/${value.lang}`}
         >
-          {dn(value.lang, { type: "language" })}
+          {dn(value.lang, {
+            type: "language",
+          })}
         </a>
       ))}
     </>
