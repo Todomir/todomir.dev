@@ -29,9 +29,11 @@ With that in mind, I want to walk you through the process of building this websi
   <span q:slot="icon" dangerouslySetInnerHTML={AlertIcon} />
   <h2 q:slot="title">ATTENTION</h2>
   <span>
-    This is not a comprehensive tutorial on how to get started with Qwik. If you want to learn more about Qwik, I
-    recommend you read the [official documentation](https://qwik.builder.io/docs/getting-started). I will just cover the
-    parts that I used to build my website, the problems I faced and how I solved them.
+    This is not a comprehensive tutorial on how to get started with Qwik. If you
+    want to learn more about Qwik, I recommend you read the [official
+    documentation](https://qwik.builder.io/docs/getting-started). I will just
+    cover the parts that I used to build my website, the problems I faced and
+    how I solved them.
   </span>
 </Alert>
 
@@ -238,16 +240,22 @@ What I do is eagerly load the `og.png` and `thumbnail.png` images, use transform
 So, on the `content/index.ts` file, I added the following:
 
 ```ts
-export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob("/src/content/**/*.og.png", {
-  eager: true,
-  import: "default",
-  query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
-});
-export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob("/src/content/**/*.thumbnail.png", {
-  eager: true,
-  import: "default",
-  as: "url",
-});
+export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob(
+  "/src/content/**/*.og.png",
+  {
+    eager: true,
+    import: "default",
+    query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
+  },
+);
+export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob(
+  "/src/content/**/*.thumbnail.png",
+  {
+    eager: true,
+    import: "default",
+    as: "url",
+  },
+);
 ```
 
 The principle here is similar to the one used for the posts. We use `import.meta.glob` to generate a dictionary with the image paths as keys and the images themselves as values. We also use `eager: true` to make sure that the images are loaded eagerly, and we use `import: "default"` to make sure that we get the default export of the image, which is the URL of the optimized image.
@@ -256,6 +264,7 @@ In our page, we can then use the images like this:
 
 ```tsx
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+
 import { BLOG_POST_THUMBNAIL_LIST, usePost } from "~/content";
 
 export { usePost };
@@ -273,7 +282,9 @@ export default component$(() => {
     const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
 
     // thumbnail is a flat array of strings, each string is a URL to a different size of the image. The images are ordered in groups of 3, so we can use the sizes array to get the correct URL for each size.
-    const srcset = sizes.map((size, i) => `${thumbnail[i * 3]} ${size}w`).join(", ");
+    const srcset = sizes
+      .map((size, i) => `${thumbnail[i * 3]} ${size}w`)
+      .join(", ");
     thumbnailSig.value = srcset;
   });
 
@@ -283,7 +294,11 @@ export default component$(() => {
         <h1>{post.value.frontmatter.title}</h1>
         <p>{post.value.frontmatter.description}</p>
 
-        <img src={thumbnailSig.value} alt={post.value.frontmatter.thumbnail.alt} srcset={thumbnailSig.value} />
+        <img
+          src={thumbnailSig.value}
+          alt={post.value.frontmatter.thumbnail.alt}
+          srcset={thumbnailSig.value}
+        />
       </header>
       {post.value.default}
     </article>

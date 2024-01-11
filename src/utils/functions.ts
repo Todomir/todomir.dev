@@ -22,6 +22,7 @@ export const lerp = (start: number, end: number, amount: number) => {
 
 /**
  * Clamp a value between a minimum and maximum.
+ *
  * @param value - The value to clamp.
  * @param min - The minimum value.
  * @param max - The maximum value.

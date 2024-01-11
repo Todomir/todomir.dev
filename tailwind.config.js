@@ -1,8 +1,8 @@
 import harmonyPalette from "@evilmartians/harmony/tailwind";
-import typography from "@tailwindcss/typography";
 import containerQueries from "@tailwindcss/container-queries";
+import typography from "@tailwindcss/typography";
 
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 const config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   future: {

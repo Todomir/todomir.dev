@@ -1,9 +1,13 @@
+import type { PostFrontmatter } from "~/content";
+
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
-import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
-import Card from "../card/card";
-import { BLOG_POST_THUMBNAIL_LIST, type PostFrontmatter } from "~/content";
-import Tag from "../tag/tag";
 import { inlineTranslate, useFormatDate } from "qwik-speak";
+
+import { BLOG_POST_THUMBNAIL_LIST } from "~/content";
+import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
+
+import Card from "../card/card";
+import Tag from "../tag/tag";
 
 type Props = { slug: string; lang: string; frontmatter: PostFrontmatter };
 

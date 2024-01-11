@@ -1,10 +1,12 @@
-import type { Output } from "valibot";
-import { array, boolean, object, parse, string, transform } from "valibot";
-import { isDev } from "@builder.io/qwik/build";
-import type { DocumentHeadValue } from "@builder.io/qwik-city";
-import { routeLoader$ } from "@builder.io/qwik-city";
 import type { JSXNode } from "@builder.io/qwik";
+import type { DocumentHeadValue } from "@builder.io/qwik-city";
+import type { Output } from "valibot";
+
+import { routeLoader$ } from "@builder.io/qwik-city";
+import { isDev } from "@builder.io/qwik/build";
 import { validateLocale } from "qwik-speak";
+import { array, boolean, object, parse, string, transform } from "valibot";
+
 import { config } from "~/speak.config";
 
 export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/post.mdx", {

@@ -7,15 +7,14 @@ import {
   useVisibleTask$,
 } from "@builder.io/qwik";
 import { animate, scroll, spring } from "motion";
+import { inlineTranslate } from "qwik-speak";
+
 import Logo from "~/components/logo/logo";
-
 import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
-
 import AstromartThumb from "~/media/images/projects/astromart-01.png?jsx";
+import KdsThumb from "~/media/images/projects/kds-01.png?jsx";
 import KobrazaThumb from "~/media/images/projects/kobraza-01.avif?jsx";
 import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-01.png?jsx";
-import KdsThumb from "~/media/images/projects/kds-01.png?jsx";
-import { inlineTranslate } from "qwik-speak";
 
 export default component$(() => {
   const t = inlineTranslate();

@@ -1,15 +1,18 @@
 // Imports
 import type { HTMLAttributes } from "@builder.io/qwik";
+
 import {
   $,
-  Slot,
   component$,
+  Slot,
   useStore,
   useStyles$,
   useTask$,
 } from "@builder.io/qwik";
-import CSS from "./character-button.styles.css?inline";
+
 import { random } from "~/utils/functions";
+
+import CSS from "./character-button.styles.css?inline";
 
 interface Props {
   character: string;
@@ -18,10 +21,10 @@ interface Props {
 }
 
 /**
- * generateCharacter generates a new character object with random properties.
- * It takes in a character string, and returns an object with that character,
- * a random id, the current timestamp, a random size,
- * and a random style with top and left values.
+ * GenerateCharacter generates a new character object with random properties. It
+ * takes in a character string, and returns an object with that character, a
+ * random id, the current timestamp, a random size, and a random style with top
+ * and left values.
  */
 const generateCharacter = (character: string) => ({
   id: crypto.getRandomValues(new Uint32Array(1))[0].toString(16),
@@ -62,10 +65,10 @@ const CharacterButton = component$(
     useStyles$(CSS);
 
     /**
-     * handleClick handles the click event for the CharacterButton component.
-     * It generates a new random character from the props.characters array,
-     * ensuring it is different than the last generated character.
-     * It adds the new character to the component's store.
+     * HandleClick handles the click event for the CharacterButton component. It
+     * generates a new random character from the props.characters array,
+     * ensuring it is different than the last generated character. It adds the
+     * new character to the component's store.
      */
     const handleClick = $(() => {
       let char = props.characters[random(0, props.characters.length - 1)];

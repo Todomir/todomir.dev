@@ -1,11 +1,13 @@
+import type { Highlighter } from "shikiji";
+
 import { qwikCity } from "@builder.io/qwik-city/vite";
 import { qwikVite } from "@builder.io/qwik/optimizer";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
-import { getHighlighter, type Highlighter } from "shikiji";
-import rehypePrettyCode from "rehype-pretty-code";
 import { FontaineTransform } from "fontaine";
 import { qwikSpeakInline } from "qwik-speak/inline";
+import rehypePrettyCode from "rehype-pretty-code";
+import { getHighlighter } from "shikiji";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 const fontaineOptions = {
   fallbacks: [

@@ -1,4 +1,5 @@
 import type { RequestHandler } from "@builder.io/qwik-city";
+
 import { validateLocale } from "qwik-speak";
 
 import { config } from "../speak.config";

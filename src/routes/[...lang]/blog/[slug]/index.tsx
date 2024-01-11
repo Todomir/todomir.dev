@@ -1,7 +1,9 @@
-import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
+
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import { useLocation } from "@builder.io/qwik-city";
 import { inlineTranslate, useFormatDate } from "qwik-speak";
+
 import Tag from "~/components/tag/tag";
 import {
   BLOG_POST_OG_IMAGE_LIST,

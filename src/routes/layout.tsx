@@ -1,7 +1,9 @@
-import { $, Slot, component$, useOnWindow, useSignal } from "@builder.io/qwik";
-import { routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
+
+import { $, component$, Slot, useOnWindow, useSignal } from "@builder.io/qwik";
+import { routeLoader$ } from "@builder.io/qwik-city";
 import { inlineTranslate } from "qwik-speak";
+
 import ChangeLocale from "~/components/change-locale/change-locale";
 import Logo from "~/components/logo/logo";
 import { ONE_DAY_IN_SECONDS, ONE_MINUTE_IN_SECONDS } from "~/utils/constants";

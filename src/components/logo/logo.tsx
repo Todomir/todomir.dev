@@ -1,4 +1,5 @@
 import type { HTMLAttributes } from "@builder.io/qwik";
+
 import {
   $,
   component$,
@@ -6,6 +7,7 @@ import {
   useSignal,
   useVisibleTask$,
 } from "@builder.io/qwik";
+
 import { clamp, lerp, random } from "~/utils/functions";
 
 type Props = {
@@ -47,14 +49,14 @@ export default component$<Props>(
           y: e.clientY,
         };
 
-        /**  Distance between cursor and logo center */
+        /** Distance between cursor and logo center */
         const distance = {
           x: cursorPosition.x - logoCenter.x,
           y: cursorPosition.y - logoCenter.y,
         };
 
         const RANGE = 745; // in px
-        /**  If the cursor is within a certain range of the logo */
+        /** If the cursor is within a certain range of the logo */
         const isWithinRange =
           Math.abs(distance.x) < RANGE && Math.abs(distance.y) < RANGE;
 

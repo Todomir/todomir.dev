@@ -1,10 +1,10 @@
 import { component$ } from "@builder.io/qwik";
 import { inlineTranslate } from "qwik-speak";
-import ProjectCard from "~/components/project-card/project-card";
 
+import ProjectCard from "~/components/project-card/project-card";
 import AstromartThumb from "~/media/images/projects/astromart-02.png?w=200;400;600;800;1200&format=avif;webp;png&as=srcset&imagetools";
-import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-02.png?w=200;400;600;800;12000&format=avif;webp;png&as=srcset&imagetools";
 import KdsThumb from "~/media/images/projects/kds-01.png?w=200;400;600;800;1200&format=avif;webp;png&as=srcset&imagetools";
+import LeonardoNutritionThumb from "~/media/images/projects/leonardo-nutrition-02.png?w=200;400;600;800;12000&format=avif;webp;png&as=srcset&imagetools";
 
 export default component$(() => {
   const t = inlineTranslate();

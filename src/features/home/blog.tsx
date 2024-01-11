@@ -1,7 +1,9 @@
-import { Fragment, component$ } from "@builder.io/qwik";
-import { inlineTranslate } from "qwik-speak";
-import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import type { PostFrontmatter } from "~/content";
+
+import { component$, Fragment } from "@builder.io/qwik";
+import { inlineTranslate } from "qwik-speak";
+
+import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
 interface Props {

@@ -1,13 +1,16 @@
 import type { HTMLAttributes } from "@builder.io/qwik";
+
 import {
-  Slot,
   component$,
+  Slot,
   useStore,
   useStyles$,
   useVisibleTask$,
 } from "@builder.io/qwik";
-import CSS from "./sparkles.styles.css?inline";
+
 import { random } from "~/utils/functions";
+
+import CSS from "./sparkles.styles.css?inline";
 
 const DEFAULT_COLORS = ["#ffd465", "#e4ba48", "#ded17a"];
 
@@ -15,7 +18,8 @@ const DEFAULT_COLORS = ["#ffd465", "#e4ba48", "#ded17a"];
  * Generates a single sparkle object with random properties.
  *
  * @param color - The color of the sparkle.
- * @returns Sparkle object with random id, creation timestamp, size, position, and provided color.
+ * @returns Sparkle object with random id, creation timestamp, size, position,
+ *   and provided color.
  */
 const generateSparkle = (color: string) => ({
   id: crypto.getRandomValues(new Uint32Array(1))[0].toString(16),

@@ -1,9 +1,9 @@
 {
-	"$schema": "https://json.schemastore.org/web-manifest-combined.json",
-	"name": "todomir.dev",
-	"short_name": "todomir.dev",
-	"start_url": ".",
-	"display": "standalone",
-	"background_color": "#fff",
-	"description": "Abner's really Qwik personal portfolio."
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "todomir.dev",
+  "short_name": "todomir.dev",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Abner's really Qwik personal portfolio."
 }

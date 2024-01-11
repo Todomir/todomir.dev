@@ -1,8 +1,8 @@
 import { component$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
-import { usePosts } from "~/content";
 import { inlineTranslate } from "qwik-speak";
 
+import { usePosts } from "~/content";
 import About from "~/features/home/about";
 import Blog from "~/features/home/blog";
 import Hero from "~/features/home/hero";

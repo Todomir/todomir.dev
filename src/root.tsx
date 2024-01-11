@@ -4,24 +4,23 @@ import {
   RouterOutlet,
   ServiceWorkerRegister,
 } from "@builder.io/qwik-city";
+import { useQwikSpeak } from "qwik-speak";
+
 import { RouterHead } from "./components/router-head/router-head";
+import { config } from "./speak.config";
+import { translationFn } from "./speak.functions";
 
 import "./global.css";
-import { useQwikSpeak } from "qwik-speak";
-import { translationFn } from "./speak.functions";
-import { config } from "./speak.config";
 
 export default component$(() => {
   /**
-   * The root of a QwikCity site always start with the <QwikCityProvider> component,
-   * immediately followed by the document's <head> and <body>.
+   * The root of a QwikCity site always start with the <QwikCityProvider>
+   * component, immediately followed by the document's <head> and <body>.
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
 
-  /**
-   * Init Qwik Speak
-   */
+  /** Init Qwik Speak */
   useQwikSpeak({ config, translationFn, langs: ["en", "pt-BR"] });
 
   return (
