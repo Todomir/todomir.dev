@@ -1,3 +1,5 @@
+import type { StaticGenerateHandler } from "@builder.io/qwik-city";
+
 import { component$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
 import { inlineTranslate } from "qwik-speak";
@@ -8,6 +10,7 @@ import Blog from "~/features/home/blog";
 import Hero from "~/features/home/hero";
 import Projects from "~/features/home/projects";
 import Quote from "~/features/home/quote";
+import { config } from "~/speak.config";
 
 export default component$(() => {
   const posts = usePosts();
@@ -60,6 +63,14 @@ export const head: DocumentHead = () => {
         content: t("site.og.main.title"),
       },
     ],
+  };
+};
+
+export const onStaticGenerate: StaticGenerateHandler = async () => {
+  return {
+    params: config.supportedLocales.map((locale) => {
+      return { lang: locale.lang };
+    }),
   };
 };
 

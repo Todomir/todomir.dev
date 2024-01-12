@@ -1,9 +1,12 @@
+import type { StaticGenerateHandler } from "@builder.io/qwik-city";
+
 import { component$, Fragment } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
 import { inlineTranslate } from "qwik-speak";
 
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import { usePosts } from "~/content";
+import { config } from "~/speak.config";
 
 export default component$(() => {
   const posts = usePosts();
@@ -91,6 +94,14 @@ export const head: DocumentHead = () => {
         content: t("site.og.blog.title"),
       },
     ],
+  };
+};
+
+export const onStaticGenerate: StaticGenerateHandler = async () => {
+  return {
+    params: config.supportedLocales.map((locale) => {
+      return { lang: locale.lang };
+    }),
   };
 };
 
