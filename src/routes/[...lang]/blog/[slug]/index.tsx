@@ -1,4 +1,8 @@
-import type { DocumentHead } from "@builder.io/qwik-city";
+import type { JSXNode } from "@builder.io/qwik";
+import type {
+  DocumentHead,
+  StaticGenerateHandler,
+} from "@builder.io/qwik-city";
 
 import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import { useLocation } from "@builder.io/qwik-city";
@@ -82,7 +86,11 @@ export default component$(() => {
       </p>
 
       <div class="prose prose-zinc max-w-none text-pretty lg:prose-xl prose-code:rounded-md prose-code:border prose-code:border-zinc-300 prose-code:bg-zinc-100 prose-code:p-1 prose-code:before:content-[''] prose-code:after:content-[''] [&_pre_code]:border-transparent [&_pre_code]:bg-inherit [&_pre_code]:p-0">
-        {post.value.default}
+        {
+          JSON.parse(post.value.default).props.children.map(
+            (child: JSXNode) => <>{child}</>,
+          ) as JSXNode[]
+        }
       </div>
 
       <div class="full-width my-24 bg-zinc-200 px-5 md:px-20">
@@ -143,6 +151,19 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
         content: "summary_large_image",
       },
     ],
+  };
+};
+
+export const onStaticGenerate: StaticGenerateHandler = async () => {
+  const params = Object.keys(BLOG_POST_THUMBNAIL_LIST)
+    .map((path) =>
+      path.replace("/src/content/", "").replace("/thumbnail.png", ""),
+    )
+    .map((path) => path.split("/"))
+    .map(([lang, slug]) => ({ lang, slug }));
+
+  return {
+    params,
   };
 };
 

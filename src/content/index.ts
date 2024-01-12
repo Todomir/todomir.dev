@@ -133,6 +133,6 @@ export const usePost = routeLoader$(async ({ params, error }) => {
     slug,
     ...mod,
     frontmatter,
-    default: mod.default().props.children.type(),
+    default: JSON.stringify(mod.default().props.children.type()),
   };
 });
