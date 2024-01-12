@@ -1,21 +1,31 @@
 interface OutputMetadata {
-  src: string; // URL of the generated image
-  width: number; // Width of the image
-  height: number; // Height of the image
-  format: string; // Format of the generated image
+  /** Number of bands e.g. 3 for sRGB, 4 for CMYK */
+  channels: number;
+  /** Number of pixels per inch */
+  density: number;
+  /** Name of pixel depth format */
+  depth: string;
+  /** Format of the generated image */
+  format: string;
 
-  // The following options are the same as sharps input options
-  space: string; // Name of colour space interpretation
-  channels: number; // Number of bands e.g. 3 for sRGB, 4 for CMYK
-  density: number; //  Number of pixels per inch
-  depth: string; // Name of pixel depth format
-  hasAlpha: boolean; // presence of an alpha transparency channel
-  hasProfile: boolean; // presence of an embedded ICC profile
-  isProgressive: boolean; // indicating whether the image is interlaced using a progressive scan
+  /** Presence of an alpha transparency channel */
+  hasAlpha: boolean;
+  /** Presence of an embedded ICC profile */
+  hasProfile: boolean;
+  /** Height of the image */
+  height: number;
+  /** Indicating whether the image is interlaced using a progressive scan */
+  isProgressive: boolean;
+  /** Name of colour space interpretation */
+  space: string;
+  /** URL of the generated image */
+  src: string;
+  /** Width of the image */
+  width: number;
 }
 
 declare module "*&as=metadata&imagetools-gallery" {
-  const outputs: Array<OutputMetadata>;
+  const outputs: OutputMetadata[];
   export default outputs;
 }
 
@@ -25,7 +35,7 @@ declare module "*&as=metadata&imagetools" {
 }
 
 declare module "*&imagetools-gallery" {
-  const outputs: Array<string>;
+  const outputs: string[];
   export default outputs;
 }
 
