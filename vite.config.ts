@@ -11,11 +11,13 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 const fontaineOptions = {
   fallbacks: [
-    "BlinkMacSystemFont",
-    "Segoe UI",
+    "Inter",
+    "Roboto",
     "Helvetica Neue",
+    "Arial Nova",
+    "Nimbus Sans",
     "Arial",
-    "Noto Sans",
+    "sans-serif",
   ],
   resolvePath: (fontSrc: string) =>
     new URL(`./public/fonts${fontSrc}`, import.meta.url),
