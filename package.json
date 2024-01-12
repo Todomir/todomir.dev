@@ -34,7 +34,7 @@
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.10",
     "@todomir/eslint-config": "^10.1.0",
-    "@todomir/prettier-config": "^5.1.0",
+    "@todomir/prettier-config": "^5.1.1",
     "@types/dom-view-transitions": "^1.0.4",
     "@types/eslint": "^8.56.1",
     "@types/node": "^20.10.8",
