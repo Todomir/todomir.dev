@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import type { RequestHandler } from "@builder.io/qwik-city";
 
 import { $, component$, Slot, useOnWindow, useSignal } from "@builder.io/qwik";
@@ -7,6 +8,25 @@ import { inlineTranslate } from "qwik-speak";
 import ChangeLocale from "~/components/change-locale/change-locale";
 import Logo from "~/components/logo/logo";
 import { ONE_DAY_IN_SECONDS, ONE_MINUTE_IN_SECONDS } from "~/utils/constants";
+
+declare global {
+  interface Document {
+    startViewTransition?: (
+      updateCallback: () => Promise<void> | void,
+    ) => ViewTransition;
+  }
+
+  interface ViewTransition {
+    finished: Promise<void>;
+    ready: Promise<void>;
+    skipTransition: () => void;
+    updateCallbackDone: Promise<void>;
+  }
+
+  interface CSSStyleDeclaration {
+    viewTransitionName: string;
+  }
+}
 
 export const SOCIAL_LINKS = [
   {
@@ -115,9 +135,8 @@ const Header = component$(() => {
         ]}
         onClick$={() => {
           const next = !isExpandedSig.value;
-          // Hack to avoid TypeScript error since `startViewTransition` is not
-          // defined in the type definition.
-          if (document.startViewTransition) {
+
+          if (!document.startViewTransition) {
             isExpandedSig.value = next;
             return;
           }
