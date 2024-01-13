@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "Haskoy";
-  src: url("../fonts/haskoy.woff2") format("woff2");
+  src: url("/fonts/haskoy.woff2") format("woff2");
   font-weight: 100 1000;
   font-style: italic normal;
   font-display: swap;
