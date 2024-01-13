@@ -33,7 +33,6 @@ async function getOrCreateHighlighter() {
 export default defineConfig(() => {
   return {
     plugins: [
-      FontaineTransform.vite(fontaineOptions),
       qwikCity({
         mdxPlugins: {
           rehypeAutolinkHeadings: true,
@@ -76,6 +75,7 @@ export default defineConfig(() => {
         assetsPath: "i18n",
       }),
       tsconfigPaths(),
+      FontaineTransform.vite(fontaineOptions),
     ],
     dev: {
       headers: {

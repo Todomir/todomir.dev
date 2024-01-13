@@ -19,5 +19,6 @@ module.exports = {
   rules: {
     "no-inline-comments": "off",
     "unicorn/prevent-abbreviations": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
   },
 };
