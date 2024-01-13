@@ -12,6 +12,7 @@ import { config } from "~/speak.config";
 export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/post.mdx", {
   eager: !isDev,
 });
+
 export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob(
   "/src/content/**/**/thumbnail.png",
   {
@@ -24,6 +25,7 @@ export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob(
     },
   },
 );
+
 export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob(
   "/src/content/**/**/og.png",
   {
@@ -73,8 +75,9 @@ export const usePosts = routeLoader$(async ({ params, error }) => {
 
   if (params.lang && validateLocale(params.lang)) {
     // Check supported locales
-    lang = config.supportedLocales.find((value) => value.lang === params.lang)
-      ?.lang;
+    lang = config.supportedLocales.find(
+      (value) => value.lang === params.lang,
+    )?.lang;
     // 404 error page
     if (!lang) {
       throw error(404, "Page not found");
@@ -109,8 +112,9 @@ export const usePost = routeLoader$(async ({ params, error }) => {
 
   if (params.lang && validateLocale(params.lang)) {
     // Check supported locales
-    lang = config.supportedLocales.find((value) => value.lang === params.lang)
-      ?.lang;
+    lang = config.supportedLocales.find(
+      (value) => value.lang === params.lang,
+    )?.lang;
     // 404 error page
     if (!lang) {
       throw error(404, "Page not found");
@@ -131,8 +135,8 @@ export const usePost = routeLoader$(async ({ params, error }) => {
   return {
     lang,
     slug,
-    ...mod,
+    headings: mod.headings,
+    head: mod.head,
     frontmatter,
-    default: mod.default().props.children.type(),
   };
 });
