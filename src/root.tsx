@@ -37,6 +37,13 @@ export default component$(() => {
       </head>
       <body lang="en">
         <RouterOutlet />
+        {/* Cloudflare Web Analytics */}
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "ba6f3dbc516b421da0fabd5aec8bbecf"}'
+        />
+        {/* End Cloudflare Web Analytics */}
       </body>
     </QwikCityProvider>
   );
