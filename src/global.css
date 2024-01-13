@@ -147,6 +147,7 @@
   font-feature-settings: "ss01";
   font-weight: 425;
   letter-spacing: -0.025em;
+  scroll-behavior: smooth;
 
   @media (prefers-reduced-motion: reduce) {
     scroll-behavior: auto;
