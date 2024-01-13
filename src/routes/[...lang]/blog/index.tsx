@@ -97,10 +97,12 @@ export const head: DocumentHead = () => {
   };
 };
 
-export const onStaticGenerate: StaticGenerateHandler = async () => {
+export const onStaticGenerate: StaticGenerateHandler = () => {
   return {
     params: config.supportedLocales.map((locale) => {
-      return { lang: locale.lang };
+      return {
+        lang: locale.lang === config.defaultLocale.lang ? "." : locale.lang,
+      };
     }),
   };
 };

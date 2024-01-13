@@ -1,8 +1,8 @@
 /**
  * WHAT IS THIS FILE?
  *
- * SSR entry point, in all cases the application is rendered outside the
- * browser, this entry point will be the common one.
+ * SSR entry point, in all cases the application is render outside the browser,
+ * this entry point will be the common one.
  *
  * - Server (express, cloudflare...)
  * - Npm run start
@@ -44,6 +44,12 @@ export default async function (options: RenderToStreamOptions) {
     // Use container attributes to set attributes on the html tag
     containerAttributes: {
       lang: options.serverData?.locale || config.defaultLocale.lang,
+      dir:
+        config.supportedLocales.find(
+          (x) => x.lang === options.serverData?.locale,
+        )?.dir ||
+        config.defaultLocale.dir ||
+        "auto",
       ...options.containerAttributes,
     },
   });
