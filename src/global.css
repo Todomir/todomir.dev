@@ -8,9 +8,9 @@
 
 @font-face {
   font-family: "Haskoy";
-  src: url("/fonts/Haskoy.woff2") format("woff2");
+  src: url("../fonts/haskoy.woff2") format("woff2");
   font-weight: 100 1000;
-  font-style: oblique normal;
+  font-style: italic normal;
   font-display: swap;
 }
 
@@ -143,6 +143,17 @@
   }
 }
 
+:is(html) {
+  font-feature-settings: "ss01";
+  font-weight: 425;
+  letter-spacing: -0.025em;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -154,10 +165,6 @@ h6 {
 
 :not(h1, h2, h3, h4, h5, h6) {
   text-wrap: pretty;
-}
-
-:where(html) {
-  @apply motion-safe:scroll-smooth;
 }
 
 .content-grid {

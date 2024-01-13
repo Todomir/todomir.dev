@@ -19,8 +19,10 @@ const fontaineOptions = {
     "Arial",
     "sans-serif",
   ],
-  resolvePath: (fontSrc: string) =>
-    new URL(`./public/fonts${fontSrc}`, import.meta.url),
+  resolvePath: (fontSrc: string) => {
+    console.log("fontSrc", fontSrc);
+    return new URL(`./public/fonts${fontSrc}`, import.meta.url);
+  },
 };
 
 let highlighter: Highlighter;

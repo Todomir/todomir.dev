@@ -30,7 +30,7 @@ export default component$((props: Props) => {
       </h4>
       <p
         q:slot="description"
-        class="overflow-hidden text-ellipsis text-balance text-base leading-6 text-zinc-300"
+        class="overflow-hidden text-ellipsis text-balance text-base leading-6 tracking-normal text-zinc-300"
       >
         {props.description}
       </p>

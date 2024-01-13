@@ -51,7 +51,7 @@ export default component$(({ slug, lang, frontmatter }: Props) => {
       </div>
       <p
         q:slot="description"
-        class="mt-4 overflow-hidden text-ellipsis text-pretty text-base leading-6"
+        class="mt-4 overflow-hidden text-ellipsis text-pretty text-base leading-6 tracking-normal"
       >
         {description}
       </p>
