@@ -13,7 +13,7 @@ export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/post.mdx", {
   eager: !isDev,
 });
 
-export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob(
+export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob<OutputMetadata[]>(
   "/src/content/**/**/thumbnail.png",
   {
     eager: true,
@@ -21,7 +21,7 @@ export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob(
     query: {
       w: "200;400;600;800;1200",
       format: "avif;webp;jpg",
-      as: "url",
+      as: "metadata",
     },
   },
 );
@@ -86,18 +86,22 @@ export const usePosts = routeLoader$(async ({ params, error }) => {
     lang = config.defaultLocale.lang;
   }
 
-  const path = `/src/content/${lang}`;
+  const postPath = `/src/content/${lang}`;
 
   // Filter posts that start with the path
   const postPromises = Object.keys(BLOG_POST_LIST)
-    .filter((key) => key.startsWith(path))
+    .filter((key) => key.startsWith(postPath))
     .map(async (key) => {
+      const thumbnailPath = key.replace("/post.mdx", "/thumbnail.png");
       const promise = isDev ? BLOG_POST_LIST[key]() : BLOG_POST_LIST[key];
       const mod = (await promise) as PostModule;
       const frontmatter = parse(FRONTMATTER_SCHEMA, mod.frontmatter);
+      const thumbnail = BLOG_POST_THUMBNAIL_LIST[thumbnailPath];
+
       return {
         lang: lang as string,
-        slug: key.slice(path.length + 1, -"/post.mdx".length),
+        slug: key.slice(postPath.length + 1, -"/post.mdx".length),
+        thumbnail,
         frontmatter,
       };
     });

@@ -11,6 +11,7 @@ type Props = {
     frontmatter: PostFrontmatter;
     lang: string;
     slug: string;
+    thumbnail: OutputMetadata[];
   }>;
 };
 
@@ -35,6 +36,7 @@ export default component$(({ posts }: Props) => {
                   slug={post.slug}
                   lang={post.lang}
                   frontmatter={post.frontmatter}
+                  thumbnail={post.thumbnail}
                 />
               </li>
 

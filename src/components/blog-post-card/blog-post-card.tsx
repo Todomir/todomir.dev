@@ -1,34 +1,30 @@
 import type { PostFrontmatter } from "~/content";
 
-import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 import { inlineTranslate, useFormatDate } from "qwik-speak";
 
-import { BLOG_POST_THUMBNAIL_LIST } from "~/content";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
 import Card from "../card/card";
 import Tag from "../tag/tag";
 
-type Props = { frontmatter: PostFrontmatter; lang: string; slug: string };
+type Props = {
+  frontmatter: PostFrontmatter;
+  lang: string;
+  slug: string;
+  thumbnail: OutputMetadata[];
+};
 
-export default component$(({ slug, lang, frontmatter }: Props) => {
+export default component$(({ slug, lang, frontmatter, thumbnail }: Props) => {
   const { title, description, updatedAt, tags } = frontmatter;
 
   const t = inlineTranslate();
   const fd = useFormatDate();
-  const thumbnailSig = useSignal("");
-
-  useTask$(async () => {
-    const sizes = [200, 400, 600, 800, 1_200];
-    const path = `/src/content/${lang}/${slug}/thumbnail.png`;
-    const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
-
-    // thumbnail is a flat array of strings, each string is a URL to a different size of the image. The images are ordered in groups of 3, so we can use the sizes array to get the correct URL for each size.
-    const srcset = sizes
-      .map((size, index) => `${thumbnail[index * 3]} ${size}w`)
-      .join(", ");
-    thumbnailSig.value = srcset;
-  });
+  const srcset = thumbnail
+    .map((img) => {
+      return `${img.src} ${img.width}w`;
+    })
+    .join(", ");
 
   return (
     <Card class="mt-20 text-zinc-800">
@@ -56,14 +52,13 @@ export default component$(({ slug, lang, frontmatter }: Props) => {
         {description}
       </p>
       <img
+        q:slot="aside"
         decoding="async"
         loading="lazy"
         width={544}
         height={320}
-        srcset={thumbnailSig.value}
-        alt={frontmatter.thumbnail.alt}
-        q:slot="aside"
         class="aspect-[5/3] w-full overflow-hidden rounded-lg object-cover shadow-md"
+        srcset={srcset}
       />
 
       <ul

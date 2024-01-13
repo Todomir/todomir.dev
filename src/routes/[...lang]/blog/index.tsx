@@ -40,6 +40,7 @@ export default component$(() => {
               <BlogPostCard
                 slug={post.slug}
                 lang={post.lang}
+                thumbnail={post.thumbnail}
                 frontmatter={post.frontmatter}
               />
             </li>
