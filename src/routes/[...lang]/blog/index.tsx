@@ -5,11 +5,11 @@ import { type DocumentHead } from "@builder.io/qwik-city";
 import { inlineTranslate } from "qwik-speak";
 
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
-import { usePosts } from "~/content";
+import { useBlogPosts } from "~/content";
 import { config } from "~/speak.config";
 
 export default component$(() => {
-  const posts = usePosts();
+  const posts = useBlogPosts();
   const t = inlineTranslate();
 
   return (
@@ -37,12 +37,7 @@ export default component$(() => {
         {posts.value.map((post) => (
           <Fragment key={post.slug}>
             <li>
-              <BlogPostCard
-                slug={post.slug}
-                lang={post.lang}
-                thumbnail={post.thumbnail}
-                frontmatter={post.frontmatter}
-              />
+              <BlogPostCard post={post} />
             </li>
 
             <li
@@ -108,4 +103,4 @@ export const onStaticGenerate: StaticGenerateHandler = () => {
   };
 };
 
-export { usePosts } from "~/content";
+export { useBlogPosts } from "~/content";

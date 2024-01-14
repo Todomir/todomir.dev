@@ -9,8 +9,9 @@ import { useLocation } from "@builder.io/qwik-city";
 import { isDev } from "@builder.io/qwik/build";
 import { useSpeakLocale } from "qwik-speak";
 
-import { BLOG_POST_OG_IMAGE_LIST, usePost } from "~/content";
+import { useBlogPost } from "~/content";
 import { config } from "~/speak.config";
+import { BLOG_POST_OG_IMAGE_LIST } from "~/utils/constants";
 
 export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/index.tsx", {
   eager: !isDev,
@@ -38,25 +39,31 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = ({ resolveValue, url }) => {
-  const post = resolveValue(usePost);
-  const { slug, lang } = post;
+  const post = resolveValue(useBlogPost);
+  const { permalink, slug, lang } = post;
   const ogImage = BLOG_POST_OG_IMAGE_LIST[
     `/src/content/${lang}/${slug}/og.png`
   ] as string;
   const ogPath = new URL(ogImage, url).toString();
 
   return {
-    ...post.head,
-    title: `Blog - ${post.head.title}`,
+    title: `Blog - ${post.title}`,
     meta: [
-      ...(post.head.meta ?? []),
       {
         name: "og:image",
         content: ogPath,
       },
       {
+        name: "og:title",
+        content: `${post.title}`,
+      },
+      {
+        name: "og:description",
+        content: `${post.description}`,
+      },
+      {
         name: "og:url",
-        content: `https://todomir.dev/blog/${slug}`,
+        content: `https://todomir.dev/${permalink}`,
       },
       {
         name: "twitter:image",
@@ -65,7 +72,7 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
 
       {
         name: "twitter:title",
-        content: `${post.head.title}`,
+        content: `${post.title}`,
       },
       {
         name: "twitter:card",
@@ -104,4 +111,4 @@ export const onStaticGenerate: StaticGenerateHandler = async () => {
   };
 };
 
-export { usePost } from "~/content";
+export { useBlogPost } from "~/content";

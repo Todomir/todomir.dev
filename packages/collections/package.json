@@ -1,0 +1,51 @@
+{
+  "name": "vite-mdx-collections",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Abner Rodrigues <abner@todomir.dev>",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "files": [
+    "src",
+    "dist",
+    "module.d.ts"
+  ],
+  "scripts": {
+    "build": "tsup-node src/index.ts --sourcemap --dts --format cjs,esm",
+    "prepare": "pnpm run build"
+  },
+  "dependencies": {
+    "glob": "^10.2.6",
+    "gray-matter": "^4.0.3",
+    "zod-to-ts": "^1.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "20.1.4",
+    "prettier": "2.8.8",
+    "tsup": "^6.7.0",
+    "typescript": "5.0.4",
+    "vite": "*",
+    "zod": "*"
+  },
+  "peerDependencies": {
+    "vite": "*",
+    "zod": "*"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
+  }
+}

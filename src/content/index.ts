@@ -1,146 +1,89 @@
-import type { JSXNode } from "@builder.io/qwik";
-import type { DocumentHeadValue } from "@builder.io/qwik-city";
-import type { Output } from "valibot";
-
+/* eslint-disable qwik/loader-location */
 import { routeLoader$ } from "@builder.io/qwik-city";
-import { isDev } from "@builder.io/qwik/build";
-import { validateLocale } from "qwik-speak";
-import { array, boolean, object, parse, string, transform } from "valibot";
+import { collections } from "virtual:mdx-collection";
 
 import { config } from "~/speak.config";
+import { getBlogPostThumbnailSoure, getLang } from "~/utils/functions";
 
-export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/post.mdx", {
-  eager: !isDev,
-});
+export const getCollectionEntry = (locale: string, slug: string) => {
+  const collection = collections.content;
+  const entry = collection.find((element) => element.slug === slug);
 
-export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob<OutputMetadata[]>(
-  "/src/content/**/**/thumbnail.png",
-  {
-    eager: true,
-    import: "default",
-    query: {
-      w: "200;400;600;800;1200",
-      format: "avif;webp;jpg",
-      as: "metadata",
+  if (!entry) {
+    throw new Error(`No entry found for slug: ${slug}`);
+  }
+
+  const thumbnail = getBlogPostThumbnailSoure({ slug, locale });
+
+  // Extract thumbnailAlt from entry.data
+  const { thumbnailAlt, ...data } = entry.data;
+
+  return {
+    ...data,
+    slug: entry.slug,
+    thumbnail: {
+      src: thumbnail,
+      alt: thumbnailAlt,
     },
-  },
-);
-
-export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob(
-  "/src/content/**/**/og.png",
-  {
-    eager: true,
-    import: "default",
-    as: "url",
-  },
-);
-
-const FRONTMATTER_SCHEMA = transform(
-  object({
-    title: string(),
-    description: string(),
-    createdAt: string(),
-    updatedAt: string(),
-    draft: boolean(),
-    tags: array(string()),
-    thumbnail: object({
-      src: string(),
-      alt: string(),
-    }),
-  }),
-  (frontmatter) => {
-    return {
-      ...frontmatter,
-      createdAt: new Date(frontmatter.createdAt),
-      updatedAt: new Date(frontmatter.updatedAt),
-    };
-  },
-);
-
-export type PostFrontmatter = Output<typeof FRONTMATTER_SCHEMA>;
-export type PostModule = {
-  default: () => JSXNode & { props: { children: JSXNode<() => JSXNode> } };
-  frontmatter: PostFrontmatter;
-  head: DocumentHeadValue;
-  headings: Array<{
-    id: string;
-    level: number;
-    text: string;
-  }>;
+  };
 };
 
-// eslint-disable-next-line qwik/loader-location
-export const usePosts = routeLoader$(async ({ params, error }) => {
-  let lang: string | undefined;
+export type BlogPostCollectionEntry = ReturnType<typeof getCollectionEntry>;
 
-  if (params.lang && validateLocale(params.lang)) {
-    // Check supported locales
-    lang = config.supportedLocales.find(
-      (value) => value.lang === params.lang,
-    )?.lang;
-    // 404 error page
-    if (!lang) {
-      throw error(404, "Page not found");
+export const getCollectionList = (locale: string) => {
+  try {
+    const posts = collections.content
+      .filter((entry) => entry.data.lang === locale)
+      .map((entry) => {
+        const thumbnail = getBlogPostThumbnailSoure({
+          slug: entry.slug,
+          locale: entry.data.lang ?? config.defaultLocale.lang,
+        });
+
+        // Extract thumbnailAlt from entry.data
+        const { thumbnailAlt, ...data } = entry.data;
+
+        return {
+          ...data,
+          slug: entry.slug,
+          thumbnail: {
+            src: thumbnail,
+            alt: thumbnailAlt,
+          },
+        };
+      });
+
+    if (!posts.length) {
+      throw new Error(`No posts found for locale: ${locale}`);
     }
-  } else {
-    lang = config.defaultLocale.lang;
+
+    return posts;
+  } catch (error) {
+    throw new Error("Error getting collection list", { cause: error });
   }
+};
 
-  const postPath = `/src/content/${lang}`;
+export const useBlogPosts = routeLoader$(async ({ params, error }) => {
+  const { locale } = params;
+  try {
+    const lang = getLang(locale);
+    const posts = getCollectionList(lang);
 
-  // Filter posts that start with the path
-  const postPromises = Object.keys(BLOG_POST_LIST)
-    .filter((key) => key.startsWith(postPath))
-    .map(async (key) => {
-      const thumbnailPath = key.replace("/post.mdx", "/thumbnail.png");
-      const promise = isDev ? BLOG_POST_LIST[key]() : BLOG_POST_LIST[key];
-      const mod = (await promise) as PostModule;
-      const frontmatter = parse(FRONTMATTER_SCHEMA, mod.frontmatter);
-      const thumbnail = BLOG_POST_THUMBNAIL_LIST[thumbnailPath];
-
-      return {
-        lang: lang as string,
-        slug: key.slice(postPath.length + 1, -"/post.mdx".length),
-        thumbnail,
-        frontmatter,
-      };
-    });
-  const posts = await Promise.all(postPromises);
-  return posts;
+    return posts;
+  } catch {
+    throw error(404, "Posts not found");
+  }
 });
 
-// eslint-disable-next-line qwik/loader-location
-export const usePost = routeLoader$(async ({ params, error }) => {
-  const { slug } = params;
-  let lang: string | undefined;
+export const useBlogPost = routeLoader$(async ({ params, error }) => {
+  const { locale, slug } = params;
 
-  if (params.lang && validateLocale(params.lang)) {
-    // Check supported locales
-    lang = config.supportedLocales.find(
-      (value) => value.lang === params.lang,
-    )?.lang;
-    // 404 error page
-    if (!lang) {
-      throw error(404, "Page not found");
-    }
-  } else {
-    lang = config.defaultLocale.lang;
+  try {
+    const lang = getLang(locale);
+    const post = getCollectionEntry(lang, slug);
+
+    return post;
+  } catch {
+    throw error(404, "Post not found");
   }
-
-  const path = `/src/content/${lang}/${slug}/post.mdx`;
-
-  if (!Object.keys(BLOG_POST_LIST).includes(path)) {
-    throw error(404, "Page not found");
-  }
-
-  const promise = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
-  const mod = (await promise) as PostModule;
-  const frontmatter = parse(FRONTMATTER_SCHEMA, mod.frontmatter);
-  return {
-    lang,
-    slug,
-    headings: mod.headings,
-    head: mod.head,
-    frontmatter,
-  };
 });

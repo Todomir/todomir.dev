@@ -1,4 +1,4 @@
-import type { PostFrontmatter } from "~/content";
+import type { BlogPostCollectionEntry } from "~/content";
 
 import { component$, Fragment } from "@builder.io/qwik";
 import { inlineTranslate } from "qwik-speak";
@@ -7,12 +7,7 @@ import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
 type Props = {
-  posts: Array<{
-    frontmatter: PostFrontmatter;
-    lang: string;
-    slug: string;
-    thumbnail: OutputMetadata[];
-  }>;
+  posts: BlogPostCollectionEntry[];
 };
 
 export default component$(({ posts }: Props) => {
@@ -32,12 +27,7 @@ export default component$(({ posts }: Props) => {
           {posts.map((post) => (
             <Fragment key={post.slug}>
               <li>
-                <BlogPostCard
-                  slug={post.slug}
-                  lang={post.lang}
-                  frontmatter={post.frontmatter}
-                  thumbnail={post.thumbnail}
-                />
+                <BlogPostCard post={post} />
               </li>
 
               <li

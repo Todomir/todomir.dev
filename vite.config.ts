@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Highlighter } from "shikiji";
 
 import { qwikCity } from "@builder.io/qwik-city/vite";
@@ -8,6 +9,9 @@ import rehypePrettyCode from "rehype-pretty-code";
 import { getHighlighter } from "shikiji";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { z } from "zod";
+
+import mdxCollections from "./packages/collections/dist";
 
 const fontaineOptions = {
   fallbacks: [
@@ -20,8 +24,7 @@ const fontaineOptions = {
     "sans-serif",
   ],
   resolvePath: (fontSrc: string) => {
-    console.log("fontSrc", fontSrc);
-    return new URL(`./public/fonts${fontSrc}`, import.meta.url);
+    return new URL(`.public/fonts${fontSrc}`, import.meta.url);
   },
 };
 
@@ -35,6 +38,24 @@ async function getOrCreateHighlighter() {
 export default defineConfig(() => {
   return {
     plugins: [
+      mdxCollections({
+        collections: [
+          {
+            name: "content",
+            glob: "./src/content/**/**/post.mdx",
+            schema: z.object({
+              date: z.coerce.date(),
+              draft: z.boolean().default(false),
+              tags: z.array(z.string()).default([]),
+              title: z.string(),
+              description: z.string(),
+              thumbnailAlt: z.string(),
+              permalink: z.string(),
+              lang: z.string(),
+            }),
+          },
+        ],
+      }),
       qwikCity({
         mdxPlugins: {
           rehypeAutolinkHeadings: true,

@@ -10,7 +10,7 @@ export default component$(() => {
     <BlogPost
       tags={frontmatter.tags}
       title={frontmatter.title}
-      updatedAt={frontmatter.updatedAt}
+      date={frontmatter.date}
       description={frontmatter.description}
     >
       <Thumbnail q:slot="thumbnail" />

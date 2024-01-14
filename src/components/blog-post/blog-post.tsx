@@ -5,13 +5,13 @@ import { inlineTranslate, useFormatDate } from "qwik-speak";
 import Tag from "~/components/tag/tag";
 
 type Props = {
+  date: Date;
   description: string;
   tags: string[];
   title: string;
-  updatedAt: string;
 };
 
-export default component$<Props>(({ tags, title, updatedAt, description }) => {
+export default component$<Props>(({ tags, title, date, description }) => {
   const t = inlineTranslate();
   const fd = useFormatDate();
   const location = useLocation();
@@ -41,7 +41,7 @@ export default component$<Props>(({ tags, title, updatedAt, description }) => {
 
         <time class="block text-balance text-base leading-6 text-zinc-700">
           {t("site.messages.updated")}{" "}
-          {fd(updatedAt, {
+          {fd(date, {
             year: "numeric",
             month: "long",
             day: "numeric",

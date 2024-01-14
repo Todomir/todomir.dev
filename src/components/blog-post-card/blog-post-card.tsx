@@ -1,4 +1,4 @@
-import type { PostFrontmatter } from "~/content";
+import type { BlogPostCollectionEntry } from "~/content";
 
 import { component$ } from "@builder.io/qwik";
 import { inlineTranslate, useFormatDate } from "qwik-speak";
@@ -9,22 +9,14 @@ import Card from "../card/card";
 import Tag from "../tag/tag";
 
 type Props = {
-  frontmatter: PostFrontmatter;
-  lang: string;
-  slug: string;
-  thumbnail: OutputMetadata[];
+  post: BlogPostCollectionEntry;
 };
 
-export default component$(({ slug, lang, frontmatter, thumbnail }: Props) => {
-  const { title, description, updatedAt, tags } = frontmatter;
+export default component$(({ post }: Props) => {
+  const { title, description, date, tags, slug, lang, thumbnail } = post;
 
   const t = inlineTranslate();
   const fd = useFormatDate();
-  const srcset = thumbnail
-    .map((img) => {
-      return `${img.src} ${img.width}w`;
-    })
-    .join(", ");
 
   return (
     <Card class="mt-20 text-zinc-800">
@@ -35,10 +27,10 @@ export default component$(({ slug, lang, frontmatter, thumbnail }: Props) => {
         </h3>
         <time
           class="@md:text-md leading-2 block text-sm opacity-80"
-          dateTime={updatedAt.toISOString()}
+          dateTime={new Date(date).toISOString()}
         >
           {t("site.messages.updated")}{" "}
-          {fd(updatedAt, {
+          {fd(date, {
             year: "numeric",
             month: "long",
             day: "numeric",
@@ -58,20 +50,22 @@ export default component$(({ slug, lang, frontmatter, thumbnail }: Props) => {
         width={544}
         height={320}
         class="aspect-[5/3] w-full overflow-hidden rounded-lg object-cover shadow-md"
-        alt={frontmatter.thumbnail.alt}
-        srcset={srcset}
+        srcset={thumbnail.src}
+        alt={thumbnail.alt}
       />
 
-      <ul
-        q:slot="superheader"
-        class="@md:gap-2 flex flex-wrap items-start gap-1"
-      >
-        {tags.map((tag) => (
-          <li key={tag}>
-            <Tag>{tag}</Tag>
-          </li>
-        ))}
-      </ul>
+      {tags && tags.length > 0 && (
+        <ul
+          q:slot="superheader"
+          class="@md:gap-2 flex flex-wrap items-start gap-1"
+        >
+          {tags.map((tag) => (
+            <li key={tag}>
+              <Tag>{tag}</Tag>
+            </li>
+          ))}
+        </ul>
+      )}
     </Card>
   );
 });
