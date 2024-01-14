@@ -58,6 +58,7 @@ export default component$(({ slug, lang, frontmatter, thumbnail }: Props) => {
         width={544}
         height={320}
         class="aspect-[5/3] w-full overflow-hidden rounded-lg object-cover shadow-md"
+        alt={frontmatter.thumbnail.alt}
         srcset={srcset}
       />
 
