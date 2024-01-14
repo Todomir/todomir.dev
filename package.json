@@ -27,6 +27,7 @@
     "gray-matter": "^4.0.3",
     "init": "^0.1.2",
     "motion": "^10.17.0",
+    "og-img": "^0.2.0",
     "rehype-pretty-code": "^0.12.3",
     "shikiji": "^0.9.19",
     "zod": "^3.22.4",
