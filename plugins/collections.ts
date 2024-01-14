@@ -1,3 +1,6 @@
+/**
+ * Original Source: https://github.com/rshackleton/rshackleton-qwik/tree/main/packages/vite-mdx-collections
+ */
 import { writeFileSync } from "node:fs";
 import path from "node:path";
 
@@ -5,15 +8,16 @@ import type { Plugin } from "vite";
 
 import { globSync } from "glob";
 import matter from "gray-matter";
-import { z, ZodSchema } from "zod";
+import type { ZodSchema } from "zod";
+import { z } from "zod";
 import { createTypeAlias, printNode, zodToTs } from "zod-to-ts";
 
 export type Options = {
-  collections: {
-    name: string;
+  collections: Array<{
     glob: string;
+    name: string;
     schema: ZodSchema;
-  }[];
+  }>;
 };
 
 /** MDX Collections Plugin */
@@ -53,21 +57,21 @@ declare module 'virtual:mdx-collection' {
 
         const collections: Record<string, unknown[]> = {};
 
-        options.collections.forEach(({ glob, name, schema: baseSchema }) => {
+        for (const { glob, name } of options.collections) {
           const results = globSync(glob, {
             cwd: rootPath,
           });
 
           const items = results.map((result) => {
             const mdxPath = path.join(rootPath, result);
-            const slug = /.+\/(.+)\/post\.mdx$/.exec(result)?.[1] ?? "";
+            const slug = /.+\/(.+)\/post\.mdx$/u.exec(result)?.[1] ?? "";
             const file = matter.read(mdxPath);
 
             return { slug, data: file.data };
           });
 
           collections[name] = items;
-        });
+        }
 
         const schema = createCollectionSchema(options.collections);
 
@@ -89,15 +93,15 @@ function createCollectionEntrySchema(schema: ZodSchema): ZodSchema {
 }
 
 function createCollectionSchema(
-  collections: Options["collections"]
+  collections: Options["collections"],
 ): ZodSchema {
   let schema = z.object({});
 
-  collections.forEach(({ name, schema: baseSchema }) => {
+  for (const { name, schema: baseSchema } of collections) {
     schema = schema.extend({
       [name]: z.array(createCollectionEntrySchema(baseSchema)),
     });
-  });
+  }
 
   return schema;
 }

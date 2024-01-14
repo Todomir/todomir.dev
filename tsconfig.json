@@ -27,6 +27,7 @@
     "./*.d.ts",
     "./*.config.ts",
     "./*.config.js",
-    "./*.config.cjs"
+    "./*.config.cjs",
+    "plugins"
   ]
 }

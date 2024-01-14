@@ -11,7 +11,7 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { z } from "zod";
 
-import mdxCollections from "./packages/collections/dist";
+import mdxCollections from "./plugins/collections";
 
 const fontaineOptions = {
   fallbacks: [

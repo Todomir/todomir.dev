@@ -1,17 +1,17 @@
 type Collections = {
-    content: Array<{
+    content: {
         data: {
             date: Date;
-            description: string;
             draft?: boolean;
-            lang: string;
-            permalink: string;
             tags?: string[];
-            thumbnailAlt: string;
             title: string;
+            description: string;
+            thumbnailAlt: string;
+            permalink: string;
+            lang: string;
         };
         slug: string;
-    }>;
+    }[];
 };
 
 declare module 'virtual:mdx-collection' {
