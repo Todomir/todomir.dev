@@ -8,10 +8,10 @@ import { component$, useSignal, useTask$ } from "@builder.io/qwik";
 import { useLocation } from "@builder.io/qwik-city";
 import { isDev } from "@builder.io/qwik/build";
 import { useSpeakLocale } from "qwik-speak";
+import { collections } from "virtual:mdx-collection";
 
 import { useBlogPost } from "~/content";
 import { config } from "~/speak.config";
-import { BLOG_POST_OG_IMAGE_LIST } from "~/utils/constants";
 
 export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/index.tsx", {
   eager: !isDev,
@@ -40,11 +40,13 @@ export default component$(() => {
 
 export const head: DocumentHead = ({ resolveValue, url }) => {
   const post = resolveValue(useBlogPost);
-  const { permalink, slug, lang } = post;
-  const ogImage = BLOG_POST_OG_IMAGE_LIST[
-    `/src/content/${lang}/${slug}/og.png`
-  ] as string;
-  const ogPath = new URL(ogImage, url).toString();
+
+  const ogUrl = new URL("/og-image", url);
+  ogUrl.searchParams.set("title", post.title);
+  ogUrl.searchParams.set("description", post.description);
+  ogUrl.searchParams.set("permalink", post.permalink);
+
+  const ogPath = ogUrl.toString();
 
   return {
     title: `Blog - ${post.title}`,
@@ -63,7 +65,7 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
       },
       {
         name: "og:url",
-        content: `https://todomir.dev/${permalink}`,
+        content: `https://todomir.dev/${post.permalink}`,
       },
       {
         name: "twitter:image",
@@ -83,28 +85,17 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
 };
 
 export const onStaticGenerate: StaticGenerateHandler = async () => {
-  // Extract slug from BLOG_POST_LIST
-  const params = Object.keys(BLOG_POST_LIST)
-    .map((path) => path.replace("/src/content/", "").replace("/index.tsx", ""))
-    .map((path) => path.split("/"))
-    .map(([pathLang, slug]) => {
-      /**
-       * Consider this code: config.supportedLocales.map((locale) => { return {
-       * lang: locale.lang === config.defaultLocale.lang ? "." : locale.lang,
-       * slug: slug, }; });
-       *
-       * If pathLang exists in config.supportedLocales, then it will be
-       * returned, otherwise, it should use the logic above to return the
-       * correct lang.
-       */
-      const lang = pathLang ?? config.defaultLocale.lang;
-      // Check if lang is supported
-      if (!config.supportedLocales.some((locale) => locale.lang === lang)) {
-        throw new Error(`Unsupported language: ${lang}`);
-      }
+  const params = collections.content.map((entry) => {
+    const { slug } = entry;
+    const { lang } = entry.data;
 
-      return { slug, lang: lang === config.defaultLocale.lang ? "." : lang };
-    });
+    // Check if lang is supported
+    if (!config.supportedLocales.some((locale) => locale.lang === lang)) {
+      throw new Error(`Unsupported language: ${lang}`);
+    }
+
+    return { slug, lang: lang === config.defaultLocale.lang ? "." : lang };
+  });
 
   return {
     params,
