@@ -1,6 +1,9 @@
 import type { SpeakConfig } from "qwik-speak";
 
+import { rewriteRoutes } from "./speak.routes";
+
 export const config: SpeakConfig = {
+  rewriteRoutes,
   defaultLocale: {
     lang: "en",
     currency: "USD",

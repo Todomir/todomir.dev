@@ -1,7 +1,7 @@
 import type { BlogPostCollectionEntry } from "~/content";
 
 import { component$ } from "@builder.io/qwik";
-import { inlineTranslate, useFormatDate } from "qwik-speak";
+import { inlineTranslate, useFormatDate, useSpeakConfig } from "qwik-speak";
 
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
@@ -14,6 +14,12 @@ type Props = {
 
 export default component$(({ post }: Props) => {
   const { title, description, date, tags, slug, lang, thumbnail } = post;
+  const config = useSpeakConfig();
+
+  const href =
+    lang === config.defaultLocale.lang ?
+      `/blog/${slug}`
+    : `/${lang}/blog/${slug}`;
 
   const t = inlineTranslate();
   const fd = useFormatDate();
@@ -22,7 +28,7 @@ export default component$(({ post }: Props) => {
     <Card class="mt-20 text-zinc-800">
       <div q:slot="title" class="@md:space-y-3 space-y-1">
         <h3 class="@md:text-3xl @md:space-x-3 grow space-x-2 text-2xl font-medium tracking-tighter">
-          <a href={`/${lang}/blog/${slug}`}>{title}</a>
+          <a href={href}>{title}</a>
           <IconArrowTopRight class="inline-block" />
         </h3>
         <time

@@ -1,6 +1,8 @@
 import { component$ } from "@builder.io/qwik";
+import { useLocation } from "@builder.io/qwik-city";
 import {
   inlineTranslate,
+  translatePath,
   useDisplayName,
   useSpeakConfig,
   useSpeakLocale,
@@ -9,9 +11,13 @@ import {
 export default component$(() => {
   const t = inlineTranslate();
 
+  const pathname = useLocation().url.pathname;
+
   const locale = useSpeakLocale();
   const config = useSpeakConfig();
   const dn = useDisplayName();
+
+  const getPath = translatePath();
 
   return (
     <>
@@ -26,7 +32,7 @@ export default component$(() => {
               "font-bold text-zinc-300": value.lang === locale.lang,
             },
           ]}
-          href={`/${value.lang}`}
+          href={getPath(pathname, value.lang)}
         >
           {dn(value.lang, {
             type: "language",

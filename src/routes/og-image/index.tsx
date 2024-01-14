@@ -24,12 +24,13 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
             tw="flex flex-col pl-16 pt-16"
           >
             <div
+              style="font-family: Haskoy; display: flex;"
               tw="text-2xl max-w-1/2 text-white font-black text-zinc-50 rounded-md tracking-wide"
             >
               [•• todomir.dev
             </div>
             <div
-              style="font-family: Haskoy;"
+              style="font-family: Haskoy; display: flex;"
               tw="text-xl max-w-1/2 text-white font-black text-zinc-300 rounded-md tracking-wide"
             >
               ${permalink}
@@ -41,11 +42,15 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
             tw="flex flex-col pl-16 pb-16 mt-8"
           >
             <div
+              style="font-family: Haskoy; display: flex;"
               tw="text-5xl font-black mb-6 leading-none max-w-1/2 text-white"
             >
               ${title}
             </div>
-            <div tw="text-2xl max-w-1/2 text-white tracking-wide">
+            <div
+              style="font-family: Haskoy; display: flex;"
+              tw="text-2xl max-w-1/2 text-white tracking-wide"
+            >
               ${description}
             </div>
           </div>

@@ -12,6 +12,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { z } from "zod";
 
 import mdxCollections from "./plugins/collections";
+import { rewriteRoutes } from "./src/speak.routes";
 
 const fontaineOptions = {
   fallbacks: [
@@ -57,6 +58,7 @@ export default defineConfig(() => {
         ],
       }),
       qwikCity({
+        rewriteRoutes,
         mdxPlugins: {
           rehypeAutolinkHeadings: true,
           rehypeSyntaxHighlight: false,

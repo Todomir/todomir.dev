@@ -1,34 +1,21 @@
 import type { RequestHandler } from "@builder.io/qwik-city";
 
-import { validateLocale } from "qwik-speak";
+import { extractFromUrl, validateLocale } from "qwik-speak";
 
 import { config } from "../speak.config";
 
-export const onRequest: RequestHandler = ({
-  params,
-  locale,
-  error,
-  request,
-}) => {
-  const acceptLanguage = request.headers.get("accept-language");
-  let userLang = acceptLanguage?.split(";")[0]?.split(",")[0];
-  // Remove -US from en-US
-  userLang = userLang === "en-US" ? "en" : userLang;
+export const onRequest: RequestHandler = ({ locale, error, url }) => {
+  let lang: string | undefined;
 
-  const langParameter =
-    params.lang && validateLocale(params.lang) ? params.lang : undefined;
-  const langUser = userLang && validateLocale(userLang) ? userLang : undefined;
+  const prefix = extractFromUrl(url);
 
-  const lang = langParameter ?? langUser ?? config.defaultLocale.lang;
-
-  // Check supported locales
-  const isSupportedLocale = config.supportedLocales.some(
-    (value) => value.lang === lang,
-  );
-
-  // 404 error page
-  if (!isSupportedLocale) {
-    throw error(404, "Page not found");
+  if (prefix && validateLocale(prefix)) {
+    // Check supported locales
+    lang = config.supportedLocales.find((value) => value.lang === prefix)?.lang;
+    // 404 error page
+    if (!lang) throw error(404, "Page not found");
+  } else {
+    lang = config.defaultLocale.lang;
   }
 
   // Set Qwik locale
