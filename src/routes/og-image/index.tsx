@@ -16,10 +16,13 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
       // Use Tailwind CSS or style attribute
       html`
         <div
-          style="font-family: Haskoy;"
+          style="font-family: Haskoy; display: flex;"
           tw="text-4xl bg-black flex flex-col text-white w-full h-full"
         >
-          <div tw="flex flex-col pl-16 pt-16">
+          <div
+            style="font-family: Haskoy; display: flex;"
+            tw="flex flex-col pl-16 pt-16"
+          >
             <div
               tw="text-2xl max-w-1/2 text-white font-black text-zinc-50 rounded-md tracking-wide"
             >
@@ -33,7 +36,10 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
             </div>
           </div>
 
-          <div tw="flex flex-col pl-16 pb-16 mt-8">
+          <div
+            style="font-family: Haskoy; display: flex;"
+            tw="flex flex-col pl-16 pb-16 mt-8"
+          >
             <div
               tw="text-5xl font-black mb-6 leading-none max-w-1/2 text-white"
             >
