@@ -64,9 +64,9 @@ export const getCollectionList = (locale: string) => {
 };
 
 export const useBlogPosts = routeLoader$(async ({ params, error }) => {
-  const { locale } = params;
+  const { lang: userLang } = params;
   try {
-    const lang = getLang(locale);
+    const lang = getLang(userLang);
     const posts = getCollectionList(lang);
 
     return posts;
@@ -76,10 +76,10 @@ export const useBlogPosts = routeLoader$(async ({ params, error }) => {
 });
 
 export const useBlogPost = routeLoader$(async ({ params, error }) => {
-  const { locale, slug } = params;
+  const { lang: userLang, slug } = params;
 
   try {
-    const lang = getLang(locale);
+    const lang = getLang(userLang);
     const post = getCollectionEntry(lang, slug);
 
     return post;
