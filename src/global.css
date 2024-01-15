@@ -27,6 +27,14 @@
   font-feature-settings: "ss02", "dlig";
 }
 
+@font-face {
+  font-family: "CommitMono";
+  src: url("/fonts/commit-mono-variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --ease-spring-1: cubic-bezier(0.1, 0, 0.9, 1);
   --ease-spring-2: cubic-bezier(0.3, 0, 0.7, 1);
