@@ -10,8 +10,21 @@
   font-family: "Haskoy";
   src: url("/fonts/haskoy-variable.woff2") format("woff2");
   font-weight: 100 1000;
-  font-style: italic normal;
+  font-style: normal;
   font-display: swap;
+}
+
+@font-face {
+  font-family: "Haskoy";
+  src: url("/fonts/inter-italic-variable.woff2") format("woff2");
+  font-weight: 100 1000;
+  size-adjust: 98%;
+  ascent-override: normal;
+  descent-override: normal;
+  line-gap-override: 18%;
+  font-style: italic;
+  font-display: swap;
+  font-feature-settings: "ss02", "dlig";
 }
 
 :root {
