@@ -85,23 +85,23 @@ export const head: DocumentHead = () => {
   const t = inlineTranslate();
 
   return {
-    title: t("site.og.blog.title"),
+    title: t("site.og.about.title"),
     meta: [
       {
         name: "description",
-        content: t("site.og.blog.description"),
+        content: t("site.og.about.description"),
       },
       {
         name: "og:title",
-        content: t("site.og.blog.title"),
+        content: t("site.og.about.title"),
       },
       {
         name: "og:description",
-        content: t("site.og.blog.description"),
+        content: t("site.og.about.description"),
       },
       {
         name: "og:image",
-        content: "/assets/og/og-blog.png",
+        content: "/assets/og/og-home.png",
       },
       {
         name: "og:url",
@@ -113,11 +113,11 @@ export const head: DocumentHead = () => {
       },
       {
         name: "twitter:image",
-        content: "/assets/og/og-blog.png",
+        content: "/assets/og/og-home.png",
       },
       {
         name: "twitter:title",
-        content: t("site.og.blog.title"),
+        content: t("site.og.about.title"),
       },
     ],
   };
