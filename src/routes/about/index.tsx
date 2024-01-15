@@ -42,7 +42,7 @@ export default component$(() => {
         <div class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]">
           <ImgMe2
             class="mb-24 md:sticky md:top-64 md:col-start-2 md:row-span-full md:aspect-[4/5] md:object-cover"
-            alt={t("home.about.meImageAlt")}
+            alt={t("home.about.meImageAlt2")}
           />
 
           <p
