@@ -4,7 +4,7 @@ import typography from "@tailwindcss/typography";
 
 /** @type {import("tailwindcss").Config} */
 const config = {
-  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}", "./i18n/**/*.json"],
   future: {
     hoverOnlyWhenSupported: true,
   },

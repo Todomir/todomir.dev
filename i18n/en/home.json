@@ -5,8 +5,8 @@
       "meImageAlt": "An image of Abner Luis, web developer",
       "meImageAlt2": "An image of Abner Luis, web developer, much younger in the start of his career",
       "presentation": "I'm Abner 👋, an innovative and passionate Web Developer with a flair for creating elegant solutions in the least amount of time.",
-      "subtitle": "<span class='font-serif italic'>People</span> are at the heart of any business. I develop software that brings <span class='font-serif italic'>people</span> together and empowers them, all while bringing a smile to their faces.",
-      "title": "I believe in empowering <em class='font-serif italic'>people</em>"
+      "subtitle": "<span class='italic'>People</span> are at the heart of any business. I develop software that brings <span class='italic'>people</span> together and empowers them, all while bringing a smile to their faces.",
+      "title": "I believe in empowering <em class='italic'>people</em>"
     },
     "blog": {
       "seeAllPosts": "See all posts"
@@ -14,7 +14,7 @@
     "hero": {
       "scrollDown": "Scroll down to see more.",
       "subtitle": "Web Developer extraordinaire, crafting super cool solutions with style 😎",
-      "title": "Abner Rodrigues <br/> Creat<span class='!italic'>i</span>ve Developer"
+      "title": "Abner Rodrigues <br/> Creat<span class='italic'>i</span>ve Developer"
     },
     "projects": {
       "description": "Projects I've been working on lately <small>(and not so lately)</small>"
@@ -22,7 +22,7 @@
     "quote": {
       "description": "A <span class='text-zinc-200'>creative front-end engineer</span> with a passion for crafting",
       "interactive": "interactive",
-      "specializing": "Specializing in <span class='text-zinc-200'> translating design concepts into efficient and <em class='font-serif italic'>elegant</em> user interfaces,</span> with a keen <span class='text-zinc-200'>eye for detail</span> and a focus on <span class='text-zinc-200'>user-centric design principle</span>.",
+      "specializing": "Specializing in <span class='text-zinc-200'> translating design concepts into efficient and <em class='italic'>elegant</em> user interfaces,</span> with a keen <span class='text-zinc-200'>eye for detail</span> and a focus on <span class='text-zinc-200'>user-centric design principle</span>.",
       "visuallyStunning": "visually stunning",
       "webExperiences": "web experiences."
     }

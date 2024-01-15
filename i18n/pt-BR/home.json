@@ -5,8 +5,8 @@
       "meImageAlt": "Foto de Abner Rodrigues, desenvolvedor Web",
       "meImageAlt2": "Foto de Abner Rodrigues, desenvolvedor Web, muito mais jovem no início de sua carreira",
       "presentation": "Sou Abner 👋, um desenvolvedor Web inovador e apaixonado com um talento para criar soluções elegantes no menor tempo possível.",
-      "subtitle": "<span class='font-serif italic'>Pessoas</span> estão no coração de qualquer negócio. Desenvolvo software que une <span class='font-serif italic'>pessoas</span> e as capacita, tudo isso trazendo um sorriso aos seus rostos.",
-      "title": "Eu acredito em empoderar <em class='font-serif italic'>pessoas</em>"
+      "subtitle": "<span class='italic'>Pessoas</span> estão no coração de qualquer negócio. Desenvolvo software que une <span class='italic'>pessoas</span> e as capacita, tudo isso trazendo um sorriso aos seus rostos.",
+      "title": "Eu acredito em empoderar <em class='italic'>pessoas</em>"
     },
     "blog": {
       "seeAllPosts": "Ver todos os posts"
@@ -22,7 +22,7 @@
     "quote": {
       "description": "Um <span class='text-zinc-200'>engenheiro de front-end criativo</span> com paixão por criar",
       "interactive": "interativas",
-      "specializing": "Especializado em <span class='text-zinc-200'> traduzir conceitos de design em interfaces de usuário eficientes e <em class='font-serif italic'>elegantes</em>,</span> com um olhar <span class='text-zinc-200'>atento aos detalhes</span> e foco em <span class='text-zinc-200'>princípios de design centrados no usuário</span>.",
+      "specializing": "Especializado em <span class='text-zinc-200'> traduzir conceitos de design em interfaces de usuário eficientes e <em class='italic'>elegantes</em>,</span> com um olhar <span class='text-zinc-200'>atento aos detalhes</span> e foco em <span class='text-zinc-200'>princípios de design centrados no usuário</span>.",
       "visuallyStunning": "visualmente impressionantes",
       "webExperiences": "experiências web."
     }
