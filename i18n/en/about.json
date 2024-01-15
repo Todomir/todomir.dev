@@ -2,7 +2,7 @@
   "about": {
     "intro": "I started programming in 2015, when I joined the <abbr title=\"Federal Institute of Bahia\">IFBA</abbr> at the age of 13 to do a technical course in computer science. Since then, I have been delving deeper and deeper into the field of software development.",
     "tcc": "Throughout 2018, I started working on my <abbr title=\"Course Conclusion Work\">TCC</abbr>, setting up a platform that facilitated the connection between students so they could provide tutoring, and thus, help each other.",
-    "jsp": "The problem is that I was using <abbr title=\"Java Server Pages\">JSP</abbr>, and absolutely no one should use <abbr title=\"Java Server Pages\">JSP</abbr> for anything. I was almost giving up when I decided that I was going to redo the platform, but this time using React and Node.js.",
+    "jsp": "The problem is that I was using <abbr title=\"Java Server Pages\">JSP</abbr>, and absolutely no one should use <abbr title=\"Java Server Pages\">JSP</abbr> for anything. I was almost giving up when I decided that I was going to redo the platform, but this time using React and Node.js. And I'm glad I did it, because I started to understand the value of a good website.",
     "websites": "I ended up realizing that websites are like windows to someone's world. A way to send a message to the world.",
     "sendMyMessage": "I want to send <em>my</em> message, and help people send theirs.",
     "contactMe": "Send me a <em class=\"font-serif\">message</em>"
