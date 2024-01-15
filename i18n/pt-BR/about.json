@@ -1,0 +1,10 @@
+{
+  "about": {
+    "intro": "Eu comecei a programar em 2015, quando eu entrei no <abbr title=\"Instituto Federal da Bahia\">IFBA</abbr> com 13 anos para fazer o curso técnico em informática. Desde então, eu tenho me aprofundado cada vez mais na área de desenvolvimento de software.",
+    "tcc": " Ao longo de 2018, comecei a trabalhar no meu <abbr title=\"Trabalho de Conclusão de Curso\">TCC</abbr>, montando uma plataforma que facilitava a conexão entre alunos para que pudessem prestar tutoria, e assim, ajudar uns aos outros.",
+    "jsp": "O problema é que eu estava usando <abbr title=\"Java Server Pages\">JSP</abbr>, e absolutamente ninguém deveria usar <abbr title=\"Java Server Pages\">JSP</abbr> pra nada. Estava quase desistindo quando eu decidi que eu ia refazer a plataforma, mas dessa vez usando React e Node.js.",
+    "websites": "Eu acabei percebendo que os sites são como janelas para o mundo de alguém. Uma forma de mandar uma mensagem para o mundo.",
+    "sendMyMessage": "Eu quero mandar a <em>minha</em> mensagem, e ajudar as pessoas a mandarem as delas.",
+    "contactMe": "Me mande uma <em class=\"font-serif\">mensagem</em>"
+  }
+}

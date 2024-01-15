@@ -4,7 +4,7 @@
     "links": {
       "about": {
         "label": "About",
-        "url": "/#about"
+        "url": "/about"
       },
       "blog": {
         "label": "Blog",

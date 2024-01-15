@@ -7,6 +7,7 @@ export const rewriteRoutes: RewriteRouteOption[] = [
     prefix: "pt-BR",
     paths: {
       "building-fast-website-with-qwik": "construindo-website-rapido-com-qwik",
+      "about": "sobre",
     },
   },
 ];
