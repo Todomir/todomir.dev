@@ -19,7 +19,7 @@ const config = {
         "spring-5": "var(--ease-spring-5)",
       },
       fontFamily: {
-        sans: ["Haskoy", "Haskoy overrides", "sans-serif"],
+        sans: ["Haskoy", "Haskoy override", "sans-serif"],
       },
     },
   },
