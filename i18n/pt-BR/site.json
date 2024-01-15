@@ -3,19 +3,19 @@
     "links": {
       "about": {
         "label": "Sobre",
-        "url": "/pt-BR/sobre/"
+        "url": "#about"
       },
       "blog": {
         "label": "Blog",
-        "url": "/pt-BR/blog/"
+        "url": "#blog"
       },
       "home": {
         "label": "Home",
-        "url": "/pt-BR/#"
+        "url": "#"
       },
       "projects": {
         "label": "Projetos",
-        "url": "/pt-BR/#projects/"
+        "url": "#projects"
       }
     },
     "messages": {

@@ -4,19 +4,19 @@
     "links": {
       "about": {
         "label": "About",
-        "url": "/about"
+        "url": "#about"
       },
       "blog": {
         "label": "Blog",
-        "url": "/blog"
+        "url": "#blog"
       },
       "home": {
         "label": "Home",
-        "url": "/#"
+        "url": "#"
       },
       "projects": {
         "label": "Projects",
-        "url": "/#projects"
+        "url": "#projects"
       }
     },
     "messages": {

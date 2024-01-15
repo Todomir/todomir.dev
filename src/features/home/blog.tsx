@@ -13,7 +13,10 @@ type Props = {
 export default component$(({ posts }: Props) => {
   const t = inlineTranslate();
   return (
-    <section class="full-width flex flex-col rounded-none bg-white px-5 py-12 text-gray-900 md:px-6 md:py-32">
+    <section
+      id="blog"
+      class="full-width flex flex-col rounded-none bg-white px-5 py-12 text-gray-900 md:px-6 md:py-32"
+    >
       <header class="flex flex-col gap-3">
         <h2 class="mt-10 text-center text-4xl tracking-tighter md:mt-12 md:text-6xl">
           {t("site.links.blog.label")}
