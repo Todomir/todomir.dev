@@ -8,6 +8,8 @@ export const rewriteRoutes: RewriteRouteOption[] = [
     paths: {
       "building-fast-website-with-qwik": "construindo-website-rapido-com-qwik",
       "about": "sobre",
+      "blog": "blog",
+      "projects": "projetos",
     },
   },
 ];
