@@ -13,22 +13,23 @@ export default component$(() => {
 
   return (
     <section class="full-width content-grid h-full w-full bg-zinc-950 pt-48 text-zinc-300">
-      <div class="grid grid-cols-1 pt-10 md:grid-cols-2 md:gap-16">
+      <div class="-z-1 fixed top-0 h-screen w-screen bg-zinc-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,theme(colors.zinc.900),theme(colors.zinc.950))]"></div>
+      <div class="z-10 grid grid-cols-1 pt-10 md:grid-cols-2 md:gap-16">
         <header class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]">
           <a
-            class="inline-flex items-center gap-3 font-light tracking-tight text-white"
+            class="inline-flex items-center gap-3 font-light tracking-tight text-zinc-400 transition-colors duration-200 ease-in-out hover:text-zinc-200"
             href="/"
           >
-            /home
+            [ <span class="text-zinc-50">/home</span> ]
           </a>
           <h1
             class="col-start-1 my-8 text-balance text-4xl font-medium tracking-tighter text-white lg:text-6xl"
             dangerouslySetInnerHTML={t("home.about.title")}
           />
           <h2 class="col-start-1 text-xl">{t("home.about.presentation")}</h2>
-          <p class="col-start-1 mb-12 mt-6 text-base leading-8 text-zinc-400">
+          <div class="col-start-1 mb-12 mt-6 text-base leading-8 text-zinc-400">
             {t("home.about.description")}
-          </p>
+          </div>
 
           <ImgMe
             class="md:col-start-2 md:row-span-full"
@@ -40,7 +41,7 @@ export default component$(() => {
 
         <div class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]">
           <ImgMe2
-            class="mb-24 md:sticky md:top-64 md:col-start-2 md:row-span-full"
+            class="mb-24 md:sticky md:top-64 md:col-start-2 md:row-span-full md:aspect-[4/5] md:object-cover"
             alt={t("home.about.meImageAlt")}
           />
 
@@ -49,12 +50,12 @@ export default component$(() => {
             dangerouslySetInnerHTML={t("about.intro")}
           />
           <p
-            class="col-start-1 mb-12 md:h-[10vh]"
+            class="col-start-1 mb-12"
             dangerouslySetInnerHTML={t("about.tcc")}
           />
 
           <p
-            class="col-start-1 mb-12 md:mb-24"
+            class="col-start-1 mb-12 md:mb-24 md:h-[36rem]"
             dangerouslySetInnerHTML={t("about.jsp")}
           />
         </div>
@@ -70,7 +71,7 @@ export default component$(() => {
           />
 
           <a
-            class="max-w-xl items-center rounded-xl border border-zinc-50/30 bg-black px-6 py-3 text-white transition-colors duration-200 ease-in-out hover:bg-zinc-50/10"
+            class="max-w-xl items-center rounded-xl border-2 border-black bg-gradient-to-b from-zinc-950 to-black px-6 py-3 text-white shadow-[inset_0_1px_0] shadow-zinc-300/30 transition-all duration-200 ease-spring-2 hover:scale-105 hover:from-zinc-900 hover:to-zinc-950 hover:ease-out active:scale-95 active:ease-spring-4"
             href="mailto:abnerluis1001@gmail.com"
             dangerouslySetInnerHTML={t("about.contactMe")}
           />
