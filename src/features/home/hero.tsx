@@ -156,7 +156,7 @@ export default component$(() => {
   return (
     <section
       id="hero"
-      class="@container/hero full-width pointer-events-none relative flex h-fit flex-col overflow-x-clip bg-zinc-950 py-24 text-zinc-300"
+      class="full-width pointer-events-none relative flex h-fit flex-col overflow-x-clip bg-zinc-950 py-24 text-zinc-300 @container/hero"
     >
       <aside
         ref={asideRef}
@@ -191,11 +191,11 @@ export default component$(() => {
           decoding="sync"
           alt={t("projects.astromart.description")}
           data-speed={1.2}
-          class="absolute -bottom-4 -left-32 lg:-left-8 md:-left-24 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 opacity-0 shadow-2xl object-cover"
+          class="absolute -bottom-4 -left-32 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl md:-left-24 lg:-left-8"
         />
       </aside>
 
-      <div id="hero-content" class="@2xl/hero:py-36 my-auto py-24">
+      <div id="hero-content" class="my-auto py-24 @2xl/hero:py-36">
         <Logo
           id="hero-logo"
           shouldFollowCursor
@@ -204,7 +204,7 @@ export default component$(() => {
         />
 
         <h1
-          class="@2xl/hero:text-7xl @2xl/hero:leading-normal @md:text-6xl @md:leading-[1.2] z-10 mt-12 max-w-full text-center text-5xl leading-normal tracking-tighter text-zinc-200"
+          class="z-10 mt-12 max-w-full text-center text-5xl leading-normal tracking-tighter text-zinc-200 @md:text-6xl @md:leading-[1.2] @2xl/hero:text-7xl @2xl/hero:leading-normal"
           dangerouslySetInnerHTML={t("home.hero.title")}
         />
 

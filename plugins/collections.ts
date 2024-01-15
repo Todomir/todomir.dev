@@ -1,14 +1,15 @@
 /**
- * Original Source: https://github.com/rshackleton/rshackleton-qwik/tree/main/packages/vite-mdx-collections
+ * Original Source:
+ * https://github.com/rshackleton/rshackleton-qwik/tree/main/packages/vite-mdx-collections
  */
 import { writeFileSync } from "node:fs";
 import path from "node:path";
 
 import type { Plugin } from "vite";
+import type { ZodSchema } from "zod";
 
 import { globSync } from "glob";
 import matter from "gray-matter";
-import type { ZodSchema } from "zod";
 import { z } from "zod";
 import { createTypeAlias, printNode, zodToTs } from "zod-to-ts";
 

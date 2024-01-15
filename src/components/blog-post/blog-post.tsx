@@ -21,13 +21,13 @@ export default component$<Props>(({ tags, title, date, description }) => {
       <header class="my-12">
         <a
           href={t("site.links.blog.url")}
-          class="flex transition-all ease-spring-1 duration-300 gap-2 hover:gap-4 text-zinc-700 mb-12"
+          class="mb-12 flex gap-2 text-zinc-700 transition-all duration-300 ease-spring-1 hover:gap-4"
         >
           <span>←</span>
           <span>{t("site.messages.return_previous_page")}</span>
         </a>
 
-        <ul class="flex flex-wrap gap-2 md:gap-3 @container ">
+        <ul class="flex flex-wrap gap-2 @container md:gap-3 ">
           {tags.map((tag: string) => (
             <li key={tag}>
               <Tag>{tag}</Tag>
@@ -48,7 +48,7 @@ export default component$<Props>(({ tags, title, date, description }) => {
           })}
         </time>
 
-        <div class="aspect-w-16 aspect-h-9 overflow-clip rounded-lg my-8 shadow-xl">
+        <div class="aspect-w-16 aspect-h-9 my-8 overflow-clip rounded-lg shadow-xl">
           <Slot name="thumbnail" />
         </div>
       </header>

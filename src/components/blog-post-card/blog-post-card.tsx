@@ -26,8 +26,8 @@ export default component$(({ post }: Props) => {
 
   return (
     <Card class="mt-20 text-zinc-800">
-      <div q:slot="title" class="@md:space-y-3 space-y-1">
-        <h3 class="@md:text-3xl @md:space-x-3 grow space-x-2 text-2xl font-medium tracking-tighter">
+      <div q:slot="title" class="space-y-1 @md:space-y-3">
+        <h3 class="grow space-x-2 text-2xl font-medium tracking-tighter @md:space-x-3 @md:text-3xl">
           <a href={href}>{title}</a>
           <IconArrowTopRight class="inline-block" />
         </h3>
@@ -63,7 +63,7 @@ export default component$(({ post }: Props) => {
       {tags && tags.length > 0 && (
         <ul
           q:slot="superheader"
-          class="@md:gap-2 flex flex-wrap items-start gap-1"
+          class="flex flex-wrap items-start gap-1 @md:gap-2"
         >
           {tags.map((tag) => (
             <li key={tag}>
