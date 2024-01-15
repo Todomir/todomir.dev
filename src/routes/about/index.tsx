@@ -12,8 +12,8 @@ export default component$(() => {
   const t = inlineTranslate();
 
   return (
-    <section class="full-width content-grid relative h-full w-full bg-zinc-950 pt-48 text-zinc-300">
-      <div class="relative grid grid-cols-1 gap-8 pb-24 pt-10 md:grid-cols-2">
+    <section class="full-width content-grid h-full w-full bg-zinc-950 pt-48 text-zinc-300">
+      <div class="grid grid-cols-1 pt-10 md:grid-cols-2 md:gap-16">
         <header class="col-span-2 grid grid-cols-subgrid">
           <div class="mb-16 md:col-start-1">
             <a
@@ -40,41 +40,33 @@ export default component$(() => {
 
         <hr class="col-span-2 mb-12 mt-8 border-b border-zinc-700" />
 
-        <div class="bg-zinc-95 sticky top-0 col-span-2 mt-6 grid h-screen grid-cols-subgrid py-24 text-base leading-8 text-zinc-400">
-          <div class="mb-64 mt-auto space-y-12 text-pretty">
-            <p dangerouslySetInnerHTML={t("about.intro")} />
-            <p dangerouslySetInnerHTML={t("about.tcc")} />
-          </div>
+        <div class="sticky top-0 col-span-2 mt-auto grid grid-cols-subgrid space-y-12 text-pretty pt-12 md:mb-64">
+          <p class="col-start-1" dangerouslySetInnerHTML={t("about.intro")} />
+          <p class="col-start-1" dangerouslySetInnerHTML={t("about.tcc")} />
+
+          <p class="col-start-1" dangerouslySetInnerHTML={t("about.jsp")} />
 
           <ImgMe2
-            class="col-start-1 h-full w-full object-cover md:col-start-2"
+            class="col-start-1 aspect-[3/5] h-full w-full object-cover md:absolute md:col-start-2"
             alt={t("home.about.meImageAlt")}
           />
         </div>
 
-        <div class="sticky top-0 col-span-2 mt-6 grid h-screen grid-cols-subgrid bg-zinc-950 py-24 text-base leading-8 text-zinc-400">
-          <div class="my-auto space-y-12 text-pretty">
-            <p dangerouslySetInnerHTML={t("about.jsp")} />
-          </div>
-        </div>
+        <div class="auto-rows-fit z-10 col-span-2 flex min-h-screen flex-col items-center justify-center text-pretty bg-zinc-950 text-center">
+          <p
+            class="mb-4 max-w-xl text-lg tracking-tighter "
+            dangerouslySetInnerHTML={t("about.websites")}
+          />
+          <p
+            class="mb-12 max-w-xl text-2xl font-medium tracking-tighter text-white"
+            dangerouslySetInnerHTML={t("about.sendMyMessage")}
+          />
 
-        <div class="sticky top-0 col-span-2 mt-6 grid h-screen grid-cols-subgrid bg-zinc-950 py-24 text-base leading-8 text-zinc-400">
-          <div class="col-span-2 mx-auto mt-auto max-w-xl text-pretty text-center">
-            <p
-              class="mb-4 text-lg tracking-tighter"
-              dangerouslySetInnerHTML={t("about.websites")}
-            />
-            <p
-              class="mb-12 text-2xl font-medium tracking-tighter text-white"
-              dangerouslySetInnerHTML={t("about.sendMyMessage")}
-            />
-
-            <a
-              class="items-center rounded-xl border border-zinc-50/30 bg-black px-6 py-3 text-white transition-colors duration-200 ease-in-out hover:bg-zinc-50/10"
-              href="mailto:abnerluis1001@gmail.com"
-              dangerouslySetInnerHTML={t("about.contactMe")}
-            />
-          </div>
+          <a
+            class="max-w-xl items-center rounded-xl border border-zinc-50/30 bg-black px-6 py-3 text-white transition-colors duration-200 ease-in-out hover:bg-zinc-50/10"
+            href="mailto:abnerluis1001@gmail.com"
+            dangerouslySetInnerHTML={t("about.contactMe")}
+          />
         </div>
       </div>
     </section>
