@@ -15,15 +15,15 @@
 }
 
 :root {
-  --ease-spring-1: cubic-bezier(0.25, 0, 0.5, 1);
-  --ease-spring-2: cubic-bezier(0.25, 0, 0.4, 1);
-  --ease-spring-3: cubic-bezier(0.25, 0, 0.3, 1);
-  --ease-spring-4: cubic-bezier(0.25, 0, 0.2, 1);
-  --ease-spring-5: cubic-bezier(0.25, 0, 0.1, 1);
+  --ease-spring-1: cubic-bezier(0.1, 0, 0.9, 1);
+  --ease-spring-2: cubic-bezier(0.3, 0, 0.7, 1);
+  --ease-spring-3: cubic-bezier(0.5, 0, 0.5, 1);
+  --ease-spring-4: cubic-bezier(0.7, 0, 0.3, 1);
+  --ease-spring-5: cubic-bezier(0.9, 0, 0.1, 1);
 }
 
 /* Add spring easing for browsers that support linear()*/
-@supports (animation-timing-function: linear) {
+@supports (animation-timing-function: linear(0, 1)) {
   :root {
     --ease-spring-1: linear(
       0,
