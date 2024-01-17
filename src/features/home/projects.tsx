@@ -25,7 +25,7 @@ export default component$(() => {
       id: "leonardo-nutrition",
       title: "Leonardo Nutrition",
       description: t("projects.leonardo_nutrition.description"),
-      tags: ["React", "TypeScript", "Next.js", "TailwindCSS", "Contentful"],
+      tags: ["React", "TypeScript", "Next.js", "Contentful"],
       thumbnail: {
         srcset: LeonardoNutritionThumb,
         alt: t("projects.leonardo_nutrition.description"),
