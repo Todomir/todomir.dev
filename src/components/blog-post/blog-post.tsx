@@ -65,7 +65,7 @@ export default component$<Props>(({ tags, title, date, description }) => {
         <hr class="w-full border-zinc-200" />
       </div>
 
-      <div class="flex justify-between gap-3">
+      <div class="flex flex-col justify-between gap-3 md:flex-row">
         <h3 class="mb-1 text-2xl font-bold">{t("site.messages.share")}</h3>
         <div class="space-x-2">
           <a
