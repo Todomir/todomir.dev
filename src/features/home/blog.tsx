@@ -1,7 +1,7 @@
 import type { BlogPostCollectionEntry } from "~/content";
 
 import { component$, Fragment } from "@builder.io/qwik";
-import { inlineTranslate } from "qwik-speak";
+import { inlineTranslate, translatePath, useSpeakLocale } from "qwik-speak";
 
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
@@ -12,6 +12,9 @@ type Props = {
 
 export default component$(({ posts }: Props) => {
   const t = inlineTranslate();
+  const locale = useSpeakLocale();
+  const getPath = translatePath();
+
   return (
     <section
       id="blog"
@@ -43,7 +46,7 @@ export default component$(({ posts }: Props) => {
       </section>
 
       <a
-        href={t("site.links.blog.url")}
+        href={`/${getPath("blog", locale.lang)}`}
         class="pointer-events-auto mb-10 mt-10 flex grow cursor-pointer items-stretch justify-end gap-2 self-end whitespace-nowrap text-xl leading-7 tracking-tight text-zinc-950 md:mt-16"
       >
         {t("home.blog.seeAllPosts")}

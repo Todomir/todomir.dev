@@ -33,7 +33,7 @@ export default component$(() => {
         </p>
       </header>
 
-      <ul class="full-width mt-20 space-y-10 rounded-2xl bg-zinc-50">
+      <ul class="full-width mt-20 space-y-10 rounded-2xl bg-zinc-50 pb-24">
         {posts.value.map((post) => (
           <Fragment key={post.slug}>
             <li>
