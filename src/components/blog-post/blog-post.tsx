@@ -20,7 +20,7 @@ export default component$<Props>(({ tags, title, date, description }) => {
     <div class="content-grid mb-24 pb-12 pt-36 text-black">
       <header class="my-12">
         <a
-          href={t("site.links.blog.url")}
+          href=".."
           class="mb-12 flex gap-2 text-zinc-700 transition-all duration-300 ease-spring-1 hover:gap-4"
         >
           <span>←</span>
@@ -29,7 +29,7 @@ export default component$<Props>(({ tags, title, date, description }) => {
 
         <ul class="flex flex-wrap gap-2 @container md:gap-3 ">
           {tags.map((tag: string) => (
-            <li key={tag}>
+            <li style={{ viewTransitionName: `blog-${tag}` }} key={tag}>
               <Tag>{tag}</Tag>
             </li>
           ))}
