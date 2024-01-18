@@ -226,7 +226,11 @@ const Header = component$(() => {
           {NAV_LINKS.map((link) => (
             <li class="py-1 md:px-4" key={`nav-link-${link.label}-${link.url}`}>
               <a
-                href={`${location.url.origin}/${speakConfig.defaultLocale.lang === locale.lang ? "" : locale.lang}/${link.url}`}
+                href={`${location.url.origin}${
+                  speakConfig.defaultLocale.lang === locale.lang ?
+                    "/"
+                  : `/${locale.lang}`
+                }${link.url}`}
                 class="cursor-pointer whitespace-nowrap text-base font-medium leading-5 tracking-normal text-zinc-50"
               >
                 {link.label}
