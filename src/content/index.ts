@@ -38,21 +38,23 @@ export const getCollectionEntry = (locale: string, slug: string) => {
 
 export const getCollectionList = (locale: string) => {
   const collection = collections.content;
-  const list = collection.map((entry) => {
-    const thumbnail = getBlogPostThumbnailSoure({ slug: entry.slug, locale });
+  const list = collection
+    .filter((entry) => entry.data.lang === locale)
+    .map((entry) => {
+      const thumbnail = getBlogPostThumbnailSoure({ slug: entry.slug, locale });
 
-    // Extract thumbnailAlt from entry.data
-    const { thumbnailAlt, ...data } = entry.data;
+      // Extract thumbnailAlt from entry.data
+      const { thumbnailAlt, ...data } = entry.data;
 
-    return {
-      ...data,
-      slug: entry.slug,
-      thumbnail: {
-        src: thumbnail,
-        alt: thumbnailAlt,
-      },
-    };
-  });
+      return {
+        ...data,
+        slug: entry.slug,
+        thumbnail: {
+          src: thumbnail,
+          alt: thumbnailAlt,
+        },
+      };
+    });
 
   return list;
 };
