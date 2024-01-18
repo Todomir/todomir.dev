@@ -2,18 +2,26 @@
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { collections } from "virtual:mdx-collection";
 
-import { config } from "~/speak.config";
 import { getBlogPostThumbnailSoure, getLang } from "~/utils/functions";
+
+export type BlogPostCollectionEntry = Omit<
+  Collections["content"][number]["data"],
+  "thumbnailAlt"
+> & {
+  slug: string;
+  thumbnail: {
+    alt: string;
+    src: string;
+  };
+};
 
 export const getCollectionEntry = (locale: string, slug: string) => {
   const collection = collections.content;
-  const entry = collection.find((element) => element.slug === slug);
+  const entry = collection.find((entry_) => entry_.slug === slug);
 
-  if (!entry) {
-    throw new Error(`No entry found for slug: ${slug}`);
-  }
+  if (!entry) return null;
 
-  const thumbnail = getBlogPostThumbnailSoure({ slug, locale });
+  const thumbnail = getBlogPostThumbnailSoure({ slug: entry.slug, locale });
 
   // Extract thumbnailAlt from entry.data
   const { thumbnailAlt, ...data } = entry.data;
@@ -28,39 +36,25 @@ export const getCollectionEntry = (locale: string, slug: string) => {
   };
 };
 
-export type BlogPostCollectionEntry = ReturnType<typeof getCollectionEntry>;
-
 export const getCollectionList = (locale: string) => {
-  try {
-    const posts = collections.content
-      .filter((entry) => entry.data.lang === locale)
-      .map((entry) => {
-        const thumbnail = getBlogPostThumbnailSoure({
-          slug: entry.slug,
-          locale: entry.data.lang ?? config.defaultLocale.lang,
-        });
+  const collection = collections.content;
+  const list = collection.map((entry) => {
+    const thumbnail = getBlogPostThumbnailSoure({ slug: entry.slug, locale });
 
-        // Extract thumbnailAlt from entry.data
-        const { thumbnailAlt, ...data } = entry.data;
+    // Extract thumbnailAlt from entry.data
+    const { thumbnailAlt, ...data } = entry.data;
 
-        return {
-          ...data,
-          slug: entry.slug,
-          thumbnail: {
-            src: thumbnail,
-            alt: thumbnailAlt,
-          },
-        };
-      });
+    return {
+      ...data,
+      slug: entry.slug,
+      thumbnail: {
+        src: thumbnail,
+        alt: thumbnailAlt,
+      },
+    };
+  });
 
-    if (!posts.length) {
-      throw new Error(`No posts found for locale: ${locale}`);
-    }
-
-    return posts;
-  } catch (error) {
-    throw new Error("Error getting collection list", { cause: error });
-  }
+  return list;
 };
 
 export const useBlogPosts = routeLoader$(async ({ locale, error }) => {
@@ -76,15 +70,19 @@ export const useBlogPosts = routeLoader$(async ({ locale, error }) => {
 });
 
 export const useBlogPost = routeLoader$(async ({ params, locale, error }) => {
-  const { slug } = params;
   const userLang = locale();
 
   try {
     const lang = getLang(userLang);
-    const post = getCollectionEntry(lang, slug);
+    const post = getCollectionEntry(lang, params.slug);
+    if (!post) throw error(404, `Post ${params.slug} not found`);
 
     return post;
-  } catch {
-    throw error(404, "Post not found");
+  } catch (error_) {
+    if (error_ instanceof Error) {
+      throw error(500, `Error loading post ${params.slug}: ${error_.message}`);
+    } else {
+      throw error(500, "Error loading post");
+    }
   }
 });

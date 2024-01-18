@@ -57,9 +57,7 @@ export const getBlogPostThumbnailSoure = ({
 
   const thumbnail = BLOG_POST_THUMBNAIL_LIST[path];
 
-  if (!thumbnail) {
-    throw new Error(`No thumbnail found for slug: ${slug}`);
-  }
+  if (!thumbnail) return "";
 
   const srcset = thumbnail
     .map((img) => {
