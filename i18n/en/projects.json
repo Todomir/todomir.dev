@@ -1,15 +1,19 @@
 {
   "projects": {
     "astromart": {
+      "title": "Astromart",
       "description": "Worked on Astromart: a performant e-commerce template for Astro, React, TypeScript and Odoo developers"
     },
     "kds_wahalla": {
+      "title": "KDS Wahalla",
       "description": "Built KDS Wahalla, a performant kitchen display system for restaurants, using React, TypeScript, elevating restaurant efficiency."
     },
     "kobraza_imoveis": {
-      "description": "Built a website for Kobraza Imóveis. Kobraza Imóveis is a real estate agency that has operated for over 30 years in the market, with a wide range of properties, including commercial properties, such as warehouses, gas stations and warehouses; residential properties such as houses, apartments and lofts; and rural properties, such as farms and farms."
+      "title": "Kobraza Real Estate",
+      "description": "Built a website for Kobraza Real Estate. Kobraza Real Estate is a real estate agency that has operated for over 30 years in the market, with a wide range of properties, including commercial properties, such as warehouses, gas stations and warehouses; residential properties such as houses, apartments and lofts; and rural properties, such as farms and farms."
     },
     "leonardo_nutrition": {
+      "title": "Leonardo Nutrition",
       "description": "Added CMS Integration and Testimonials with social login for Leonardo Nutrition, a nutritionist and dietitian in Brazil."
     }
   }

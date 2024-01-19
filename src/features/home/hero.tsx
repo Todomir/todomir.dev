@@ -204,7 +204,7 @@ export default component$(() => {
         />
 
         <h1
-          class="z-10 mt-12 max-w-full text-center text-5xl leading-normal tracking-tighter text-zinc-200 @md:text-6xl @md:leading-[1.2] @2xl/hero:text-7xl @2xl/hero:leading-normal"
+          class="z-10 mt-12 text-center text-5xl leading-normal tracking-tighter text-zinc-200 @md:text-6xl @md:leading-[1.2] @2xl/hero:text-7xl @2xl/hero:leading-normal"
           dangerouslySetInnerHTML={t("home.hero.title")}
         />
 
