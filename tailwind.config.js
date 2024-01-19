@@ -11,6 +11,15 @@ const config = {
   theme: {
     colors: harmonyPalette,
     extend: {
+      animation: {
+        scroll: "scroll 40s linear infinite",
+      },
+      keyframes: {
+        scroll: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(calc(-100% - 1rem))" },
+        },
+      },
       transitionTimingFunction: {
         "spring-1": "var(--ease-spring-1)",
         "spring-2": "var(--ease-spring-2)",
