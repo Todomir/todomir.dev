@@ -13,7 +13,10 @@ export default component$(() => {
   const t = inlineTranslate();
 
   return (
-    <section class="full-width content-grid relative w-full grid-rows-[auto_1fr] bg-zinc-950 pt-36 text-zinc-300">
+    <section
+      id="main-content"
+      class="full-width content-grid relative w-full grid-rows-[auto_1fr] bg-zinc-950 pt-36 text-zinc-300"
+    >
       <header class="h-fit">
         <h1
           style={{

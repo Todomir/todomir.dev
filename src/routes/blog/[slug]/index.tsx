@@ -35,7 +35,7 @@ export default component$(() => {
     Post.value = mod as Component;
   });
 
-  return <>{Post.value && <Post.value />}</>;
+  return <div id="main-content">{Post.value && <Post.value />}</div>;
 });
 
 export const head: DocumentHead = ({ resolveValue, url }) => {

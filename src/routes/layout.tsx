@@ -2,8 +2,8 @@
 import type { RequestHandler } from "@builder.io/qwik-city";
 
 import { $, component$, Slot, useOnWindow, useSignal } from "@builder.io/qwik";
-import { routeLoader$, useLocation } from "@builder.io/qwik-city";
-import { inlineTranslate, useSpeakConfig, useSpeakLocale } from "qwik-speak";
+import { routeLoader$ } from "@builder.io/qwik-city";
+import { inlineTranslate } from "qwik-speak";
 
 import ChangeLocale from "~/components/change-locale/change-locale";
 import Logo from "~/components/logo/logo";
@@ -74,9 +74,6 @@ export const useServerTimeLoader = routeLoader$(() => {
 
 const Header = component$(() => {
   const t = inlineTranslate();
-  const locale = useSpeakLocale();
-  const location = useLocation();
-  const speakConfig = useSpeakConfig();
 
   const isMobileSig = useSignal(false);
   const isExpandedSig = useSignal(false);
@@ -226,11 +223,7 @@ const Header = component$(() => {
           {NAV_LINKS.map((link) => (
             <li class="py-1 md:px-4" key={`nav-link-${link.label}-${link.url}`}>
               <a
-                href={`${location.url.origin}${
-                  speakConfig.defaultLocale.lang === locale.lang ?
-                    "/"
-                  : `/${locale.lang}`
-                }${link.url}`}
+                href={link.url}
                 class="cursor-pointer whitespace-nowrap text-base font-medium leading-5 tracking-normal text-zinc-50"
               >
                 {link.label}
@@ -295,7 +288,7 @@ export default component$(() => {
         Skip Navigation
       </a>
       <Header />
-      <main class="content-grid min-h-dvh" id="main-content">
+      <main class="content-grid min-h-dvh">
         <Slot />
       </main>
       <Footer />

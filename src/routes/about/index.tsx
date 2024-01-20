@@ -12,7 +12,10 @@ export default component$(() => {
   const t = inlineTranslate();
 
   return (
-    <section class="full-width content-grid h-full w-full bg-zinc-950 pt-48 text-zinc-300">
+    <secticn
+      id="main-content"
+      class="full-width content-grid h-full w-full bg-zinc-950 pt-48 text-zinc-300"
+    >
       <div class="-z-1 fixed top-0 h-screen w-screen bg-zinc-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,theme(colors.zinc.900),theme(colors.zinc.950))]"></div>
       <div class="z-10 grid grid-cols-1 pt-10 md:grid-cols-2 md:gap-16">
         <header class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]">
@@ -77,7 +80,7 @@ export default component$(() => {
           />
         </div>
       </div>
-    </section>
+    </secticn>
   );
 });
 

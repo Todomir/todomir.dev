@@ -4,19 +4,19 @@
     "links": {
       "about": {
         "label": "About",
-        "url": "#about"
+        "url": "/about"
       },
       "blog": {
         "label": "Blog",
-        "url": "#blog"
+        "url": "/blog"
       },
       "home": {
         "label": "Home",
-        "url": "#"
+        "url": "/"
       },
       "projects": {
         "label": "Projects",
-        "url": "#projects"
+        "url": "/projects"
       }
     },
     "messages": {
@@ -29,7 +29,10 @@
       "return_previous_page": "Return to the previous page",
       "share": "Like this? Share it!",
       "share_on": "Share it on",
-      "updated": "Updated at"
+      "updated": "Updated at",
+      "view_on": "View it on",
+      "view_source": "View source",
+      "read_more": "Read more"
     },
     "og": {
       "blog": {

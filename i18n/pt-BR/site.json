@@ -3,19 +3,19 @@
     "links": {
       "about": {
         "label": "Sobre",
-        "url": "#about"
+        "url": "/about"
       },
       "blog": {
         "label": "Blog",
-        "url": "#blog"
+        "url": "/blog"
       },
       "home": {
         "label": "Home",
-        "url": "#"
+        "url": "/"
       },
       "projects": {
         "label": "Projetos",
-        "url": "#projects"
+        "url": "/projects"
       }
     },
     "messages": {
@@ -28,7 +28,10 @@
       "return_previous_page": "Retornar para a página anterior",
       "share": "Gostou? Compartilhe!",
       "share_on": "Compartilhe no",
-      "updated": "Última atualização em"
+      "updated": "Última atualização em",
+      "view_on": "Veja no",
+      "view_source": "Veja o código fonte",
+      "read_more": "Leia mais"
     },
     "og": {
       "blog": {
