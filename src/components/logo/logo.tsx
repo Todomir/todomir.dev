@@ -64,15 +64,14 @@ export default component$<Props>(
         const isWithinRange =
           Math.abs(distance.x) < RANGE && Math.abs(distance.y) < RANGE;
 
-        const generateTranslatePosition = (speed: number) => {
-          return {
-            x: clamp(Math.abs(lerp(0, distance.x * speed, 0.5)), 0, 8),
-            y: clamp(lerp(0, distance.y * speed, 0.5), -10, 10),
-          };
+        const leftEyePosition = {
+          x: clamp(Math.abs(lerp(0, distance.x * 0.06, 0.5)), 0, 8),
+          y: clamp(lerp(0, distance.y * 0.06, 0.5), -10, 10),
         };
-
-        const leftEyePosition = generateTranslatePosition(0.06);
-        const rightEyePosition = generateTranslatePosition(0.1);
+        const rightEyePosition = {
+          x: clamp(Math.abs(lerp(0, distance.x * 0.1, 0.5)), 0, 12),
+          y: clamp(lerp(0, distance.y * 0.1, 0.5), -10, 10),
+        };
 
         const leftEye = logo.querySelector<HTMLDivElement>("[data-left-eye]");
         const rightEye = logo.querySelector<HTMLDivElement>("[data-right-eye]");
