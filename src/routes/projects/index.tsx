@@ -57,12 +57,9 @@ export default component$(() => {
               <p class="mt-2 w-fit rounded-sm bg-zinc-950/80 p-2 text-lg leading-6 text-zinc-50">
                 {post.description}
               </p>
-              <a
-                href={`/projects/${post.id}`}
-                class="block after:absolute after:inset-0 after:block after:h-full after:w-full focus:shadow-none"
-              >
+              <span class="block after:absolute after:inset-0 after:block after:h-full after:w-full focus:shadow-none">
                 <span class="sr-only">{t("site.messages.read_more")}</span>
-              </a>
+              </span>
             </article>
           </li>
         ))}
