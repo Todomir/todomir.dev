@@ -30,6 +30,7 @@
     "og-img": "^0.2.0",
     "rehype-pretty-code": "^0.12.5",
     "shikiji": "^0.9.19",
+    "split-type": "^0.3.4",
     "zod": "^3.22.4",
     "zod-to-ts": "^1.2.0"
   },

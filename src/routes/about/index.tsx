@@ -1,8 +1,10 @@
 import type { StaticGenerateHandler } from "@builder.io/qwik-city";
 
-import { component$ } from "@builder.io/qwik";
+import { component$, useVisibleTask$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
+import { stagger, timeline } from "motion";
 import { inlineTranslate } from "qwik-speak";
+import SplitType from "split-type";
 
 import ImgMe from "~/media/images/me.jpg?jsx";
 import ImgMe2 from "~/media/images/me2.jpg?jsx";
@@ -10,6 +12,65 @@ import { config } from "~/speak.config";
 
 export default component$(() => {
   const t = inlineTranslate();
+
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    SplitType.create(".split", {
+      split: "lines,words",
+      lineClass: "line overflow-hidden",
+      wordClass: "word",
+    });
+
+    timeline([
+      [
+        "#home-link",
+        { opacity: [0, 1] },
+        {
+          duration: 0.2,
+        },
+      ],
+      [
+        "#about-image",
+        { opacity: [0, 1], scale: [0.95, 1] },
+        { duration: 0.8, at: "<" },
+      ],
+      [
+        "#about-title .word",
+        { opacity: [0, 1], y: [10, 0] },
+        {
+          duration: 0.8,
+          delay: stagger(0.02),
+          easing: [0.71, -0.77, 0.43, 1.67],
+          at: "-0.8",
+        },
+      ],
+      [
+        "#about-presentation .word",
+        { opacity: [0, 1], y: [10, 0] },
+        {
+          duration: 0.8,
+          delay: stagger(0.02),
+          easing: [0.71, -0.77, 0.43, 1.67],
+          at: "-0.8",
+        },
+      ],
+      [
+        "#about-description .word",
+        { opacity: [0, 1], y: [10, 0] },
+        {
+          duration: 0.8,
+          delay: stagger(0.02),
+          easing: [0.71, -0.77, 0.43, 1.67],
+          at: "-0.7",
+        },
+      ],
+    ]);
+  });
 
   return (
     <secticn
@@ -20,21 +81,29 @@ export default component$(() => {
       <div class="z-10 grid grid-cols-1 pt-10 md:grid-cols-2 md:gap-16">
         <header class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]">
           <a
+            id="home-link"
             class="inline-flex items-center gap-3 font-light tracking-tight text-zinc-400 transition-colors duration-200 ease-in-out hover:text-zinc-200"
             href="/"
           >
             [ <span class="text-zinc-50">/home</span> ]
           </a>
           <h1
-            class="col-start-1 my-8 text-balance text-4xl font-medium tracking-tighter text-white lg:text-6xl"
+            id="about-title"
+            class="split col-start-1 my-8 text-balance text-4xl font-medium tracking-tighter text-white lg:text-6xl [&>*]:leading-[1.1em]"
             dangerouslySetInnerHTML={t("home.about.title")}
           />
-          <h2 class="col-start-1 text-xl">{t("home.about.presentation")}</h2>
-          <div class="col-start-1 mb-12 mt-6 text-base leading-8 text-zinc-400">
+          <h2 id="about-presentation" class="split col-start-1 text-xl">
+            {t("home.about.presentation")}
+          </h2>
+          <div
+            id="about-description"
+            class="split col-start-1 mb-12 mt-6 text-base leading-8 text-zinc-400"
+          >
             {t("home.about.description")}
           </div>
 
           <ImgMe
+            id="about-image"
             class="md:col-start-2 md:row-span-full"
             alt={t("home.about.meImageAlt")}
           />
