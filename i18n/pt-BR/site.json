@@ -45,6 +45,10 @@
       "main": {
         "description": "Meu nome é Abner, um desenvolvedor Web dedicado e apaixonado conhecido por criar soluções elegantes de forma eficiente.",
         "title": "Abner Rodrigues - Desenvolvedor Criativo"
+      },
+      "projects": {
+        "description": "Uma coleção dos meus projetos pessoais. Gosto de experimentar novas tecnologias e criar coisas que são úteis e divertidas.",
+        "title": "Abner Rodrigues - Desenvolvedor Criativo | Projetos"
       }
     }
   }

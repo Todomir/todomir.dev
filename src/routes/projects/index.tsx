@@ -1,7 +1,13 @@
+import type {
+  DocumentHead,
+  StaticGenerateHandler,
+} from "@builder.io/qwik-city";
+
 import { component$, useVisibleTask$ } from "@builder.io/qwik";
 import { animate, spring, stagger } from "motion";
 import { inlineTranslate } from "qwik-speak";
 
+import { config } from "~/speak.config";
 import { getProjects } from "~/utils/projects";
 
 export default component$(() => {
@@ -67,3 +73,55 @@ export default component$(() => {
     </section>
   );
 });
+
+export const head: DocumentHead = () => {
+  const t = inlineTranslate();
+
+  return {
+    title: t("site.og.projects.title"),
+    meta: [
+      {
+        name: "description",
+        content: t("site.og.projects.description"),
+      },
+      {
+        name: "og:title",
+        content: t("site.og.projects.title"),
+      },
+      {
+        name: "og:description",
+        content: t("site.og.projects.description"),
+      },
+      {
+        name: "og:image",
+        content: "/assets/og/og-home.png",
+      },
+      {
+        name: "og:url",
+        content: "https://todomir.dev/projects",
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:image",
+        content: "/assets/og/og-home.png",
+      },
+      {
+        name: "twitter:title",
+        content: t("site.og.projects.title"),
+      },
+    ],
+  };
+};
+
+export const onStaticGenerate: StaticGenerateHandler = () => {
+  return {
+    params: config.supportedLocales.map((locale) => {
+      return {
+        lang: locale.lang === config.defaultLocale.lang ? "." : locale.lang,
+      };
+    }),
+  };
+};

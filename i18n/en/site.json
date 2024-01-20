@@ -40,12 +40,16 @@
         "title": "Abner Rodrigues - Creative Developer | Blog"
       },
       "about": {
-        "description": "Meu nome é Abner, um desenvolvedor Web dedicado e apaixonado conhecido por criar soluções elegantes de forma eficiente.",
-        "title": "Abner Rodrigues - Desenvolvedor Criativo | Sobre mim"
+        "description": "My name is Abner, a dedicated and passionate Web Developer known for creating elegant solutions efficiently. I like to experiment with new technologies and create things that are useful and fun.",
+        "title": "Abner Rodrigues - Creative Developer | About me"
       },
       "main": {
         "description": "My name is Abner, a dedicated and passionate Web Developer known for creating elegant solutions efficiently.",
         "title": "Abner Rodrigues - Creative Developer"
+      },
+      "projects": {
+        "description": "A collection of my personal projects. I like to experiment with new technologies and create things that are useful and fun.",
+        "title": "Abner Rodrigues - Creative Developer | Projects"
       }
     }
   }
