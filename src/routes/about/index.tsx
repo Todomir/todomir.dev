@@ -20,11 +20,19 @@ export default component$(() => {
     $(() => {
       if (userPrefences.reducedMotion) return;
 
+      for (const el of document.querySelectorAll(".split")) {
+        el.setAttribute("aria-label", el.textContent || "");
+      }
+
       SplitType.create(".split", {
         split: "lines,words",
         lineClass: "line overflow-hidden",
         wordClass: "word",
       });
+
+      for (const el of document.querySelectorAll(".split .line")) {
+        el.setAttribute("aria-hidden", "true");
+      }
 
       timeline([
         [
