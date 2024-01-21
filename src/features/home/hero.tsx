@@ -2,11 +2,13 @@ import {
   $,
   component$,
   useOnDocument,
+  useOnWindow,
   useSignal,
   useVisibleTask$,
 } from "@builder.io/qwik";
-import { animate, scroll, spring } from "motion";
+import { animate, scroll, spring, stagger, timeline } from "motion";
 import { inlineTranslate } from "qwik-speak";
+import SplitType from "split-type";
 
 import Logo from "~/components/logo/logo";
 import { useGetUserPreferences } from "~/hooks/use-get-user-preferences";
@@ -24,71 +26,9 @@ export default component$(() => {
 
   // We want this to run only once it is visible, and eagerly, on the client. So we use `useVisibleTask$`.
   // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    const aside = asideRef.value;
-    if (!aside) {
-      return;
-    }
+  useVisibleTask$(({ track }) => {
+    track(userPrefences);
 
-    animate(
-      aside,
-      {
-        scale: [null, userPrefences.reducedMotion ? 1 : 1.1],
-      },
-      {
-        easing: spring({
-          mass: 5,
-          stiffness: 200,
-          damping: 150,
-        }),
-      },
-    );
-
-    const images = aside.querySelectorAll("*");
-
-    const springConfig = {
-      mass: 5,
-      stiffness: 200,
-      damping: 150,
-    };
-
-    for (const [index, image] of images.entries()) {
-      const speedMultiplier = Number((image as HTMLElement).dataset.speed) || 1;
-      // Only animate the images if the user has not requested reduced motion.
-      const speed =
-        350 * (speedMultiplier * Number(!userPrefences.reducedMotion));
-      const xpos = index >= 2 ? ["100%", 0] : ["-100%", 0];
-
-      animate(
-        image,
-        {
-          x: userPrefences.reducedMotion ? [] : xpos,
-          opacity: [0, 1],
-        },
-        {
-          delay: index * 0.2,
-          easing: spring(springConfig),
-        },
-      );
-      const animationParameters = {
-        y: [null, `-${speed}%`],
-      };
-      scroll(
-        animate(image, animationParameters, {
-          easing: spring({
-            mass: 75,
-            stiffness: 30,
-            damping: 15,
-          }),
-          delay: 0,
-        }),
-      );
-    }
-  });
-
-  // We want this to run only once it is visible, and eagerly, on the client. So we use `useVisibleTask$`.
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
     const speed = 230 * Number(!userPrefences.reducedMotion);
     const animationParameters = {
       y: [null, `-${speed}%`],
@@ -104,40 +44,99 @@ export default component$(() => {
         delay: 0,
       }),
     );
+
+    const images = asideRef.value?.querySelectorAll("*");
+    if (!images) {
+      return;
+    }
+
+    for (const el of images) {
+      scroll(
+        animate(
+          el,
+          {
+            y: [null, `-${speed * 8}%`],
+          },
+          {
+            easing: spring({
+              mass: 75,
+              stiffness: 30,
+              damping: 15,
+            }),
+            delay: 0,
+          },
+        ),
+      );
+    }
   });
 
-  useOnDocument(
-    "mousemove",
-    $((event) => {
-      if (userPrefences.reducedMotion) {
-        return;
-      }
-
+  useOnWindow(
+    "DOMContentLoaded",
+    $(() => {
       const aside = asideRef.value;
       if (!aside) {
         return;
       }
 
-      const mousePosition = {
-        x: event.clientX,
-        y: event.clientY,
-      };
+      const images = aside.querySelectorAll("*");
 
-      animate(
-        aside,
-        {
-          transformOrigin: "center",
-          x: mousePosition.x / 100,
-          y: mousePosition.y / 100,
-        },
-        {
-          easing: spring({
-            mass: 40,
-            stiffness: 200,
-            damping: 300,
-          }),
-        },
-      );
+      for (const el of document.querySelectorAll(".split")) {
+        el.setAttribute("aria-label", el.textContent || "");
+      }
+
+      SplitType.create(".split", {
+        types: "lines,chars",
+        lineClass: "line overflow-hidden",
+        charClass: "char whitespace-nowrap",
+      });
+
+      for (const el of document.querySelectorAll(".split .line")) {
+        el.setAttribute("aria-hidden", "true");
+      }
+
+      timeline([
+        [
+          "#hero-title .char",
+          {
+            y: userPrefences.reducedMotion ? [null] : [10, 0],
+            opacity: [0, 1],
+          },
+          {
+            delay: stagger(0.015),
+            easing: spring({ damping: 5, stiffness: 100 }),
+          },
+        ],
+        [
+          "#hero-subtitle .char",
+          {
+            y: userPrefences.reducedMotion ? [null] : [10, 0],
+            opacity: [0, 1],
+          },
+          {
+            delay: userPrefences.reducedMotion ? 0 : stagger(0.01),
+            easing: spring({ damping: 10, stiffness: 100 }),
+            at: "-1.3",
+          },
+        ],
+        [
+          images,
+          { opacity: [0, 1], scale: [0.95, 1], x: ["-100%", 0] },
+          {
+            delay: userPrefences.reducedMotion ? 0 : stagger(0.1),
+            easing: spring({ damping: 50, stiffness: 100, mass: 10 }),
+            at: "<",
+          },
+        ],
+        [
+          "#hero-scroll",
+          { opacity: [0, 1], y: [5, 0] },
+          {
+            delay: 0.8,
+            easing: spring({ damping: 20, stiffness: 100, mass: 5 }),
+            at: "<",
+          },
+        ],
+      ]);
     }),
   );
 
@@ -154,16 +153,14 @@ export default component$(() => {
         <AstromartThumb
           loading="eager"
           decoding="sync"
-          data-speed={2.5}
           alt={t("projects.kobraza_imoveis.description")}
-          class="absolute -left-24 -top-2 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
+          class="absolute -left-24 top-2 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
         <KdsThumb
           loading="eager"
           decoding="sync"
-          data-speed={2.2}
           alt={t("projects.kds_wahalla.description")}
-          class="absolute -right-24 -top-4 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
+          class="absolute -right-24 -top-8 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
 
         {/* Bottom */}
@@ -171,15 +168,13 @@ export default component$(() => {
           loading="eager"
           decoding="sync"
           alt={t("projects.leonardo_nutrition.description")}
-          data-speed={1}
-          class="absolute -bottom-8 -right-36 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
+          class="absolute -bottom-16 -right-36 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl @md/hero:-bottom-40"
         />
         <LeonardoNutritionThumb
           loading="eager"
           decoding="sync"
           alt={t("projects.astromart.description")}
-          data-speed={1.2}
-          class="absolute -bottom-4 -left-32 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl md:-left-24 lg:-left-8"
+          class="absolute -bottom-12 -left-32 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl @md/hero:-bottom-32 md:-left-24 lg:-left-8"
         />
       </aside>
 
@@ -192,15 +187,20 @@ export default component$(() => {
         />
 
         <h1
-          class="z-10 mt-12 text-center text-5xl leading-normal tracking-tighter text-zinc-200 @md:text-6xl @md:leading-[1.2] @2xl/hero:text-7xl @2xl/hero:leading-normal"
+          id="hero-title"
+          class="split z-10 mt-12 text-center text-5xl leading-normal tracking-tighter text-zinc-200 @md:text-6xl @md:leading-[1.2] @2xl/hero:text-7xl @2xl/hero:leading-normal"
           dangerouslySetInnerHTML={t("home.hero.title")}
         />
 
-        <h2 class="mx-auto mt-10 max-w-[524px] text-center text-xl leading-7">
+        <h2
+          id="hero-subtitle"
+          class="split mx-auto mt-10 max-w-[524px] text-center text-xl leading-7"
+        >
           {t("home.hero.subtitle")}
         </h2>
 
         <div
+          id="hero-scroll"
           aria-labelledby="scroll"
           class="group mx-auto mt-20 flex h-fit w-fit gap-4 rounded-full bg-zinc-900/10 p-9"
         >
