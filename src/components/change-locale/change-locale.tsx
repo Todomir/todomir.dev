@@ -27,7 +27,7 @@ export default component$(() => {
         <a
           key={value.lang}
           class={[
-            "block text-sm leading-5 tracking-normal text-zinc-500 underline underline-offset-2 transition-all ease-spring-2 hover:font-semibold hover:text-zinc-100",
+            "block py-1 text-sm leading-5 tracking-normal text-zinc-500 underline underline-offset-2 transition-all ease-spring-2 hover:font-semibold hover:text-zinc-100",
             {
               "font-bold text-zinc-300": value.lang === locale.lang,
             },
