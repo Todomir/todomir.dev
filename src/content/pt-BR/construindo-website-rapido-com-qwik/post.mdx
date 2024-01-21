@@ -16,7 +16,7 @@ og:
 ---
 
 import Alert from "~/components/alert/alert";
-import AlertIcon from "~/media/icons/alert.svg?raw";
+import AlertIcon from "~/media/icons/alert.svg?jsx";
 
 Então, eu gosto de construir sites. Gosto muito de construir sites (mesmo que nem sempre tenha sido o caso). E algo que procuro muito ao escolher frameworks e ferramentas é o quão fácil eles tornam o caminho feliz para construir ótimas experiências possível. A experiência do usuário e a acessibilidade estão se tornando cada vez mais importantes &mdash; tanto do ponto de vista dos negócios quanto do ponto de vista ético, à medida que trabalhamos para integrar mais pessoas que não podiam usar a web antes &mdash; e acho que isso é ótimo. Eu quero construir sites que sejam rápidos, acessíveis e inclusivos, e quero que minhas ferramentas tornem isso muito fácil de acontecer.
 
@@ -25,7 +25,7 @@ Aprendi React há alguns anos e tenho usado ele desde então. A arquitetura base
 Com isso em mente, a gente vai mergulhar pelo processo de construção deste site, bem como como (e por que) usei [Qwik](https://qwik.builder.io) para fazê-lo.
 
 <Alert severity="warning">
-  <span q:slot="icon" dangerouslySetInnerHTML={AlertIcon} />
+  <AlertIcon q:slot="icon" />
   <h2 q:slot="title">ATENÇÃO</h2>
   <span>
     Este não é um tutorial abrangente sobre como começar com o Qwik. Se você

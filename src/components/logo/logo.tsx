@@ -8,6 +8,7 @@ import {
   useVisibleTask$,
 } from "@builder.io/qwik";
 
+import { useGetUserPreferences } from "~/hooks/use-get-user-preferences";
 import { clamp, lerp, random } from "~/utils/functions";
 
 type Props = {
@@ -24,15 +25,16 @@ export default component$<Props>(
     ...props
   }) => {
     const logoRef = useSignal<HTMLDivElement>();
+    const userPrefences = useGetUserPreferences();
 
     useOnDocument(
       "mousemove",
       $((e) => {
-        const isTouchDevice = "ontouchstart" in window;
-        const prefersReducedMotion = window.matchMedia(
-          "(prefers-reduced-motion: reduce)",
-        ).matches;
-        if (!shouldFollowCursor || prefersReducedMotion || isTouchDevice) {
+        if (
+          !shouldFollowCursor ||
+          userPrefences.reducedMotion ||
+          userPrefences.isTouchDevice
+        ) {
           return;
         }
 

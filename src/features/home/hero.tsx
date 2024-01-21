@@ -2,7 +2,6 @@ import {
   $,
   component$,
   useOnDocument,
-  useOnWindow,
   useSignal,
   useVisibleTask$,
 } from "@builder.io/qwik";
@@ -10,6 +9,7 @@ import { animate, scroll, spring } from "motion";
 import { inlineTranslate } from "qwik-speak";
 
 import Logo from "~/components/logo/logo";
+import { useGetUserPreferences } from "~/hooks/use-get-user-preferences";
 import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
 import AstromartThumb from "~/media/images/projects/astromart-01.png?jsx";
 import KdsThumb from "~/media/images/projects/kds-01.png?jsx";
@@ -20,19 +20,7 @@ export default component$(() => {
   const t = inlineTranslate();
 
   const asideRef = useSignal<HTMLDivElement>();
-  const prefersReducedMotion = useSignal(true);
-
-  useOnWindow(
-    "DOMContentLoaded",
-    $(() => {
-      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-      prefersReducedMotion.value = mediaQuery.matches;
-
-      mediaQuery.addEventListener("change", (e) => {
-        prefersReducedMotion.value = e.matches;
-      });
-    }),
-  );
+  const userPrefences = useGetUserPreferences();
 
   // We want this to run only once it is visible, and eagerly, on the client. So we use `useVisibleTask$`.
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -45,7 +33,7 @@ export default component$(() => {
     animate(
       aside,
       {
-        scale: [null, prefersReducedMotion.value ? 1 : 1.1],
+        scale: [null, userPrefences.reducedMotion ? 1 : 1.1],
       },
       {
         easing: spring({
@@ -68,13 +56,13 @@ export default component$(() => {
       const speedMultiplier = Number((image as HTMLElement).dataset.speed) || 1;
       // Only animate the images if the user has not requested reduced motion.
       const speed =
-        350 * (speedMultiplier * Number(!prefersReducedMotion.value));
+        350 * (speedMultiplier * Number(!userPrefences.reducedMotion));
       const xpos = index >= 2 ? ["100%", 0] : ["-100%", 0];
 
       animate(
         image,
         {
-          x: prefersReducedMotion.value ? [] : xpos,
+          x: userPrefences.reducedMotion ? [] : xpos,
           opacity: [0, 1],
         },
         {
@@ -101,7 +89,7 @@ export default component$(() => {
   // We want this to run only once it is visible, and eagerly, on the client. So we use `useVisibleTask$`.
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    const speed = 230 * Number(!prefersReducedMotion.value);
+    const speed = 230 * Number(!userPrefences.reducedMotion);
     const animationParameters = {
       y: [null, `-${speed}%`],
     };
@@ -121,7 +109,7 @@ export default component$(() => {
   useOnDocument(
     "mousemove",
     $((event) => {
-      if (prefersReducedMotion.value) {
+      if (userPrefences.reducedMotion) {
         return;
       }
 

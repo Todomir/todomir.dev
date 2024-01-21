@@ -1,76 +1,79 @@
 import type { StaticGenerateHandler } from "@builder.io/qwik-city";
 
-import { component$, useVisibleTask$ } from "@builder.io/qwik";
+import { $, component$, useOnWindow } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
-import { stagger, timeline } from "motion";
+import { spring, stagger, timeline } from "motion";
 import { inlineTranslate } from "qwik-speak";
 import SplitType from "split-type";
 
+import { useGetUserPreferences } from "~/hooks/use-get-user-preferences";
 import ImgMe from "~/media/images/me.jpg?jsx";
 import ImgMe2 from "~/media/images/me2.jpg?jsx";
 import { config } from "~/speak.config";
 
 export default component$(() => {
   const t = inlineTranslate();
+  const userPrefences = useGetUserPreferences();
 
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReducedMotion) return;
+  useOnWindow(
+    "DOMContentLoaded",
+    $(() => {
+      if (userPrefences.reducedMotion) return;
 
-    SplitType.create(".split", {
-      split: "lines,words",
-      lineClass: "line overflow-hidden",
-      wordClass: "word",
-    });
+      SplitType.create(".split", {
+        split: "lines,words",
+        lineClass: "line overflow-hidden",
+        wordClass: "word",
+      });
 
-    timeline([
-      [
-        "#home-link",
-        { opacity: [0, 1] },
-        {
-          duration: 0.2,
-        },
-      ],
-      [
-        "#about-image",
-        { opacity: [0, 1], scale: [0.95, 1] },
-        { duration: 0.8, at: "<" },
-      ],
-      [
-        "#about-title .word",
-        { opacity: [0, 1], y: [10, 0] },
-        {
-          duration: 0.8,
-          delay: stagger(0.02),
-          easing: [0.71, -0.77, 0.43, 1.67],
-          at: "-0.8",
-        },
-      ],
-      [
-        "#about-presentation .word",
-        { opacity: [0, 1], y: [10, 0] },
-        {
-          duration: 0.8,
-          delay: stagger(0.02),
-          easing: [0.71, -0.77, 0.43, 1.67],
-          at: "-0.8",
-        },
-      ],
-      [
-        "#about-description .word",
-        { opacity: [0, 1], y: [10, 0] },
-        {
-          duration: 0.8,
-          delay: stagger(0.02),
-          easing: [0.71, -0.77, 0.43, 1.67],
-          at: "-0.7",
-        },
-      ],
-    ]);
-  });
+      timeline([
+        [
+          "#home-link",
+          { opacity: [0, 1] },
+          {
+            duration: 0.4,
+          },
+        ],
+        [
+          "#about-image",
+          { opacity: [0, 1], scale: [0.95, 1] },
+          { duration: 0.8, at: "<" },
+        ],
+        [
+          "#about-title .word",
+          {
+            opacity: [0, 1],
+            y: [10, 0],
+            scaleY: [0.5, 1],
+          },
+          {
+            delay: stagger(0.1),
+            // Slightly bouncy spring
+            easing: spring({ damping: 8, stiffness: 100 }),
+            at: "-0.8",
+          },
+        ],
+        [
+          "#about-presentation .word",
+          { opacity: [0, 1], y: [10, 0], scaleY: [0.5, 1] },
+          {
+            delay: stagger(0.03),
+            easing: spring({ damping: 10, stiffness: 100 }),
+            at: "-1.5",
+          },
+        ],
+        [
+          "#about-description .word",
+          { opacity: [0, 1], y: [5, 0], scaleY: [0.8, 1] },
+          {
+            delay: stagger(0.02),
+            easing: spring({ damping: 5, stiffness: 90 }),
+            at: "-1",
+          },
+        ],
+      ]);
+    }),
+  );
 
   return (
     <secticn
@@ -111,7 +114,7 @@ export default component$(() => {
 
         <hr class="col-span-full mb-64 mt-8 border-b border-zinc-700" />
 
-        <div class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]">
+        <div class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)] text-xl text-zinc-300">
           <ImgMe2
             class="mb-24 md:sticky md:top-64 md:col-start-2 md:row-span-full md:aspect-[4/5] md:object-cover"
             alt={t("home.about.meImageAlt2")}
