@@ -49,7 +49,7 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
             </div>
             <div
               style="font-family: Haskoy; display: flex;"
-              tw="text-2xl max-w-1/2 text-white tracking-wide"
+              tw="text-xl max-w-1/2 text-white tracking-wide"
             >
               ${description}
             </div>
@@ -63,17 +63,13 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
           {
             name: "Haskoy",
             // Use `fs` (Node.js only) or `fetch` to read font file
-            data: await fetchFont(
-              new URL("fonts/static/haskoy-400.ttf", url.origin).toString(),
-            ),
+            data: await fetchFont(`${url.origin}/fonts/static/haskoy-400.ttf`),
             weight: 400,
             style: "normal",
           },
           {
             name: "Haskoy",
-            data: await fetchFont(
-              new URL("fonts/static/haskoy-900.ttf", url.origin).toString(),
-            ),
+            data: await fetchFont(`${url.origin}/fonts/static/haskoy-900.ttf`),
             weight: 900,
             style: "normal",
           },
