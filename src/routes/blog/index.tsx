@@ -54,7 +54,7 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = () => {
+export const head: DocumentHead = ({ url }) => {
   const t = inlineTranslate();
 
   return {
@@ -74,19 +74,29 @@ export const head: DocumentHead = () => {
       },
       {
         name: "og:image",
-        content: "/assets/og/og-blog.png",
+        content: new URL("/assets/og/og-blog.png", url.origin).toString(),
       },
       {
         name: "og:url",
         content: "https://todomir.dev/blog",
       },
+
+      // Twitter
       {
         name: "twitter:card",
         content: "summary_large_image",
       },
       {
+        name: "twitter:description",
+        content: t("site.og.blog.description"),
+      },
+      {
+        name: "twitter:site",
+        content: "@todomir__",
+      },
+      {
         name: "twitter:image",
-        content: "/assets/og/og-blog.png",
+        content: new URL("/assets/og/og-blog.png", url.origin).toString(),
       },
       {
         name: "twitter:title",

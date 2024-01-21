@@ -47,13 +47,36 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
   ogUrl.searchParams.set("permalink", post.permalink);
 
   const ogPath = ogUrl.toString();
+  const ogAssetPath = new URL(ogPath, url.origin).toString();
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "image": [ogAssetPath],
+    "datePublished": post.date,
+    "dateModified": post.date,
+    "author": {
+      "@type": "Person",
+      "name": "Abner Rodrigues",
+    },
+    "description": post.description,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://todomir.dev/${post.permalink}`,
+    },
+  };
 
   return {
     title: `Blog - ${post.title}`,
     meta: [
       {
+        name: "json-ld",
+        content: JSON.stringify(jsonLd),
+      },
+      {
         name: "og:image",
-        content: ogPath,
+        content: ogAssetPath,
       },
       {
         name: "og:title",
@@ -67,14 +90,23 @@ export const head: DocumentHead = ({ resolveValue, url }) => {
         name: "og:url",
         content: `https://todomir.dev/${post.permalink}`,
       },
+
+      // Twitter
       {
         name: "twitter:image",
-        content: ogPath,
+        content: ogAssetPath,
       },
-
       {
         name: "twitter:title",
         content: `${post.title}`,
+      },
+      {
+        name: "twitter:description",
+        content: `${post.description}`,
+      },
+      {
+        name: "twitter:site",
+        content: "@todomir__",
       },
       {
         name: "twitter:card",

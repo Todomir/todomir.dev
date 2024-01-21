@@ -74,8 +74,12 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = () => {
+export const head: DocumentHead = ({ url }) => {
   const t = inlineTranslate();
+  const ogUrl = new URL("/og-image", url);
+  ogUrl.searchParams.set("title", t("site.og.projects.title"));
+  ogUrl.searchParams.set("description", t("site.og.projects.description"));
+  ogUrl.searchParams.set("permalink", "https://todomir.dev/projects");
 
   return {
     title: t("site.og.projects.title"),
@@ -94,23 +98,32 @@ export const head: DocumentHead = () => {
       },
       {
         name: "og:image",
-        content: "/assets/og/og-home.png",
+        content: ogUrl.toString(),
       },
       {
         name: "og:url",
         content: "https://todomir.dev/projects",
       },
+      // Twitter
       {
         name: "twitter:card",
         content: "summary_large_image",
       },
       {
         name: "twitter:image",
-        content: "/assets/og/og-home.png",
+        content: ogUrl.toString(),
       },
       {
         name: "twitter:title",
         content: t("site.og.projects.title"),
+      },
+      {
+        name: "twitter:description",
+        content: t("site.og.projects.description"),
+      },
+      {
+        name: "twitter:site",
+        content: "@todomir__",
       },
     ],
   };
