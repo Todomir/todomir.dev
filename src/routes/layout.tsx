@@ -3,7 +3,7 @@ import type { RequestHandler } from "@builder.io/qwik-city";
 
 import { $, component$, Slot, useOnWindow, useSignal } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
-import { inlineTranslate } from "qwik-speak";
+import { inlineTranslate, translatePath, useSpeakLocale } from "qwik-speak";
 
 import ChangeLocale from "~/components/change-locale/change-locale";
 import Logo from "~/components/logo/logo";
@@ -77,6 +77,9 @@ const Header = component$(() => {
 
   const isMobileSig = useSignal(false);
   const isExpandedSig = useSignal(false);
+
+  const locale = useSpeakLocale();
+  const getPath = translatePath();
 
   const NAV_LINKS = [
     {
@@ -226,7 +229,7 @@ const Header = component$(() => {
               key={`nav-link-${link.label}-${link.url}`}
             >
               <a
-                href={link.url}
+                href={getPath(link.url, locale.lang)}
                 class="cursor-pointer whitespace-nowrap text-base font-medium leading-5 tracking-normal text-zinc-50"
               >
                 {link.label}
