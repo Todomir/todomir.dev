@@ -28,14 +28,13 @@ export default component$(() => {
       }
 
       const text = SplitType.create(".split", {
-        split: "lines,words",
+        split: "words",
         tagName: "span",
-        lineClass: "line overflow-hidden",
       });
 
-      for (const line of text.lines as HTMLElement[]) {
-        if (!line) continue;
-        line.setAttribute("aria-hidden", "true");
+      for (const word of text.words as HTMLElement[]) {
+        if (!word) continue;
+        word.setAttribute("aria-hidden", "true");
       }
 
       timeline([
