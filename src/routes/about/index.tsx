@@ -2,7 +2,7 @@ import type { StaticGenerateHandler } from "@builder.io/qwik-city";
 
 import { $, component$, useOnWindow } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
-import { spring, stagger, timeline } from "motion";
+import { stagger, timeline } from "motion";
 import { inlineTranslate } from "qwik-speak";
 import SplitType from "split-type";
 
@@ -22,16 +22,20 @@ export default component$(() => {
 
       for (const el of document.querySelectorAll(".split")) {
         el.setAttribute("aria-label", el.textContent || "");
+        if (el instanceof HTMLElement) {
+          el.style.fontKerning = "normal";
+        }
       }
 
-      SplitType.create(".split", {
+      const text = SplitType.create(".split", {
         split: "lines,words",
+        tagName: "span",
         lineClass: "line overflow-hidden",
-        wordClass: "word",
       });
 
-      for (const el of document.querySelectorAll(".split .line")) {
-        el.setAttribute("aria-hidden", "true");
+      for (const line of text.lines as HTMLElement[]) {
+        if (!line) continue;
+        line.setAttribute("aria-hidden", "true");
       }
 
       timeline([
@@ -43,53 +47,48 @@ export default component$(() => {
           },
         ],
         [
-          "#about-image",
-          { opacity: [0, 1], scale: [0.95, 1] },
-          { duration: 0.8, at: "<" },
-        ],
-        [
           "#about-title .word",
           {
             opacity: [0, 1],
             y: [10, 0],
-            scaleY: [0.5, 1],
           },
           {
-            delay: stagger(0.1),
-            // Slightly bouncy spring
-            easing: spring({ damping: 8, stiffness: 100 }),
-            at: "-0.8",
+            delay: stagger(0.05),
+            at: "<",
           },
         ],
         [
           "#about-presentation .word",
-          { opacity: [0, 1], y: [10, 0], scaleY: [0.5, 1] },
+          { opacity: [0, 1], y: [10, 0] },
           {
             delay: stagger(0.03),
-            easing: spring({ damping: 10, stiffness: 100 }),
-            at: "-1.5",
+            at: "-0.5",
           },
         ],
         [
           "#about-description .word",
-          { opacity: [0, 1], y: [5, 0], scaleY: [0.8, 1] },
+          { opacity: [0, 1], y: [5, 0] },
           {
             delay: stagger(0.02),
-            easing: spring({ damping: 5, stiffness: 90 }),
-            at: "-1",
+            at: "-0.2",
           },
+        ],
+        [
+          "#about-image",
+          { opacity: [0, 1], scale: [0.95, 1] },
+          { duration: 0.8, at: "-0.5" },
         ],
       ]);
     }),
   );
 
   return (
-    <secticn
+    <section
       id="main-content"
       class="full-width content-grid h-full w-full bg-zinc-950 pt-48 text-zinc-300"
     >
       <div class="-z-1 fixed top-0 h-screen w-screen bg-zinc-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,theme(colors.zinc.900),theme(colors.zinc.950))]"></div>
-      <div class="z-10 grid grid-cols-1 pt-10 md:grid-cols-2 md:gap-16">
+      <div class="z-10 grid grid-cols-1 md:grid-cols-2 md:gap-16">
         <header class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]">
           <a
             id="home-link"
@@ -160,7 +159,7 @@ export default component$(() => {
           />
         </div>
       </div>
-    </secticn>
+    </section>
   );
 });
 

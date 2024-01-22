@@ -1,7 +1,6 @@
 import {
   $,
   component$,
-  useOnDocument,
   useOnWindow,
   useSignal,
   useVisibleTask$,
@@ -82,13 +81,21 @@ export default component$(() => {
 
       for (const el of document.querySelectorAll(".split")) {
         el.setAttribute("aria-label", el.textContent || "");
+        if (el instanceof HTMLElement) {
+          el.style.fontKerning = "normal";
+        }
       }
 
-      SplitType.create(".split", {
-        types: "lines,chars",
+      const text = SplitType.create(".split", {
+        split: "lines,words,chars",
+        tagName: "span",
         lineClass: "line overflow-hidden",
-        charClass: "char whitespace-nowrap",
       });
+
+      for (const line of text.lines as HTMLElement[]) {
+        if (!line) continue;
+        line.setAttribute("aria-hidden", "true");
+      }
 
       for (const el of document.querySelectorAll(".split .line")) {
         el.setAttribute("aria-hidden", "true");
@@ -103,7 +110,6 @@ export default component$(() => {
           },
           {
             delay: stagger(0.015),
-            easing: spring({ damping: 5, stiffness: 100 }),
           },
         ],
         [
@@ -114,8 +120,7 @@ export default component$(() => {
           },
           {
             delay: userPrefences.reducedMotion ? 0 : stagger(0.01),
-            easing: spring({ damping: 10, stiffness: 100 }),
-            at: "-1.3",
+            at: "-0.5",
           },
         ],
         [
@@ -124,16 +129,14 @@ export default component$(() => {
           {
             delay: userPrefences.reducedMotion ? 0 : stagger(0.1),
             easing: spring({ damping: 50, stiffness: 100, mass: 10 }),
-            at: "<",
+            at: "-0.5",
           },
         ],
         [
           "#hero-scroll",
           { opacity: [0, 1], y: [5, 0] },
           {
-            delay: 0.8,
-            easing: spring({ damping: 20, stiffness: 100, mass: 5 }),
-            at: "<",
+            at: "-1.5",
           },
         ],
       ]);
