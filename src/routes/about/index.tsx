@@ -88,7 +88,7 @@ export default component$(() => {
       class="full-width content-grid h-full w-full bg-zinc-950 pt-48 text-zinc-300"
     >
       <div class="-z-1 fixed top-0 h-screen w-screen bg-zinc-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,theme(colors.zinc.900),theme(colors.zinc.950))]"></div>
-      <div class="z-10 grid grid-cols-1 md:grid-cols-2 md:gap-16">
+      <div class="z-10 grid grid-cols-1 md:grid-cols-2 md:gap-8 lg:gap-12">
         <header class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]">
           <a
             id="home-link"
@@ -102,12 +102,15 @@ export default component$(() => {
             class="split col-start-1 my-8 text-balance text-4xl font-medium tracking-tighter text-white lg:text-6xl [&>*]:leading-[1.1em]"
             dangerouslySetInnerHTML={t("home.about.title")}
           />
-          <h2 id="about-presentation" class="split col-start-1 text-xl">
+          <h2
+            id="about-presentation"
+            class="split col-start-1 text-balance text-xl"
+          >
             {t("home.about.presentation")}
           </h2>
           <div
             id="about-description"
-            class="split col-start-1 mb-12 mt-6 text-base leading-8 text-zinc-400"
+            class="split col-start-1 mb-12 mt-6 text-balance text-base leading-8 text-zinc-400"
           >
             {t("home.about.description")}
           </div>
