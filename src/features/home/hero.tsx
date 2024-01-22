@@ -191,13 +191,13 @@ export default component$(() => {
 
         <h1
           id="hero-title"
-          class="split z-10 mt-12 text-center text-5xl leading-normal tracking-tighter text-zinc-200 opacity-0 @md:text-6xl @md:leading-[1.2] @2xl/hero:text-7xl @2xl/hero:leading-normal"
+          class="split z-10 mt-12 text-center text-5xl leading-normal tracking-tighter text-zinc-200 @md:text-6xl @md:leading-[1.2] @2xl/hero:text-7xl @2xl/hero:leading-normal"
           dangerouslySetInnerHTML={t("home.hero.title")}
         />
 
         <h2
           id="hero-subtitle"
-          class="split mx-auto mt-10 max-w-[524px] text-center text-xl leading-7 opacity-0"
+          class="split mx-auto mt-10 max-w-[524px] text-center text-xl leading-7"
         >
           {t("home.hero.subtitle")}
         </h2>
@@ -205,7 +205,7 @@ export default component$(() => {
         <div
           id="hero-scroll"
           aria-labelledby="scroll"
-          class="group mx-auto mt-20 flex h-fit w-fit gap-4 rounded-full bg-zinc-900/10 p-9 opacity-0"
+          class="group mx-auto mt-20 flex h-fit w-fit gap-4 rounded-full bg-zinc-900/10 p-9"
         >
           <IconArrowDown />
           <span id="scroll" class="sr-only text-zinc-200">

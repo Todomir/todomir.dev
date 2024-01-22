@@ -92,14 +92,14 @@ export default component$(() => {
         <header class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]">
           <a
             id="home-link"
-            class="inline-flex items-center gap-3 font-light tracking-tight text-zinc-400 opacity-0 transition-colors duration-200 ease-in-out hover:text-zinc-200"
+            class="inline-flex items-center gap-3 font-light tracking-tight text-zinc-400 transition-colors duration-200 ease-in-out hover:text-zinc-200"
             href="/"
           >
             [ <span class="text-zinc-50">/home</span> ]
           </a>
           <h1
             id="about-title"
-            class="split col-start-1 my-8 text-balance text-4xl font-medium tracking-tighter text-white opacity-0 lg:text-6xl [&>*]:leading-[1.1em]"
+            class="split col-start-1 my-8 text-balance text-4xl font-medium tracking-tighter text-white lg:text-6xl [&>*]:leading-[1.1em]"
             dangerouslySetInnerHTML={t("home.about.title")}
           />
           <h2 id="about-presentation" class="split col-start-1 text-xl">
@@ -107,14 +107,14 @@ export default component$(() => {
           </h2>
           <div
             id="about-description"
-            class="split col-start-1 mb-12 mt-6 text-base leading-8 text-zinc-400 opacity-0"
+            class="split col-start-1 mb-12 mt-6 text-base leading-8 text-zinc-400"
           >
             {t("home.about.description")}
           </div>
 
           <ImgMe
             id="about-image"
-            class="opacity-0 md:col-start-2 md:row-span-full"
+            class="md:col-start-2 md:row-span-full"
             alt={t("home.about.meImageAlt")}
           />
         </header>
