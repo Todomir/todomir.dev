@@ -28,20 +28,15 @@ export default component$(() => {
   useVisibleTask$(({ track }) => {
     track(userPrefences);
 
-    const speed = 230 * Number(!userPrefences.reducedMotion);
-    const animationParameters = {
-      y: [null, `-${speed}%`],
-    };
-
     scroll(
-      animate("#hero-content", animationParameters, {
-        easing: spring({
-          mass: 75,
-          stiffness: 30,
-          damping: 15,
-        }),
-        delay: 0,
-      }),
+      animate(
+        "#hero-content",
+        {
+          opacity: [null, 0],
+          y: [null, "-600%"],
+        },
+        { easing: spring({ damping: 50, stiffness: 100, mass: 100 }) },
+      ),
     );
 
     const images = asideRef.value?.querySelectorAll("*");
@@ -49,23 +44,20 @@ export default component$(() => {
       return;
     }
 
-    for (const el of images) {
-      scroll(
-        animate(
-          el,
-          {
-            y: [null, `-${speed * 8}%`],
-          },
-          {
-            easing: spring({
-              mass: 75,
-              stiffness: 30,
-              damping: 15,
-            }),
-            delay: 0,
-          },
-        ),
-      );
+    for (const [index, el] of images.entries()) {
+      const isBottomImage = index >= 2;
+
+      const configs = {
+        animation: {
+          y: [null, isBottomImage ? "-2000%" : "-1000%"],
+        },
+        easing:
+          isBottomImage ?
+            spring({ damping: 50, stiffness: 100, mass: 200 })
+          : spring({ damping: 50, stiffness: 100, mass: 400 }),
+      };
+
+      scroll(animate(el, configs.animation, configs.easing));
     }
   });
 
