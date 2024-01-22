@@ -34,7 +34,7 @@ export default component$(() => {
   useOnWindow(
     "DOMContentLoaded",
     $(() => {
-      const mediaQuery = window.matchMedia("(max-width: 768px)");
+      const mediaQuery = window.matchMedia("(max-width: 767px)");
       isMobileSig.value = mediaQuery.matches;
 
       const listener = (e: MediaQueryListEvent) => {
@@ -48,7 +48,7 @@ export default component$(() => {
   return (
     <header
       id="navbar"
-      class="header fixed right-0 top-1 z-20 ml-auto items-center px-5 pt-12 text-zinc-50 md:right-1/2 md:translate-x-1/2 md/footer:px-20"
+      class="header fixed right-0 top-1 z-20 ml-auto items-center px-5 pt-12 text-zinc-50 md:right-1/2 md:translate-x-1/2 md:px-20"
     >
       <button
         style={{
@@ -139,7 +139,7 @@ export default component$(() => {
           viewTransitionName: "navbar",
         }}
         class={[
-          "relative mt-2.5 max-w-[353px] flex-col items-center justify-between gap-4 rounded-xl border border-zinc-50/20 bg-zinc-950 px-6 py-4 text-right md:text-left md:opacity-100 ",
+          "relative mt-2.5 max-w-[353px] flex-col items-center justify-between gap-4 rounded-xl border border-zinc-50/20 bg-zinc-950 px-6 py-4 text-right md:text-left md:opacity-100",
           {
             "opacity-0": !isMobileSig.value || !isExpandedSig.value,
           },
