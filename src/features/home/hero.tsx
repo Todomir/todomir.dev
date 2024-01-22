@@ -28,6 +28,8 @@ export default component$(() => {
   useVisibleTask$(({ track }) => {
     track(userPrefences);
 
+    if (userPrefences.reducedMotion) return;
+
     scroll(
       animate(
         "#hero-content",
