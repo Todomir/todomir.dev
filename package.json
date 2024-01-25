@@ -28,7 +28,7 @@
     "init": "^0.1.2",
     "motion": "^10.17.0",
     "og-img": "^0.2.0",
-    "rehype-pretty-code": "^0.12.5",
+    "rehype-pretty-code": "^0.12.6",
     "shikiji": "^0.9.19",
     "split-type": "^0.3.4",
     "zod": "^3.22.4",
@@ -43,9 +43,9 @@
     "@todomir/prettier-config": "^5.1.1",
     "@types/dom-view-transitions": "^1.0.4",
     "@types/eslint": "^8.56.2",
-    "@types/node": "^20.11.5",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
+    "@types/node": "^20.11.6",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
     "eslint-plugin-qwik": "^1.4.0",
@@ -60,7 +60,7 @@
     "undici": "^6.4.0",
     "vite": "^5.0.12",
     "vite-tsconfig-paths": "^4.3.1",
-    "wrangler": "^3.23.0"
+    "wrangler": "^3.24.0"
   },
   "engines": {
     "node": ">=18.0.0"
