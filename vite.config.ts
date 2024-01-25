@@ -22,10 +22,12 @@ const fontaineOptions = {
     "Arial Nova",
     "Nimbus Sans",
     "Arial",
-    "sans-serif",
   ],
-  resolvePath: (fontSrc: string) => {
-    return new URL(`.public/fonts${fontSrc}`, import.meta.url);
+  // You may need to resolve assets like `/fonts/Roboto.woff2` to a particular directory
+  resolvePath: (id: string) => {
+    const path = new URL(`.${id}`, import.meta.url).pathname;
+    console.log(path);
+    return path;
   },
 };
 
@@ -99,8 +101,8 @@ export default defineConfig(() => {
         defaultLang: "en",
         assetsPath: "i18n",
       }),
-      tsconfigPaths(),
       FontaineTransform.vite(fontaineOptions),
+      tsconfigPaths(),
     ],
     dev: {
       headers: {

@@ -35,6 +35,20 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Roboto";
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2")
+    format("woff2");
+}
+
 :root {
   --ease-spring-1: cubic-bezier(0.1, 0, 0.9, 1);
   --ease-spring-2: cubic-bezier(0.3, 0, 0.7, 1);
