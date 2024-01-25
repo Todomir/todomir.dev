@@ -3,7 +3,6 @@ import type { Highlighter } from "shikiji";
 
 import { qwikCity } from "@builder.io/qwik-city/vite";
 import { qwikVite } from "@builder.io/qwik/optimizer";
-import { FontaineTransform } from "fontaine";
 import { qwikSpeakInline } from "qwik-speak/inline";
 import rehypePrettyCode from "rehype-pretty-code";
 import { getHighlighter } from "shikiji";
@@ -13,23 +12,6 @@ import { z } from "zod";
 
 import mdxCollections from "./plugins/collections";
 import { rewriteRoutes } from "./src/speak.routes";
-
-const fontaineOptions = {
-  fallbacks: [
-    "Inter",
-    "Roboto",
-    "Helvetica Neue",
-    "Arial Nova",
-    "Nimbus Sans",
-    "Arial",
-  ],
-  // You may need to resolve assets like `/fonts/Roboto.woff2` to a particular directory
-  resolvePath: (id: string) => {
-    const path = new URL(`.${id}`, import.meta.url).pathname;
-    console.log(path);
-    return path;
-  },
-};
 
 let highlighter: Highlighter;
 async function getOrCreateHighlighter() {
@@ -101,7 +83,6 @@ export default defineConfig(() => {
         defaultLang: "en",
         assetsPath: "i18n",
       }),
-      FontaineTransform.vite(fontaineOptions),
       tsconfigPaths(),
     ],
     dev: {

@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "Haskoy";
-  src: url("/fonts/haskoy-variable.woff2") format("woff2");
+  src: url("../assets/fonts/haskoy-variable.woff2") format("woff2");
   font-weight: 100 1000;
   font-style: normal;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: "Haskoy";
-  src: url("/fonts/inter-italic-variable.woff2") format("woff2");
+  src: url("../assets/fonts/inter-italic-variable.woff2") format("woff2");
   font-weight: 100 1000;
   size-adjust: 98%;
   ascent-override: normal;
@@ -29,24 +29,20 @@
 
 @font-face {
   font-family: "CommitMono";
-  src: url("/fonts/commit-mono-variable.woff2") format("woff2");
+  src: url("../assets/fonts/commit-mono-variable.woff2") format("woff2");
   font-weight: 200 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Roboto";
-  font-display: swap;
-  src: url("https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2")
-    format("woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-display: swap;
-  src: url("https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2")
-    format("woff2");
+  font-family: "HaskoyOverride";
+  src: local(Inter), local(Roboto), local("Helvetica Neue"), local("Arial Nova"),
+    local("Nimbus Sans"), local(Arial), local(sans-serif);
+  size-adjust: 98%;
+  ascent-override: 100%;
+  descent-override: normal;
+  line-gap-override: 7%;
 }
 
 :root {
