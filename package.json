@@ -35,19 +35,19 @@
     "zod-to-ts": "^1.2.0"
   },
   "devDependencies": {
-    "@builder.io/qwik": "^1.4.0",
-    "@builder.io/qwik-city": "^1.4.0",
+    "@builder.io/qwik": "^1.4.2",
+    "@builder.io/qwik-city": "^1.4.2",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.10",
     "@todomir/eslint-config": "^10.1.0",
     "@todomir/prettier-config": "^5.1.1",
     "@types/eslint": "^8.56.2",
-    "@types/node": "^20.11.6",
+    "@types/node": "^20.11.8",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
-    "eslint-plugin-qwik": "^1.4.0",
+    "eslint-plugin-qwik": "^1.4.2",
     "postcss": "^8.4.33",
     "postcss-nesting": "^12.0.2",
     "prettier": "^3.2.4",
@@ -55,10 +55,10 @@
     "qwik-speak": "^0.19.0",
     "tailwindcss": "3.4.0",
     "typescript": "^5.3.3",
-    "undici": "^6.4.0",
+    "undici": "^6.5.0",
     "vite": "^5.0.12",
     "vite-tsconfig-paths": "^4.3.1",
-    "wrangler": "^3.24.0"
+    "wrangler": "^3.25.0"
   },
   "engines": {
     "node": ">=18.0.0"
