@@ -7,7 +7,7 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
   cacheControl("no-cache");
 
   // Font path
-  const fontPath = `${url.origin}/assets/fonts`;
+  const fontPath = `${import.meta.env.PUBLIC_WEBSITE_URL}/assets/fonts`;
 
   // Get data from search params
   const title = url.searchParams.get("title");
