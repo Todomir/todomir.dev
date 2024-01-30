@@ -191,7 +191,6 @@ export const usePost = routeLoader$(async ({ params, error }) => {
     const post = await getPostBySlug(params.slug, guessedLocale);
     return post;
   } catch (e) {
-    console.error(e);
     throw error(404, "Post not found");
   }
 });
