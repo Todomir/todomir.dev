@@ -6,6 +6,9 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
   // Disable caching
   cacheControl("no-cache");
 
+  // Font path
+  const fontPath = `${url.origin}/assets/fonts`;
+
   // Get data from search params
   const title = url.searchParams.get("title");
   const description = url.searchParams.get("description");
@@ -63,13 +66,13 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
           {
             name: "Haskoy",
             // Use `fs` (Node.js only) or `fetch` to read font file
-            data: await fetchFont(`${url.origin}/fonts/static/haskoy-400.ttf`),
+            data: await fetchFont(`${fontPath}/haskoy-400.ttf`),
             weight: 400,
             style: "normal",
           },
           {
             name: "Haskoy",
-            data: await fetchFont(`${url.origin}/fonts/static/haskoy-900.ttf`),
+            data: await fetchFont(`${fontPath}/haskoy-900.ttf`),
             weight: 900,
             style: "normal",
           },
