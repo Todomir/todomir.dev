@@ -6,9 +6,6 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
   // Disable caching
   cacheControl("no-cache");
 
-  // Font path
-  const fontPath = `${import.meta.env.PUBLIC_WEBSITE_URL}/assets/fonts`;
-
   // Get data from search params
   const title = url.searchParams.get("title");
   const description = url.searchParams.get("description");
@@ -28,13 +25,13 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
           >
             <div
               style="font-family: Haskoy; display: flex;"
-              tw="text-2xl max-w-1/2 text-white font-black text-zinc-50 rounded-md tracking-wide"
+              tw="text-2xl max-w-1/2 text-white font-bold text-zinc-50 rounded-md tracking-wide"
             >
               [•• todomir.dev
             </div>
             <div
               style="font-family: Haskoy; display: flex;"
-              tw="text-xl max-w-1/2 text-white font-black text-zinc-300 rounded-md tracking-wide"
+              tw="text-xl max-w-1/2 text-white font-bold text-zinc-300 rounded-md tracking-wide"
             >
               ${permalink}
             </div>
@@ -46,7 +43,7 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
           >
             <div
               style="font-family: Haskoy; display: flex;"
-              tw="text-5xl font-black mb-6 leading-none max-w-1/2 text-white"
+              tw="text-5xl font-bold mb-6 leading-none max-w-1/2 text-white"
             >
               ${title}
             </div>
@@ -66,14 +63,18 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
           {
             name: "Haskoy",
             // Use `fs` (Node.js only) or `fetch` to read font file
-            data: await fetchFont(`${fontPath}/haskoy-400.ttf`),
+            data: await fetchFont(
+              "https://fonts.bunny.net/css?family=cabin:400",
+            ),
             weight: 400,
             style: "normal",
           },
           {
             name: "Haskoy",
-            data: await fetchFont(`${fontPath}/haskoy-900.ttf`),
-            weight: 900,
+            data: await fetchFont(
+              "https://fonts.bunny.net/css?family=cabin:700",
+            ),
+            weight: 700,
             style: "normal",
           },
         ],
