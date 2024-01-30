@@ -11,7 +11,7 @@ export const rewriteRoutes: RewriteRouteOption[] = [
       "about": "sobre",
       "blog": "blog",
       "projects": "projetos",
-      "404": "404",
+      // "404": "404",
     },
   },
 ];

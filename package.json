@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@evilmartians/harmony": "^1.2.0",
+    "@splinetool/runtime": "^1.0.38",
     "@unpic/qwik": "^0.0.38",
     "glob": "^10.3.10",
     "gray-matter": "^4.0.3",
@@ -31,6 +32,7 @@
     "rehype-pretty-code": "^0.12.6",
     "shikiji": "^0.9.19",
     "split-type": "^0.3.4",
+    "three": "^0.160.1",
     "zod": "^3.22.4",
     "zod-to-ts": "^1.2.0"
   },
@@ -43,6 +45,7 @@
     "@todomir/prettier-config": "^5.1.1",
     "@types/eslint": "^8.56.2",
     "@types/node": "^20.11.8",
+    "@types/three": "^0.160.0",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
     "autoprefixer": "^10.4.17",
