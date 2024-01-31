@@ -15,7 +15,7 @@ export default component$(() => {
   return (
     <section
       id="main-content"
-      class="full-width content-grid relative w-full grid-rows-[auto_1fr] bg-zinc-950 pt-36 text-zinc-300"
+      class="full-width content-grid relative w-full grid-rows-[auto_1fr] bg-zinc-950 pt-16 text-zinc-300 md:pt-36"
     >
       <header class="h-fit">
         <h1

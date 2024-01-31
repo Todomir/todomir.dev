@@ -17,7 +17,7 @@ export default component$<Props>(({ tags, title, date, description }) => {
   const location = useLocation();
 
   return (
-    <div class="content-grid mb-24 pb-12 pt-36 text-black">
+    <div class="content-grid mb-24 pb-12 pt-16 text-black md:pt-36">
       <header class="my-12">
         <a
           href=".."
