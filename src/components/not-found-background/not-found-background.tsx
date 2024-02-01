@@ -19,5 +19,7 @@ export default component$<Props>(({ class: className }) => {
     );
   });
 
-  return <canvas ref={glitchRef} class={[className]}></canvas>;
+  return (
+    <canvas aria-hidden="true" ref={glitchRef} class={[className]}></canvas>
+  );
 });
