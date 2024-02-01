@@ -27,7 +27,7 @@ export default component$(() => {
       id="not-found"
       class="content-grid full-width relative isolate min-h-screen place-items-center bg-zinc-950"
     >
-      <NotFoundBackground class="full-width absolute inset-0 h-full w-full" />
+      <NotFoundBackground class="full-width absolute inset-0 h-full w-full ease-in-out" />
       <h1 id="not-found-title" class="sr-only">
         404
       </h1>
