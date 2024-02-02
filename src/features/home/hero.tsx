@@ -35,7 +35,8 @@ export default component$(() => {
         "#hero-content",
         {
           opacity: [null, 0],
-          y: [null, "-600%"],
+          scale: [null, 0.95],
+          y: [null, "-500%"],
         },
         { easing: spring({ damping: 50, stiffness: 100, mass: 100 }) },
       ),
@@ -55,7 +56,7 @@ export default component$(() => {
         },
         easing:
           isBottomImage ?
-            spring({ damping: 50, stiffness: 100, mass: 200 })
+            spring({ damping: 50, stiffness: 100, mass: 300 })
           : spring({ damping: 50, stiffness: 100, mass: 400 }),
       };
 
