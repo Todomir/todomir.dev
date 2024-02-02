@@ -55,7 +55,7 @@ export default component$<Props>(
     );
 
     // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(() => {
+    useVisibleTask$(async () => {
       const dvd = dvdRef.value;
       if (!dvd) return;
 
@@ -99,6 +99,10 @@ export default component$<Props>(
         requestAnimationFrame(loop);
       }
 
+      dvd.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 1_000,
+        fill: "forwards",
+      });
       loop();
     });
 
@@ -110,7 +114,7 @@ export default component$<Props>(
             transform: `translate(${state.position.x}px, ${state.position.y}px)`,
           }}
           ref={dvdRef}
-          class={["dvd", className]}
+          class={["dvd opacity-0", className]}
         >
           <Slot />
         </div>
