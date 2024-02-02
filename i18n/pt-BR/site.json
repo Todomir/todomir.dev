@@ -21,7 +21,7 @@
     "messages": {
       "404": {
         "description": "A página que você está procurando não existe ou foi movida. Se você acha que isso é um erro, por favor, entre em contato comigo.",
-        "home_link": "Retornar para a página inicial",
+        "home_link": "Clique em qualquer lugar para retornar para a página inicial",
         "title": "Ixe... Página não encontrada!"
       },
       "change_locale": "Mudar idioma",

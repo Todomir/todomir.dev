@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@evilmartians/harmony": "^1.2.0",
-    "@splinetool/runtime": "^1.0.42",
     "@unpic/qwik": "^0.0.41",
     "glob": "^10.3.10",
     "gray-matter": "^4.0.3",

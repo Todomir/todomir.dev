@@ -1,49 +1,48 @@
-import { component$, useVisibleTask$ } from "@builder.io/qwik";
-import { animate, stagger } from "motion";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import { inlineTranslate } from "qwik-speak";
 
-import NotFoundBackground from "~/components/not-found-background/not-found-background";
+import DvdScreensaver from "~/components/dvd-screensaver/dvd-screensaver";
+import { useGetUserPreferences } from "~/hooks/use-get-user-preferences";
+import NotFoudImage from "~/media/images/404.svg?jsx";
 
 export default component$(() => {
   const t = inlineTranslate();
+  const userPreferences = useGetUserPreferences();
 
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    animate(
-      "#not-found *",
-      {
-        opacity: [0, 1],
-        y: [20, 0],
-      },
-      {
-        delay: stagger(0.1, { start: 0.3 }),
-        duration: 1,
-      },
-    );
-  });
+  useStyles$(/* css */ `
+    #navbar, #footer { display: none; }
+  `);
 
   return (
     <div
+      style={{ gridColumn: "full-width" }}
       id="not-found"
-      class="content-grid full-width relative isolate min-h-screen place-items-center bg-zinc-950"
+      class="bg-zinc-950 text-zinc-50"
     >
-      <NotFoundBackground class="full-width absolute inset-0 h-full w-full ease-in-out" />
-      <h1 id="not-found-title" class="sr-only">
-        404
-      </h1>
-      <p
-        id="not-found-description"
-        class="absolute top-1/2 mt-4 block max-w-sm text-balance text-center text-lg text-zinc-50"
-      >
-        {t("site.messages.404.description")}
-      </p>
       <a
         id="not-found-link"
         href="/"
-        class="absolute bottom-[20%] mt-16 inline-block max-w-xl items-center rounded-xl border-2 border-black bg-gradient-to-b from-zinc-950 to-black px-6 py-3 text-white shadow-[inset_0_1px_0] shadow-zinc-300/30 transition-all duration-200 ease-spring-2 hover:scale-105 hover:from-zinc-900 hover:to-zinc-950 hover:ease-out active:scale-95 active:ease-spring-4"
+        class="group absolute inset-0 z-10 flex h-full w-full items-center justify-center"
       >
-        {t("site.messages.404.home_link")}
+        <span class="w-fit max-w-xl rounded-xl border-2 border-zinc-50/20 bg-transparent px-3 py-2 text-zinc-50/40 bg-blend-difference group-focus-visible:border-emerald-500 group-focus-visible:text-emerald-200">
+          {t("site.messages.404.home_link")}
+        </span>
       </a>
+      <DvdScreensaver
+        speedMultiplier={userPreferences.reducedMotion ? 0.05 : 0.4}
+        class="pointer-events-none inline-flex flex-col items-center text-center"
+      >
+        <NotFoudImage class="mb-8" />
+        <h1 class="text-6xl font-black italic" id="not-found-title">
+          404
+        </h1>
+        <p
+          id="not-found-description"
+          class="mt-4 block max-w-sm text-balance text-lg text-zinc-50"
+        >
+          {t("site.messages.404.description")}
+        </p>
+      </DvdScreensaver>
     </div>
   );
 });
