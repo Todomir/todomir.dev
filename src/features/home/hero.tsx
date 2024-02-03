@@ -91,22 +91,27 @@ export default component$(() => {
         word.setAttribute("aria-hidden", "true");
       }
 
+      for (const char of text.chars as HTMLElement[]) {
+        if (!char) continue;
+        char.style.opacity = "0.02";
+      }
+
       timeline([
         [
-          "#hero-title .char",
+          "#hero-title *",
           {
             y: userPrefences.reducedMotion ? [null] : [10, 0],
-            opacity: [0, 1],
+            opacity: 1,
           },
           {
             delay: stagger(0.015),
           },
         ],
         [
-          "#hero-subtitle .char",
+          "#hero-subtitle *",
           {
             y: userPrefences.reducedMotion ? [null] : [10, 0],
-            opacity: [0, 1],
+            opacity: 1,
           },
           {
             delay: userPrefences.reducedMotion ? 0 : stagger(0.01),

@@ -35,38 +35,39 @@ export default component$(() => {
       for (const word of text.words as HTMLElement[]) {
         if (!word) continue;
         word.setAttribute("aria-hidden", "true");
+        word.style.opacity = "0.02";
       }
 
       timeline([
         [
           "#home-link",
-          { opacity: [0, 1] },
+          { opacity: 1 },
           {
             duration: 0.4,
           },
         ],
         [
-          "#about-title .word",
+          "#about-title *",
           {
-            opacity: [0, 1],
+            opacity: 1,
             y: [10, 0],
           },
           {
-            delay: stagger(0.05),
+            delay: stagger(0.1),
             at: "<",
           },
         ],
         [
-          "#about-presentation .word",
-          { opacity: [0, 1], y: [10, 0] },
+          "#about-presentation *",
+          { opacity: 1, y: [10, 0] },
           {
             delay: stagger(0.03),
             at: "-0.5",
           },
         ],
         [
-          "#about-description .word",
-          { opacity: [0, 1], y: [5, 0] },
+          "#about-description *",
+          { opacity: 1, y: [5, 0] },
           {
             delay: stagger(0.02),
             at: "-0.2",
@@ -74,7 +75,7 @@ export default component$(() => {
         ],
         [
           "#about-image",
-          { opacity: [0, 1], scale: [0.95, 1] },
+          { opacity: 1, scale: [0.95, 1] },
           { duration: 0.8, at: "-0.5" },
         ],
       ]);
@@ -116,7 +117,7 @@ export default component$(() => {
 
           <ImgMe
             id="about-image"
-            class="md:col-start-2 md:row-span-full"
+            class="opacity-0 md:col-start-2 md:row-span-full"
             alt={t("home.about.meImageAlt")}
           />
         </header>
