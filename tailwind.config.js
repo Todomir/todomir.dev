@@ -12,12 +12,17 @@ const config = {
     colors: harmonyPalette,
     extend: {
       animation: {
-        scroll: "scroll 40s linear infinite",
+        "scroll": "scroll 40s linear infinite",
+        "fade-in": "fadeIn 0.5s ease-in-out",
       },
       keyframes: {
         scroll: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(calc(-100% - 1rem))" },
+        },
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
         },
       },
       transitionTimingFunction: {
