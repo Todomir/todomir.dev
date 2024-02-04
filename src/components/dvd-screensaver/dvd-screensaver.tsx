@@ -77,17 +77,37 @@ export default component$<Props>(
         const rect = dvd.getBoundingClientRect();
 
         if (state.position.x + rect.width >= parentRect.width) {
+          dvd.animate([{ opacity: 0 }, { opacity: 1 }], {
+            duration: 1_000,
+            fill: "forwards",
+          });
+
           state.movement.x = -state.movement.x;
           void onCollide$?.(state);
         } else if (state.position.x <= 0) {
+          dvd.animate([{ opacity: 0 }, { opacity: 1 }], {
+            duration: 1_000,
+            fill: "forwards",
+          });
+
           state.movement.x = -state.movement.x;
           void onCollide$?.(state);
         }
 
         if (state.position.y + rect.height >= parentRect.height) {
+          dvd.animate([{ opacity: 0 }, { opacity: 1 }], {
+            duration: 750,
+            fill: "forwards",
+          });
+
           state.movement.y = -state.movement.y;
           void onCollide$?.(state);
         } else if (state.position.y <= 0) {
+          dvd.animate([{ opacity: 0 }, { opacity: 1 }], {
+            duration: 750,
+            fill: "forwards",
+          });
+
           state.movement.y = -state.movement.y;
           void onCollide$?.(state);
         }
