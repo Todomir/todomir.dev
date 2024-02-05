@@ -23,7 +23,7 @@ export default component$(() => {
         href="/"
         class="group absolute inset-0 z-10 flex h-full w-full items-center justify-center"
       >
-        <span class="w-fit max-w-xl rounded-xl border-2 border-zinc-50/20 bg-transparent px-3 py-2 text-zinc-50/40 bg-blend-difference group-focus-visible:border-emerald-500 group-focus-visible:text-emerald-200">
+        <span class="w-fit max-w-xl rounded-xl border-2 border-zinc-50/20 bg-transparent px-3 py-2 text-zinc-50/40 bg-blend-difference hover:border-emerald-500 hover:text-emerald-200 group-hover:border-emerald-500 group-hover:text-emerald-200 group-focus-visible:border-emerald-500">
           {t("site.messages.404.home_link")}
         </span>
       </a>
