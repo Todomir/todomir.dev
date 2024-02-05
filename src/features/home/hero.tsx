@@ -171,7 +171,7 @@ export default component$(() => {
       <div
         id="hero-content"
         style={{ perspective: "1000px" }}
-        class="my-auto py-24 @2xl/hero:py-36"
+        class="my-auto animate-fade-in py-24 @2xl/hero:py-36"
       >
         <Logo
           id="hero-logo"
