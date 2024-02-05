@@ -28,13 +28,6 @@ export default component$(() => {
 
       timeline([
         [
-          "#home-link",
-          { opacity: 1 },
-          {
-            duration: 0.4,
-          },
-        ],
-        [
           "#about-title .word",
           {
             opacity: 1,
@@ -42,7 +35,6 @@ export default component$(() => {
           },
           {
             delay: stagger(0.1),
-            at: "<",
           },
         ],
         [
@@ -64,7 +56,7 @@ export default component$(() => {
         [
           "#about-image",
           { opacity: 1, scale: [0.95, 1] },
-          { duration: 0.8, at: "-1" },
+          { duration: 0.8, at: "-1.3" },
         ],
       ]);
     }),
@@ -79,29 +71,29 @@ export default component$(() => {
       <div class="z-10 grid grid-cols-1 md:grid-cols-2 md:gap-8 lg:gap-12">
         <header
           style={{ perspective: "1000px" }}
-          class="col-span-full grid animate-fade-in grid-cols-subgrid grid-rows-[repeat(5,auto)]"
+          class="col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]"
         >
           <a
             id="home-link"
-            class="inline-flex items-center gap-3 font-light tracking-tight text-zinc-400 transition-colors duration-200 ease-in-out hover:text-zinc-200"
+            class="inline-flex animate-fade-in items-center gap-3 font-light tracking-tight text-zinc-400 transition-colors duration-200 ease-in-out hover:text-zinc-200"
             href="/"
           >
             [ <span class="text-zinc-50">/home</span> ]
           </a>
           <h1
             id="about-title"
-            class="split col-start-1 my-8 text-balance text-4xl font-medium tracking-tighter text-white lg:text-6xl [&>*]:leading-[1.1em]"
+            class="split col-start-1 my-8 animate-fade-in text-balance text-4xl font-medium tracking-tighter text-white lg:text-6xl [&>*]:leading-[1.1em]"
             dangerouslySetInnerHTML={t("home.about.title")}
           />
           <h2
             id="about-presentation"
-            class="split col-start-1 text-balance text-xl"
+            class="split col-start-1 animate-fade-in text-balance text-xl"
           >
             {t("home.about.presentation")}
           </h2>
           <div
             id="about-description"
-            class="split col-start-1 mb-12 mt-6 text-balance text-base leading-8 text-zinc-400"
+            class="split col-start-1 mb-12 mt-6 animate-fade-in text-balance text-base leading-8 text-zinc-400"
           >
             {t("home.about.description")}
           </div>
