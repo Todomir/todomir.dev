@@ -31,12 +31,12 @@ export default component$(() => {
         speedMultiplier={userPreferences.reducedMotion ? 0.1 : 0.9}
         class="pointer-events-none inline-flex flex-col items-center text-center"
       >
-        <h1 class="text-6xl font-black italic" id="not-found-title">
+        <h1 class="text-4xl font-black italic md:text-7xl" id="not-found-title">
           404
         </h1>
         <p
           id="not-found-description"
-          class="mt-4 block max-w-sm text-balance text-lg text-zinc-50"
+          class="mt-4 block max-w-sm text-balance text-base text-zinc-50 md:text-2xl"
         >
           {t("site.messages.404.description")}
         </p>
