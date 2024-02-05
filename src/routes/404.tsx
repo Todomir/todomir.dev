@@ -3,7 +3,6 @@ import { inlineTranslate } from "qwik-speak";
 
 import DvdScreensaver from "~/components/dvd-screensaver/dvd-screensaver";
 import { useGetUserPreferences } from "~/hooks/use-get-user-preferences";
-import NotFoudImage from "~/media/images/404.svg?jsx";
 
 export default component$(() => {
   const t = inlineTranslate();
@@ -32,7 +31,6 @@ export default component$(() => {
         speedMultiplier={userPreferences.reducedMotion ? 0.05 : 0.4}
         class="pointer-events-none inline-flex flex-col items-center text-center"
       >
-        <NotFoudImage class="mb-8" />
         <h1 class="text-6xl font-black italic" id="not-found-title">
           404
         </h1>
