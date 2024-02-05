@@ -21,7 +21,7 @@ type Props = {
 export default component$((props: Props) => {
   return (
     <Card class="bg-zinc-900/20 p-5 sm:p-12">
-      <h4
+      <span
         q:slot="title"
         class="grow space-x-2 text-3xl font-medium leading-10 tracking-tighter"
       >
@@ -29,7 +29,7 @@ export default component$((props: Props) => {
           <a href={props.slug}>{props.title}</a>
         : props.title}
         {props.slug && <IconArrowTopRight class="inline-block" />}
-      </h4>
+      </span>
       <p
         q:slot="description"
         class="overflow-hidden text-ellipsis text-balance text-base leading-6 tracking-normal text-zinc-300"

@@ -20,23 +20,11 @@ export default component$(() => {
     $(() => {
       if (userPrefences.reducedMotion) return;
 
-      for (const el of document.querySelectorAll(".split")) {
-        el.setAttribute("aria-label", el.textContent || "");
-        if (el instanceof HTMLElement) {
-          el.style.fontKerning = "normal";
-        }
-      }
-
-      const text = SplitType.create(".split", {
+      SplitType.create(".split", {
         split: "words",
         tagName: "span",
+        wordClass: "word opacity-0",
       });
-
-      for (const word of text.words as HTMLElement[]) {
-        if (!word) continue;
-        word.setAttribute("aria-hidden", "true");
-        word.style.opacity = "0.02";
-      }
 
       timeline([
         [
@@ -47,7 +35,7 @@ export default component$(() => {
           },
         ],
         [
-          "#about-title *",
+          "#about-title .word",
           {
             opacity: 1,
             y: [10, 0],
@@ -58,7 +46,7 @@ export default component$(() => {
           },
         ],
         [
-          "#about-presentation *",
+          "#about-presentation .word",
           { opacity: 1, y: [10, 0] },
           {
             delay: stagger(0.03),
@@ -66,7 +54,7 @@ export default component$(() => {
           },
         ],
         [
-          "#about-description *",
+          "#about-description .word",
           { opacity: 1, y: [5, 0] },
           {
             delay: stagger(0.02),
@@ -76,7 +64,7 @@ export default component$(() => {
         [
           "#about-image",
           { opacity: 1, scale: [0.95, 1] },
-          { duration: 0.8, at: "-0.5" },
+          { duration: 0.8, at: "-1" },
         ],
       ]);
     }),
@@ -89,7 +77,10 @@ export default component$(() => {
     >
       <div class="-z-1 fixed top-0 h-screen w-screen bg-zinc-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,theme(colors.zinc.900),theme(colors.zinc.950))]"></div>
       <div class="z-10 grid grid-cols-1 md:grid-cols-2 md:gap-8 lg:gap-12">
-        <header class="animate-fade-in col-span-full grid grid-cols-subgrid grid-rows-[repeat(5,auto)]">
+        <header
+          style={{ perspective: "1000px" }}
+          class="col-span-full grid animate-fade-in grid-cols-subgrid grid-rows-[repeat(5,auto)]"
+        >
           <a
             id="home-link"
             class="inline-flex items-center gap-3 font-light tracking-tight text-zinc-400 transition-colors duration-200 ease-in-out hover:text-zinc-200"

@@ -68,53 +68,45 @@ export default component$(() => {
     "DOMContentLoaded",
     $(() => {
       const aside = asideRef.value;
-      if (!aside) {
-        return;
-      }
+      if (!aside) return;
 
-      const images = aside.querySelectorAll("*");
+      const images = aside.querySelectorAll("img");
+      if (!images) return;
 
-      for (const el of document.querySelectorAll(".split")) {
-        el.setAttribute("aria-label", el.textContent || "");
-        if (el instanceof HTMLElement) {
-          el.style.fontKerning = "normal";
-        }
-      }
-
-      const text = SplitType.create(".split", {
-        split: "words,chars",
+      SplitType.create("#hero-subtitle", {
+        split: "words",
+        wordClass: "word opacity-0",
         tagName: "span",
       });
 
-      for (const word of text.words as HTMLElement[]) {
-        if (!word) continue;
-        word.setAttribute("aria-hidden", "true");
-      }
-
-      for (const char of text.chars as HTMLElement[]) {
-        if (!char) continue;
-        char.style.opacity = "0.02";
-      }
+      SplitType.create("#hero-title", {
+        split: "chars",
+        charClass: "char opacity-0",
+        tagName: "span",
+      });
 
       timeline([
         [
-          "#hero-title *",
+          "#hero-title .char",
           {
             y: userPrefences.reducedMotion ? [null] : [10, 0],
+            rotateX: userPrefences.reducedMotion ? [null] : [90, 0],
             opacity: 1,
           },
           {
-            delay: stagger(0.015),
+            delay: stagger(0.01),
+            easing: spring({ damping: 20, stiffness: 100, mass: 1 }),
           },
         ],
         [
-          "#hero-subtitle *",
+          "#hero-subtitle .word",
           {
-            y: userPrefences.reducedMotion ? [null] : [10, 0],
+            y: userPrefences.reducedMotion ? [null] : [5, 0],
+            rotateX: userPrefences.reducedMotion ? [null] : [50, 0],
             opacity: 1,
           },
           {
-            delay: userPrefences.reducedMotion ? 0 : stagger(0.01),
+            delay: userPrefences.reducedMotion ? 0 : stagger(0.05),
             at: "-0.5",
           },
         ],
@@ -124,7 +116,7 @@ export default component$(() => {
           {
             delay: userPrefences.reducedMotion ? 0 : stagger(0.1),
             easing: spring({ damping: 50, stiffness: 100, mass: 10 }),
-            at: "-0.5",
+            at: "-1.5",
           },
         ],
         [
@@ -176,7 +168,11 @@ export default component$(() => {
         />
       </aside>
 
-      <div id="hero-content" class="my-auto py-24 @2xl/hero:py-36">
+      <div
+        id="hero-content"
+        style={{ perspective: "1000px" }}
+        class="my-auto py-24 @2xl/hero:py-36"
+      >
         <Logo
           id="hero-logo"
           shouldFollowCursor
