@@ -28,7 +28,7 @@ export default component$(() => {
         </span>
       </a>
       <DvdScreensaver
-        speedMultiplier={userPreferences.reducedMotion ? 0.05 : 0.4}
+        speedMultiplier={userPreferences.reducedMotion ? 0.1 : 0.9}
         class="pointer-events-none inline-flex flex-col items-center text-center"
       >
         <h1 class="text-6xl font-black italic" id="not-found-title">
