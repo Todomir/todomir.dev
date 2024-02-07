@@ -1,66 +1,68 @@
 import type { StaticGenerateHandler } from "@builder.io/qwik-city";
 
-import { $, component$, useOnWindow } from "@builder.io/qwik";
+import { component$, useVisibleTask$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
-import { stagger, timeline } from "motion";
+import { spring, stagger, timeline } from "motion";
 import { inlineTranslate } from "qwik-speak";
 import SplitType from "split-type";
 
-import { useGetUserPreferences } from "~/hooks/use-get-user-preferences";
 import ImgMe from "~/media/images/me.jpg?jsx";
 import ImgMe2 from "~/media/images/me2.jpg?jsx";
 import { config } from "~/speak.config";
 
 export default component$(() => {
   const t = inlineTranslate();
-  const userPrefences = useGetUserPreferences();
 
-  useOnWindow(
-    "DOMContentLoaded",
-    $(() => {
-      if (userPrefences.reducedMotion) return;
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    SplitType.create(".split", {
+      types: "words",
+      tagName: "span",
+      wordClass: "split-target__word",
+    });
 
-      SplitType.create(".split", {
-        split: "words",
-        tagName: "span",
-        wordClass: "word opacity-0",
-      });
-
-      timeline([
-        [
-          "#about-title .word",
-          {
-            opacity: 1,
-            y: [10, 0],
-          },
-          {
-            delay: stagger(0.1),
-          },
-        ],
-        [
-          "#about-presentation .word",
-          { opacity: 1, y: [10, 0] },
-          {
-            delay: stagger(0.03),
-            at: "-0.5",
-          },
-        ],
-        [
-          "#about-description .word",
-          { opacity: 1, y: [5, 0] },
-          {
-            delay: stagger(0.02),
-            at: "-0.2",
-          },
-        ],
-        [
-          "#about-image",
-          { opacity: 1, scale: [0.95, 1] },
-          { duration: 0.8, at: "-1.3" },
-        ],
-      ]);
-    }),
-  );
+    timeline([
+      ["#home-link", { opacity: 1, y: [-5, 0] }],
+      ["#about-title", { opacity: 1 }, { at: "<" }],
+      ["#about-presentation", { opacity: 1 }, { at: "<" }],
+      ["#about-description", { opacity: 1 }, { at: "<" }],
+      [
+        "#about-title > *",
+        { opacity: [0, 1], rotateX: [-50, 0], y: [20, 0] },
+        {
+          delay: stagger(0.02),
+          at: "-0.5",
+          easing: spring({ damping: 50, stiffness: 100, mass: 5 }),
+        },
+      ],
+      [
+        "#about-presentation > *",
+        { opacity: [0, 1], rotateX: [-50, 0], y: [20, 0] },
+        {
+          delay: stagger(0.03),
+          at: "-2",
+          easing: spring({ damping: 40, stiffness: 100, mass: 3 }),
+        },
+      ],
+      [
+        "#about-description > *",
+        { opacity: [0, 1], rotateX: [-50, 0], y: [10, 0] },
+        {
+          delay: stagger(0.02),
+          at: "-1.5",
+          easing: spring({ damping: 40, stiffness: 100, mass: 1 }),
+        },
+      ],
+      [
+        "#about-image",
+        { opacity: 1, scale: [0.95, 1], rotateX: [-5, 0] },
+        {
+          at: "-0.7",
+          easing: spring({ damping: 50, stiffness: 100, mass: 10 }),
+        },
+      ],
+    ]);
+  });
 
   return (
     <section
@@ -75,25 +77,25 @@ export default component$(() => {
         >
           <a
             id="home-link"
-            class="inline-flex animate-fade-in items-center gap-3 font-light tracking-tight text-zinc-400 transition-colors duration-200 ease-in-out hover:text-zinc-200"
+            class="inline-flex items-center gap-3 font-light tracking-tight text-zinc-400 transition-colors duration-200 ease-in-out hover:text-zinc-200"
             href="/"
           >
             [ <span class="text-zinc-50">/home</span> ]
           </a>
           <h1
             id="about-title"
-            class="split col-start-1 my-8 animate-fade-in text-balance text-4xl font-medium tracking-tighter text-white lg:text-6xl [&>*]:leading-[1.1em]"
+            class="split col-start-1 my-8 text-balance text-4xl font-medium tracking-tighter text-white opacity-0 lg:text-6xl [&>*]:leading-[1.1em]"
             dangerouslySetInnerHTML={t("home.about.title")}
           />
           <h2
             id="about-presentation"
-            class="split col-start-1 animate-fade-in text-balance text-xl"
+            class="split col-start-1 text-balance text-xl opacity-0"
           >
             {t("home.about.presentation")}
           </h2>
           <div
             id="about-description"
-            class="split col-start-1 mb-12 mt-6 animate-fade-in text-balance text-base leading-8 text-zinc-400"
+            class="split col-start-1 mb-12 mt-6 text-balance text-base leading-8 text-zinc-400 opacity-0"
           >
             {t("home.about.description")}
           </div>
