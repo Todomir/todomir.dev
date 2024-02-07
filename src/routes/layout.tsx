@@ -6,6 +6,7 @@ import { routeLoader$ } from "@builder.io/qwik-city";
 
 import Footer from "~/components/footer/footer";
 import Navbar from "~/components/navbar/navbar";
+import { UserPreferencesProvider } from "~/hooks/use-get-user-preferences";
 import { ONE_DAY_IN_SECONDS, ONE_MINUTE_IN_SECONDS } from "~/utils/constants";
 
 declare global {
@@ -50,7 +51,7 @@ export const useServerTimeLoader = routeLoader$(() => {
 
 export default component$(() => {
   return (
-    <>
+    <UserPreferencesProvider>
       <a
         class="absolute left-0 z-50 m-3 -translate-y-16 bg-emerald-900 px-3 py-1 text-emerald-50 transition focus:translate-y-0"
         href="#main-content"
@@ -62,6 +63,6 @@ export default component$(() => {
         <Slot />
       </main>
       <Footer />
-    </>
+    </UserPreferencesProvider>
   );
 });

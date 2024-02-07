@@ -1,4 +1,12 @@
-import { useStore, useVisibleTask$ } from "@builder.io/qwik";
+import {
+  component$,
+  createContextId,
+  Slot,
+  useContext,
+  useContextProvider,
+  useStore,
+  useVisibleTask$,
+} from "@builder.io/qwik";
 
 type UserPreferences = {
   isTouchDevice: boolean;
@@ -7,7 +15,10 @@ type UserPreferences = {
   reducedMotion: boolean;
 };
 
-export function useGetUserPreferences() {
+const userPreferencesContext =
+  createContextId<UserPreferences>("USER_PREFERENCES");
+
+export const UserPreferencesProvider = component$(() => {
   const userPreferences = useStore<UserPreferences>(
     {
       reducedMotion: false,
@@ -58,5 +69,13 @@ export function useGetUserPreferences() {
       abortController.abort();
     });
   });
+
+  useContextProvider(userPreferencesContext, userPreferences);
+
+  return <Slot />;
+});
+
+export function useGetUserPreferences() {
+  const userPreferences = useContext(userPreferencesContext);
   return userPreferences;
 }
