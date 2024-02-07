@@ -8,7 +8,7 @@ import {
   useVisibleTask$,
 } from "@builder.io/qwik";
 
-import { useGetUserPreferences } from "~/hooks/use-get-user-preferences";
+import { useGetUserPreferences } from "~/context/user-preferences";
 import { clamp, lerp, random } from "~/utils/functions";
 
 type Props = {

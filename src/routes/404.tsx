@@ -2,7 +2,7 @@ import { component$, useStyles$ } from "@builder.io/qwik";
 import { inlineTranslate } from "qwik-speak";
 
 import DvdScreensaver from "~/components/dvd-screensaver/dvd-screensaver";
-import { useGetUserPreferences } from "~/hooks/use-get-user-preferences";
+import { useGetUserPreferences } from "~/context/user-preferences";
 
 export default component$(() => {
   const t = inlineTranslate();

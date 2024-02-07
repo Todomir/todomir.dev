@@ -6,7 +6,7 @@ import { routeLoader$ } from "@builder.io/qwik-city";
 
 import Footer from "~/components/footer/footer";
 import Navbar from "~/components/navbar/navbar";
-import { UserPreferencesProvider } from "~/hooks/use-get-user-preferences";
+import { UserPreferencesProvider } from "~/context/user-preferences";
 import { ONE_DAY_IN_SECONDS, ONE_MINUTE_IN_SECONDS } from "~/utils/constants";
 
 declare global {

@@ -5,7 +5,7 @@ import { inlineTranslate } from "qwik-speak";
 import SplitType from "split-type";
 
 import Logo from "~/components/logo/logo";
-import { useGetUserPreferences } from "~/hooks/use-get-user-preferences";
+import { useGetUserPreferences } from "~/context/user-preferences";
 import IconArrowDown from "~/media/icons/arrow/down.svg?jsx";
 import AstromartThumb from "~/media/images/projects/astromart-01.png?jsx";
 import KdsThumb from "~/media/images/projects/kds-01.png?jsx";
