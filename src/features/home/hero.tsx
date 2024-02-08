@@ -24,15 +24,17 @@ export default component$(() => {
   const userPreferences = useGetUserPreferences();
 
   useStyles$(/* css*/ `
-    .split-target__char, .split-target__word, #hero-scroll {
-      animation-name: charFade, charFade;
-      animation-fill-mode: both;
-      animation-timing-function: ease-in-out;
-      animation-direction: normal, reverse;
-      animation-timeline: view();
-      animation-range: entry 0% entry 150%, exit -200% exit 2%;
-      animation-delay: calc(0.01s * var(--index));
-    }
+    @supports (animation-timeline: scroll()) {
+      .split-target__char, .split-target__word, #hero-scroll {
+        animation-name: charFade, charFade;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        animation-direction: normal, reverse;
+        animation-timeline: view();
+        animation-range: entry 0% entry 150%, exit -200% exit 2%;
+        animation-delay: calc(0.01s * var(--index));
+      }
+    } 
     
     @keyframes charFade { 0% { opacity: 0 } }
   `);
