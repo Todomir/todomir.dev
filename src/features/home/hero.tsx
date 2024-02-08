@@ -1,5 +1,10 @@
 /* eslint-disable qwik/no-use-visible-task */
-import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import {
+  component$,
+  useSignal,
+  useStyles$,
+  useVisibleTask$,
+} from "@builder.io/qwik";
 import { animate, scroll, spring, stagger, timeline } from "motion";
 import { inlineTranslate } from "qwik-speak";
 import SplitType from "split-type";
@@ -18,19 +23,45 @@ export default component$(() => {
   const asideRef = useSignal<HTMLDivElement>();
   const userPreferences = useGetUserPreferences();
 
+  useStyles$(/* css*/ `
+    .split-target__char, .split-target__word, #hero-scroll {
+      animation-name: charFade, charFade;
+      animation-fill-mode: both;
+      animation-timing-function: ease-in-out;
+      animation-direction: normal, reverse;
+      animation-timeline: view();
+      animation-range: entry 0% entry 150%, exit -200% exit 2%;
+      animation-delay: calc(0.01s * var(--index));
+    }
+    
+    @keyframes charFade { 0% { opacity: 0 } }
+  `);
+
   useVisibleTask$(() => {
     if (userPreferences.reducedMotion) return;
 
-    SplitType.create("#hero-title", {
+    const heroText = SplitType.create("#hero-title", {
       types: "chars",
       tagName: "span",
       charClass: "split-target__char",
     });
-    SplitType.create("#hero-subtitle", {
+    const subtitleText = SplitType.create("#hero-subtitle", {
       types: "words",
       tagName: "span",
       wordClass: "split-target__word",
     });
+
+    if (heroText.chars) {
+      for (const [index, char] of heroText.chars.entries()) {
+        char.style.setProperty("--index", `${index + 1}`);
+      }
+    }
+
+    if (subtitleText.words) {
+      for (const [index, word] of subtitleText.words.entries()) {
+        word.style.setProperty("--index", `${index + 1}`);
+      }
+    }
 
     timeline([
       ["#hero-title", { opacity: 1, y: 0 }],
@@ -54,15 +85,45 @@ export default component$(() => {
           at: "-0.5",
         },
       ],
-      ["#hero-scroll", { opacity: 1, y: 0 }, { at: "-0.1" }],
+      ["#hero-scroll", { opacity: [0, 1], y: [10, 0] }, { at: "-0.1" }],
     ]);
   });
 
   useVisibleTask$(() => {
     if (userPreferences.reducedMotion) return;
+
     scroll(
-      animate(".hero-image", { y: [null, "-1000%"] }, { easing: spring() }),
+      animate(
+        "#hero-content",
+        { y: [null, 50] },
+        { easing: spring({ damping: 5 }) },
+      ),
     );
+
+    const images =
+      asideRef.value?.querySelectorAll<HTMLImageElement>(".hero-image");
+    if (!images) return;
+
+    for (const image of images) {
+      const multiplier = Number(image.dataset.parallax) || 1;
+      const ONE_OR_NEGATIVE_ONE = Math.random() > 0.5 ? 1 : -1;
+      const zRotation = (100 * ONE_OR_NEGATIVE_ONE) / multiplier;
+
+      scroll(
+        animate(
+          image,
+          { y: [null, -4_000], rotateZ: [null, zRotation] },
+          {
+            duration: 1_000,
+            easing: spring({
+              damping: 50,
+              stiffness: 100,
+              mass: 10 * multiplier,
+            }),
+          },
+        ),
+      );
+    }
   });
 
   return (
@@ -76,38 +137,40 @@ export default component$(() => {
       >
         {/* Top */}
         <AstromartThumb
+          data-parallax="0.95"
           loading="eager"
           decoding="sync"
           alt={t("projects.kobraza_imoveis.description")}
-          class="hero-image absolute -left-24 top-2 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
+          class="hero-image pointer-events-none absolute -left-24 top-2 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
         <KdsThumb
+          data-parallax="0.8"
           loading="eager"
           decoding="sync"
           alt={t("projects.kds_wahalla.description")}
-          class="hero-image absolute -right-24 -top-8 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
+          style={{ scale: 1.25 }}
+          class="hero-image pointer-events-none absolute -right-24 -top-8 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
 
         {/* Bottom */}
         <KobrazaThumb
+          data-parallax="1.8"
           loading="eager"
           decoding="sync"
           alt={t("projects.leonardo_nutrition.description")}
-          class="hero-image absolute -bottom-16 -right-36 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl @md/hero:-bottom-40"
+          class="hero-image pointer-events-none absolute -bottom-16 -right-36 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl @md/hero:-bottom-40"
         />
         <LeonardoNutritionThumb
+          data-parallax="0.85"
           loading="eager"
           decoding="sync"
           alt={t("projects.astromart.description")}
-          class="hero-image absolute -bottom-12 -left-32 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl @md/hero:-bottom-32 md:-left-24 lg:-left-8"
+          style={{ scale: 1.1 }}
+          class="hero-image pointer-events-none absolute -bottom-16 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl @md/hero:-bottom-32 md:-left-24 lg:-left-8"
         />
       </aside>
 
-      <div
-        id="hero-content"
-        style={{ perspective: "1000px" }}
-        class="my-auto py-24 @2xl/hero:py-36"
-      >
+      <div id="hero-content" class="my-auto py-24 @2xl/hero:py-36">
         <Logo
           shouldBlink
           shouldFollowCursor
