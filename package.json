@@ -22,21 +22,20 @@
   },
   "dependencies": {
     "@evilmartians/harmony": "^1.2.0",
-    "@unpic/qwik": "^0.0.41",
     "glob": "^10.3.10",
     "gray-matter": "^4.0.3",
     "init": "^0.1.2",
     "motion": "^10.17.0",
     "og-img": "^0.2.0",
-    "rehype-pretty-code": "^0.12.6",
+    "rehype-pretty-code": "^0.13.0",
     "shikiji": "^0.10.2",
     "split-type": "^0.3.4",
     "zod": "^3.22.4",
     "zod-to-ts": "^1.2.0"
   },
   "devDependencies": {
-    "@builder.io/qwik": "^1.4.3",
-    "@builder.io/qwik-city": "^1.4.3",
+    "@builder.io/qwik": "^1.4.4",
+    "@builder.io/qwik-city": "^1.4.4",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.10",
     "@todomir/eslint-config": "^10.1.0",
@@ -47,18 +46,18 @@
     "@typescript-eslint/parser": "^6.21.0",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
-    "eslint-plugin-qwik": "^1.4.3",
-    "postcss": "^8.4.33",
+    "eslint-plugin-qwik": "^1.4.4",
+    "postcss": "^8.4.35",
     "postcss-nesting": "^12.0.2",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "qwik-speak": "^0.21.0",
     "tailwindcss": "3.4.0",
     "typescript": "^5.3.3",
-    "undici": "^6.6.1",
-    "vite": "^5.0.12",
+    "undici": "^6.6.2",
+    "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.3.1",
-    "wrangler": "^3.26.0"
+    "wrangler": "^3.27.0"
   },
   "engines": {
     "node": ">=18.0.0"
