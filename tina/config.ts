@@ -32,6 +32,7 @@ export default defineConfig({
         name: "post",
         label: "Posts",
         path: "content/posts",
+        format: "mdx",
         fields: [
           {
             type: "string",
@@ -45,6 +46,32 @@ export default defineConfig({
             name: "body",
             label: "Body",
             isBody: true,
+            templates: [
+              {
+                name: "Alert",
+                label: "Alert",
+                fields: [
+                  {
+                    type: "string",
+                    name: "title",
+                    label: "Title",
+                    required: true,
+                  },
+                  {
+                    type: "string",
+                    name: "severity",
+                    label: "Severity",
+                    required: true,
+                  },
+                  {
+                    type: "rich-text",
+                    name: "children",
+                    label: "Children",
+                    isBody: true,
+                  },
+                ],
+              },
+            ],
           },
           {
             type: "boolean",
