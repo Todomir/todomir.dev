@@ -24,6 +24,8 @@
   "files": ["./.eslintrc.cjs"],
   "include": [
     "src",
+    "tina",
+    "content",
     "./*.d.ts",
     "./*.config.ts",
     "./*.config.js",
