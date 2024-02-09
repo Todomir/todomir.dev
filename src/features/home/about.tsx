@@ -11,12 +11,10 @@ export default component$(() => {
       class="full-width bg-zinc-950 px-5 py-20 text-zinc-300 md:px-16 md:py-60"
     >
       <div class="flex flex-col gap-8 md:gap-20 lg:flex-row">
-        <ImgMe
-          id="img-me"
-          alt={t("home.about.meImageAlt")}
-          class="ml-0 mt-10 max-h-[600px] w-full grow overflow-hidden rounded-lg object-cover object-center"
-        />
-        <header class="my-auto flex max-w-full flex-col gap-4">
+        <aside class="ml-0 mt-10 max-h-[600px] w-full grow overflow-hidden rounded-lg object-cover object-center">
+          <ImgMe id="img-me" alt={t("home.about.meImageAlt")} />
+        </aside>
+        <article class="my-auto flex max-w-full flex-col gap-4">
           <h2
             class="text-3xl font-medium leading-10 tracking-tighter text-zinc-200 sm:text-[3rem]"
             dangerouslySetInnerHTML={t("home.about.title")}
@@ -39,7 +37,7 @@ export default component$(() => {
           >
             abnerluis1001@gmail.com
           </a>
-        </header>
+        </article>
       </div>
     </section>
   );
