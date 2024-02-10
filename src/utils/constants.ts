@@ -38,25 +38,3 @@ export const ONE_MINUTE_IN_SECONDS = 60;
 export const ONE_HOUR_IN_SECONDS = ONE_MINUTE_IN_SECONDS * 60;
 export const ONE_DAY_IN_SECONDS = ONE_HOUR_IN_SECONDS * 24;
 export const ONE_WEEK_IN_SECONDS = ONE_DAY_IN_SECONDS * 7;
-
-export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob<OutputMetadata[]>(
-  "/src/content/**/**/thumbnail.png",
-  {
-    eager: true,
-    import: "default",
-    query: {
-      w: "200;400;600;800;1200",
-      format: "avif;webp;jpg",
-      as: "metadata",
-    },
-  },
-);
-
-export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob(
-  "/src/content/**/**/og.png",
-  {
-    eager: true,
-    import: "default",
-    as: "url",
-  },
-);

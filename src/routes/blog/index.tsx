@@ -1,15 +1,59 @@
-import type { StaticGenerateHandler } from "@builder.io/qwik-city";
+import type {
+  DocumentHead,
+  StaticGenerateHandler,
+} from "@builder.io/qwik-city";
 
 import { component$, Fragment } from "@builder.io/qwik";
-import { type DocumentHead } from "@builder.io/qwik-city";
+import { routeLoader$ } from "@builder.io/qwik-city";
 import { inlineTranslate } from "qwik-speak";
 
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
-import { useBlogPosts } from "~/content";
 import { config } from "~/speak.config";
 
+import client from "../../../tina/__generated__/client";
+
+export const useTinaBlogPosts = routeLoader$(async ({ locale, error }) => {
+  const userLocale = locale();
+  const response = await client.queries.postConnection({
+    filter: {
+      lang: { eq: userLocale },
+    },
+  });
+
+  const posts = (response.data.postConnection.edges || [])?.map((edge) => {
+    if (!edge) throw error(404, "Post not found");
+    const { node } = edge;
+    if (!node) throw error(404, "Post not found");
+    return node;
+  });
+
+  const parsedPosts = posts.map((post) => {
+    const slug = post._sys.filename.replace(`-${post.lang}`, "");
+    const permalink =
+      config.defaultLocale.lang === post.lang ?
+        `/blog/${slug}`
+      : `/${post.lang}/blog/${slug}`;
+    return {
+      id: post.id,
+      date: new Date(post.date),
+      title: post.title,
+      description: post.description,
+      slug,
+      tags: post.tags,
+      lang: post.lang,
+      permalink,
+      thumbnail: {
+        src: post.thumbnail,
+        alt: post.thumbnailAlt,
+      },
+    };
+  });
+
+  return parsedPosts;
+});
+
 export default component$(() => {
-  const posts = useBlogPosts();
+  const posts = useTinaBlogPosts();
   const t = inlineTranslate();
 
   return (
@@ -38,7 +82,7 @@ export default component$(() => {
 
       <ul class="full-width mt-20 space-y-10 rounded-2xl bg-zinc-50 pb-24">
         {posts.value.map((post) => (
-          <Fragment key={post.slug}>
+          <Fragment key={post.id}>
             <li>
               <BlogPostCard post={post} />
             </li>
@@ -115,5 +159,3 @@ export const onStaticGenerate: StaticGenerateHandler = () => {
     }),
   };
 };
-
-export { useBlogPosts } from "~/content";

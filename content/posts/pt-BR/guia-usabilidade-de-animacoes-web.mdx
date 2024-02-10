@@ -1,0 +1,120 @@
+---
+title: "Animações web: um guia para não enlouquecer seus usuários"
+description: >-
+  A linha entre 'hipnotizante' e 'enlouquecedor' é mais fina do que um pixel
+  quando o assunto são animações web. Então, como encantar seus usuários com
+  animações encantadoras e não fazê-los correr para o botão 'fechar aba'? Vamos
+  descobrir.
+date: 2024-01-17T00:00:00.000Z
+lang: "pt-BR"
+tags:
+  - UX
+  - animações
+  - desenvolvimento web
+  - performance
+thumbnail: /assets/thumbnails/guide-web-animations-usability.png
+thumbnailAlt: >-
+  Renderização de arte em pixel de um homem com uma expressão chocada, cabelo
+  bagunçado, vestido casualmente, circundado por uma espiral de janelas de site,
+  indicando uma sensação de vertigem. Vista frontal do retrato. O fundo mescla
+  elementos digitais abstratos, criando um efeito surreal. Azuis e verdes
+  profundos, bordas de pixel nítidas, ilusão de profundidade, padrões de janelas
+  caóticas.
+---
+
+Ah, animações na web - o equivalente digital do chapéu de um mágico. Quando feitas corretamente, elas podem surpreender sua audiência com coelhos saindo da cartola. Mas quando feitas de forma errada, é mais provável que você tire um monte de lenços amarrados juntos que continuam aparecendo até que seus usuários estejam implorando para que pare. Bem-vindo à caminhada na corda bamba do design web, onde um passo em falso pode transformar um site legal em um espelho de diversões digital.
+
+Agora, não me entenda mal. Uma animação elegante pode ser tão satisfatória quanto [zerar o Tetris](https://www.nytimes.com/2024/01/03/arts/tetris-beat-blue-scuti.html). Mas há uma linha tênue entre uma obra-prima visual e transformar seu site em um caleidoscópio digital que faz seus usuários alcançarem o Dramin. É que nem cozinhar; só porque você tem um rack de especiarias cheio de opções, não significa que sua comida deva ter gosto de tudo. Apenas porque você pode fazer algo, não significa que você deva.
+
+Então hoje, vamos explorar como fazer com que seu site pareça uma navegação suave em vez de uma viagem acidentada nos mares digitais.
+
+## A Seção Hero Travada: Um Conto Cautelar
+
+Então, este site passou por um período um pouco difícil. Logo na primeira versão, decidi que seria uma boa ideia ter uma animação da seção _hero_ que seria reproduzida no carregamento da página. Era uma animação escalonada simples, com alguns elementos deslizando, crescendo, movendo e... espera... por que é tão lenta? Por que é tão irregular? Por que é tão... _travada_?
+
+Uma animação _travada_ pode ser descrita como aquela que não consegue manter uma taxa de quadros suave e consistente, causando uma experiência visual intermitente ou interrompida. Esse problema muitas vezes surge de animações excessivamente complexas que exigem alta capacidade de processamento, especialmente em dispositivos com capacidades limitadas. Por exemplo, animações que envolvem imagens de alta resolução, elementos com um alto valor para `filter: blur()` aplicado, caminhos SVG intrincados ou simulações de física complexas podem retardar significativamente o tempo de carregamento de um site.
+
+![Arte digital em pixel mostrando um personagem de desenho animado em uma tartaruga fatigada como uma analogia a um site, com várias caixas pesadas em suas costas, em uma multidão agitada, ambiente digital vibrante](/assets/blog/slow-hero.png "Arte digital em pixel mostrando um personagem de desenho animado em uma tartaruga fatigada como uma analogia a um site, com várias caixas pesadas em suas costas, em uma multidão agitada, ambiente digital vibrante")
+
+E esse foi o meu caso. As animações estavam fazendo coisas demais, e estavam fazendo tudo de uma vez. O resultado foi uma animação lenta e irregular que tinha mais chances de afastar os usuários do que impressioná-los.
+
+Quando se trata de design web, a animação da seção _hero_ ocupa um lugar de destaque, sendo frequentemente o primeiro elemento que chama a atenção do usuário. É a primeira impressão, o gancho que atrai o usuário e o faz querer explorar o restante do site. Portanto, é crucial acertar.
+
+A consequência de uma animação da seção _hero_ de carregamento lento vai além do mero aborrecimento. Pode impactar negativamente a primeira impressão do usuário sobre um site, levando a taxas de rejeição mais altas\[^1]\(#ref1). Essa estatística destaca a importância de otimizar animações para velocidade e desempenho.
+
+- Otimize os tamanhos das imagens e use menor resolução sempre que possível sem comprometer a qualidade.
+- Evite animar propriedades CSS que acionam repinturas do navegador: `top`, `left`, `bottom`, `right`, `width`, `height`, `filter` são alguns exemplos. Em vez disso, use `transform` e `opacity` para animar elementos sempre que possível.
+- Otimize os tamanhos das imagens e use resolução mais baixa sempre que possível sem comprometer a qualidade.
+- Implemente estratégias de aprimoramento progressivo, fornecendo um nível básico de experiência do usuário que melhora à medida que as capacidades do dispositivo do usuário aumentam.
+- Teste animações em diferentes dispositivos e conexões para garantir uma experiência uniforme e suave.
+- Quando você se deparar com uma animação instável, não a ignore. Dedique tempo para entender o que está causando o problema e como resolvê-lo. Mexa um pouco com a guia de Desempenho do DevTools e você se surpreenderá com o quanto pode aprender.
+
+As preocupações com acessibilidade também entram em jogo com animações complexas. Usuários com certas condições neurológicas, como epilepsia, ou aqueles com maior sensibilidade ao movimento podem achar essas animações perturbadoras\[^2]\(#ref2). Além disso, nem todos os usuários têm dispositivos de alto desempenho ou conexões de internet rápidas, então animações pesadas podem tornar um site praticamente inutilizável para um segmento do público. O que nos leva ao próximo ponto.
+
+## Ouça Seus Usuários: Acessibilidade Não é Apenas um Modismo
+
+No mundo do design web, a acessibilidade é frequentemente anunciada, mas nem sempre implementada com o rigor que merece. Fico feliz em ver que isso está mudando, com mais e mais designers e desenvolvedores levando a acessibilidade em consideração ao criar sites. Infelizmente, não é incomum encontrar sites que não atendem aos padrões de acessibilidade mais básicos para animações.
+
+Gosto de pensar que sites que não respeitam os padrões de acessibilidade são como um tapete vermelho exuberante e lindo, mas que é incrivelmente escorregadio. Parece ótimo, inicialmente você fica muito impressionado, mas aí você vai tentar caminhar nele, e cai de cara no chão. Não é uma experiência que você gostaria de repetir.
+
+As animações web podem ser mais do que apenas um incômodo para usuários com certas deficiências. Por exemplo, indivíduos com distúrbios vestibulares, que afetam o ouvido interno e o cérebro, podem sentir tontura, náusea e desorientação devido ao movimento na tela. Da mesma forma, as animações podem ser um gatilho para pessoas com epilepsia fotossensível. Portanto, respeitar a preferência do usuário para reduzir o movimento, conforme definido em suas configurações de acessibilidade, é fundamental.
+
+Mas a acessibilidade não se trata apenas de evitar desconforto ou problemas de saúde. Trata-se de inclusão. Garantir que as animações sejam acessíveis significa criar um ambiente web onde **_todos_**, independentemente de suas condições físicas ou neurológicas, possam navegar confortavelmente.
+
+## Sem _scroll hijacking_ e Coisas do Tipo
+
+O _scroll hijacking_ (sequestro de rolagem) é o ato de alterar o comportamento padrão de rolagem do navegador, geralmente para criar animações ou interações baseadas em rolagem. Por exemplo, um site pode usar o _scroll hijacking_ para fazer com que a rolagem para baixo altere a posição de um elemento na tela, em vez de mover o conteúdo para cima. Ou pode ser usado para criar uma experiência de rolagem horizontal em um site que normalmente seria vertical.
+
+Esse tipo de navegação pode ser particularmente perturbadora porque interrompe uma das interações mais fundamentais com um site: a rolagem. Os usuários esperam um certo nível de controle e previsibilidade ao rolar, e tirar isso pode levar à frustração. Imagine pegar um livro em que virar a página às vezes faz você voltar três páginas ou pular um capítulo inteiro. Esse é o tipo de confusão que o _scroll hijacking_ pode causar.
+
+Além disso, alterar o comportamento padrão de rolagem pode ter implicações de usabilidade, especialmente para usuários que dependem de tecnologias assistivas. Essas tecnologias muitas vezes dependem de um comportamento de rolagem previsível para navegar e interagir com o conteúdo. Alterar isso pode tornar um site menos acessível, contrariando os princípios do design inclusivo.
+
+![Uma ilustração de arte pixelada de um homem, parecendo tonto com espirais nos olhos, cercado por janelas de site flutuantes em um arranjo caótico e confuso. Fundo de um ciberespaço digital, tons vibrantes de azul e verde, luz emanando das janelas criando sombras dinâmicas](/assets/blog/dizzy-man.png "Uma ilustração de arte pixelada de um homem, parecendo tonto com espirais nos olhos, cercado por janelas de site flutuantes em um arranjo caótico e confuso. Fundo de um ciberespaço digital, tons vibrantes de azul e verde, luz emanando das janelas criando sombras dinâmicas")
+
+A chave é usar animações e interações baseadas em rolagem com parcimônia e de maneiras que aprimorem, em vez de prejudicar, a experiência do usuário. Considere estas diretrizes:
+
+- **Respeite o Controle do Usuário**: Garanta que quaisquer animações ou interações baseadas em rolagem não tirem o controle do usuário. Permita que eles naveguem livre e previsivelmente.
+- **Teste Extensivamente**: Teste a rolagem do seu site em vários dispositivos e navegadores para garantir uma experiência consistente e suave.
+- **Forneça Alternativas**: Se você incorporar recursos de rolagem exclusivos, ofereça aos usuários uma maneira de optar por uma experiência de rolagem mais tradicional.
+
+Ao focar em rolagem suave e previsível, podemos criar uma experiência mais agradável e acessível para todos os usuários, garantindo que a narrativa do site aprimore, em vez de prejudicar, a usabilidade geral.
+
+## Animando com um Duplo Propósito: Não se Trata Apenas de Ser Bonito
+
+No mundo da web, as animações deveriam ser mais do que apenas enfeites digitais. Elas precisam servir a um duplo propósito: não apenas para aprimorar o apelo estético de um site, mas também para melhorar sua funcionalidade e experiência do usuário.
+
+As animações podem ser incrivelmente eficazes quando usadas como elementos funcionais em vez de meramente decorativos. Uma animação bem pensada pode guiar os usuários por um site, chamar a atenção para informações importantes e até tornar tarefas complexas mais gerenciáveis. Pense nisso como uma narrativa visual, onde cada animação desempenha um papel em desdobrar a narrativa do seu site.
+
+Sinto que as animações web têm mais em comum com jogos do que com animações lineares tradicionais em filmes ou programas de TV. Ao contrário de mídias tradicionais, o usuário está no controle da experiência, eles podem escolher para onde querem ir e onde não querem, e seu site deve responder a isso.
+
+As animações na web não são cronogramas, não são filmes, não são desenhos animados. Elas são interativas, são responsivas, são funcionais. Isso é especialmente verdade para animações que fazem parte da navegação ou elementos interativos do site. Por exemplo, um botão que muda de cor quando o usuário passa o mouse sobre ele ou um menu que desliza quando o usuário clica nele.
+
+Quando se trata de animações web, é essencial considerar a experiência do usuário e como a animação pode _aprimorá-la_.
+
+Aqui estão alguns aspectos-chave a serem considerados:
+
+- **Interativo**: As animações devem responder às ações do usuário, fornecendo feedback ou guiando-os pelo site.
+- **Interrompível**: Os usuários devem poder pausar, parar ou pular as animações, garantindo que tenham controle sobre sua experiência.
+- **Transições com Propósito**: Use animações para transitar suavemente entre diferentes estados ou páginas, proporcionando uma experiência de usuário coesa.
+- **Performantes**: Garanta que as animações sejam otimizadas para desempenho, evitando atrasos ou instabilidade.
+
+Se você quiser saber mais sobre o que torna ótimas animações web, especialmente as interativas, confira este [artigo de Rauno Freiberg](https://rauno.me/craft/interaction-design) que detalha mais sobre o assunto.
+
+## Conclusão: Encontrando Harmonia em Animações Web
+
+![Uma representação de arte pixelada de um guru de animações web, meditando no ar, manipulando facilmente código e gráficos ao seu redor, em um pacífico templo antigo de monges. Estátuas de pedra, entalhes intricados e uma suave cachoeira ao fundo. Tons quentes de pôr do sol, sombras intrincadas.](/assets/blog/web-monk.png "Uma representação de arte pixelada de um guru de animações web, meditando no ar, manipulando facilmente código e gráficos ao seu redor, em um pacífico templo antigo de monges. Estátuas de pedra, entalhes intricados e uma suave cachoeira ao fundo. Tons quentes de pôr do sol, sombras intrincadas.")
+
+Ao concluirmos este guia, fica claro que o mundo das animações web é um ato de equilíbrio. De um lado, há o fascínio de criar designs visualmente deslumbrantes e inovadores. Por outro lado, há a inegável importância da usabilidade, acessibilidade e funcionalidade. A chave para o sucesso está em encontrar harmonia entre esses elementos, garantindo que as animações aprimorem, em vez de prejudicar, a experiência do usuário.
+
+Em resumo, lembre-se destes pontos-chave:
+
+- **Simplicidade é _Rei_**: Evite sobrecarregar seu site com animações complexas que podem diminuir o desempenho e sobrecarregar os usuários.
+- **Respeite a Acessibilidade**: Sempre leve em consideração os usuários com diferentes necessidades e preferências, aderindo aos padrões de acessibilidade.
+- **Controle do Usuário**: Forneça aos usuários a opção de controlar sua experiência, incluindo a capacidade de pausar ou pular as animações.
+- **Design com Propósito**: Garanta que cada animação sirva a um propósito funcional, auxiliando na navegação ou entrega de informações.
+- **Teste, Teste, Teste**: Teste continuamente suas animações em diferentes dispositivos e navegadores para garantir uma experiência suave e consistente para todos os usuários.
+
+Ao aderir a esses princípios, você pode criar animações web que sejam tanto esteticamente agradáveis quanto amigáveis ao usuário. Trata-se de criar uma experiência que seja encantadora, não tonteadora; envolvente, não exasperante. Portanto, siga em frente e anime, mas sempre tendo em mente a sanidade do seu usuário.
+
+\[^1]\(#ref1): Páginas web lentas e perda de receita devido à insatisfação do usuário têm uma forte correlação, enfatizando a importância da otimização no tempo de carregamento da página (PLT) e na ordem de download de recursos. Diferentes abordagens para a priorização do HTTP/2 pelos navegadores afetam significativamente o desempenho do carregamento da página, impactando a satisfação do usuário [(Wijnants et al., 2018)](https://dl.acm.org/doi/10.1145/3178876.3186181).
+\[^2]\(#ref2): Elementos animados em interfaces de usuário, especialmente em anúncios, podem impactar negativamente os usuários, com alguns grupos, como usuários autistas, sendo mais afetados. Essas animações podem influenciar atividades de busca e aumentar a demanda mental, levando a maior distração ou irritação [(Uitdenbogerd et al., 2022)](https://www.scitepress.org/Link.aspx?doi=10.5220/0011074500003176).

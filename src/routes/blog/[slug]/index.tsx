@@ -5,32 +5,33 @@ import type {
 
 import { component$ } from "@builder.io/qwik";
 import { routeLoader$, useLocation } from "@builder.io/qwik-city";
-import { isDev } from "@builder.io/qwik/build";
+import { Image } from "@unpic/qwik";
 import { inlineTranslate, useFormatDate } from "qwik-speak";
 
 import Alert from "~/components/alert/alert";
 import Tag from "~/components/tag/tag";
 import { MarkdownComponent } from "~/lib/tina/mdx";
 import { config } from "~/speak.config";
+import { getThumbnailSource } from "~/utils/functions";
 
 import client from "../../../../tina/__generated__/client";
-
-export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/index.tsx", {
-  eager: !isDev,
-  import: "default",
-});
 
 const BLOG_COMPONENT_MAP = {
   Alert,
 };
 
-export const useTinaBlogPost = routeLoader$(async ({ locale, params }) => {
-  const data = await client.queries.post({
-    relativePath: `${params.slug}-${locale()}.mdx`,
-  });
+export const useTinaBlogPost = routeLoader$(
+  async ({ locale, params, error }) => {
+    const data = await client.queries.post({
+      relativePath: `${locale()}/${params.slug}.mdx`,
+    });
 
-  return data;
-});
+    if (data.errors) throw error(500, "Error loading post");
+    if (!data.data.post) throw error(404, "Post not found");
+
+    return data;
+  },
+);
 
 export default component$(() => {
   const post = useTinaBlogPost();
@@ -72,8 +73,12 @@ export default component$(() => {
           </time>
 
           <div class="aspect-w-16 aspect-h-9 my-8 overflow-clip rounded-lg shadow-xl">
-            <img
-              src={post.value.data.post.thumbnail}
+            <Image
+              class="h-full w-full object-cover"
+              layout="constrained"
+              width={1_264}
+              height={660}
+              src={getThumbnailSource(post.value.data.post.thumbnail)}
               alt={post.value.data.post.thumbnailAlt}
               decoding="sync"
               loading="eager"
@@ -227,5 +232,3 @@ export const onStaticGenerate: StaticGenerateHandler = async () => {
     params,
   };
 };
-
-export { useBlogPost } from "~/content";

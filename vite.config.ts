@@ -7,10 +7,9 @@ import { qwikSpeakInline } from "qwik-speak/inline";
 import rehypePrettyCode from "rehype-pretty-code";
 import { getHighlighter } from "shikiji";
 import { defineConfig } from "vite";
+import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { z } from "zod";
 
-import mdxCollections from "./plugins/collections";
 import { rewriteRoutes } from "./src/speak.routes";
 
 let highlighter: Highlighter;
@@ -23,23 +22,10 @@ async function getOrCreateHighlighter() {
 export default defineConfig(() => {
   return {
     plugins: [
-      mdxCollections({
-        collections: [
-          {
-            name: "content",
-            glob: "./src/content/**/**/post.mdx",
-            schema: z.object({
-              date: z.coerce.date(),
-              draft: z.boolean().default(false),
-              tags: z.array(z.string()).default([]),
-              title: z.string(),
-              description: z.string(),
-              thumbnailAlt: z.string(),
-              permalink: z.string(),
-              lang: z.string(),
-            }),
-          },
-        ],
+      ViteImageOptimizer({
+        png: { quality: 90 },
+        jpeg: { quality: 90 },
+        jpg: { quality: 90 },
       }),
       qwikCity({
         rewriteRoutes,

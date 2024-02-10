@@ -1,6 +1,8 @@
 import { Component, component$ } from "@builder.io/qwik";
+import { Image } from "@unpic/qwik";
 
 import Code from "~/components/code/code";
+import { getThumbnailSource } from "~/utils/functions";
 
 // Define TypeScript types for the nodes based on the AST structure
 type MarkdownNode = {
@@ -15,6 +17,10 @@ type MarkdownNode = {
   alt?: string;
   caption?: string;
   props?: Record<string, any>;
+  code?: boolean;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
 };
 
 // Define a generic Markdown component that decides how to render each node
@@ -50,6 +56,11 @@ export const MarkdownComponent = component$<{
         </p>
       );
     case "text":
+      if (node.code) return <code>{node.text}</code>;
+      if (node.bold) return <b>{node.text}</b>;
+      if (node.italic) return <i>{node.text}</i>;
+      if (node.underline) return <u>{node.text}</u>;
+
       return <>{node.text}</>;
     case "a":
       return (
@@ -71,7 +82,20 @@ export const MarkdownComponent = component$<{
     case "code_block":
       return <Code content={node.value || ""} lang={node.lang} />;
     case "img":
-      return <img src={node.url} alt={node.alt} title={node.caption} />;
+      return (
+        <Image
+          title={node.caption}
+          class="h-full w-full object-cover"
+          layout="constrained"
+          width={1_264}
+          height={660}
+          src={getThumbnailSource(node.url || "")}
+          alt={node.alt}
+          decoding="sync"
+          loading="eager"
+        />
+      );
+
     case "blockquote":
       return (
         <blockquote>
@@ -119,6 +143,18 @@ export const MarkdownComponent = component$<{
             />
           ))}
         </li>
+      );
+    case "lic":
+      return (
+        <>
+          {node.children?.map((child, index) => (
+            <MarkdownComponent
+              key={index}
+              node={child}
+              components={components}
+            />
+          ))}
+        </>
       );
     case "hr":
       return <hr />;

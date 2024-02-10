@@ -95,7 +95,7 @@ export default defineConfig({
             type: "string",
             name: "lang",
             label: "Language",
-            options: ["en", "pt-br"],
+            options: ["en", "pt-BR"],
             required: true,
           },
           {

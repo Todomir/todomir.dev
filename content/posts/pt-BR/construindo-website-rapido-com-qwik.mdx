@@ -1,0 +1,323 @@
+---
+title: "Construindo um Site Ultrarrápido com Qwik: A Jornada de um Desenvolvedor"
+description: Descubra como alavanquei o framework Qwik para construir um site de alto desempenho e amigável ao usuário. Saiba mais sobre as características únicas do Qwik, meu processo de desenvolvimento e as técnicas inovadoras usadas para o desenvolvimento web ideal.
+date: 2023-12-12T03:00:00.000Z
+lang: "pt-BR"
+thumbnail: /assets/thumbnails/building-fast-website-with-qwik.png
+thumbnailAlt: Um astronauta voando rapidamente pelo espaço, com uma intensa fonte de luz pixelizada ao fundo
+tags:
+  - qwik
+  - desenvolvimento web
+  - desempenho
+---
+
+Então, eu gosto de construir sites. Gosto muito de construir sites (mesmo que nem sempre tenha sido o caso). E algo que procuro muito ao escolher frameworks e ferramentas é o quão fácil eles tornam o caminho feliz para construir ótimas experiências possível. A experiência do usuário e a acessibilidade estão se tornando cada vez mais importantes &mdash; tanto do ponto de vista dos negócios quanto do ponto de vista ético, à medida que trabalhamos para integrar mais pessoas que não podiam usar a web antes &mdash; e acho que isso é ótimo. Eu quero construir sites que sejam rápidos, acessíveis e inclusivos, e quero que minhas ferramentas tornem isso muito fácil de acontecer.
+
+Aprendi React há alguns anos e tenho usado ele desde então. A arquitetura baseada em componentes que ele popularizou, o ecossistema amplo e ativo que ele formou e a ótima comunidade de desenvolvedores que ele criou ao longo dos anos são pontos que eu amo no React. Também acho que os eventos sintéticos são meio chatos, a falta de bom suporte para uso de componentes da web é surpreendente, considerando o quanto tempo já é suportado na plataforma, e ter que envolver literalmente tudo em uma camada React porque lidar com o DOM fora do React é o oitavo pecado capital é bem cansativo (nem me lembre do `forwardRef`). Embora as coisas estejam melhorando, acredito que agora temos opções melhores.
+
+Com isso em mente, a gente vai mergulhar pelo processo de construção deste site, bem como como (e por que) usei [Qwik](https://qwik.builder.io) para fazê-lo.
+
+<Alert severity="warning" title="ATENÇÃO">
+  Este não é um tutorial abrangente sobre como começar com o Qwik. Se você
+  quiser aprender mais sobre o Qwik, recomendo que leia a [documentação
+  oficial](https://qwik.builder.io/docs/getting-started). Vou apenas abordar as
+  partes que usei para construir meu site, os problemas que enfrentei e como os
+  resolvi.
+</Alert>
+
+## O que é o Qwik?
+
+Qwik é um framework leve e absurdamente eficiente para criar aplicações web. Ele possui uma arquitetura baseada em componentes, o que significa que você pode construir seu site compondo componentes juntos. Ele também usa JSX, então devs React já estarão bem familiarizados com ele.
+
+O Qwik funciona serializando o estado do servidor diretamente em HTML. A ideia é baixar, analisar e executar o mínimo possível de JavaScript no cliente, então inicialmente, **nenhum JavaScript** é baixado e executado até que o usuário interaja com a página. Isso significa que a carga inicial da página é super rápida e a página é interativa assim que o usuário a vê.
+
+Esse processo é chamado de [resumabilidade](https://qwik.builder.io/docs/concepts/resumable/).
+
+> O Qwik é rápido não porque usa algoritmos inteligentes, mas porque é projetado de forma que a maior parte do JavaScript nunca precisa ser baixada ou executada.
+
+O Qwik também possui sua própria metaestrutura chamada [Qwik City](https://qwik.builder.io/docs/qwikcity/#qwik-city), que é um framework de renderização do lado do servidor que permite construir seu site usando componentes Qwik. É um pouco como o Next.js, mas é muito mais leve e eficiente.
+
+### Por que o Qwik?
+
+Como eu disse, tenho usado o React por um tempo e geralmente ele me permite progredir mais rápido ao lançar coisas. No entanto, o React não é sem suas falhas.
+
+O React, e alguns outros frameworks do lado do cliente, não foram construídos para serem executados em servidores. Aplicações renderizadas apenas no lado do cliente não são realmente amigáveis para SEO, mas gostamos muito do React, então fazemos "gambiarras" no servidor pré-renderizando o HTML e enviando o _bundle_ de página otimizada para que os componentes interativos possam ser hidratados.
+
+O problema é... Hidratação é meio que um hack, e não é um muito bom. Ter que baixar e analisar o HTML inicial e, em seguida, baixar e analisar o _bundle_ JavaScript que essencialmente constrói o HTML que já temos "novamente" não é muito eficiente. É essencialmente repetir toda a aplicação no cliente.
+
+Os benefícios do uso do framework Qwik resolvem esse problema, aproveitando o modelo de resumabilidade para colocar o estado e ouvintes de eventos relevantes do servidor no marcado HTML, convertendo-o efetivamente no estado da aplicação, e então retomando preguiçosamente o trabalho do servidor quando as interações ocorrem. Isso significa que a carga inicial da página é super rápida e a página é interativa assim que o usuário a vê. Hidratação não é necessária no Qwik, porque o HTML já possui tudo o que precisa para tornar a página interativa.
+
+> A hidratação de todos os outros frameworks reproduz toda a lógica da aplicação no cliente. O Qwik, em vez disso, pausa a execução no servidor e a retoma no cliente.
+
+Não vou me aprofundar muito nos detalhes de como o Qwik funciona, mas se você quiser saber mais, recomendo que leia a [documentação oficial](https://qwik.builder.io/docs/concepts/think-qwik/) explicando os conceitos por trás do Qwik e os princípios por trás dele.
+
+## Mudando para o Qwik City
+
+Na verdade, não me lembro onde conheci o Qwik pela primeira vez, mas lembro que estava bem no início de seu desenvolvimento. Fiquei realmente intrigado com a ideia de um framework que foi construído desde o início para ser rápido, e também fiquei muito interessado na ideia de usar JSX fora do React. Mas também estava um pouco cético, porque nunca tinha ouvido falar dele antes, e não sabia se seria adequado para mim. Decidi dar uma chance e reconstruir meu site pessoal com ele, mas ainda tinha muitas arestas ásperas, então decidi esperar um pouco mais e escolhi o [Astro](https://astro.build) em vez disso (Astro também era bem novo na época).
+
+O Astro tinha muitas das coisas que eu estava procurando: era rápido, tudo era estático, zero JS por padrão, podia usar praticamente qualquer framework que quisesse e tinha uma DX muito boa. Eu estava muito feliz com isso, e só continuou melhorando mais e mais rápido. Eu também estava muito feliz com o site que construí com ele e estava muito orgulhoso dele.
+
+### Por que saí do Astro?
+
+Honestamente, eu estava muito feliz com o Astro. Meu site funcionava bem, era totalmente estático, então o desempenho não era realmente um problema. Eu gostava que o Astro me permitisse usar qualquer framework que quisesse sem JavaScript por padrão, e eu queria isso para outros projetos que estava construindo. Mas o Astro, sendo um framework focado em conteúdo, não se destacava muito na criação de aplicativos. Lidar com o estado era um pouco complicado e eu tinha que usar muitos truques para fazê-lo funcionar.
+
+Além disso, às vezes o framework que eu estava usando e os componentes Astro não se davam bem, especialmente ao usar slots. Isso era esperado, diferentes frameworks têm maneiras diferentes de fazer as coisas, e o Astro estava tentando fazê-los funcionar juntos, mas ainda era um pouco irritante.
+
+Eu me deparei com o Qwik e o Qwik City novamente em um [vídeo de Jason Lengstorf](https://youtu.be/uJvvgV-hoTU) anunciando o lançamento estável, e fiquei realmente impressionado com o quanto havia melhorado desde a última vez que o havia verificado. Li mais a documentação e fiquei muito animado com a ideia de usá-lo. Instantaneamente, voltei no tempo para quando estava tentando fazer um sistema de exibição de cozinha existente para restaurantes com atualizações em tempo real e muitas interações para arrastar, soltar, posicionar e redimensionar elementos. Lembro-me de como foi doloroso fazê-lo funcionar com o React e o quanto tive que criar vários hacks para deixar o app mais rápido, especialmente porque ele tinha que rodar em um Raspberry Pi. O Qwik nem existia naquela época, mas ter os superpoderes de carregar efetivamente tudo usando _lazy loading_ e apenas baixar e executar o código que precisa ser executado era exatamente o que eu precisava naquela época.
+
+Percebi então que os pessoal da Builder.io tornaram as partes chatas e tediosas de construir sites e aplicativos muito mais fáceis.
+
+Então, por que diabos não, vamos reconstruir meu site com ele. Ele tem integrações para otimização de imagens, internacionalização, implantação na borda com Netlify ou Vercel, execução usando Deno ou Bun e muito mais. Também tem uma DX muito boa. Sim, estou dentro!
+
+### Obstáculos
+
+Portanto, a maior parte do meu site é apenas coisas estáticas com alguns componentes interativos e animações espalhados aqui e ali. O Qwik também tinha suporte MDX, então era mais fácil migrar minhas postagens de blog para outro lugar, se eu quisesse.
+
+Então, criei o projeto, comecei a construir coisas e estava indo bem.
+
+Em seguida, decidi ir para o nível global e adicionar internacionalização ao meu site. O site Astro tinha isso, e até mesmo o site anterior do Next.js tinha isso, então parecia errado não ter isso aqui também.
+
+O Astro me estragou. As _Content Collections_ eram muito fáceis de usar e eu poderia facilmente filtrar por localidade se quisesse. Com as _Content Collections_, eu também poderia ter slugs diferentes para localidades diferentes.
+
+Estou usando [@angular/localize](https://angular.io/api/localize) no Qwik City, e ele faz um bom trabalho com tradução compilada (porque esse é o seu propósito). A integração adicionou uma rota `[locale]` que me deu acesso à localidade atual e eu poderia usá-la para filtrar o conteúdo. Mas eu não poderia ter slugs diferentes para localidades diferentes, já que eu queria criar conteúdo em MDX, mas tê-lo dentro de `routes` significaria que se eu tiver uma rota `/en/blog/english-blog-post` e uma rota `/pt-BR/blog/blog-post-portugues`, os caminhos `/en/blog/blog-post-portugues` e `/pt-BR/blog/english-blog-post` seriam válidos, e eu não queria isso.
+
+### Reinventando (uma versão bem merda das) _Content Collections_
+
+Então, decidi criar minha própria versão de _Content Collections_. Criei um diretório `content` e dentro separei o conteúdo por localidade. Também criei um arquivo `content/index.ts` que contém utilitários para analisar o frontmatter usando [valibot](https://valibot.dev/) e obter a lista de postagens e a própria postagem para um determinado slug e localidade.
+
+Então, pesquisei e encontrei [uma issue relacionada no Github](https://github.com/BuilderIO/qwik/issues/2643#issuecomment-1777395867) que tinha uma solução muito boa para isso. Decidi usá-la como base e criar minha própria versão. Usando `import.meta.glob`, pude gerar um dicionário com os slugs das postagens como chaves e as funções que carregam o arquivo MDX importado como valores, e com isso eu poderia construir o caminho com a localidade e o slug adequados e obter a postagem que eu queria sem ter que carregar todas de uma vez. Também pedi ajuda no [servidor Discord do Builder.io](https://discord.gg/5Wb4UjX) e recebi ajuda das pessoas lá (thanks for the help, [Wout](https://github.com/wmertens)!)
+
+```ts
+// As postagens são armazenadas no diretório `content`, podemos usar `import.meta.glob` para carregar preguiçosamente todos os arquivos MDX, essencialmente criando um dicionário com os slugs das postagens como chaves e as funções que carregam a postagem MDX importada como valores.
+const BLOG_POST_LIST = import.meta.glob("/src/content/**/*.mdx");
+
+// Usando server$ para garantir que este código seja executado apenas no servidor
+export const getPostBySlug = server$(async (slug: string, locale: string) => {
+  const path = `/src/content/${locale}/${slug}.mdx`;
+  const importPost = BLOG_POST_LIST[path];
+
+  // Isso deve ter tudo o que precisamos para renderizar a postagem, já que o Vite já o terá compilado para nós quando o importarmos.
+  const resource = await importPost();
+
+  // Enviar apenas os dados relevantes para o cliente
+  const post = {
+    slug,
+    frontmatter: result.output,
+    headings: resource.headings,
+    head: resource.head,
+    // Conteúdo MDX analisado
+    content: resource.default().props.children.type(),
+  };
+
+  return post;
+});
+```
+
+Listar postagens é ainda mais fácil, já que podemos filtrar as chaves do dicionário pelos slugs que incluem nossa localidade e, em seguida, mapeá-las para obter a própria postagem.
+
+```ts
+export const getPostsByLocale = server$(async (locale: string) => {
+  const paths = Object.keys(BLOG_POST_LIST).filter((path) =>
+    path.includes(`/${locale}/`),
+  );
+
+  const postsByLocale = await Promise.all(
+    paths.map(async (path) => {
+      // Como antes, podemos simplesmente importar a postagem e obter o frontmatter
+      const resource = await BLOG_POST_LIST[path]();
+      const frontmatter = parse(FRONTMATTER_SCHEMA, resource.frontmatter);
+      // Podemos obter o slug do caminho, já que o nome do arquivo e o slug são os mesmos
+      const slug = path.split("/").pop()?.replace(".mdx", "") || "";
+
+      // Enviar apenas os dados relevantes para o cliente
+      const post = {
+        slug,
+        frontmatter: result.output,
+      };
+
+      return post;
+    }),
+  );
+
+  return postsByLocale;
+});
+```
+
+Em seguida, podemos analisar o frontmatter e validar que ele possui a forma correta usando valibot
+
+```ts
+const FRONTMATTER_SCHEMA = object({
+  title: string(),
+  description: string(),
+  createdAt: string(),
+  updatedAt: string(),
+  thumbnail: object({
+    src: string(),
+    alt: string(),
+    width: optional(number()),
+    height: optional(number()),
+  }),
+  draft: boolean(),
+  tags: array(string()),
+});
+```
+
+```ts
+import { parse } from "valibot";
+
+const post = await importPost();
+const frontmatter = parse(FRONTMATTER_SCHEMA, post.frontmatter);
+```
+
+E então podemos carregá-lo usando routerLoader$ e enviar para a sua página para renderizar a postagem.
+
+```tsx
+export const usePost = routeLoader$(async ({ params, error }) => {
+  // Podemos usar os auxiliares criados pelo @angular/localize para obter a localidade atual
+  const guessedLocale = extractLang(params.locale);
+
+  try {
+    const post = await getPostBySlug(params.slug, guessedLocale);
+    return post;
+  } catch (e) {
+    throw error(404, "Post not found");
+  }
+});
+
+export default component$(() => {
+  const post = usePost();
+
+  return (
+    <article>
+      <header>
+        <h1>{post.value.frontmatter.title}</h1>
+        <p>{post.value.frontmatter.description}</p>
+      </header>
+      {post.value.default}
+    </article>
+  );
+});
+```
+
+Problema resolvido, certo? Bem, não exatamente.
+
+O otimizador do Qwik foi projetado para carregar preguiçosamente tudo de forma eficiente, então ele carrega apenas o código que é necessário, quando é necessário. O problema surge quando você tenta criar builds de pré-visualização ou produção. Quando eager é definido como true, tudo é compilado corretamente, mas seu servidor de desenvolvimento carregará todas as postagens de uma vez, o que não é ideal. Quando eager é definido como false, o servidor de desenvolvimento carregará apenas as postagens necessárias, conforme o esperado, mas a compilação falhará porque o Vite gerará chunks que o Qwik não sabe como lidar, então ele lançará um erro.
+
+A solução é usar eager como false para desenvolvimento e true para pré-visualizações e builds de produção. Dessa forma, o servidor de desenvolvimento carregará arquivos conforme necessário e, na compilação, o Qwik poderá carregar preguiçosamente os bundles gerados com entusiasmo.
+
+Tudo o que precisamos fazer é editar o arquivo content.ts com essas alterações
+
+```diff
++ import { isDev } from "@builder.io/qwik/build";
+- const BLOG_POST_LIST = import.meta.glob("/src/content/**/*.mdx");
++ const BLOG_POST_LIST = import.meta.glob("/src/content/**/*.mdx", { eager: !isDev });
+```
+
+Isso garantirá que as postagens não sejam carregadas com entusiasmo quando isDev for verdadeiro. Em seguida, atualizamos nossas funções para também manipular as postagens de forma diferente em desenvolvimento ou produção.
+
+```diff
+- const resource = await BLOG_POST_LIST[path]();
++ const getPost = isDev ? BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
++ const resource = await getPost
+```
+
+Quando carregamos com `eager`, o arquivo é a própria postagem, e quando fazemos o _lazy loading_, o arquivo é uma promise que se resolve para a própria postagem. Isso garantirá que as postagens sejam carregadas corretamente, independentemente do ambiente.
+
+### Imagens e Imagens OG
+
+Atualmente, é assim que tá a estrutura de diretórios do `content`:
+
+```
+content
+├── en
+│   ├── slug-en
+│   │   ├── post.mdx
+│   │   └── og.png
+│   │   └── thumbnail.png
+├── pt-BR
+│   ├── slug-pt-BR
+│   │   ├── post.mdx
+│   │   └── og.png
+│   │   └── thumbnail.png
+```
+
+Eu tenho um diretório `content`, e dentro dela tenho um diretório para cada localidade. Dentro de cada diretório de localidade, tenho um diretório nomeado com o nome do slug do post, e dentro de cada diretório de postagem tenho a própria postagem, bem como as imagens que quero usar para a postagem e a imagem OG.
+
+O que faço é carregar com entusiasmo as imagens `og.png` e `thumbnail.png`, usar transformadores para otimizá-las e depois usá-las na página. Dessa forma, posso ter imagens diferentes para cada localidade e também posso usar a mesma imagem tanto para a imagem OG quanto para a miniatura.
+
+Então, no arquivo `content/index.ts`, adicionei o seguinte:
+
+```ts
+export const BLOG_POST_OG_IMAGE_LIST = import.meta.glob(
+  "/src/content/**/*.og.png",
+  {
+    eager: true,
+    import: "default",
+    query: { w: "200;400;600;800;1200", format: "avif;webp;jpg", as: "url" },
+  },
+);
+export const BLOG_POST_THUMBNAIL_LIST = import.meta.glob(
+  "/src/content/**/*.thumbnail.png",
+  {
+    eager: true,
+    import: "default",
+    as: "url",
+  },
+);
+```
+
+O princípio aqui é semelhante ao usado para as postagens. Usamos `import.meta.glob` para gerar um dicionário com os caminhos das imagens como chaves e as próprias imagens como valores. Também usamos `eager: true` para garantir que as imagens sejam carregadas com entusiasmo, e usamos `import: "default"` para garantir que obtenhamos a exportação padrão da imagem, que é o URL da imagem otimizada.
+
+Em nossa página, podemos então usar as imagens assim:
+
+```tsx
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+
+import { BLOG_POST_THUMBNAIL_LIST, usePost } from "~/content";
+
+export { usePost };
+
+export default component$(() => {
+  const post = usePost();
+  const { locale, slug } = post.value;
+
+  const thumbnailSig = useSignal("");
+
+  useTask$(async () => {
+    // Queremos obter o URL da imagem otimizada, os tamanhos e formatos são especificados na consulta
+    const sizes = [200, 400, 600, 800, 1200];
+    const path = `/src/content/${locale}/${slug}/thumbnail.png`;
+    const thumbnail = BLOG_POST_THUMBNAIL_LIST[path] as string[];
+
+    // thumbnail é um array plano de strings, cada string é um URL para um tamanho diferente da imagem. As imagens estão ordenadas em grupos de 3, então podemos usar o array de tamanhos para obter o URL correto para cada tamanho.
+    const srcset = sizes
+      .map((size, i) => `${thumbnail[i * 3]} ${size}w`)
+      .join(", ");
+    thumbnailSig.value = srcset;
+  });
+
+  return (
+    <article>
+      <header>
+        <h1>{post.value.frontmatter.title}</h1>
+        <p>{post.value.frontmatter.description}</p>
+
+        <img
+          src={thumbnailSig.value}
+          alt={post.value.frontmatter.thumbnail.alt}
+          srcset={thumbnailSig.value}
+        />
+      </header>
+      {post.value.default}
+    </article>
+  );
+});
+```
+
+## Conclusão
+
+O Qwik e o Qwik City são uma alegria de usar, e definitivamente os usarei em projetos futuros. Estou realmente animado para ver como ele evolui, e estou realmente animado para ver o que outras pessoas construirão com ele.
+
+E sim, estou ciente de que poderia ter usado a nova integração do Astro para usar o Qwik e ainda ter acesso às _Content Collections_, e provavelmente teria sido mais fácil. Mas eu queria tentar fazer isso por conta própria, tanto para brincar com o Qwik City, quanto para me desafiar um pouco.
+
+Estou bastante satisfeito com o resultado, e acho que é uma solução bastante boa por enquanto. Tenho certeza de que existem maneiras melhores de fazer isso, e tenho certeza de que as encontrarei eventualmente, mas por enquanto, isso funciona.
