@@ -21,7 +21,7 @@ export default defineConfig({
   },
   media: {
     tina: {
-      mediaRoot: "",
+      mediaRoot: "assets",
       publicFolder: "public",
     },
   },
@@ -39,6 +39,12 @@ export default defineConfig({
             name: "title",
             label: "Title",
             isTitle: true,
+            required: true,
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
             required: true,
           },
           {
@@ -93,9 +99,22 @@ export default defineConfig({
             required: true,
           },
           {
+            type: "string",
+            name: "tags",
+            label: "Tags",
+            list: true,
+            required: true,
+          },
+          {
             type: "image",
             name: "thumbnail",
             label: "Thumbnail",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "thumbnailAlt",
+            label: "Thumbnail Alt",
             required: true,
           },
         ],

@@ -28,6 +28,7 @@
     "motion": "^10.17.0",
     "og-img": "^0.2.0",
     "rehype-pretty-code": "^0.13.0",
+    "shiki": "^1.1.1",
     "shikiji": "^0.10.2",
     "split-type": "^0.3.4",
     "tinacms": "^1.5.28",

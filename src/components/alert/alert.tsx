@@ -1,7 +1,10 @@
+import type { Component } from "@builder.io/qwik";
+
 import { component$, Slot } from "@builder.io/qwik";
 
 type Props = {
   severity: "info" | "warning" | "error" | "success";
+  title?: string;
 };
 
 const classes = {
@@ -11,7 +14,16 @@ const classes = {
   success: "bg-green-100 text-green-900 border-green-200",
 } as const;
 
-export default component$<Props>(({ severity }) => {
+const icons = import.meta.glob<Component>("/src/media/icons/*.svg", {
+  import: "default",
+  query: "?jsx",
+  eager: true,
+});
+
+export default component$<Props>(({ severity, title }) => {
+  const iconPath = `/src/media/icons/${severity}.svg`;
+  const Icon = icons[iconPath];
+
   return (
     <article
       class={[
@@ -36,11 +48,13 @@ export default component$<Props>(({ severity }) => {
           },
         ]}
       >
-        <Slot name="icon" />
+        <Icon />
       </aside>
-      <header class="!leading-0 col-start-2 h-auto text-xl font-bold">
-        <Slot name="title" />
-      </header>
+      {Boolean(title) && (
+        <header class="!leading-0 col-start-2 h-auto text-xl font-bold">
+          {title}
+        </header>
+      )}
       <div class="col-start-2 [&_a]:font-semibold [&_a]:underline">
         <Slot />
       </div>
