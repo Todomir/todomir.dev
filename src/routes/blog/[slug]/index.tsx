@@ -22,14 +22,18 @@ const BLOG_COMPONENT_MAP = {
 
 export const useTinaBlogPost = routeLoader$(
   async ({ locale, params, error }) => {
-    const data = await client.queries.post({
-      relativePath: `${locale()}/${params.slug}.mdx`,
-    });
+    try {
+      const data = await client.queries.post({
+        relativePath: `${locale()}/${params.slug}.mdx`,
+      });
 
-    if (data.errors) throw error(500, "Error loading post");
-    if (!data.data.post) throw error(404, "Post not found");
+      if (data.errors) throw error(500, "Error loading post");
+      if (!data.data.post) throw error(404, "Post not found");
 
-    return data;
+      return data;
+    } catch {
+      throw error(500, "Error loading post");
+    }
   },
 );
 
