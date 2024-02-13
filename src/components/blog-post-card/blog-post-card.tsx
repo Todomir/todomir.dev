@@ -1,4 +1,4 @@
-import type { BlogPostCollectionEntry } from "~/content";
+import type { BlogPost } from "~/@types";
 
 import { component$ } from "@builder.io/qwik";
 import { inlineTranslate, useFormatDate, useSpeakConfig } from "qwik-speak";
@@ -9,7 +9,7 @@ import Card from "../card/card";
 import Tag from "../tag/tag";
 
 type Props = {
-  post: BlogPostCollectionEntry;
+  post: BlogPost;
 };
 
 export default component$(({ post }: Props) => {

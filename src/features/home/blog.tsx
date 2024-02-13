@@ -1,4 +1,4 @@
-import type { BlogPostCollectionEntry } from "~/content";
+import type { BlogPost } from "~/@types";
 
 import { component$, Fragment } from "@builder.io/qwik";
 import { inlineTranslate, translatePath, useSpeakLocale } from "qwik-speak";
@@ -7,7 +7,7 @@ import BlogPostCard from "~/components/blog-post-card/blog-post-card";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
 type Props = {
-  posts: BlogPostCollectionEntry[];
+  posts: BlogPost[];
 };
 
 export default component$(({ posts }: Props) => {
