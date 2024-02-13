@@ -2,11 +2,13 @@ type Collections = {
     content: {
         data: {
             date: Date;
-            draft?: boolean;
             tags?: string[];
             title: string;
             description: string;
-            thumbnailAlt: string;
+            thumbnail: {
+                alt: string;
+                src: string;
+            };
             permalink: string;
             lang: string;
         };

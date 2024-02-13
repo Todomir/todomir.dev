@@ -27,14 +27,16 @@ export default defineConfig(() => {
         collections: [
           {
             name: "content",
-            glob: "./src/content/**/**/post.mdx",
+            glob: "./src/content/**/**/*.mdx",
             schema: z.object({
               date: z.coerce.date(),
-              draft: z.boolean().default(false),
               tags: z.array(z.string()).default([]),
               title: z.string(),
               description: z.string(),
-              thumbnailAlt: z.string(),
+              thumbnail: z.object({
+                alt: z.string(),
+                src: z.string(),
+              }),
               permalink: z.string(),
               lang: z.string(),
             }),
