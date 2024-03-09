@@ -1,9 +1,11 @@
 import type { BlogPostCollectionEntry } from "~/content";
 
 import { component$ } from "@builder.io/qwik";
+import { Image } from "@unpic/qwik";
 import { inlineTranslate, useFormatDate, useSpeakConfig } from "qwik-speak";
 
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
+import { getAssetPath } from "~/utils/functions";
 
 import Card from "../card/card";
 import Tag from "../tag/tag";
@@ -13,7 +15,10 @@ type Props = {
 };
 
 export default component$(({ post }: Props) => {
-  const { title, description, date, tags, slug, lang, thumbnail } = post;
+  const {
+    data: { title, description, date, tags, lang, thumbnail },
+  } = post;
+  const { slug } = post;
   const config = useSpeakConfig();
 
   const href =
@@ -49,14 +54,14 @@ export default component$(({ post }: Props) => {
       >
         {description}
       </p>
-      <img
+
+      <Image
         q:slot="aside"
-        decoding="async"
-        loading="lazy"
         width={544}
         height={320}
+        layout="constrained"
         class="aspect-[5/3] w-full overflow-hidden rounded-lg object-cover shadow-md"
-        srcset={thumbnail.src}
+        srcset={getAssetPath(thumbnail.src)}
         alt={thumbnail.alt}
       />
 

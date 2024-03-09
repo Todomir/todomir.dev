@@ -2,59 +2,22 @@
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { collections } from "virtual:mdx-collection";
 
-import { getBlogPostThumbnailSoure, getLang } from "~/utils/functions";
+import { getLang } from "~/utils/functions";
 
-export type BlogPostCollectionEntry = Omit<
-  Collections["content"][number]["data"],
-  "thumbnailAlt"
-> & {
-  slug: string;
-  thumbnail: {
-    alt: string;
-    src: string;
-  };
-};
+export type BlogPostCollectionEntry = Collections["content"][number];
 
-export const getCollectionEntry = (locale: string, slug: string) => {
+export const getCollectionEntry = (slug: string) => {
   const collection = collections.content;
   const entry = collection.find((entry_) => entry_.slug === slug);
 
   if (!entry) return null;
 
-  const thumbnail = getBlogPostThumbnailSoure({ slug: entry.slug, locale });
-
-  // Extract thumbnailAlt from entry.data
-  const { thumbnailAlt, ...data } = entry.data;
-
-  return {
-    ...data,
-    slug: entry.slug,
-    thumbnail: {
-      src: thumbnail,
-      alt: thumbnailAlt,
-    },
-  };
+  return entry;
 };
 
 export const getCollectionList = (locale: string) => {
   const collection = collections.content;
-  const list = collection
-    .filter((entry) => entry.data.lang === locale)
-    .map((entry) => {
-      const thumbnail = getBlogPostThumbnailSoure({ slug: entry.slug, locale });
-
-      // Extract thumbnailAlt from entry.data
-      const { thumbnailAlt, ...data } = entry.data;
-
-      return {
-        ...data,
-        slug: entry.slug,
-        thumbnail: {
-          src: thumbnail,
-          alt: thumbnailAlt,
-        },
-      };
-    });
+  const list = collection.filter((entry) => entry.data.lang === locale);
 
   return list;
 };
@@ -71,12 +34,9 @@ export const useBlogPosts = routeLoader$(async ({ locale, error }) => {
   }
 });
 
-export const useBlogPost = routeLoader$(async ({ params, locale, error }) => {
-  const userLang = locale();
-
+export const useBlogPost = routeLoader$(async ({ params, error }) => {
   try {
-    const lang = getLang(userLang);
-    const post = getCollectionEntry(lang, params.slug);
+    const post = getCollectionEntry(params.slug);
     if (!post) throw error(404, `Post ${params.slug} not found`);
 
     return post;

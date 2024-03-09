@@ -65,7 +65,8 @@ declare module 'virtual:mdx-collection' {
 
           const items = results.map((result) => {
             const mdxPath = path.join(rootPath, result);
-            const slug = /.+\/(.+)\/post\.mdx$/u.exec(result)?.[1] ?? "";
+            const slug = /.+\/(.+)\.mdx$/u.exec(result)?.[1] ?? "";
+
             const file = matter.read(mdxPath);
 
             return { slug, data: file.data };

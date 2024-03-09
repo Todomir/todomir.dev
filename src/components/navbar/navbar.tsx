@@ -1,4 +1,4 @@
-import { $, component$, useOnWindow, useSignal } from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 import { inlineTranslate, translatePath, useSpeakLocale } from "qwik-speak";
 
 import ChangeLocale from "../change-locale/change-locale";
@@ -6,7 +6,6 @@ import ChangeLocale from "../change-locale/change-locale";
 export default component$(() => {
   const t = inlineTranslate();
 
-  const isMobileSig = useSignal(false);
   const isExpandedSig = useSignal(false);
 
   const locale = useSpeakLocale();
@@ -31,41 +30,23 @@ export default component$(() => {
     },
   ];
 
-  useOnWindow(
-    "DOMContentLoaded",
-    $(() => {
-      const mediaQuery = window.matchMedia("(max-width: 767px)");
-      isMobileSig.value = mediaQuery.matches;
-
-      const listener = (e: MediaQueryListEvent) => {
-        isMobileSig.value = e.matches;
-      };
-
-      mediaQuery.addEventListener("change", listener);
-    }),
-  );
-
   return (
     <header
       id="navbar"
-      class="header fixed right-0 top-1 z-20 ml-auto items-center px-5 pt-12 text-zinc-50 md:right-1/2 md:translate-x-1/2 md:px-20"
+      class={[
+        "header fixed right-0 top-1 z-20 ml-auto items-center px-5 pt-12 text-zinc-50 md:right-1/2 md:translate-x-1/2 md:px-20",
+      ]}
     >
       <button
-        style={{
-          viewTransitionName: "navbar-button",
-        }}
+        style={{ viewTransitionName: "navbar-button" }}
         type="button"
         aria-expanded={isExpandedSig.value}
-        disabled={!isMobileSig.value}
         aria-controls="navbar-menu"
         aria-label={
           isExpandedSig.value ? t("app.header.close") : t("app.header.open")
         }
         class={[
-          "leading-0 ml-auto block rounded-md border border-zinc-50/60 bg-zinc-950 p-2 text-zinc-50 transition-all ease-spring-4 hover:bg-zinc-900",
-          {
-            hidden: !isMobileSig.value,
-          },
+          "leading-0 ml-auto block rounded-md border border-zinc-50/60 bg-zinc-950 p-2 text-zinc-50 transition-all ease-spring-4 hover:bg-zinc-900 md:hidden",
         ]}
         onClick$={() => {
           const next = !isExpandedSig.value;
@@ -135,23 +116,16 @@ export default component$(() => {
         </svg>
       </button>
       <nav
-        style={{
-          viewTransitionName: "navbar",
-        }}
+        style={{ viewTransitionName: "navbar" }}
         class={[
           "relative mt-2.5 max-w-[353px] flex-col items-center justify-between gap-4 rounded-xl border border-zinc-50/20 bg-zinc-950 px-6 py-4 text-right md:text-left md:opacity-100",
-          {
-            "opacity-0": !isMobileSig.value || !isExpandedSig.value,
-          },
+          { "opacity-0": !isExpandedSig.value },
         ]}
       >
         <ul
           id="navbar-menu"
           class={[
             "flex flex-col justify-end text-zinc-500 transition-all ease-spring-3 md:mt-0 md:flex-row md:justify-around",
-            {
-              hidden: !isExpandedSig.value && isMobileSig.value,
-            },
           ]}
         >
           {NAV_LINKS.map((link) => (
@@ -168,7 +142,9 @@ export default component$(() => {
             </li>
           ))}
         </ul>
-        {isMobileSig.value && <ChangeLocale />}
+        <div class="block md:hidden">
+          <ChangeLocale />
+        </div>
       </nav>
     </header>
   );

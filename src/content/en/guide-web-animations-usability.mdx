@@ -1,0 +1,118 @@
+---
+title: "Web animations: a guide for not driving your users to insanity"
+description: The line between 'mesmerizing' and 'maddening' is thinner than a pixel when the subject is web animations. So how to enchant your users with delightful animations, and not send them scurrying for the 'close tab' button? Let's find out.
+date: 2024-01-17
+permalink: /blog/guide-web-animations-usability
+lang: "en"
+thumbnail:
+  src: "assets/blog/thumbnails/guide-web-animations-usability.png"
+  alt: Pixel art rendering of a man with a shocked face, ruffled hair, in casual attire, circled by a spiral of website windows, indicating a sense of vertigo. Frontal portrait view. The background merges abstract digital elements, creating a surreal effect. Deep blues and greens, sharp pixel edges, illusion of depth, chaotic window patterns.
+tags:
+  - UX
+  - web dev
+  - animations
+  - performance
+og:
+  - title: "Mastering Web Animations: A Usability-Centric Approach"
+    description: true
+---
+
+import DizzyManImage from "~/media/images/blog/dizzy-man.png?jsx";
+import SlowHeroImage from "~/media/images/blog/slow-hero.png?jsx";
+import WebMonkImage from "~/media/images/blog/web-monk.png?jsx";
+
+Ah, web animations – the digital equivalent of a magician’s hat. When done right, they can pull out rabbits that wow your audience. But when done wrong, you're more likely to pull out a bunch of scarves tied together that just keep coming and coming until your users are begging for it to stop. Welcome to the tightrope walk of web design, where one wrong step can turn a cool website into a digital funhouse mirror.
+
+Now, don't get me wrong. A slick animation can be as satisfying as [beating Tetris](https://www.nytimes.com/2024/01/03/arts/tetris-beat-blue-scuti.html). But there's a fine line between a visual masterpiece and turning your website into a digital kaleidoscope that has your users reaching for the Dramamine. It's like cooking; just because you have a spice rack full of options doesn't mean your stew needs a pinch of every single one. Unless, of course, your goal is to give your users a taste of pixelated vertigo.
+
+So today, we'll explore how to make your site feel like a smooth sail rather than a bumpy ride on the digital seas.
+
+## The Janky Hero Animation: A Cautionary Tale
+
+So, this website got through a bit of a rough patch. Right on the first version, I decided it would be a good idea to have a hero animation that would play on page load. It was a simple staggered animation, with a few elements sliding in, growing, moving and... wait... why is it so slow? Why is it so choppy? Why is it so... _janky_?
+
+A janky animation can be described as one that fails to maintain a smooth, consistent framerate, causing a stuttering or halting visual experience. This problem often arises from overly complex animations that demand high processing power, especially on devices with limited capabilities. For example, animations that involve high-resolution images, elements with a high value for `filter: blur()` applied, intricate SVG paths, or complex physics simulations can significantly slow down a site's loading time.
+
+<SlowHeroImage alt="Digital pixel art showing a cartoon character on a fatigued turtle as an analogy to a website, with multiple heavy boxes on its shell, in a bustling crowd, vibrant digital environment" />
+
+And that was my case. The animation was doing too much, and it was doing it all at once. The result was a choppy, slow-loading animation that was more likely to drive users away than to impress them.
+
+When it comes to web design, the hero animation holds a place of prominence, often being the first element that catches a user's eye. It's the first impression, the hook that reels in the user and makes them want to explore the rest of the site. So it's crucial to get it right.
+
+The consequence of a slow-loading hero animation extends beyond mere annoyance. It can negatively impact the user's first impression of a website, leading to higher bounce rates[^1]. This underscores the importance of optimizing animations for speed and performance.
+
+- Optimize image sizes and use lower resolution where possible without compromising quality.
+- Avoid animating CSS properties that trigger browser repaints: `top`, `left`, `bottom`, `right`, `width`, `height`, `filter` are some examples. Instead, use `transform` and `opacity` to animate elements whenever possible.
+- Implement progressive enhancement strategies, providing a basic level of user experience that improves as the capabilities of the user’s device increase.
+- Test animations across different devices and connections to ensure a uniform and smooth experience.
+- When you come across a janky animation, don't just ignore it. Take the time to understand what's causing the problem and how to fix it. Do some fiddling with the DevTools Performance tab, and you'll be surprised at how much you can learn.
+
+Accessibility concerns also come into play with complex animations. Users with certain neurological conditions, such as epilepsy, or those prone to motion sickness can find these animations disturbing[^2]. Furthermore, not all users have high-performance devices or fast internet connections, so heavy animations can render a site practically unusable for a segment of the audience. Which takes us to our next point.
+
+## Listen to Your Users: Accessibility Isn’t Just a Buzzword
+
+In the realm of web design, accessibility is often touted but not always implemented with the rigor it deserves. I'm happy to see this changing, with more and more designers and developers taking accessibility into account when creating websites. Unfortunately, it's not uncommon to find websites that fail to meet the most basic accessibility standards for animations.
+
+I like to think that websites that don't respect accessibility standards are like an exuberant red carpet that is incredibly slippery. It looks great, but it's a nightmare to walk on, and you're likely to fall on your face. Most likely, you'll just avoid it altogether.
+
+Web animations can be more than just an annoyance for users with certain disabilities. For instance, individuals with vestibular disorders, which affect the inner ear and brain, can experience dizziness, nausea, and disorientation due to motion on the screen. Similarly, animations can be a trigger for people with photosensitive epilepsy. Therefore, respecting the user’s preference to reduce motion, as set in their accessibility settings, is critical.
+
+But accessibility isn't only about preventing discomfort or health issues. It's about inclusivity. Ensuring that animations are accessible means creating a web environment where **_everyone_**, regardless of their physical or neurological conditions, can navigate comfortably.
+
+## No Scroll Hijacking and Stuff of the Sorts
+
+Scroll hijacking is the act of altering the browser's default scrolling behavior, usually to create scroll-based animations or interactions. For example, a website may use scroll hijacking to make downward scrolling change the position of an element on the screen, instead of moving the content upwards. Or it can be used to create a horizontal scrolling experience on a site that would normally be vertical.
+
+Scroll hijacking can be particularly jarring because it disrupts one of the most fundamental interactions with a website: scrolling. Users expect a certain amount of control and predictability when they scroll, and taking that away can lead to frustration. Imagine picking up a book where turning the page sometimes takes you back three pages or jumps ahead a whole chapter. That's the kind of confusion scroll hijacking can cause.
+
+Moreover, altering standard scrolling behavior can have usability implications, especially for users who rely on assistive technologies. These technologies often depend on predictable scroll behavior to navigate and interact with content. Altering this can make a site less accessible, contrary to the principles of inclusive design.
+
+<DizzyManImage alt="A pixel art illustration of a man, appearing dizzy with spirals in his eyes, surrounded by floating website windows in a chaotic and confusing arrangement. Background of a digital cyberspace, vibrant blue and green hues, light emanating from the windows creating dynamic shadows" />
+
+The key is to use scroll-based animations and interactions judiciously and in ways that enhance, rather than hinder, the user experience. Consider these guidelines:
+
+- **Respect User Control**: Ensure that any scroll-based animations or interactions do not take control away from the user. Allow them to navigate freely and predictably.
+- **Test Extensively**: Test your site's scrolling on various devices and browsers to ensure a consistent and smooth experience.
+- **Provide Alternatives**: If you do incorporate unique scrolling features, offer users a way to opt for a more traditional scrolling experience.
+
+By focusing on smooth, predictable scrolling, designers can create a more enjoyable and accessible experience for all users, ensuring that the site's narrative enhances rather than detracts from the overall usability.
+
+## Animating with a Dual Purpose: It’s Not Just About Looking Pretty
+
+In the world of web design, animations should be more than just digital eye candy. They need to serve a dual purpose: not only to enhance the aesthetic appeal of a site but also to improve its functionality and user experience.
+
+Animations in web design can be incredibly effective when used as functional elements rather than mere decorative ones. A well-thought-out animation can guide users through a website, draw attention to important information, and even make complex tasks more manageable. Think of it as visual storytelling, where each animation plays a part in unfolding the narrative of your website.
+
+I feel web animations have more in common with games than with traditional linear animations in movies or TV shows. Unlike traditional media, the user is in control of the experience, they can choose where they and want and don't want to go, and your website should respond to that.
+
+Animations on the web are not timelines, they are not movies, they are not cartoons. They are interactive, they are responsive, they are functional. This is especially true for animations that are part of the site's navigation or interactive elements. For example, a button that changes color when the user hovers over it or a menu that slides in when the user clicks on it.
+
+When it comes to web animations, it's essential to consider the user's experience and how the animation can _enhance_ it.
+
+Here are some key aspects to consider:
+
+- **Interactive**: Animations should respond to user actions, providing feedback or guiding them through the site.
+- **Interruptible**: Users should be able to pause, stop, or skip animations, ensuring that they have control over their experience.
+- **Purposeful Transitions**: Use animations to smoothly transition between different states or pages, providing a cohesive user experience.
+- **Performant**: Ensure that animations are optimized for performance, avoiding lag or jankiness.
+
+If you want to learn more about what makes great web animations, specially interactive ones, check out this [article by Rauno Freiberg](https://rauno.me/craft/interaction-design) that goes into more detail about the subject.
+
+## Conclusion: Finding Harmony in Web Animations
+
+<WebMonkImage alt="A pixel art depiction of a web animations guru, meditating in mid-air, effortlessly manipulating code and graphics around them, in a peaceful ancient monk temple. Stone statues, intricate carvings, and a gentle waterfall in the background. Warm sunset hues, intricate shadows." />
+
+As we wrap up this guide, it's clear that the world of web animations is a balancing act. On one side, there's the allure of creating visually stunning and innovative designs. On the other, there's the undeniable importance of usability, accessibility, and functionality. The key to success lies in finding harmony between these elements, ensuring that animations enhance rather than detract from the user experience.
+
+In summary, remember these key takeaways:
+
+- **Simplicity is _King_**: Avoid overloading your site with complex animations that can slow down performance and overwhelm users.
+- **Respect Accessibility**: Always consider users with different needs and preferences, adhering to accessibility standards.
+- **User Control**: Provide users with the option to control their experience, including the ability to pause or skip animations.
+- **Purposeful Design**: Ensure that every animation serves a functional purpose, aiding in navigation or information delivery.
+- **Test, Test, Test**: Continuously test your animations across different devices and browsers to ensure a smooth and consistent experience for all users.
+
+By adhering to these principles, you can create web animations that are both aesthetically pleasing and user-friendly. It's about creating an experience that's delightful, not dizzying; engaging, not exasperating. So go forth and animate, but always with your user's sanity in mind.
+
+[^1]: Slow webpages and loss of revenue due to user dissatisfaction have a strong correlation, emphasizing the importance of optimization in page load time (PLT) and resource download order. Different approaches to HTTP/2 prioritization by browsers significantly affect page load performance, impacting user satisfaction [(Wijnants et al., 2018)](https://dl.acm.org/doi/10.1145/3178876.3186181).
+[^2]: Animated elements in user interfaces, especially in advertisements, can negatively impact users, with some groups, such as autistic users, being more affected. These animations can influence search activities and increase mental demand, leading to greater distraction or annoyance [(Uitdenbogerd et al., 2022)](https://www.scitepress.org/Link.aspx?doi=10.5220/0011074500003176).
