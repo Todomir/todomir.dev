@@ -15,22 +15,17 @@ import { config } from "~/speak.config";
 import { getAssetPath } from "~/utils/functions";
 
 export const useBlogPostContent = routeLoader$(
-  async ({ locale, params, error }) => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const modules = import.meta.glob<Record<string, any>>(
-        "/src/content/**/**/*.mdx",
-        { eager: true },
-      );
-      const path = `/src/content/${locale()}/${params.slug}.mdx`;
-      const content = modules[path]?.default().children.type();
+  async ({ params, locale, error }) => {
+    const modules = import.meta.glob("/src/content/**/*.mdx", { eager: true });
+    const path = `/src/content/${locale()}/${params.slug}.mdx`;
+    const module = modules[path];
 
-      if (!content) throw error(404, "Blog post not found");
+    if (!module) throw error(404, "Post not found");
 
-      return [content];
-    } catch {
-      throw error(500, "Failed to load blog post");
-    }
+    // @ts-expect-error - This is a dynamic import
+    const post = module.default();
+
+    return post;
   },
 );
 
@@ -96,9 +91,7 @@ export default component$(() => {
         </p>
 
         <div class="prose-img:breakout prose prose-zinc max-w-none text-pretty lg:prose-xl prose-code:rounded-md prose-code:border prose-code:border-zinc-300 prose-code:bg-zinc-100 prose-code:p-1 prose-code:before:content-[''] prose-code:after:content-[''] prose-img:mb-24 prose-img:rounded-md prose-img:shadow-lg [&_pre_code]:border-transparent [&_pre_code]:bg-inherit [&_pre_code]:p-0">
-          {postContentSig.value.map((c) => (
-            <>{c}</>
-          ))}
+          {postContentSig.value}
         </div>
 
         <div class="full-width my-24 bg-zinc-200 px-5 md:px-20">
