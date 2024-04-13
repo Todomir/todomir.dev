@@ -1,5 +1,4 @@
-
-import { Slot, component$ } from "@builder.io/qwik";
+import { component$, Slot } from "@builder.io/qwik";
 import { useLocation } from "@builder.io/qwik-city";
 import { Image } from "@unpic/qwik";
 import { inlineTranslate, useFormatDate } from "qwik-speak";
@@ -8,11 +7,9 @@ import Tag from "~/components/tag/tag";
 import { useBlogPost } from "~/content";
 import { getAssetPath } from "~/utils/functions";
 
-
 export default component$(() => {
   const postSig = useBlogPost();
   const { data: post } = postSig.value;
-
 
   const t = inlineTranslate();
   const fd = useFormatDate();
@@ -61,6 +58,7 @@ export default component$(() => {
               src={getAssetPath(post.thumbnail.src)}
               alt={post.thumbnail.alt}
               layout="constrained"
+              background="auto"
             />
           </div>
         </header>
