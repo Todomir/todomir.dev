@@ -8,7 +8,10 @@ import { z } from "zod";
 import mdxCollections from "./plugins/collections";
 import { rewriteRoutes } from "./src/speak.routes";
 
-export default defineConfig(() => {
+export default defineConfig(async () => {
+  const { default: rehypePrettyCode } = await import("rehype-pretty-code");
+  const { visit } = await import("unist-util-visit");
+
   return {
     plugins: [
       mdxCollections({
@@ -31,7 +34,49 @@ export default defineConfig(() => {
           },
         ],
       }),
-      qwikCity({ rewriteRoutes }),
+      qwikCity({
+        rewriteRoutes,
+        mdxPlugins: {
+          rehypeSyntaxHighlight: false,
+          remarkGfm: true,
+          rehypeAutolinkHeadings: true,
+        },
+        mdx: {
+          rehypePlugins: [
+            () => (tree) => {
+              visit(tree, (node) => {
+                if (node?.type === "element" && node?.tagName === "pre") {
+                  const [codeEl] = node.children;
+                  if (codeEl.tagName !== "code") {
+                    return;
+                  }
+                  node.__rawString__ = codeEl.children?.[0].value;
+                }
+              });
+            },
+            [
+              rehypePrettyCode,
+              {
+                theme: "poimandres",
+              },
+            ],
+            () => (tree) => {
+              visit(tree, (node) => {
+                if (node?.type === "element" && node?.tagName === "figure") {
+                  if (!("data-rehype-pretty-code-figure" in node.properties)) {
+                    return;
+                  }
+                  const preElement = node.children.at(-1);
+                  if (preElement.tagName !== "pre") {
+                    return;
+                  }
+                  preElement.properties["__rawString__"] = node.__rawString__;
+                }
+              });
+            },
+          ],
+        },
+      }),
       qwikVite(),
       qwikSpeakInline({
         supportedLangs: ["en", "pt-BR"],
