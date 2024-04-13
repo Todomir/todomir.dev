@@ -2,7 +2,6 @@ import type { RewriteRouteOption } from "qwik-speak";
 
 /** Translation paths */
 export const rewriteRoutes: RewriteRouteOption[] = [
-  // No prefix/paths for default locale
   {
     prefix: "pt-BR",
     paths: {
@@ -11,7 +10,6 @@ export const rewriteRoutes: RewriteRouteOption[] = [
       "about": "sobre",
       "blog": "blog",
       "projects": "projetos",
-      // "404": "404",
     },
   },
 ];

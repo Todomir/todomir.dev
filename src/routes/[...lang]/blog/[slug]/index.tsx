@@ -1,37 +1,68 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
   DocumentHead,
+  RequestHandler,
   StaticGenerateHandler,
 } from "@builder.io/qwik-city";
 
 import { $, component$, useSignal, useTask$ } from "@builder.io/qwik";
+import { useLocation } from "@builder.io/qwik-city";
+import { isDev } from "@builder.io/qwik/build";
+import { translatePath, useSpeakLocale } from "qwik-speak";
 import { collections } from "virtual:mdx-collection";
 
-import { useLocation } from "@builder.io/qwik-city";
-import { useSpeakConfig } from "qwik-speak";
 import { getCollectionEntry } from "~/content";
 import { config } from "~/speak.config";
 
-const modules: Record<string, any> = import.meta.glob("/src/content/**/*.mdx", { eager: true, import: "default" });
+const modules: Record<string, any> = import.meta.glob("/src/content/**/*.mdx", {
+  eager: !isDev,
+  import: "default",
+});
+
+export const onRequest: RequestHandler = ({
+  locale,
+  error,
+  redirect,
+  params,
+  pathname,
+}) => {
+  const { slug } = params;
+  const getPath = translatePath();
+  if (!locale()) throw error(404, "Page not found for requested locale");
+
+  const path = `/src/content/${locale()}/${slug}.mdx`;
+  const mod = modules[path];
+
+  if (!mod) {
+    // Try to find the post in other available locales
+    for (const supportedLocale of config.supportedLocales) {
+      if (supportedLocale.lang === locale()) continue;
+
+      const newPath = `/src/content/${supportedLocale.lang}/${slug}.mdx`;
+      if (modules[newPath]) {
+        // eslint-disable-next-line @typescript-eslint/no-throw-literal
+        throw redirect(302, getPath(pathname, supportedLocale.lang));
+      }
+    }
+  }
+};
 
 export default component$(() => {
   const PostContent = useSignal<any>();
-  const { lang } = useSpeakConfig().defaultLocale;
+  const { lang } = useSpeakLocale();
   const slug = useLocation().params.slug;
   const path = `/src/content/${lang}/${slug}.mdx`;
-  
-  useTask$(() => {
-    const qrl = $(
-      () => {
-        const mod = modules[path];
-        const postContent = mod()
-        return postContent
-      }
-    )
 
-    PostContent.value = qrl
+  useTask$(() => {
+    const qrl = $(async () => {
+      const mod = isDev ? await modules[path]() : modules[path];
+      const postContent = mod();
+      return postContent;
+    });
+
+    PostContent.value = qrl;
   });
-  
+
   return <>{PostContent.value && <PostContent.value />}</>;
 });
 
