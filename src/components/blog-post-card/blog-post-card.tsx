@@ -61,7 +61,7 @@ export default component$(({ post }: Props) => {
         height={320}
         layout="constrained"
         class="aspect-[5/3] w-full overflow-hidden rounded-lg object-cover shadow-md"
-        srcset={getAssetPath(thumbnail.src)}
+        src={getAssetPath(thumbnail.src)}
         alt={thumbnail.alt}
       />
 
