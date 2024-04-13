@@ -1,45 +1,76 @@
-import type { Component } from "@builder.io/qwik";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
   DocumentHead,
+  RequestHandler,
   StaticGenerateHandler,
 } from "@builder.io/qwik-city";
 
-import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+import { $, component$, useSignal, useTask$ } from "@builder.io/qwik";
 import { useLocation } from "@builder.io/qwik-city";
 import { isDev } from "@builder.io/qwik/build";
-import { useSpeakLocale } from "qwik-speak";
+import { translatePath, useSpeakLocale } from "qwik-speak";
 import { collections } from "virtual:mdx-collection";
 
-import { useBlogPost } from "~/content";
+import { getCollectionEntry } from "~/content";
 import { config } from "~/speak.config";
 
-export const BLOG_POST_LIST = import.meta.glob("/src/content/**/**/index.tsx", {
+const modules: Record<string, any> = import.meta.glob("/src/content/**/*.mdx", {
   eager: !isDev,
   import: "default",
 });
 
+export const onRequest: RequestHandler = ({
+  locale,
+  error,
+  redirect,
+  params,
+  pathname,
+}) => {
+  const { slug } = params;
+  const getPath = translatePath();
+  if (!locale()) throw error(404, "Page not found for requested locale");
+
+  const path = `/src/content/${locale()}/${slug}.mdx`;
+  const mod = modules[path];
+
+  if (!mod) {
+    // Try to find the post in other available locales
+    for (const supportedLocale of config.supportedLocales) {
+      if (supportedLocale.lang === locale()) continue;
+
+      const newPath = `/src/content/${supportedLocale.lang}/${slug}.mdx`;
+      if (modules[newPath]) {
+        // eslint-disable-next-line @typescript-eslint/no-throw-literal
+        throw redirect(302, getPath(pathname, supportedLocale.lang));
+      }
+    }
+  }
+};
+
 export default component$(() => {
-  const Post = useSignal<Component>();
-  const location = useLocation();
+  const PostContent = useSignal<any>();
+  const { lang } = useSpeakLocale();
+  const slug = useLocation().params.slug;
+  const path = `/src/content/${lang}/${slug}.mdx`;
 
-  const speakLocale = useSpeakLocale();
-  const { locale: userLocale, slug } = location.params;
-  const locale = userLocale ?? speakLocale.lang;
+  useTask$(() => {
+    const qrl = $(async () => {
+      const mod = isDev ? await modules[path]() : modules[path];
+      const postContent = mod();
+      return postContent;
+    });
 
-  const path = `/src/content/${locale}/${slug}/index.tsx`;
-
-  useTask$(async () => {
-    const mod = isDev ? await BLOG_POST_LIST[path]() : BLOG_POST_LIST[path];
-    // This is fine because we are importing a Qwik component, which is serializable
-    // eslint-disable-next-line qwik/valid-lexical-scope
-    Post.value = mod as Component;
+    PostContent.value = qrl;
   });
 
-  return <div id="main-content">{Post.value && <Post.value />}</div>;
+  return <>{PostContent.value && <PostContent.value />}</>;
 });
 
-export const head: DocumentHead = ({ resolveValue, url }) => {
-  const post = resolveValue(useBlogPost);
+export const head: DocumentHead = ({ url, params }) => {
+  const entry = getCollectionEntry(params.slug);
+  if (!entry) throw new Error(`Post ${params.slug} not found`);
+
+  const { data: post } = entry;
 
   const ogUrl = new URL("/og-image", url);
   ogUrl.searchParams.set("title", post.title);
@@ -133,5 +164,3 @@ export const onStaticGenerate: StaticGenerateHandler = async () => {
     params,
   };
 };
-
-export { useBlogPost } from "~/content";

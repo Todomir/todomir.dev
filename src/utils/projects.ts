@@ -1,8 +1,8 @@
 import { inlineTranslate } from "qwik-speak";
 
-import AstromartThumb from "~/media/images/projects/astromart-thumb.png?w=400;600;800;1200&as=srcset&imagetools";
-import KobrazaThumb from "~/media/images/projects/kobraza-thumb.png?w=400;600;800;1200&as=srcset&imagetools";
-import LeonardoNutritionThumb from "~/media/images/projects/leonardo-thumb.png?w=400;600;800;1200&as=srcset&imagetools";
+import AstromartThumb from "~/media/images/projects/astromart-thumb.png";
+import KobrazaThumb from "~/media/images/projects/kobraza-thumb.png";
+import LeonardoNutritionThumb from "~/media/images/projects/leonardo-thumb.png";
 
 /**
  * Get the list of projects.
