@@ -28,14 +28,6 @@
 }
 
 @font-face {
-  font-family: "CommitMono";
-  src: url("../assets/fonts/commit-mono-variable.woff2") format("woff2");
-  font-weight: 200 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "HaskoyOverride";
   src: local(Inter), local(Roboto), local("Helvetica Neue"), local("Arial Nova"),
     local("Nimbus Sans"), local(Arial), local(sans-serif);
