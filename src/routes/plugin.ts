@@ -9,10 +9,10 @@ import { config } from "../speak.config";
  * because it is invoked on every request to the server. Avoid redirecting or
  * throwing errors here, and prefer layouts or pages
  */
-export const onRequest: RequestHandler = ({ locale, url, params }) => {
+export const onRequest: RequestHandler = ({ locale, url }) => {
   let lang: string | undefined;
 
-  const prefix = extractFromUrl(url) || params.lang;
+  const prefix = extractFromUrl(url);
 
   if (prefix && validateLocale(prefix)) {
     // Check supported locales
