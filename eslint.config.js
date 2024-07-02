@@ -1,4 +1,12 @@
+import js from "@eslint/js";
+import prettier from "eslint-config-prettier";
+import qwik from "eslint-plugin-qwik";
+import tseslint from "typescript-eslint";
+
+/** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
     ignores: [
@@ -43,26 +51,30 @@ export default [
       "server",
       "package.json",
     ],
-    root: true,
-    env: {
-      browser: true,
-      es2021: true,
-      node: true,
+    plugins: {
+      qwik,
     },
-    extends: ["@todomir/eslint-config", "plugin:qwik/recommended", "prettier"],
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-      project: ["./tsconfig.json"],
-      ecmaVersion: 2_021,
+    languageOptions: {
+      ecmaVersion: 2021,
       sourceType: "module",
-      ecmaFeatures: {
-        jsx: true,
+      parser: tseslint.parser,
+      globals: {
+        browser: true,
+        es2021: true,
+        node: true,
+      },
+      parserOptions: {
+        project: ["./tsconfig.json"],
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
     rules: {
       "no-inline-comments": "off",
       "unicorn/prevent-abbreviations": "off",
       "@typescript-eslint/prefer-nullish-coalescing": "off",
+      ...prettier.rules,
     },
   },
 ];
