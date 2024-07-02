@@ -52,7 +52,6 @@ export default [
     extends: ["@todomir/eslint-config", "plugin:qwik/recommended", "prettier"],
     parser: "@typescript-eslint/parser",
     parserOptions: {
-      tsconfigRootDir: __dirname,
       project: ["./tsconfig.json"],
       ecmaVersion: 2_021,
       sourceType: "module",
