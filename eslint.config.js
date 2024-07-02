@@ -1,6 +1,6 @@
 export default [
   {
-    files: ['**/*.{js,ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     ignores: [
       "**/*.log",
       "**/.DS_Store",
@@ -41,8 +41,8 @@ export default [
       "package-lock.json",
       "yarn.lock",
       "server",
-      "package.json"
-    ],    
+      "package.json",
+    ],
     root: true,
     env: {
       browser: true,
@@ -65,5 +65,5 @@ export default [
       "unicorn/prevent-abbreviations": "off",
       "@typescript-eslint/prefer-nullish-coalescing": "off",
     },
-  }
-]
+  },
+];
