@@ -32,7 +32,7 @@
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.13",
     "@todomir/eslint-config": "^10.1.0",
-    "@todomir/prettier-config": "^5.1.1",
+    "@todomir/prettier-config": "^5.2.0",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.14.9",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
