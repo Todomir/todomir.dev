@@ -6,6 +6,9 @@
     "header": {
       "close": "Fechar menu mobile",
       "open": "Abrir menu mobile"
+    },
+    "badges": {
+      "current": "Atualmente"
     }
   }
 }

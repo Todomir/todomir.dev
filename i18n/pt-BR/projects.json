@@ -15,6 +15,10 @@
     "leonardo_nutrition": {
       "title": "Leonardo Nutrition",
       "description": "Integração de CMS e depoimentos com login social para Leonardo Nutrition, um nutricionista e dietista no Brasil."
+    },
+    "topsort": {
+      "title": "Topsort",
+      "description": "Ajudando a Topsort a transformar retailers e marketplaces em Top Ad Networks, melhorando a experiência do seu gerenciador de campanhas de anúncios."
     }
   }
 }

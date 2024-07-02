@@ -29,6 +29,8 @@ export default component$(() => {
               description={post.description}
               tags={post.tags}
               thumbnail={post.thumbnail}
+              isCurrent={post.isCurrent}
+              slug={post.slug}
             />
           </li>
         ))}

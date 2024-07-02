@@ -9,6 +9,7 @@ import { inlineTranslate } from "qwik-speak";
 
 import { config } from "~/speak.config";
 import { getProjects } from "~/utils/projects";
+import Sparkles from "~/components/sparkles/sparkles";
 
 export default component$(() => {
   const t = inlineTranslate();
@@ -57,9 +58,18 @@ export default component$(() => {
                 alt={post.thumbnail.alt}
                 class="absolute inset-0 -z-10 h-full w-full object-cover"
               />
-              <h3 class="mt-1 w-fit rounded-sm bg-zinc-950/80 p-2 text-xl font-bold leading-6 text-white">
-                {post.title}
-              </h3>
+              <header class="flex gap-3 items-center">
+                <h3 class="text-xl font-bold leading-6 text-white rounded-sm bg-zinc-950/80 w-fit p-2">
+                  {post.title}
+                </h3>
+                {post.isCurrent && (
+                  <Sparkles>
+                    <div class="py-1 px-2 rounded-full shadow-sm bg-gradient-to-b from-emerald-500 to-emerald-400 text-emerald-50 text-xs font-bold">
+                      {t("app.badges.current")}
+                    </div>
+                  </Sparkles>
+                )}
+              </header>
               <p class="mt-2 w-fit rounded-sm bg-zinc-950/80 p-2 text-lg leading-6 text-zinc-50">
                 {post.description}
               </p>

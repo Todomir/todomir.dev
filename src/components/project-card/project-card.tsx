@@ -3,6 +3,8 @@ import { component$, Fragment } from "@builder.io/qwik";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 
 import Card from "../card/card";
+import Sparkles from "../sparkles/sparkles";
+import { inlineTranslate } from "qwik-speak";
 
 type Props = {
   description: string;
@@ -16,20 +18,30 @@ type Props = {
     width: number;
   };
   title: string;
+  isCurrent?: boolean;
 };
 
 export default component$((props: Props) => {
+  const t = inlineTranslate();
+
   return (
     <Card class="bg-zinc-900/20 p-5 sm:p-12">
-      <span
-        q:slot="title"
-        class="grow space-x-2 text-3xl font-medium leading-10 tracking-tighter"
-      >
-        {props.slug ?
-          <a href={props.slug}>{props.title}</a>
-        : props.title}
-        {props.slug && <IconArrowTopRight class="inline-block" />}
-      </span>
+      <header q:slot="title" class="grow flex gap-3 items-center">
+        <h2 class="text-3xl font-medium leading-10 tracking-tighter">
+          {props.slug ?
+            <a href={props.slug}>{props.title}</a>
+          : props.title}
+          {props.slug && <IconArrowTopRight class="inline-block" />}
+        </h2>
+        {props.isCurrent && (
+          <Sparkles>
+            <div class="py-1 px-2 rounded-full border border-emerald-500 bg-emerald-500/10 text-emerald-500 text-xs font-bold">
+              {t("app.badges.current")}
+            </div>
+          </Sparkles>
+        )}
+      </header>
+
       <p
         q:slot="description"
         class="overflow-hidden text-ellipsis text-balance text-base leading-6 tracking-normal text-zinc-300"
