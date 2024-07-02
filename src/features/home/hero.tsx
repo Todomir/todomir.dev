@@ -1,4 +1,4 @@
-/* eslint-disable qwik/no-use-visible-task */
+ 
 import {
   component$,
   useSignal,

@@ -40,7 +40,7 @@ export const onRequest: RequestHandler = ({
 
       const newPath = `/src/content/${supportedLocale.lang}/${slug}.mdx`;
       if (modules[newPath]) {
-        // eslint-disable-next-line @typescript-eslint/no-throw-literal
+         
         throw redirect(302, getPath(pathname, supportedLocale.lang));
       }
     }

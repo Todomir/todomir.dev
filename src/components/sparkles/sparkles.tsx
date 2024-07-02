@@ -72,7 +72,7 @@ export default component$<{ color?: string }>((props) => {
   // CSS styles
   useStyles$(CSS);
 
-  // eslint-disable-next-line qwik/no-use-visible-task
+   
   useVisibleTask$(({ track, cleanup }) => {
     track(() => store.sparkles);
 

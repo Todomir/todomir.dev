@@ -150,7 +150,7 @@ export default component$<Props>(
     );
 
     // Intervals can only be set eagerly on the client, so we use `useVisibleTask$` to run this task only once the logo is visible.
-    // eslint-disable-next-line qwik/no-use-visible-task
+     
     useVisibleTask$(({ cleanup }) => {
       if (!shouldBlink) {
         return;

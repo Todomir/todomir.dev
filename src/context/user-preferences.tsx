@@ -29,7 +29,7 @@ export const UserPreferencesProvider = component$(() => {
     { deep: true },
   );
 
-  // eslint-disable-next-line qwik/no-use-visible-task
+   
   useVisibleTask$(({ cleanup }) => {
     const abortController = new AbortController();
 

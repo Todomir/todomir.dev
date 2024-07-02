@@ -13,7 +13,7 @@ import { config } from "~/speak.config";
 export default component$(() => {
   const t = inlineTranslate();
 
-  // eslint-disable-next-line qwik/no-use-visible-task
+   
   useVisibleTask$(() => {
     SplitType.create(".split", {
       types: "words",

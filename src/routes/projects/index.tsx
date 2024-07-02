@@ -14,7 +14,7 @@ import Sparkles from "~/components/sparkles/sparkles";
 export default component$(() => {
   const t = inlineTranslate();
 
-  // eslint-disable-next-line qwik/no-use-visible-task
+   
   useVisibleTask$(() => {
     const projectList = document.querySelectorAll("#project-list > li");
 

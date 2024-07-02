@@ -54,7 +54,7 @@ export default component$<Props>(
       }),
     );
 
-    // eslint-disable-next-line qwik/no-use-visible-task
+     
     useVisibleTask$(async () => {
       const dvd = dvdRef.value;
       if (!dvd) return;
