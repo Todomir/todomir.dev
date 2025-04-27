@@ -34,7 +34,7 @@ export default component$(() => {
           </a>
 
           <ul class="@container flex flex-wrap gap-2 md:gap-3">
-            {post.value.tags.map((tag: string) => (
+            {post.value.tags?.map((tag: string) => (
               <li style={{ viewTransitionName: `blog-${tag}` }} key={tag}>
                 <Tag>{tag}</Tag>
               </li>
