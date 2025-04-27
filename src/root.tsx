@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, isDev } from "@builder.io/qwik";
 import {
   QwikCityProvider,
   RouterOutlet,
@@ -29,20 +29,24 @@ export default component$(() => {
   return (
     <QwikCityProvider>
       <head>
-        <meta charSet="utf-8" />
-        <link rel="manifest" href="/manifest.json" />
+        <meta charset="utf-8" />
+        {!isDev && (
+          <link
+            rel="manifest"
+            href={`${import.meta.env.BASE_URL}manifest.json`}
+          />
+        )}
         <RouterHead />
         <ServiceWorkerRegister />
       </head>
       <body lang="en">
         <RouterOutlet />
-        {/* Cloudflare Web Analytics */}
+        {!isDev && <ServiceWorkerRegister />}
         <script
           defer
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "ba6f3dbc516b421da0fabd5aec8bbecf"}'
         />
-        {/* End Cloudflare Web Analytics */}
       </body>
     </QwikCityProvider>
   );

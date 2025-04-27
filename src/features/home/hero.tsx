@@ -1,11 +1,10 @@
- 
 import {
   component$,
   useSignal,
   useStyles$,
   useVisibleTask$,
 } from "@builder.io/qwik";
-import { animate, scroll, spring, stagger, timeline } from "motion";
+import { animate, scroll, stagger } from "motion";
 import { inlineTranslate } from "qwik-speak";
 import SplitType from "split-type";
 
@@ -65,7 +64,7 @@ export default component$(() => {
       }
     }
 
-    timeline([
+    animate([
       ["#hero-title", { opacity: 1, y: 0 }],
       ["#hero-subtitle", { opacity: 1, y: 0 }],
       [
@@ -83,7 +82,9 @@ export default component$(() => {
         { x: ["40%", 0], opacity: 1 },
         {
           delay: stagger(0.2),
-          easing: spring({ damping: 50, stiffness: 100, mass: 10 }),
+          type: "spring",
+          damping: 70,
+          stiffness: 200,
           at: "-0.5",
         },
       ],
@@ -98,7 +99,7 @@ export default component$(() => {
       animate(
         "#hero-content",
         { y: [null, 50] },
-        { easing: spring({ damping: 5 }) },
+        { type: "spring", damping: 5 },
       ),
     );
 
@@ -116,12 +117,11 @@ export default component$(() => {
           image,
           { y: [null, -4_000], rotateZ: [null, zRotation] },
           {
-            duration: 1_000,
-            easing: spring({
-              damping: 50,
-              stiffness: 100,
-              mass: 10 * multiplier,
-            }),
+            visualDuration: 1_000,
+            type: "spring",
+            damping: 50,
+            stiffness: 100,
+            mass: 10 * multiplier,
           },
         ),
       );
@@ -131,7 +131,7 @@ export default component$(() => {
   return (
     <section
       id="hero"
-      class="full-width pointer-events-none relative flex h-fit flex-col overflow-x-clip bg-zinc-950 py-24 text-zinc-300 @container/hero"
+      class="full-width @container/hero pointer-events-none relative flex h-fit flex-col overflow-x-clip bg-zinc-950 py-24 text-zinc-300"
     >
       <aside
         ref={asideRef}
@@ -143,7 +143,7 @@ export default component$(() => {
           loading="eager"
           decoding="sync"
           alt={t("projects.kobraza_imoveis.description")}
-          class="hero-image pointer-events-none absolute -left-24 top-2 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
+          class="hero-image pointer-events-none absolute top-2 -left-24 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
         <KdsThumb
           data-parallax="0.8"
@@ -151,7 +151,7 @@ export default component$(() => {
           decoding="sync"
           alt={t("projects.kds_wahalla.description")}
           style={{ scale: 1.25 }}
-          class="hero-image pointer-events-none absolute -right-24 -top-8 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
+          class="hero-image pointer-events-none absolute -top-8 -right-24 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl"
         />
 
         {/* Bottom */}
@@ -160,7 +160,7 @@ export default component$(() => {
           loading="eager"
           decoding="sync"
           alt={t("projects.leonardo_nutrition.description")}
-          class="hero-image pointer-events-none absolute -bottom-16 -right-36 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl @md/hero:-bottom-40"
+          class="hero-image pointer-events-none absolute -right-36 -bottom-16 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl @md/hero:-bottom-70"
         />
         <LeonardoNutritionThumb
           data-parallax="0.85"
@@ -168,7 +168,7 @@ export default component$(() => {
           decoding="sync"
           alt={t("projects.astromart.description")}
           style={{ scale: 1.1 }}
-          class="hero-image pointer-events-none absolute -bottom-16 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl @md/hero:-bottom-32 md:-left-24 lg:-left-8"
+          class="hero-image pointer-events-none absolute -bottom-16 z-10 aspect-[5/3] w-[clamp(15.625rem,7.1023rem+42.6136vw,34.375rem)] rounded-3xl bg-zinc-900 object-cover opacity-0 shadow-2xl md:-left-24 lg:-left-8 @md/hero:-bottom-32"
         />
       </aside>
 
@@ -177,20 +177,20 @@ export default component$(() => {
           shouldBlink
           shouldFollowCursor
           id="hero-logo"
-          class="mx-auto animate-fade-in text-2xl text-white"
+          class="animate-fade-in mx-auto text-2xl text-white"
         />
 
         <h1
           style={{ perspective: "1000px" }}
           id="hero-title"
-          class="split-target z-10 mt-12 text-balance text-center text-5xl leading-normal tracking-tighter text-zinc-200 opacity-0 @md:text-6xl @md:leading-[1.2] @2xl/hero:text-7xl @2xl/hero:leading-normal"
+          class="split-target z-10 mt-12 text-center text-5xl leading-normal tracking-tighter text-balance text-zinc-200 opacity-0 @md:text-6xl @md:leading-[1.2] @2xl/hero:text-7xl @2xl/hero:leading-normal"
           dangerouslySetInnerHTML={t("home.hero.title")}
         />
 
         <h2
           style={{ perspective: "1000px" }}
           id="hero-subtitle"
-          class="split-target mx-auto mt-10 max-w-[524px] text-balance text-center text-xl leading-7 opacity-0"
+          class="split-target mx-auto mt-10 max-w-[524px] text-center text-xl leading-7 text-balance opacity-0"
         >
           {t("home.hero.subtitle")}
         </h2>
@@ -198,7 +198,7 @@ export default component$(() => {
         <div
           id="hero-scroll"
           aria-labelledby="scroll"
-          class="group mx-auto mt-20 flex h-fit w-fit animate-fade-in gap-4 rounded-full bg-zinc-900/10 p-9 opacity-0"
+          class="group animate-fade-in mx-auto mt-20 flex h-fit w-fit gap-4 rounded-full bg-zinc-900/10 p-9 opacity-0"
         >
           <IconArrowDown />
           <span id="scroll" class="sr-only text-zinc-200">

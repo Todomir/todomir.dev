@@ -1,10 +1,14 @@
-/**
- * Tailwind CSS imports
- * View the full documentation at https://tailwindcss.com
- */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans:
+    "Haskoy", "HaskoyOverride", "Inter", "Roboto", "Helvetica Neue",
+    "Arial Nova", "Nimbus Sans", "Arial", "sans-serif";
+  --font-mono:
+    "ui-monospace", "Cascadia Code", "Source Code Pro", "Menlo", "Consolas",
+    "DejaVu Sans Mono", "monospace";
+}
 
 @font-face {
   font-family: "Haskoy";
@@ -29,7 +33,8 @@
 
 @font-face {
   font-family: "HaskoyOverride";
-  src: local(Inter), local(Roboto), local("Helvetica Neue"), local("Arial Nova"),
+  src:
+    local(Inter), local(Roboto), local("Helvetica Neue"), local("Arial Nova"),
     local("Nimbus Sans"), local(Arial), local(sans-serif);
   size-adjust: 98%;
   ascent-override: 100%;

@@ -11,12 +11,12 @@ export default component$(() => {
   return (
     <footer
       id="footer"
-      class="content-grid footer @md/footer/footer:px-20 flex w-full flex-col bg-zinc-950 px-5 py-12 text-zinc-300  @container/footer"
+      class="content-grid footer @md/footer/footer:px-20 @container/footer flex w-full flex-col bg-zinc-950 px-5 py-12 text-zinc-300"
     >
       <div class="breakout">
         <Logo />
         <div class="mt-8 flex max-w-full flex-wrap items-stretch justify-between gap-3 self-stretch">
-          <p class="max-w-2xl shrink grow basis-auto text-balance text-sm leading-5 tracking-normal text-zinc-500">
+          <p class="max-w-2xl shrink grow basis-auto text-sm leading-5 tracking-normal text-balance text-zinc-500">
             {t("app.footer.quote")}
           </p>
           <a
@@ -29,14 +29,14 @@ export default component$(() => {
           </a>
         </div>
         <hr class="mt-10 h-px max-w-full shrink-0 self-stretch border-zinc-900" />
-        <ul class="mb-3 mt-8 flex max-w-full flex-wrap justify-center gap-5 @md/footer:justify-start">
+        <ul class="mt-8 mb-3 flex max-w-full flex-wrap justify-center gap-5 @md/footer:justify-start">
           {SOCIAL_LINKS.map((link) => (
             <li key={`social-link-${link.label}-${link.url}`}>
               <a
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
-                class="text-sm leading-5 tracking-normal text-zinc-500 underline underline-offset-2 transition-all ease-spring-2 hover:font-semibold hover:text-zinc-100"
+                class="ease-spring-2 text-sm leading-5 tracking-normal text-zinc-500 underline underline-offset-2 transition-all hover:font-semibold hover:text-zinc-100"
               >
                 {link.label}
               </a>

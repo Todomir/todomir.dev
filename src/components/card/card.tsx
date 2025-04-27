@@ -8,7 +8,7 @@ export default component$((props: Props) => {
   return (
     <article
       class={[
-        "rounded-xl @container/card @sm/card:p-1 @md/card:p-3",
+        "@container/card rounded-xl @sm/card:p-1 @md/card:p-3",
         props.class,
       ]}
     >

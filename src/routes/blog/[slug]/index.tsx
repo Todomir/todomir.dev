@@ -1,17 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
   DocumentHead,
   RequestHandler,
   StaticGenerateHandler,
 } from "@builder.io/qwik-city";
 
-import { $, component$, useSignal, useTask$ } from "@builder.io/qwik";
-import { useLocation } from "@builder.io/qwik-city";
-import { isDev } from "@builder.io/qwik/build";
-import { translatePath, useSpeakLocale } from "qwik-speak";
-import { collections } from "virtual:mdx-collection";
-
-import { getCollectionEntry } from "~/content";
+import { $, component$, isDev, useSignal, useTask$ } from "@builder.io/qwik";
+import { routeLoader$ } from "@builder.io/qwik-city";
+import type { Post } from "content-collections";
+import { allPosts } from "content-collections";
+import { translatePath } from "qwik-speak";
 import { config } from "~/speak.config";
 
 const modules: Record<string, any> = import.meta.glob("/src/content/**/*.mdx", {
@@ -28,30 +25,42 @@ export const onRequest: RequestHandler = ({
 }) => {
   const { slug } = params;
   const getPath = translatePath();
+
   if (!locale()) throw error(404, "Page not found for requested locale");
 
-  const path = `/src/content/${locale()}/${slug}.mdx`;
-  const mod = modules[path];
-
-  if (!mod) {
-    // Try to find the post in other available locales
+  const post = allPosts.find((p) => p._meta.fileName.includes(slug));
+  if (!post) {
     for (const supportedLocale of config.supportedLocales) {
       if (supportedLocale.lang === locale()) continue;
-
-      const newPath = `/src/content/${supportedLocale.lang}/${slug}.mdx`;
-      if (modules[newPath]) {
-         
-        throw redirect(302, getPath(pathname, supportedLocale.lang));
+      const newPost = allPosts.find(
+        (p) =>
+          p._meta.fileName.includes(slug) && p.lang === supportedLocale.lang,
+      );
+      if (newPost) {
+        const redirectPath = getPath(pathname, supportedLocale.lang);
+        console.log(redirectPath);
+        throw redirect(302, redirectPath);
       }
     }
   }
 };
 
+export const usePost = routeLoader$<Post>(({ params, locale }) => {
+  const slug = params.slug;
+  const lang = locale();
+
+  const post = allPosts.find(
+    (p) => p._meta.fileName.replace(".mdx", "") === slug && p.lang === lang,
+  );
+  if (!post) throw new Error(`Post ${slug} not found`);
+
+  return post;
+});
+
 export default component$(() => {
   const PostContent = useSignal<any>();
-  const { lang } = useSpeakLocale();
-  const slug = useLocation().params.slug;
-  const path = `/src/content/${lang}/${slug}.mdx`;
+  const post = usePost();
+  const path = `/src/content/${post.value._meta.filePath}`;
 
   useTask$(() => {
     const qrl = $(async () => {
@@ -67,10 +76,10 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = ({ url, params }) => {
-  const entry = getCollectionEntry(params.slug);
-  if (!entry) throw new Error(`Post ${params.slug} not found`);
-
-  const { data: post } = entry;
+  const post = allPosts.find((post) =>
+    post._meta.fileName.includes(params.slug),
+  );
+  if (!post) throw new Error(`Post ${params.slug} not found`);
 
   const ogUrl = new URL("/og-image", url);
   ogUrl.searchParams.set("title", post.title);
@@ -83,18 +92,18 @@ export const head: DocumentHead = ({ url, params }) => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": post.title,
-    "image": [ogAssetPath],
-    "datePublished": post.date,
-    "dateModified": post.date,
-    "author": {
+    headline: post.title,
+    image: [ogAssetPath],
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
       "@type": "Person",
-      "name": "Abner Rodrigues",
+      name: "Abner Rodrigues",
     },
-    "description": post.description,
-    "mainEntityOfPage": {
+    description: post.description,
+    mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://todomir.dev/${post.permalink}`,
+      "@id": `https://abn.ooo/${post.permalink}`,
     },
   };
 
@@ -119,7 +128,7 @@ export const head: DocumentHead = ({ url, params }) => {
       },
       {
         name: "og:url",
-        content: `https://todomir.dev/${post.permalink}`,
+        content: `https://abn.ooo/${post.permalink}`,
       },
 
       // Twitter
@@ -148,9 +157,9 @@ export const head: DocumentHead = ({ url, params }) => {
 };
 
 export const onStaticGenerate: StaticGenerateHandler = async () => {
-  const params = collections.content.map((entry) => {
-    const { slug } = entry;
-    const { lang } = entry.data;
+  const params = allPosts.map((post) => {
+    const slug = post._meta.fileName;
+    const { lang } = post;
 
     // Check if lang is supported
     if (!config.supportedLocales.some((locale) => locale.lang === lang)) {

@@ -38,7 +38,7 @@ export default component$(
           className,
         ]}
       >
-        <ul class="animate-marquee flex min-w-full shrink-0 justify-around gap-8 motion-safe:animate-scroll">
+        <ul class="animate-marquee motion-safe:animate-scroll flex min-w-full shrink-0 justify-around gap-8">
           {TECH.map((tech) => (
             <Fragment key={`${tech}--marquee`}>
               <li class="leading-none opacity-70">{tech}</li>
@@ -50,7 +50,7 @@ export default component$(
         </ul>
         <ul
           aria-hidden="true"
-          class="animate-marquee flex min-w-full shrink-0 justify-around gap-8 motion-safe:animate-scroll"
+          class="animate-marquee motion-safe:animate-scroll flex min-w-full shrink-0 justify-around gap-8"
         >
           {TECH.map((tech) => (
             <Fragment key={`${tech}--marquee`}>

@@ -29,7 +29,6 @@ export const UserPreferencesProvider = component$(() => {
     { deep: true },
   );
 
-   
   useVisibleTask$(({ cleanup }) => {
     const abortController = new AbortController();
 
@@ -46,8 +45,9 @@ export const UserPreferencesProvider = component$(() => {
     prefersContrast.addEventListener(
       "change",
       () => {
-        userPreferences.prefersContrast =
-          prefersContrast.matches ? "high" : "low";
+        userPreferences.prefersContrast = prefersContrast.matches
+          ? "high"
+          : "low";
       },
       { signal: abortController.signal },
     );
@@ -60,8 +60,9 @@ export const UserPreferencesProvider = component$(() => {
       { signal: abortController.signal },
     );
 
-    userPreferences.prefersColorScheme =
-      prefersColorScheme.matches ? "dark" : "light";
+    userPreferences.prefersColorScheme = prefersColorScheme.matches
+      ? "dark"
+      : "light";
     userPreferences.reducedMotion = prefersReducedMotion.matches;
     userPreferences.prefersContrast = prefersContrast.matches ? "high" : "low";
 

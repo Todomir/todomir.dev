@@ -72,7 +72,6 @@ export default component$<{ color?: string }>((props) => {
   // CSS styles
   useStyles$(CSS);
 
-   
   useVisibleTask$(({ track, cleanup }) => {
     track(() => store.sparkles);
 

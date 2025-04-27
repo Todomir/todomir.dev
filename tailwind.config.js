@@ -12,7 +12,7 @@ const config = {
     colors: harmonyPalette,
     extend: {
       animation: {
-        "scroll": "scroll 40s linear infinite",
+        scroll: "scroll 40s linear infinite",
         "fade-in": "fadeIn 0.5s ease-in-out",
       },
       keyframes: {

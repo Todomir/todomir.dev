@@ -150,7 +150,7 @@ export default component$<Props>(
     );
 
     // Intervals can only be set eagerly on the client, so we use `useVisibleTask$` to run this task only once the logo is visible.
-     
+
     useVisibleTask$(({ cleanup }) => {
       if (!shouldBlink) {
         return;
@@ -199,7 +199,7 @@ export default component$<Props>(
         {...props}
         ref={logoRef}
         role="img"
-        aria-label="todomir.dev logo"
+        aria-label="abn.ooo logo"
         class={[
           "logo pointer-events-none relative flex size-8 origin-center select-none",
           className,

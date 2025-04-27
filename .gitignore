@@ -6,7 +6,6 @@
 
 # Development
 node_modules
-collections.d.ts
 *.local
 
 # Cache
@@ -43,3 +42,6 @@ lerna-debug.log*
 
 # Cloudflare
 functions/**/*.js
+
+# Content Collections auto-generated files
+.content-collections

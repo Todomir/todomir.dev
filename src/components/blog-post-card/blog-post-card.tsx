@@ -1,5 +1,3 @@
-import type { BlogPostCollectionEntry } from "~/content";
-
 import { component$ } from "@builder.io/qwik";
 import { Image } from "@unpic/qwik";
 import { inlineTranslate, useFormatDate, useSpeakConfig } from "qwik-speak";
@@ -7,24 +5,23 @@ import { inlineTranslate, useFormatDate, useSpeakConfig } from "qwik-speak";
 import IconArrowTopRight from "~/media/icons/arrow/top-right.svg?jsx";
 import { getAssetPath } from "~/utils/functions";
 
+import type { Post } from "content-collections";
 import Card from "../card/card";
 import Tag from "../tag/tag";
 
 type Props = {
-  post: BlogPostCollectionEntry;
+  post: Post;
 };
 
 export default component$(({ post }: Props) => {
-  const {
-    data: { title, description, date, tags, lang, thumbnail },
-  } = post;
-  const { slug } = post;
+  const { title, description, date, tags, lang, thumbnail } = post;
+  const { _meta } = post;
   const config = useSpeakConfig();
 
   const href =
-    lang === config.defaultLocale.lang ?
-      `/blog/${slug}`
-    : `/${lang}/blog/${slug}`;
+    lang === config.defaultLocale.lang
+      ? `/blog/${_meta.fileName.replace(".mdx", "")}`
+      : `/${lang}/blog/${_meta.fileName.replace(".mdx", "")}`;
 
   const t = inlineTranslate();
   const fd = useFormatDate();
@@ -37,7 +34,7 @@ export default component$(({ post }: Props) => {
           <IconArrowTopRight class="inline-block" />
         </h3>
         <time
-          class="@md:text-md leading-2 block text-sm opacity-80"
+          class="@md:text-md block text-sm leading-2 opacity-80"
           dateTime={new Date(date).toISOString()}
         >
           {t("site.messages.updated")}{" "}
@@ -50,7 +47,7 @@ export default component$(({ post }: Props) => {
       </div>
       <p
         q:slot="description"
-        class="mt-4 overflow-hidden text-ellipsis text-pretty text-base leading-6 tracking-normal"
+        class="mt-4 overflow-hidden text-base leading-6 tracking-normal text-pretty text-ellipsis"
       >
         {description}
       </p>

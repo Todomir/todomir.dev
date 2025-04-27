@@ -34,7 +34,7 @@ export default component$(() => {
     <header
       id="navbar"
       class={[
-        "header fixed right-0 top-1 z-20 ml-auto items-center px-5 pt-12 text-zinc-50 md:right-1/2 md:translate-x-1/2 md:px-20",
+        "header fixed top-1 right-0 z-20 ml-auto items-center px-5 pt-12 text-zinc-50 md:right-1/2 md:translate-x-1/2 md:px-20",
       ]}
     >
       <button
@@ -46,7 +46,7 @@ export default component$(() => {
           isExpandedSig.value ? t("app.header.close") : t("app.header.open")
         }
         class={[
-          "leading-0 ml-auto block rounded-md border border-zinc-50/60 bg-zinc-950 p-2 text-zinc-50 transition-all ease-spring-4 hover:bg-zinc-900 md:hidden",
+          "ease-spring-4 ml-auto block rounded-md border border-zinc-50/60 bg-zinc-950 p-2 leading-none text-zinc-50 transition-all hover:bg-zinc-900 md:hidden",
         ]}
         onClick$={() => {
           const next = !isExpandedSig.value;
@@ -125,7 +125,7 @@ export default component$(() => {
         <ul
           id="navbar-menu"
           class={[
-            "flex flex-col justify-end text-zinc-500 transition-all ease-spring-3 md:mt-0 md:flex-row md:justify-around",
+            "ease-spring-3 flex flex-col justify-end text-zinc-500 transition-all md:mt-0 md:flex-row md:justify-around",
           ]}
         >
           {NAV_LINKS.map((link) => (
@@ -135,7 +135,7 @@ export default component$(() => {
             >
               <a
                 href={getPath(link.url, locale.lang)}
-                class="cursor-pointer whitespace-nowrap text-base font-medium leading-5 tracking-normal text-zinc-50"
+                class="cursor-pointer text-base leading-5 font-medium tracking-normal whitespace-nowrap text-zinc-50"
               >
                 {link.label}
               </a>

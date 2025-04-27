@@ -1,6 +1,6 @@
-# todomir.dev
+# abn.ooo
 
-Welcome to the whimsical world of `todomir.dev`, where code meets creativity! This is my personal portfolio, crafted with the speed of Qwik and the elegance of modern web technologies. It's a place where performance pirouettes gracefully alongside aesthetics, all in the name of showcasing some seriously snazzy projects and cool blog posts.
+Welcome to the whimsical world of `abn.ooo`, where code meets creativity! This is my personal portfolio, crafted with the speed of Qwik and the elegance of modern web technologies. It's a place where performance pirouettes gracefully alongside aesthetics, all in the name of showcasing some seriously snazzy projects and cool blog posts.
 
 ## Tech Stack
 

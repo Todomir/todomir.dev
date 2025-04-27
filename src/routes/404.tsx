@@ -36,7 +36,7 @@ export default component$(() => {
         </h1>
         <p
           id="not-found-description"
-          class="mt-4 block max-w-sm text-balance text-base text-zinc-50 md:text-2xl"
+          class="mt-4 block max-w-sm text-base text-balance text-zinc-50 md:text-2xl"
         >
           {t("site.messages.404.description")}
         </p>

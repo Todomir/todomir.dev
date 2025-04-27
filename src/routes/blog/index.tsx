@@ -2,16 +2,15 @@ import type { StaticGenerateHandler } from "@builder.io/qwik-city";
 
 import { component$, Fragment } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
-import { inlineTranslate } from "qwik-speak";
+import { inlineTranslate, useSpeakLocale } from "qwik-speak";
 
 import BlogPostCard from "~/components/blog-post-card/blog-post-card";
-import { useBlogPosts } from "~/content";
 import { config } from "~/speak.config";
+import { allPosts } from "content-collections";
 
 export default component$(() => {
-  const posts = useBlogPosts();
   const t = inlineTranslate();
-
+  const locale = useSpeakLocale();
   return (
     <section
       id="main-content"
@@ -37,18 +36,20 @@ export default component$(() => {
       </header>
 
       <ul class="full-width mt-20 space-y-10 rounded-2xl bg-zinc-50 pb-24">
-        {posts.value.map((post) => (
-          <Fragment key={post.slug}>
-            <li>
-              <BlogPostCard post={post} />
-            </li>
+        {allPosts
+          .filter((post) => post.lang === locale.lang)
+          .map((post) => (
+            <Fragment key={post._meta.fileName}>
+              <li>
+                <BlogPostCard post={post} />
+              </li>
 
-            <li
-              aria-hidden
-              class="my-2 hidden h-[1px] w-full bg-zinc-300 leading-6 [&+&]:block"
-            />
-          </Fragment>
-        ))}
+              <li
+                aria-hidden
+                class="my-2 hidden h-[1px] w-full bg-zinc-300 leading-6 [&+&]:block"
+              />
+            </Fragment>
+          ))}
       </ul>
     </section>
   );
@@ -78,7 +79,7 @@ export const head: DocumentHead = ({ url }) => {
       },
       {
         name: "og:url",
-        content: "https://todomir.dev/blog",
+        content: "https://abn.ooo/blog",
       },
 
       // Twitter
@@ -115,5 +116,3 @@ export const onStaticGenerate: StaticGenerateHandler = () => {
     }),
   };
 };
-
-export { useBlogPosts } from "~/content";

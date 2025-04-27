@@ -38,7 +38,7 @@ export default component$<Props>(({ severity }) => {
       >
         <Slot name="icon" />
       </aside>
-      <header class="!leading-0 col-start-2 h-auto text-xl font-bold">
+      <header class="col-start-2 h-auto text-xl !leading-none font-bold">
         <Slot name="title" />
       </header>
       <div class="col-start-2 [&_a]:font-semibold [&_a]:underline">

@@ -15,7 +15,7 @@ export default extendConfig(baseConfig, () => {
       cloudflarePagesAdapter({
         ssg: {
           include: ["/*"], // Pre-render all pages on build time.
-          origin: "https://todomir.dev",
+          origin: "https://abn.ooo",
           sitemapOutFile: "sitemap.xml",
         },
       }),

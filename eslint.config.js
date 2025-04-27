@@ -1,80 +1,51 @@
 import js from "@eslint/js";
-import prettier from "eslint-config-prettier";
-import qwik from "eslint-plugin-qwik";
+import globals from "globals";
+import { defineConfig } from "eslint/config";
+import { qwikEslint9Plugin } from "eslint-plugin-qwik";
 import tseslint from "typescript-eslint";
-
-/** @type {import("eslint").Linter.FlatConfig[]} */
-export default [
+export default defineConfig([
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    files: ["**/*.{ts,tsx}"],
-    ignores: [
-      "**/*.log",
-      "**/.DS_Store",
-      "*.",
-      ".vscode/settings.json",
-      ".history",
-      ".yarn",
-      "bazel-*",
-      "bazel-bin",
-      "bazel-out",
-      "bazel-qwik",
-      "bazel-testlogs",
-      "dist",
-      "dist-dev",
-      "lib",
-      "lib-types",
-      "etc",
-      "external",
-      "node_modules",
-      "temp",
-      "tsc-out",
-      "tsdoc-metadata.json",
-      "target",
-      "output",
-      "rollup.config.js",
-      "build",
-      ".cache",
-      ".vscode",
-      ".rollup.cache",
-      "dist",
-      "tsconfig.tsbuildinfo",
-      "vite.config.ts",
-      "*.spec.tsx",
-      "*.spec.ts",
-      "*.css",
-      ".netlify",
-      "pnpm-lock.yaml",
-      "package-lock.json",
-      "yarn.lock",
-      "server",
-      "package.json",
-    ],
-    plugins: {
-      qwik,
-    },
     languageOptions: {
-      ecmaVersion: 2021,
-      sourceType: "module",
-      parser: tseslint.parser,
-      globals: {
-        browser: true,
-        es2021: true,
-        node: true,
-      },
       parserOptions: {
-        project: ["./tsconfig.json"],
-        ecmaFeatures: {
-          jsx: true,
-        },
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
-    },
-    rules: {
-      "no-inline-comments": "off",
-      "unicorn/prevent-abbreviations": "off",
-      "@typescript-eslint/prefer-nullish-coalescing": "off",
-      ...prettier.rules,
     },
   },
-];
+  {
+    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
+    languageOptions: {
+      globals: {
+        ...globals.serviceworker,
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+  },
+  ...qwikEslint9Plugin.configs.recommended,
+  {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-inferrable-types": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-empty-interface": "off",
+      "@typescript-eslint/no-namespace": "off",
+      "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/no-this-alias": "off",
+      "@typescript-eslint/ban-types": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
+      "prefer-spread": "off",
+      "no-case-declarations": "off",
+      "no-console": "off",
+      "@typescript-eslint/no-unused-vars": ["error"],
+      "@typescript-eslint/consistent-type-imports": "warn",
+      "@typescript-eslint/no-unnecessary-condition": "warn",
+    },
+  },
+  {
+    ignores: ["node_modules/*", "dist/*", "server/*", "tmp/*"],
+  },
+]);

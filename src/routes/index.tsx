@@ -2,9 +2,9 @@ import type { StaticGenerateHandler } from "@builder.io/qwik-city";
 
 import { component$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
-import { inlineTranslate } from "qwik-speak";
+import { inlineTranslate, useSpeakLocale } from "qwik-speak";
 
-import { useBlogPosts } from "~/content";
+import { allPosts } from "content-collections";
 import About from "~/features/home/about";
 import Blog from "~/features/home/blog";
 import Hero from "~/features/home/hero";
@@ -12,8 +12,13 @@ import Projects from "~/features/home/projects";
 import Quote from "~/features/home/quote";
 import { config } from "~/speak.config";
 
+function getPostsByLang(lang: string) {
+  return allPosts.filter((post) => post.lang === lang);
+}
+
 export default component$(() => {
-  const posts = useBlogPosts();
+  const locale = useSpeakLocale();
+  const posts = getPostsByLang(locale.lang);
 
   return (
     <div class="full-width content-grid relative">
@@ -24,7 +29,7 @@ export default component$(() => {
       </div>
       <About />
       <Projects />
-      <Blog posts={posts.value} />
+      <Blog posts={posts} />
     </div>
   );
 });
@@ -52,7 +57,7 @@ export const head: DocumentHead = ({ url }) => {
       },
       {
         name: "og:url",
-        content: "https://todomir.dev",
+        content: "https://abn.ooo",
       },
       // Twitter
       {
@@ -88,5 +93,3 @@ export const onStaticGenerate: StaticGenerateHandler = () => {
     }),
   };
 };
-
-export { useBlogPosts } from "~/content";

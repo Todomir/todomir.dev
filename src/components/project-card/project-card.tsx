@@ -26,16 +26,14 @@ export default component$((props: Props) => {
 
   return (
     <Card class="bg-zinc-900/20 p-5 sm:p-12">
-      <header q:slot="title" class="grow flex gap-3 items-center">
-        <h2 class="text-3xl font-medium leading-10 tracking-tighter">
-          {props.slug ?
-            <a href={props.slug}>{props.title}</a>
-          : props.title}
+      <header q:slot="title" class="flex grow items-center gap-3">
+        <h2 class="text-3xl leading-10 font-medium tracking-tighter">
+          {props.slug ? <a href={props.slug}>{props.title}</a> : props.title}
           {props.slug && <IconArrowTopRight class="inline-block" />}
         </h2>
         {props.isCurrent && (
           <Sparkles>
-            <div class="py-1 px-2 rounded-full border border-emerald-500 bg-emerald-500/10 text-emerald-500 text-xs font-bold">
+            <div class="rounded-full border border-emerald-500 bg-emerald-500/10 px-2 py-1 text-xs font-bold text-emerald-500">
               {t("app.badges.current")}
             </div>
           </Sparkles>
@@ -44,7 +42,7 @@ export default component$((props: Props) => {
 
       <p
         q:slot="description"
-        class="overflow-hidden text-ellipsis text-balance text-base leading-6 tracking-normal text-zinc-300"
+        class="overflow-hidden text-base leading-6 tracking-normal text-balance text-ellipsis text-zinc-300"
       >
         {props.description}
       </p>

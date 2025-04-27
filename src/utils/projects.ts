@@ -63,7 +63,6 @@ export const getProjects = () => {
         height: 100,
       },
     },
-    
   ];
 
   return PROJECTS;

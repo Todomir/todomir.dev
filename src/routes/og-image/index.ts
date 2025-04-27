@@ -27,7 +27,7 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
               style="font-family: Haskoy; display: flex;"
               tw="text-2xl max-w-1/2 text-white font-bold text-zinc-50 rounded-md tracking-wide"
             >
-              [•• todomir.dev
+              [•• abn.ooo
             </div>
             <div
               style="font-family: Haskoy; display: flex;"

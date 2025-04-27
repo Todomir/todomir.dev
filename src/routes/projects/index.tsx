@@ -4,7 +4,7 @@ import type {
 } from "@builder.io/qwik-city";
 
 import { component$, useVisibleTask$ } from "@builder.io/qwik";
-import { animate, spring, stagger } from "motion";
+import { animate, stagger } from "motion";
 import { inlineTranslate } from "qwik-speak";
 
 import { config } from "~/speak.config";
@@ -14,7 +14,6 @@ import Sparkles from "~/components/sparkles/sparkles";
 export default component$(() => {
   const t = inlineTranslate();
 
-   
   useVisibleTask$(() => {
     const projectList = document.querySelectorAll("#project-list > li");
 
@@ -26,7 +25,10 @@ export default component$(() => {
       },
       {
         delay: stagger(0.2),
-        easing: spring({ damping: 15, stiffness: 100, mass: 2.5 }),
+        type: "spring",
+        damping: 15,
+        stiffness: 100,
+        mass: 2.5,
       },
     );
   });
@@ -36,7 +38,7 @@ export default component$(() => {
       id="main-content"
       class="full-width auto-rows-min bg-zinc-950 pt-48"
     >
-      <h1 class="mt-10 text-center text-4xl font-medium leading-[54px] tracking-tighter text-zinc-50 md:mt-12 md:text-7xl md:leading-[91px]">
+      <h1 class="mt-10 text-center text-4xl leading-[54px] font-medium tracking-tighter text-zinc-50 md:mt-12 md:text-7xl md:leading-[91px]">
         {t("site.links.projects.label")}
       </h1>
       <h2
@@ -50,7 +52,7 @@ export default component$(() => {
       >
         {getProjects().map((post) => (
           <li class="opacity-0" key={post.id + "--project"}>
-            <article class="bg-darker relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-80 transition-all duration-500 ease-spring-4 focus-within:shadow-[0_0_0_0.4rem_theme(colors.sky.400)] sm:pt-48 lg:pt-80">
+            <article class="bg-darker ease-spring-4 relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pt-80 pb-8 transition-all duration-500 focus-within:shadow-[0_0_0_0.4rem_theme(colors.sky.400)] sm:pt-48 lg:pt-80">
               <img
                 srcset={post.thumbnail.srcset}
                 width={post.thumbnail.width}
@@ -58,13 +60,13 @@ export default component$(() => {
                 alt={post.thumbnail.alt}
                 class="absolute inset-0 -z-10 h-full w-full object-cover"
               />
-              <header class="flex gap-3 items-center">
-                <h3 class="text-xl font-bold leading-6 text-white rounded-sm bg-zinc-950/80 w-fit p-2">
+              <header class="flex items-center gap-3">
+                <h3 class="w-fit rounded-sm bg-zinc-950/80 p-2 text-xl leading-6 font-bold text-white">
                   {post.title}
                 </h3>
                 {post.isCurrent && (
                   <Sparkles>
-                    <div class="py-1 px-2 rounded-full shadow-sm bg-gradient-to-b from-emerald-500 to-emerald-400 text-emerald-50 text-xs font-bold">
+                    <div class="rounded-full bg-gradient-to-b from-emerald-500 to-emerald-400 px-2 py-1 text-xs font-bold text-emerald-50 shadow-sm">
                       {t("app.badges.current")}
                     </div>
                   </Sparkles>
@@ -89,7 +91,7 @@ export const head: DocumentHead = ({ url }) => {
   const ogUrl = new URL("/og-image", url);
   ogUrl.searchParams.set("title", t("site.og.projects.title"));
   ogUrl.searchParams.set("description", t("site.og.projects.description"));
-  ogUrl.searchParams.set("permalink", "https://todomir.dev/projects");
+  ogUrl.searchParams.set("permalink", "https://abn.ooo/projects");
 
   return {
     title: t("site.og.projects.title"),
@@ -112,7 +114,7 @@ export const head: DocumentHead = ({ url }) => {
       },
       {
         name: "og:url",
-        content: "https://todomir.dev/projects",
+        content: "https://abn.ooo/projects",
       },
       // Twitter
       {

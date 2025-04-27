@@ -12,7 +12,7 @@ export default component$(() => {
       id="projects"
       class="full-width bg-zinc-950 px-5 py-12 text-zinc-50 md:px-16"
     >
-      <h1 class="mt-10 text-4xl font-medium leading-[54px] tracking-tighter md:mt-12 md:text-7xl md:leading-[91px]">
+      <h1 class="mt-10 text-4xl leading-[54px] font-medium tracking-tighter md:mt-12 md:text-7xl md:leading-[91px]">
         {t("site.links.projects.label")}
       </h1>
       <h2

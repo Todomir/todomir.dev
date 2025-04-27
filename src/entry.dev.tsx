@@ -1,9 +1,3 @@
-import type { RenderOptions } from "@builder.io/qwik";
-
-import { render } from "@builder.io/qwik";
-
-import Root from "./root";
-
 /*
  * WHAT IS THIS FILE?
  *
@@ -15,7 +9,9 @@ import Root from "./root";
  * - More code is transferred to the browser than in SSR mode.
  * - Optimizer/Serialization/Deserialization code is not exercised!
  */
+import { render, type RenderOptions } from "@builder.io/qwik";
+import Root from "./root";
 
-export default async function (options: RenderOptions) {
-  return await render(document, <Root />, options);
+export default function (opts: RenderOptions) {
+  return render(document, <Root />, opts);
 }

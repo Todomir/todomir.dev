@@ -54,7 +54,6 @@ export default component$<Props>(
       }),
     );
 
-     
     useVisibleTask$(async () => {
       const dvd = dvdRef.value;
       if (!dvd) return;
