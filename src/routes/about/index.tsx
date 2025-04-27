@@ -151,7 +151,7 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = ({ url }) => {
+export const head: DocumentHead = () => {
   const t = inlineTranslate();
 
   return {

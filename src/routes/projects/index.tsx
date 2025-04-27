@@ -86,7 +86,7 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = ({ url }) => {
+export const head: DocumentHead = () => {
   const t = inlineTranslate();
 
   return {
@@ -103,10 +103,6 @@ export const head: DocumentHead = ({ url }) => {
       {
         name: "og:description",
         content: t("site.og.projects.description"),
-      },
-      {
-        name: "og:url",
-        content: "https://abn.ooo/projects",
       },
       // Twitter
       {
