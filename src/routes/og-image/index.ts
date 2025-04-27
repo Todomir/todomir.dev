@@ -2,10 +2,7 @@ import type { RequestHandler } from "@builder.io/qwik-city";
 
 import { fetchFont, html, ImageResponse } from "og-img";
 
-export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
-  // Disable caching
-  cacheControl("no-cache");
-
+export const onGet: RequestHandler = async ({ send, url }) => {
   // Get data from search params
   const title = url.searchParams.get("title");
   const description = url.searchParams.get("description");
@@ -13,7 +10,6 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
 
   send(
     new ImageResponse(
-      // Use Tailwind CSS or style attribute
       html`
         <div
           style="font-family: Haskoy; display: flex;"
@@ -62,7 +58,6 @@ export const onGet: RequestHandler = async ({ send, url, cacheControl }) => {
         fonts: [
           {
             name: "Haskoy",
-            // Use `fs` (Node.js only) or `fetch` to read font file
             data: await fetchFont(
               "https://fonts.bunny.net/css?family=cabin:400",
             ),
