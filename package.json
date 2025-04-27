@@ -21,8 +21,9 @@
     "qwik": "qwik"
   },
   "dependencies": {
+    "@vercel/og": "^0.6.8",
     "motion": "^12.9.2",
-    "og-img": "^0.2.1",
+    "satori-html": "^0.3.2",
     "split-type": "^0.3.4"
   },
   "devDependencies": {

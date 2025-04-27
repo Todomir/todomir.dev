@@ -1,6 +1,12 @@
 import type { RequestHandler } from "@builder.io/qwik-city";
 
-import { fetchFont, html, ImageResponse } from "og-img";
+import { ImageResponse } from '@vercel/og';
+import { html } from 'satori-html';
+
+async function fetchFont(url: string) {
+  const response = await fetch(url);
+  return response.arrayBuffer();
+}
 
 export const onGet: RequestHandler = async ({ send, url }) => {
   // Get data from search params
@@ -51,7 +57,7 @@ export const onGet: RequestHandler = async ({ send, url }) => {
             </div>
           </div>
         </div>
-      `,
+      ` as any,
       {
         width: 1_200,
         height: 600,
