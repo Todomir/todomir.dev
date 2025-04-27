@@ -153,10 +153,6 @@ export default component$(() => {
 
 export const head: DocumentHead = ({ url }) => {
   const t = inlineTranslate();
-  const ogUrl = new URL("/og-image", url);
-  ogUrl.searchParams.set("title", t("site.og.about.title"));
-  ogUrl.searchParams.set("description", t("site.og.about.description"));
-  ogUrl.searchParams.set("permalink", "https://abn.ooo/about");
 
   return {
     title: t("site.og.about.title"),
@@ -173,10 +169,7 @@ export const head: DocumentHead = ({ url }) => {
         name: "og:description",
         content: t("site.og.about.description"),
       },
-      {
-        name: "og:image",
-        content: ogUrl.toString(),
-      },
+
       {
         name: "og:url",
         content: "https://abn.ooo/about",
@@ -185,10 +178,6 @@ export const head: DocumentHead = ({ url }) => {
       {
         name: "twitter:card",
         content: "summary_large_image",
-      },
-      {
-        name: "twitter:image",
-        content: ogUrl.toString(),
       },
       {
         name: "twitter:title",

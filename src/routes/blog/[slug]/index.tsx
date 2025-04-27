@@ -75,25 +75,16 @@ export default component$(() => {
   return <>{PostContent.value && <PostContent.value />}</>;
 });
 
-export const head: DocumentHead = ({ url, params }) => {
+export const head: DocumentHead = ({ params }) => {
   const post = allPosts.find((post) =>
     post._meta.fileName.includes(params.slug),
   );
   if (!post) throw new Error(`Post ${params.slug} not found`);
 
-  const ogUrl = new URL("/og-image", url);
-  ogUrl.searchParams.set("title", post.title);
-  ogUrl.searchParams.set("description", post.description);
-  ogUrl.searchParams.set("permalink", post.permalink);
-
-  const ogPath = ogUrl.toString();
-  const ogAssetPath = new URL(ogPath, url.origin).toString();
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    image: [ogAssetPath],
     datePublished: post.date,
     dateModified: post.date,
     author: {
@@ -114,10 +105,7 @@ export const head: DocumentHead = ({ url, params }) => {
         name: "json-ld",
         content: JSON.stringify(jsonLd),
       },
-      {
-        name: "og:image",
-        content: ogAssetPath,
-      },
+
       {
         name: "og:title",
         content: `${post.title}`,
@@ -132,10 +120,7 @@ export const head: DocumentHead = ({ url, params }) => {
       },
 
       // Twitter
-      {
-        name: "twitter:image",
-        content: ogAssetPath,
-      },
+
       {
         name: "twitter:title",
         content: `${post.title}`,
