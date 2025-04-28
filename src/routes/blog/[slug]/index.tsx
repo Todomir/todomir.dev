@@ -4,15 +4,16 @@ import type {
   StaticGenerateHandler,
 } from "@builder.io/qwik-city";
 
-import { $, component$, isDev, useSignal, useTask$ } from "@builder.io/qwik";
+import { component$, type JSXOutput } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import type { Post } from "content-collections";
 import { allPosts } from "content-collections";
 import { translatePath } from "qwik-speak";
 import { config } from "~/speak.config";
 
-const modules: Record<string, any> = import.meta.glob("/src/content/**/*.mdx", {
-  eager: !isDev,
+
+const modules: Record<string, () => JSXOutput> = import.meta.glob("/src/content/**/*.mdx", {
+  eager: true,
   import: "default",
 });
 
@@ -58,21 +59,11 @@ export const usePost = routeLoader$<Post>(({ params, locale }) => {
 });
 
 export default component$(() => {
-  const PostContent = useSignal<any>();
   const post = usePost();
   const path = `/src/content/${post.value._meta.filePath}`;
+  const mod = modules[path];
 
-  useTask$(() => {
-    const qrl = $(async () => {
-      const mod = isDev ? await modules[path]() : modules[path];
-      const postContent = mod();
-      return postContent;
-    });
-
-    PostContent.value = qrl;
-  });
-
-  return <>{PostContent.value && <PostContent.value />}</>;
+  return <>{mod()}</>;
 });
 
 export const head: DocumentHead = ({ params }) => {
@@ -143,7 +134,7 @@ export const head: DocumentHead = ({ params }) => {
 
 export const onStaticGenerate: StaticGenerateHandler = async () => {
   const params = allPosts.map((post) => {
-    const slug = post._meta.fileName;
+    const slug = post._meta.fileName.replace(".mdx", "");
     const { lang } = post;
 
     // Check if lang is supported
