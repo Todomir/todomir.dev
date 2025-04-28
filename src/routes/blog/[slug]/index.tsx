@@ -46,15 +46,29 @@ export const onRequest: RequestHandler = ({
   }
 };
 
-export const usePost = routeLoader$<Post>(({ params, locale }) => {
+export const usePost = routeLoader$<Post>(({ params, locale, error }) => {
   const slug = params.slug;
-  const lang = locale();
+  const requestedLang = locale();
 
+  // Find ANY post matching the slug first
   const post = allPosts.find(
-    (p) => p._meta.fileName.replace(".mdx", "") === slug && p.lang === lang,
+    (p) => p._meta.fileName.replace(".mdx", "") === slug,
   );
-  if (!post) throw new Error(`Post ${slug} not found`);
 
+  if (!post) {
+    // If no post found with this slug at all, it's a true 404 for the slug
+    throw error(404, `Post ${slug} not found`);
+  }
+
+  // Now check if the found post's language matches the requested locale
+  if (post.lang !== requestedLang) {
+    // This condition indicates a mismatch like /pt-BR/blog/[english-slug]
+    // During SSG, this path shouldn't exist. During runtime, onRequest handles redirection.
+    // Throwing a 404 seems appropriate here as the specific URL requested is invalid.
+    throw error(404, `Post ${slug} not found for locale ${requestedLang}`);
+  }
+
+  // If we reach here, the slug exists and belongs to the requested language
   return post;
 });
 
@@ -66,11 +80,17 @@ export default component$(() => {
   return <>{mod()}</>;
 });
 
-export const head: DocumentHead = ({ params }) => {
-  const post = allPosts.find((post) =>
-    post._meta.fileName.includes(params.slug),
-  );
-  if (!post) throw new Error(`Post ${params.slug} not found`);
+export const head: DocumentHead = ({ resolveValue, url }) => {
+  // Use the post data loaded and validated by usePost
+  const post = resolveValue(usePost);
+
+  // If the loader threw an error (e.g., 404), Qwik City likely won't call head.
+  // If it somehow does, or the value isn't ready, we might need a fallback,
+  // but relying on the loader's result is the cleanest approach.
+  if (!post) {
+    // Should typically not happen if loader runs first and throws on error
+    return { title: "Error loading post" };
+  }
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -85,7 +105,8 @@ export const head: DocumentHead = ({ params }) => {
     description: post.description,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://abn.ooo/${post.permalink}`,
+      // Use the actual requested pathname for the canonical ID
+      "@id": `https://abn.ooo${url.pathname}`,
     },
   };
 
@@ -105,11 +126,6 @@ export const head: DocumentHead = ({ params }) => {
         name: "og:description",
         content: `${post.description}`,
       },
-      {
-        name: "og:url",
-        content: `https://abn.ooo/${post.permalink}`,
-      },
-
       // Twitter
 
       {
@@ -132,20 +148,11 @@ export const head: DocumentHead = ({ params }) => {
   };
 };
 
-export const onStaticGenerate: StaticGenerateHandler = async () => {
-  const params = allPosts.map((post) => {
-    const slug = post._meta.fileName.replace(".mdx", "");
-    const { lang } = post;
-
-    // Check if lang is supported
-    if (!config.supportedLocales.some((locale) => locale.lang === lang)) {
-      throw new Error(`Unsupported language: ${lang}`);
-    }
-
-    return { slug, lang: lang === config.defaultLocale.lang ? "." : lang };
-  });
-
+export const onStaticGenerate: StaticGenerateHandler = () => {
   return {
-    params,
+    params: allPosts.map((post) => ({
+      slug: post._meta.fileName.replace(".mdx", ""),
+      lang: post.lang === config.defaultLocale.lang ? "." : post.lang,
+    })),
   };
 };
