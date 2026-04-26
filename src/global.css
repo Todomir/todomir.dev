@@ -240,6 +240,79 @@ img.full-width {
   object-fit: cover;
 }
 
+.prose pre {
+  border: 1px solid theme(colors.zinc.700);
+  background: theme(colors.zinc.950);
+}
+
+.prose pre code {
+  color: theme(colors.zinc.100);
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: theme(colors.zinc.500);
+}
+
+.token.punctuation {
+  color: theme(colors.zinc.400);
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: theme(colors.rose.400);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: theme(colors.emerald.400);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: theme(colors.sky.300);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: theme(colors.violet.300);
+}
+
+.token.function,
+.token.class-name {
+  color: theme(colors.amber.300);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: theme(colors.orange.300);
+}
+
+.token.important,
+.token.bold {
+  font-weight: 700;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
 /* Tweak focus styles for interactive elements */
 :focus-visible {
   --_focus-size: 0;
